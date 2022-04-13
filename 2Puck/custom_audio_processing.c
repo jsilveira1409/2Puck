@@ -11,13 +11,12 @@
 #include <fft.h>
 #include <arm_math.h>
 
-
-#define MIN_VALUE_THRESHOLD 16000
-#define MIN_FREQ 10
-#define MAX_FREQ 1000
-#define NB_NOTES 36
+#define FREQ_OFFSET 		(-2)				//voir pourquoi il en faut???
+#define MIN_VALUE_THRESHOLD 400000
+#define MIN_FREQ 			0
+#define MAX_FREQ 			FFT_SIZE/2
+#define NB_NOTES 			36
 #define RESOLUTION  (CUSTOM_I2S_AUDIOFREQ/2)/(FFT_SIZE/2)
-
 
 //semaphore
 static BSEMAPHORE_DECL(sendToComputer_sem, TRUE);
@@ -28,6 +27,8 @@ static float micLeft_cmplx_input[2 * FFT_SIZE];
 //Arrays containing the computed magnitude of the complex numbers
 static float micLeft_output[FFT_SIZE];
 
+static float freq;
+static uint16_t discret_freq = 0;
 
 //send_tab is used to save the state of the buffer to send (double buffering)
 //to avoid modifications of the buffer while sending it
@@ -45,46 +46,44 @@ static const uint16_t note_frequency[NB_NOTES] = {
 };
 
 
-void fundamental_frequency(uint8_t nb_harmonic){
+void fundamental_frequency(float* data, uint8_t nb_harmonic){
 	for(uint8_t harmonic = 1; harmonic<=nb_harmonic;harmonic++ ){
 		for(uint16_t i=0; i<FFT_SIZE; i++){
-			micLeft_output[i] += micLeft_output[i]/(float)harmonic;
+			data[i] += data[i]/(float)harmonic;
 		}
 	}
 }
 
 void frequency_to_note(float* data){
 	volatile float max_norm = MIN_VALUE_THRESHOLD;
-	volatile float freq = 0, smallest_error = 0, curr_error = 0;
+	volatile float smallest_error = 0, curr_error = 0;
 	volatile int16_t max_norm_index = -1, note_index = 0;
-	volatile uint16_t discret_freq = 0;
-	volatile char note[2];
 
-	for(uint16_t i = 5; i<= FFT_SIZE/2; i++){
+	for(uint16_t i = MIN_FREQ; i<= MAX_FREQ; i++){
 		if(data[i] > max_norm){
 			max_norm = data[i];
 			max_norm_index = i;
 		}
 	}
-	if(max_norm_index < FFT_SIZE/2 && max_norm_index > 0 ){
-		freq = RESOLUTION*(float)(max_norm_index-1);
-		smallest_error = abs(freq - note_frequency[0]);
+	if(max_norm_index > -1){
+		freq = RESOLUTION*((float)(max_norm_index + FREQ_OFFSET));
+
+		smallest_error = abs(freq - (float)note_frequency[0]);
+
 		for(uint8_t i = 1; i<NB_NOTES; i++){
-			curr_error = abs(freq - note_frequency[i]);
+			curr_error = abs(freq - (float)note_frequency[i]);
 			if(curr_error < smallest_error){
 				smallest_error = curr_error;
 				discret_freq = note_frequency[i];
 				note_index = i;
 			}
 		}
-		note_index = note_index%12;
+		note_index = note_index % 12;
 		find_note(note_index);
 	}else{
 		freq = 0;
 		find_note(12);
 	}
-
-	chprintf((BaseSequentialStream *)&SD3, "%f \r  %d \r  ", freq, discret_freq);
 }
 
 /*
@@ -107,32 +106,28 @@ void processAudioData(int16_t *data, uint16_t num_samples){
 	static uint16_t nb_samples = 0;
 
 	for(volatile uint16_t i = 0; i < num_samples; i+=4){			// i counts the input buffer fullfilment
-
-			micLeft_cmplx_input[nb_samples] = (float)data[i + MIC_LEFT];
-			nb_samples++;											// each buffer received one sample, so we increment i by one
-			micLeft_cmplx_input[nb_samples] = 0;
-			nb_samples++;
-		if(nb_samples >= (2*FFT_SIZE)){						//filled the input buffers
-			break;									//restart the circular buffer
+		micLeft_cmplx_input[nb_samples] = (float)data[i + MIC_LEFT];
+		nb_samples++;												// each buffer received one sample, so we increment i by one
+		micLeft_cmplx_input[nb_samples] = 0;
+		nb_samples++;
+		if(nb_samples >= (2*FFT_SIZE)){								//filled the input buffers
+			break;													//restart the circular buffer
 		}
 	}
 
 	if(nb_samples >= (2 * FFT_SIZE)){
 		doFFT_optimized(FFT_SIZE, micLeft_cmplx_input);
 		arm_cmplx_mag_f32(micLeft_cmplx_input, micLeft_output, FFT_SIZE);
-		arm_copy_f32(micLeft_output, send_tab, FFT_SIZE);
-
-
-		//fundamental_frequency(4);
+		//arm_copy_f32(micLeft_output, send_tab, FFT_SIZE);			//not needed as we don't send large chunks of data to the pc
+		fundamental_frequency(micLeft_output, 4);
 		frequency_to_note(micLeft_output);
-
 		nb_samples = 0;
-		chBSemSignal(&sendToComputer_sem);				//signals the buffer is ready to send
+		chBSemSignal(&sendToComputer_sem);							//signals the buffer is ready to send
 	}
 }
 
 void send_to_computer(void){
-	//SendFloatToComputer((BaseSequentialStream *) &SD3, send_tab, FFT_SIZE);
+	//chprintf((BaseSequentialStream *)&SD3, "%f \r  %d \r  \n", freq, discret_freq);
 }
 void wait_send_to_computer(void){
 	chBSemWait(&sendToComputer_sem);
@@ -143,62 +138,62 @@ void find_note (uint16_t index){
 	switch (index){
 		case 0:
 			chprintf((BaseSequentialStream *)&SD3, "E \r \n");
-			//left_motor_set_speed(1000);
-			//	right_motor_set_speed(1000);
+			left_motor_set_speed(1000);
+			right_motor_set_speed(1000);
 			break;
 		case 1:
 			chprintf((BaseSequentialStream *)&SD3, "F \r \n");
-			//left_motor_set_speed(400);
-			//right_motor_set_speed(1000);
+			left_motor_set_speed(400);
+			right_motor_set_speed(1000);
 			break;
 		case 2:
 			chprintf((BaseSequentialStream *)&SD3, "F# \r \n");
 			break;
 		case 3:
 			chprintf((BaseSequentialStream *)&SD3, "G \r \n");
-			//left_motor_set_speed(1000);
-			//right_motor_set_speed(400);
+			left_motor_set_speed(1000);
+			right_motor_set_speed(400);
 			break;
 		case 4:
 			chprintf((BaseSequentialStream *)&SD3, "G# \r \n");
 			break;
 		case 5:
 			chprintf((BaseSequentialStream *)&SD3, "A \r \n");
-			//left_motor_set_speed(600);
-			//right_motor_set_speed(-600);
+			left_motor_set_speed(600);
+			right_motor_set_speed(-600);
 			break;
 		case 6:
 			chprintf((BaseSequentialStream *)&SD3, "A# \r \n");
 			break;
 		case 7:
 			chprintf((BaseSequentialStream *)&SD3, "B \r \n");
-			//left_motor_set_speed(-1000);
-			//right_motor_set_speed(-1000);
+			left_motor_set_speed(-1000);
+			right_motor_set_speed(-1000);
 			break;
 		case 8:
 			chprintf((BaseSequentialStream *)&SD3, "C \r \n");
-			//left_motor_set_speed(1000);
-			//right_motor_set_speed(0);
+			left_motor_set_speed(1000);
+			right_motor_set_speed(0);
 			break;
 		case 9:
 			chprintf((BaseSequentialStream *)&SD3, "C# \r \n");
-			//left_motor_set_speed(0);
-			//right_motor_set_speed(-1000);
+			left_motor_set_speed(0);
+			right_motor_set_speed(-1000);
 			break;
 		case 10:
 			chprintf((BaseSequentialStream *)&SD3, "D \r \n");
-			//left_motor_set_speed(700);
-			//right_motor_set_speed(-200);
+			left_motor_set_speed(700);
+			right_motor_set_speed(-200);
 			break;
 		case 11:
 			chprintf((BaseSequentialStream *)&SD3, "D# \r \n");
-			//left_motor_set_speed(-200);
-			//right_motor_set_speed(600);
+			left_motor_set_speed(-200);
+			right_motor_set_speed(600);
 			break;
 		case 12:
 			chprintf((BaseSequentialStream *)&SD3, "none \r \n");
-			//left_motor_set_speed(0);
-			//right_motor_set_speed(0);
+			left_motor_set_speed(0);
+			right_motor_set_speed(0);
 			break;
 
 	}

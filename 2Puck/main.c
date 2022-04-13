@@ -12,16 +12,11 @@
 #include <audio/custom_microphone.h>
 
 #include <custom_audio_processing.h>
-//#include <audio_processing.h>
+
 #include <fft.h>
 #include <communications.h>
 #include <arm_math.h>
 
-//uncomment to send the FFTs results from the real microphones
-#define SEND_FROM_MIC
-
-//uncomment to use double buffering to send the FFT to the computer
-#define DOUBLE_BUFFERING
 
 static void serial_start(void)
 {
