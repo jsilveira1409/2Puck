@@ -12,11 +12,12 @@
 #include <arm_math.h>
 
 #define FREQ_OFFSET 		(-2)				//voir pourquoi il en faut???
-#define MIN_VALUE_THRESHOLD 400000
+#define MIN_VALUE_THRESHOLD 20000
 #define MIN_FREQ 			0
 #define MAX_FREQ 			FFT_SIZE/2
 #define NB_NOTES 			36
-#define RESOLUTION  (CUSTOM_I2S_AUDIOFREQ/2)/(FFT_SIZE/2)
+#define RESOLUTION  		(CUSTOM_I2S_AUDIOFREQ/2)/(FFT_SIZE/2)
+#define NOTE_BUFFER_SIZE	100
 
 //semaphore
 static BSEMAPHORE_DECL(sendToComputer_sem, TRUE);
@@ -30,13 +31,14 @@ static float micLeft_output[FFT_SIZE];
 static float freq;
 static uint16_t discret_freq = 0;
 
-//send_tab is used to save the state of the buffer to send (double buffering)
-//to avoid modifications of the buffer while sending it
-static float send_tab[FFT_SIZE];
+/*
+ * Circular Buffer to register the played notes
+ */
+static uint8_t note_buffer [NOTE_BUFFER_SIZE] = {0};
 
-/*LUP for the note frequency in the guitar fretboard,total of 3 octaves : 3*12 = 36
+/*
+ * LUP for the note frequency in the guitar fretboard,total of 3 octaves : 3*12 = 36
  * starting with the open string E, ending with fret 12 of string 6.
- *
  */
 static const uint16_t note_frequency[NB_NOTES] = {
 /*    E    F    F#   G   G#    A   A#    B    C   C#   D   D#    */
@@ -103,9 +105,13 @@ void processAudioData(int16_t *data, uint16_t num_samples){
 	*	1024 samples, then we compute the FFTs.
 	*
 	*/
-	static uint16_t nb_samples = 0;
+	static uint16_t nb_samples = 0, check_volume = 0;
 
-	for(volatile uint16_t i = 0; i < num_samples; i+=4){			// i counts the input buffer fullfilment
+	note_volume(data, num_samples);
+	if(check_volume == 4){
+		//handlePCMdata(data, num_samples);
+	}															//marche pas si  +=2 voir pourquoi
+	for(volatile uint16_t i = 0; i < num_samples; i+=4   ){			// i counts the input buffer fullfilment
 		micLeft_cmplx_input[nb_samples] = (float)data[i + MIC_LEFT];
 		nb_samples++;												// each buffer received one sample, so we increment i by one
 		micLeft_cmplx_input[nb_samples] = 0;
@@ -118,8 +124,7 @@ void processAudioData(int16_t *data, uint16_t num_samples){
 	if(nb_samples >= (2 * FFT_SIZE)){
 		doFFT_optimized(FFT_SIZE, micLeft_cmplx_input);
 		arm_cmplx_mag_f32(micLeft_cmplx_input, micLeft_output, FFT_SIZE);
-		//arm_copy_f32(micLeft_output, send_tab, FFT_SIZE);			//not needed as we don't send large chunks of data to the pc
-		fundamental_frequency(micLeft_output, 4);
+		fundamental_frequency(micLeft_output, 6);
 		frequency_to_note(micLeft_output);
 		nb_samples = 0;
 		chBSemSignal(&sendToComputer_sem);							//signals the buffer is ready to send
@@ -128,72 +133,74 @@ void processAudioData(int16_t *data, uint16_t num_samples){
 
 void send_to_computer(void){
 	//chprintf((BaseSequentialStream *)&SD3, "%f \r  %d \r  \n", freq, discret_freq);
+	//chprintf((BaseSequentialStream *)&SD3, "%d \r \n", get_mic_volume());
 }
 void wait_send_to_computer(void){
 	chBSemWait(&sendToComputer_sem);
 }
 
 
+
 void find_note (uint16_t index){
 	switch (index){
 		case 0:
 			chprintf((BaseSequentialStream *)&SD3, "E \r \n");
-			left_motor_set_speed(1000);
-			right_motor_set_speed(1000);
+			//left_motor_set_speed(1000);
+			//right_motor_set_speed(1000);
 			break;
 		case 1:
 			chprintf((BaseSequentialStream *)&SD3, "F \r \n");
-			left_motor_set_speed(400);
-			right_motor_set_speed(1000);
+			//left_motor_set_speed(400);
+			//right_motor_set_speed(1000);
 			break;
 		case 2:
 			chprintf((BaseSequentialStream *)&SD3, "F# \r \n");
 			break;
 		case 3:
 			chprintf((BaseSequentialStream *)&SD3, "G \r \n");
-			left_motor_set_speed(1000);
-			right_motor_set_speed(400);
+			//left_motor_set_speed(1000);
+			//right_motor_set_speed(400);
 			break;
 		case 4:
 			chprintf((BaseSequentialStream *)&SD3, "G# \r \n");
 			break;
 		case 5:
 			chprintf((BaseSequentialStream *)&SD3, "A \r \n");
-			left_motor_set_speed(600);
-			right_motor_set_speed(-600);
+			//left_motor_set_speed(600);
+			//right_motor_set_speed(-600);
 			break;
 		case 6:
 			chprintf((BaseSequentialStream *)&SD3, "A# \r \n");
 			break;
 		case 7:
 			chprintf((BaseSequentialStream *)&SD3, "B \r \n");
-			left_motor_set_speed(-1000);
-			right_motor_set_speed(-1000);
+			//left_motor_set_speed(-1000);
+			//right_motor_set_speed(-1000);
 			break;
 		case 8:
 			chprintf((BaseSequentialStream *)&SD3, "C \r \n");
-			left_motor_set_speed(1000);
-			right_motor_set_speed(0);
+			//left_motor_set_speed(1000);
+			//right_motor_set_speed(0);
 			break;
 		case 9:
 			chprintf((BaseSequentialStream *)&SD3, "C# \r \n");
-			left_motor_set_speed(0);
-			right_motor_set_speed(-1000);
+			//left_motor_set_speed(0);
+			//right_motor_set_speed(-1000);
 			break;
 		case 10:
 			chprintf((BaseSequentialStream *)&SD3, "D \r \n");
-			left_motor_set_speed(700);
-			right_motor_set_speed(-200);
+			//left_motor_set_speed(700);
+			//right_motor_set_speed(-200);
 			break;
 		case 11:
 			chprintf((BaseSequentialStream *)&SD3, "D# \r \n");
-			left_motor_set_speed(-200);
-			right_motor_set_speed(600);
+			//left_motor_set_speed(-200);
+			//right_motor_set_speed(600);
 			break;
 		case 12:
 			chprintf((BaseSequentialStream *)&SD3, "none \r \n");
-			left_motor_set_speed(0);
-			right_motor_set_speed(0);
+			//left_motor_set_speed(0);
+			//right_motor_set_speed(0);
 			break;
 
 	}
