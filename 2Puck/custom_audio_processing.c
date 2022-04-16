@@ -11,6 +11,8 @@
 #include <fft.h>
 #include <arm_math.h>
 
+
+
 #define FREQ_OFFSET 		(-2)				//voir pourquoi il en faut???
 #define MIN_VALUE_THRESHOLD 20000
 #define MIN_FREQ 			0
@@ -30,11 +32,11 @@ static float micLeft_output[FFT_SIZE];
 
 static float freq;
 static uint16_t discret_freq = 0;
-
+static uint8_t current_note_index = 0;
 /*
  * Circular Buffer to register the played notes
  */
-static uint8_t note_buffer [NOTE_BUFFER_SIZE] = {0};
+//static uint8_t note_buffer [NOTE_BUFFER_SIZE] = {0};
 
 /*
  * LUP for the note frequency in the guitar fretboard,total of 3 octaves : 3*12 = 36
@@ -82,6 +84,13 @@ void frequency_to_note(float* data){
 		}
 		note_index = note_index % 12;
 		find_note(note_index);
+
+		/*note_buffer[current_note_index] = (uint8_t)note_index;
+		if(note_index < (NOTE_BUFFER_SIZE-1)){			//circular buffer
+			note_index ++;
+		}else{
+			note_index = 0;
+		}*/
 	}else{
 		freq = 0;
 		find_note(12);
@@ -105,13 +114,10 @@ void processAudioData(int16_t *data, uint16_t num_samples){
 	*	1024 samples, then we compute the FFTs.
 	*
 	*/
-	static uint16_t nb_samples = 0, check_volume = 0;
-
-	note_volume(data, num_samples);
-	if(check_volume == 4){
-		//handlePCMdata(data, num_samples);
-	}															//marche pas si  +=2 voir pourquoi
-	for(volatile uint16_t i = 0; i < num_samples; i+=4   ){			// i counts the input buffer fullfilment
+	static uint16_t nb_samples = 0;
+	volatile uint8_t register_note = 0;
+																	//marche pas si  +=2 voir pourquoi
+	for(volatile uint16_t i = 0; i < num_samples; i+=2   ){			// i counts the input buffer fullfilment
 		micLeft_cmplx_input[nb_samples] = (float)data[i + MIC_LEFT];
 		nb_samples++;												// each buffer received one sample, so we increment i by one
 		micLeft_cmplx_input[nb_samples] = 0;
@@ -120,12 +126,15 @@ void processAudioData(int16_t *data, uint16_t num_samples){
 			break;													//restart the circular buffer
 		}
 	}
-
+//	chprintf((BaseSequentialStream *)&SD3, "%d %d  \r \n", register_note, get_mic_volume());
 	if(nb_samples >= (2 * FFT_SIZE)){
-		doFFT_optimized(FFT_SIZE, micLeft_cmplx_input);
-		arm_cmplx_mag_f32(micLeft_cmplx_input, micLeft_output, FFT_SIZE);
-		fundamental_frequency(micLeft_output, 6);
-		frequency_to_note(micLeft_output);
+		register_note = note_volume(data, num_samples);
+		if(register_note == 1){
+			doFFT_optimized(FFT_SIZE, micLeft_cmplx_input);
+			arm_cmplx_mag_f32(micLeft_cmplx_input, micLeft_output, FFT_SIZE);
+			fundamental_frequency(micLeft_output, 2);
+			frequency_to_note(micLeft_output);
+		}
 		nb_samples = 0;
 		chBSemSignal(&sendToComputer_sem);							//signals the buffer is ready to send
 	}
@@ -139,69 +148,50 @@ void wait_send_to_computer(void){
 	chBSemWait(&sendToComputer_sem);
 }
 
-
-
 void find_note (uint16_t index){
 	switch (index){
 		case 0:
-			chprintf((BaseSequentialStream *)&SD3, "E \r \n");
-			//left_motor_set_speed(1000);
-			//right_motor_set_speed(1000);
+			chprintf((BaseSequentialStream *)&SD3, "E \r  %d \r \n", get_mic_volume());
 			break;
 		case 1:
-			chprintf((BaseSequentialStream *)&SD3, "F \r \n");
-			//left_motor_set_speed(400);
-			//right_motor_set_speed(1000);
+			chprintf((BaseSequentialStream *)&SD3, "F \r  %d \r \n", get_mic_volume());
 			break;
 		case 2:
-			chprintf((BaseSequentialStream *)&SD3, "F# \r \n");
+			chprintf((BaseSequentialStream *)&SD3, "F# \r  %d \r \n", get_mic_volume());
 			break;
 		case 3:
-			chprintf((BaseSequentialStream *)&SD3, "G \r \n");
-			//left_motor_set_speed(1000);
-			//right_motor_set_speed(400);
+			chprintf((BaseSequentialStream *)&SD3, "G \r  %d \r \n", get_mic_volume());
 			break;
 		case 4:
-			chprintf((BaseSequentialStream *)&SD3, "G# \r \n");
+			chprintf((BaseSequentialStream *)&SD3, "G# \r  %d \r \n", get_mic_volume());
 			break;
 		case 5:
-			chprintf((BaseSequentialStream *)&SD3, "A \r \n");
-			//left_motor_set_speed(600);
-			//right_motor_set_speed(-600);
+			chprintf((BaseSequentialStream *)&SD3, "A \r  %d \r \n", get_mic_volume());
 			break;
 		case 6:
-			chprintf((BaseSequentialStream *)&SD3, "A# \r \n");
+			chprintf((BaseSequentialStream *)&SD3, "A# \r  %d \r \n", get_mic_volume());
 			break;
 		case 7:
-			chprintf((BaseSequentialStream *)&SD3, "B \r \n");
-			//left_motor_set_speed(-1000);
-			//right_motor_set_speed(-1000);
+			chprintf((BaseSequentialStream *)&SD3, "B \r  %d \r \n", get_mic_volume());
 			break;
 		case 8:
-			chprintf((BaseSequentialStream *)&SD3, "C \r \n");
-			//left_motor_set_speed(1000);
-			//right_motor_set_speed(0);
+			chprintf((BaseSequentialStream *)&SD3, "C \r  %d \r \n", get_mic_volume());
 			break;
 		case 9:
-			chprintf((BaseSequentialStream *)&SD3, "C# \r \n");
-			//left_motor_set_speed(0);
-			//right_motor_set_speed(-1000);
+			chprintf((BaseSequentialStream *)&SD3, "C# \r  %d \r \n", get_mic_volume());
 			break;
 		case 10:
-			chprintf((BaseSequentialStream *)&SD3, "D \r \n");
-			//left_motor_set_speed(700);
-			//right_motor_set_speed(-200);
+			chprintf((BaseSequentialStream *)&SD3, "D \r  %d \r \n", get_mic_volume());
 			break;
 		case 11:
-			chprintf((BaseSequentialStream *)&SD3, "D# \r \n");
-			//left_motor_set_speed(-200);
-			//right_motor_set_speed(600);
+			chprintf((BaseSequentialStream *)&SD3, "D# \r  %d \r \n", get_mic_volume());
 			break;
 		case 12:
-			chprintf((BaseSequentialStream *)&SD3, "none \r \n");
-			//left_motor_set_speed(0);
-			//right_motor_set_speed(0);
+			chprintf((BaseSequentialStream *)&SD3, "none \r  %d \r \n", get_mic_volume());
 			break;
-
 	}
 }
+
+
+
+

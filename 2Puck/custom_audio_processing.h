@@ -33,6 +33,7 @@ void send_to_computer(void);
 */
 float* get_audio_buffer_ptr(BUFFER_NAME_t name);
 
+bool frequency_magnitude(float *data, uint16_t num_samples);
 void peak_detector(float* output_buffer, uint16_t* peak_pos);
 
 #endif /* AUDIO_PROCESSING_H */
