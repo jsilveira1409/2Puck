@@ -2,9 +2,8 @@
 #define AUDIO_PROCESSING_H
 
 
-//JOJO#define FFT_SIZE 	1024
+//#define FFT_SIZE 	1024
 #define FFT_SIZE 	4096
-
 
 typedef enum {
 	//2 times FFT_SIZE because these arrays contain complex numbers (real + imaginary)
@@ -21,18 +20,16 @@ typedef enum {
 
 
 void processAudioData(int16_t *data, uint16_t num_samples);
-void frequency_to_note(float* data);
+
 /*
 *	put the invoking thread into sleep until it can process the audio datas
 */
 void wait_send_to_computer(void);
 
-void send_to_computer(void);
 /*
 *	Returns the pointer to the BUFFER_NAME_t buffer asked
 */
 float* get_audio_buffer_ptr(BUFFER_NAME_t name);
 
-void peak_detector(float* output_buffer, uint16_t* peak_pos);
-
 #endif /* AUDIO_PROCESSING_H */
+

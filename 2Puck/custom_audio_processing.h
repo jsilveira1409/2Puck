@@ -22,6 +22,8 @@ typedef enum {
 
 void processAudioData(int16_t *data, uint16_t num_samples);
 void frequency_to_note(float* data);
+void init_rfft_handler(void);
+
 /*
 *	put the invoking thread into sleep until it can process the audio datas
 */
@@ -35,5 +37,5 @@ float* get_audio_buffer_ptr(BUFFER_NAME_t name);
 
 bool frequency_magnitude(float *data, uint16_t num_samples);
 void peak_detector(float* output_buffer, uint16_t* peak_pos);
-
+void find_note (int16_t index);
 #endif /* AUDIO_PROCESSING_H */

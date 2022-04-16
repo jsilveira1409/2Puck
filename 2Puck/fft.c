@@ -83,14 +83,22 @@ int fft_c(int lx, complex_float* cx, float signi)
 *	which uses a lot of tricks to optimize the computations
 */
 void doFFT_optimized(uint16_t size, float* complex_buffer){
-	if(size == 1024)
+	/*
+	 * Audio signal is real so it does not make sense to calculate cfft, we'll try rfft
+	*/
+	  if(size == 1024)
 		arm_cfft_f32(&arm_cfft_sR_f32_len1024, complex_buffer, 0, 1);
-	else if (size == 2048)
+	  else if (size == 2048)
 		arm_cfft_f32(&arm_cfft_sR_f32_len2048, complex_buffer, 0, 1);
-	else if (size == 4096)
+	  else if (size == 4096)
 		arm_cfft_f32(&arm_cfft_sR_f32_len4096, complex_buffer, 0, 1);
-	
+
 }
+
+void doRealFFT_optimized(uint16_t size, float* in_buffer, float* out_buffer, arm_rfft_fast_instance_f32 * fft_handler){
+	arm_rfft_fast_f32(fft_handler, in_buffer, out_buffer, 0);
+}
+
 
 /*
 *	Wrapper to call the non optimized FFT function
