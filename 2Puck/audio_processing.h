@@ -18,9 +18,10 @@ typedef enum {
 	BACK_OUTPUT
 } BUFFER_NAME_t;
 
-
-void processAudioData(int16_t *data, uint16_t num_samples);
-
+void init_hann_window(void);
+void window(float* data, uint16_t size);
+void processAudioDataCmplx(int16_t *data, uint16_t num_samples);
+void processAudioDataReal(int16_t *data, uint16_t num_samples);
 /*
 *	put the invoking thread into sleep until it can process the audio datas
 */
@@ -31,5 +32,9 @@ void wait_send_to_computer(void);
 */
 float* get_audio_buffer_ptr(BUFFER_NAME_t name);
 
+void frequency_to_note(float* data);
+void find_note (int16_t index);
+
 #endif /* AUDIO_PROCESSING_H */
+
 

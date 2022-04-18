@@ -45,18 +45,18 @@ int main(void)
     serial_start();
     //starts the USB communication
     usb_start();
+    init_hann_window();
 
     static float send_tab[FFT_SIZE];
-
-    mic_start(&processAudioData);
+    mic_start(&processAudioDataCmplx);
 
     /* Infinite loop. */
     while (1) {
         //waits until a result must be sent to the computer
         wait_send_to_computer();
         //we copy the buffer to avoid conflicts
-        //arm_copy_f32(get_audio_buffer_ptr(LEFT_OUTPUT), send_tab, FFT_SIZE);
-        //SendFloatToComputer((BaseSequentialStream *) &SD3, send_tab, FFT_SIZE);
+//        arm_copy_f32(get_audio_buffer_ptr(LEFT_OUTPUT), send_tab, FFT_SIZE);
+//        SendFloatToComputer((BaseSequentialStream *) &SD3, send_tab, FFT_SIZE);
 
     }
 }
