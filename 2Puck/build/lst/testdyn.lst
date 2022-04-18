@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 1
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccDurPBS.s 			page 1
 
 
    1              		.cpu cortex-m4
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 1
   55 0006 9A69     		ldr	r2, [r3, #24]
   56              	.LBE20:
   57              	.LBE22:
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 2
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccDurPBS.s 			page 2
 
 
   58              		.loc 1 87 0
@@ -118,7 +118,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 1
  112 004e FFF7FEFF 		bl	chHeapAlloc
  113              	.LVL4:
  114              		.loc 1 98 0
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 3
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccDurPBS.s 			page 3
 
 
  115 0052 2B4B     		ldr	r3, .L16+28
@@ -178,7 +178,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 1
  169 0098 FFF7FEFF 		bl	_test_assert_sequence
  170              	.LVL12:
  171 009c 0028     		cmp	r0, #0
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 4
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccDurPBS.s 			page 4
 
 
  172 009e F1D1     		bne	.L1
@@ -238,7 +238,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 1
  226              		.p2align 4,,15
  227              		.syntax unified
  228              		.thumb
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 5
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccDurPBS.s 			page 5
 
 
  229              		.thumb_func
@@ -298,7 +298,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 1
  283              		.fpu fpv4-sp-d16
  284              		.type	dyn1_setup, %function
  285              	dyn1_setup:
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 6
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccDurPBS.s 			page 6
 
 
  286              	.LFB220:
@@ -358,7 +358,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 1
  340              	dyn3_setup:
  341              	.LFB228:
  342              		.cfi_startproc
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 7
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccDurPBS.s 			page 7
 
 
  343              		@ args = 0, pretend = 0, frame = 8
@@ -418,7 +418,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 1
  397              		.cfi_offset 14, -4
  398              	.LBB24:
  399              	.LBB25:
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 8
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccDurPBS.s 			page 8
 
 
  400              	.LBB26:
@@ -478,7 +478,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 1
  454 0042 FFF7FEFF 		bl	chThdCreateFromMemoryPool
  455              	.LVL27:
  456              		.loc 1 154 0
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 9
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccDurPBS.s 			page 9
 
 
  457 0046 324B     		ldr	r3, .L57+32
@@ -538,7 +538,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 1
  511              		.loc 1 173 0 is_stmt 1
  512 0090 019A     		ldr	r2, [sp, #4]
  513 0092 2B68     		ldr	r3, [r5]
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 10
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccDurPBS.s 			page 10
 
 
  514 0094 9A42     		cmp	r2, r3
@@ -598,7 +598,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 1
  568              		.cfi_def_cfa_offset 24
  569              		@ sp needed
  570 00e4 BDE8F041 		pop	{r4, r5, r6, r7, r8, lr}
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 11
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccDurPBS.s 			page 11
 
 
  571              		.cfi_restore 14
@@ -658,7 +658,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 1
  625              		.loc 1 138 0
  626 0006 1A68     		ldr	r2, [r3]
  627 0008 0192     		str	r2, [sp, #4]
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 12
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccDurPBS.s 			page 12
 
 
  628              		.loc 1 140 0
@@ -718,7 +718,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 1
  682              		.cfi_def_cfa_offset 24
  683              		.loc 1 192 0
  684 0006 3368     		ldr	r3, [r6]
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 13
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccDurPBS.s 			page 13
 
 
  685 0008 0193     		str	r3, [sp, #4]
@@ -778,7 +778,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 1
  739              		.fpu fpv4-sp-d16
  740              		.type	dyn3_execute, %function
  741              	dyn3_execute:
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 14
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccDurPBS.s 			page 14
 
 
  742              	.LFB226:
@@ -838,7 +838,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 1
  796 002c B1FA81F1 		clz	r1, r1
  797 0030 4909     		lsrs	r1, r1, #5
  798 0032 FFF7FEFF 		bl	_test_assert
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 15
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccDurPBS.s 			page 15
 
 
  799              	.LVL57:
@@ -898,7 +898,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 1
  853              		.loc 1 223 0
  854 0092 2046     		mov	r0, r4
  855 0094 FFF7FEFF 		bl	regfind
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 16
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccDurPBS.s 			page 16
 
 
  856              	.LVL65:
@@ -958,7 +958,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 1
  910 00fc 94F82010 		ldrb	r1, [r4, #32]	@ zero_extendqisi2
  911 0100 A1F10F03 		sub	r3, r1, #15
  912 0104 5942     		rsbs	r1, r3, #0
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 17
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccDurPBS.s 			page 17
 
 
  913 0106 5941     		adcs	r1, r1, r3
@@ -1018,7 +1018,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 1
  967              		.cfi_endproc
  968              	.LFE226:
  969              		.size	dyn3_execute, .-dyn3_execute
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 18
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccDurPBS.s 			page 18
 
 
  970              		.global	patterndyn
@@ -1078,7 +1078,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 1
  1017 0004 00000000 		.word	testdyn2
  1018 0008 00000000 		.word	testdyn3
  1019 000c 00000000 		.word	0
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 19
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccDurPBS.s 			page 19
 
 
  1020              		.section	.rodata.str1.4,"aMS",%progbits,1
@@ -1138,7 +1138,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 1
  1062              		.file 7 "../../lib/e-puck2_main-processor/ChibiOS//os/rt/include/chsystypes.h"
  1063              		.file 8 "../../lib/e-puck2_main-processor/ChibiOS//os/rt/include/chschd.h"
  1064              		.file 9 "../../lib/e-puck2_main-processor/ChibiOS//os/ext/CMSIS/include/core_cm4.h"
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 20
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccDurPBS.s 			page 20
 
 
  1065              		.file 10 "../../lib/e-puck2_main-processor/ChibiOS//os/ext/CMSIS/ST/system_stm32f4xx.h"
@@ -1165,7 +1165,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 1
  1086 000c 75000000 		.4byte	.LASF219
  1087 0010 0C       		.byte	0xc
  1088 0011 43030000 		.4byte	.LASF220
- 1089 0015 25070000 		.4byte	.LASF221
+ 1089 0015 BE060000 		.4byte	.LASF221
  1090 0019 50000000 		.4byte	.Ldebug_ranges0+0x50
  1091 001d 00000000 		.4byte	0
  1092 0021 00000000 		.4byte	.Ldebug_line0
@@ -1181,7 +1181,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 1
  1102 0037 04       		.uleb128 0x4
  1103 0038 04       		.byte	0x4
  1104 0039 07       		.byte	0x7
- 1105 003a F5060000 		.4byte	.LASF0
+ 1105 003a 28070000 		.4byte	.LASF0
  1106 003e 04       		.uleb128 0x4
  1107 003f 08       		.byte	0x8
  1108 0040 05       		.byte	0x5
@@ -1189,7 +1189,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 1
  1110 0045 04       		.uleb128 0x4
  1111 0046 08       		.byte	0x8
  1112 0047 04       		.byte	0x4
- 1113 0048 D4070000 		.4byte	.LASF2
+ 1113 0048 CA070000 		.4byte	.LASF2
  1114 004c 04       		.uleb128 0x4
  1115 004d 01       		.byte	0x1
  1116 004e 06       		.byte	0x6
@@ -1198,7 +1198,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 1
  1119 0054 9F020000 		.4byte	.LASF5
  1120 0058 04       		.byte	0x4
  1121 0059 2B       		.byte	0x2b
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 21
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccDurPBS.s 			page 21
 
 
  1122 005a 5E000000 		.4byte	0x5e
@@ -1209,7 +1209,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 1
  1127 0065 04       		.uleb128 0x4
  1128 0066 02       		.byte	0x2
  1129 0067 05       		.byte	0x5
- 1130 0068 53090000 		.4byte	.LASF7
+ 1130 0068 49090000 		.4byte	.LASF7
  1131 006c 03       		.uleb128 0x3
  1132 006d 3B040000 		.4byte	.LASF8
  1133 0071 04       		.byte	0x4
@@ -1218,9 +1218,9 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 1
  1136 0077 04       		.uleb128 0x4
  1137 0078 02       		.byte	0x2
  1138 0079 07       		.byte	0x7
- 1139 007a 410A0000 		.4byte	.LASF9
+ 1139 007a 370A0000 		.4byte	.LASF9
  1140 007e 03       		.uleb128 0x3
- 1141 007f 850A0000 		.4byte	.LASF10
+ 1141 007f 7B0A0000 		.4byte	.LASF10
  1142 0083 04       		.byte	0x4
  1143 0084 4D       		.byte	0x4d
  1144 0085 89000000 		.4byte	0x89
@@ -1245,20 +1245,20 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 1
  1163 00ad 04       		.uleb128 0x4
  1164 00ae 08       		.byte	0x8
  1165 00af 07       		.byte	0x7
- 1166 00b0 48080000 		.4byte	.LASF15
+ 1166 00b0 3E080000 		.4byte	.LASF15
  1167 00b4 03       		.uleb128 0x3
  1168 00b5 A5030000 		.4byte	.LASF16
  1169 00b9 05       		.byte	0x5
  1170 00ba 18       		.byte	0x18
  1171 00bb 53000000 		.4byte	0x53
  1172 00bf 03       		.uleb128 0x3
- 1173 00c0 67080000 		.4byte	.LASF17
+ 1173 00c0 5D080000 		.4byte	.LASF17
  1174 00c4 05       		.byte	0x5
  1175 00c5 24       		.byte	0x24
  1176 00c6 6C000000 		.4byte	0x6c
  1177 00ca 03       		.uleb128 0x3
  1178 00cb E0010000 		.4byte	.LASF18
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 22
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccDurPBS.s 			page 22
 
 
  1179 00cf 05       		.byte	0x5
@@ -1267,17 +1267,17 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 1
  1182 00d5 05       		.uleb128 0x5
  1183 00d6 CA000000 		.4byte	0xca
  1184 00da 03       		.uleb128 0x3
- 1185 00db 1C0A0000 		.4byte	.LASF19
+ 1185 00db 120A0000 		.4byte	.LASF19
  1186 00df 05       		.byte	0x5
  1187 00e0 30       		.byte	0x30
  1188 00e1 90000000 		.4byte	0x90
  1189 00e5 03       		.uleb128 0x3
- 1190 00e6 5D090000 		.4byte	.LASF20
+ 1190 00e6 53090000 		.4byte	.LASF20
  1191 00ea 05       		.byte	0x5
  1192 00eb 3C       		.byte	0x3c
  1193 00ec A2000000 		.4byte	0xa2
  1194 00f0 03       		.uleb128 0x3
- 1195 00f1 0E070000 		.4byte	.LASF21
+ 1195 00f1 41070000 		.4byte	.LASF21
  1196 00f5 06       		.byte	0x6
  1197 00f6 45       		.byte	0x45
  1198 00f7 DA000000 		.4byte	0xda
@@ -1287,7 +1287,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 1
  1202 0101 46       		.byte	0x46
  1203 0102 E5000000 		.4byte	0xe5
  1204 0106 03       		.uleb128 0x3
- 1205 0107 13090000 		.4byte	.LASF23
+ 1205 0107 09090000 		.4byte	.LASF23
  1206 010b 06       		.byte	0x6
  1207 010c 48       		.byte	0x48
  1208 010d B4000000 		.4byte	0xb4
@@ -1297,12 +1297,12 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 1
  1212 0117 49       		.byte	0x49
  1213 0118 B4000000 		.4byte	0xb4
  1214 011c 03       		.uleb128 0x3
- 1215 011d EB090000 		.4byte	.LASF25
+ 1215 011d E1090000 		.4byte	.LASF25
  1216 0121 06       		.byte	0x6
  1217 0122 4A       		.byte	0x4a
  1218 0123 B4000000 		.4byte	0xb4
  1219 0127 03       		.uleb128 0x3
- 1220 0128 94080000 		.4byte	.LASF26
+ 1220 0128 8A080000 		.4byte	.LASF26
  1221 012c 06       		.byte	0x6
  1222 012d 4B       		.byte	0x4b
  1223 012e B4000000 		.4byte	0xb4
@@ -1312,13 +1312,13 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 1
  1227 0138 4C       		.byte	0x4c
  1228 0139 DA000000 		.4byte	0xda
  1229 013d 03       		.uleb128 0x3
- 1230 013e 70080000 		.4byte	.LASF28
+ 1230 013e 66080000 		.4byte	.LASF28
  1231 0142 06       		.byte	0x6
  1232 0143 4D       		.byte	0x4d
  1233 0144 CA000000 		.4byte	0xca
  1234 0148 03       		.uleb128 0x3
  1235 0149 AD030000 		.4byte	.LASF29
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 23
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccDurPBS.s 			page 23
 
 
  1236 014d 06       		.byte	0x6
@@ -1342,7 +1342,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 1
  1254 0174 05       		.uleb128 0x5
  1255 0175 69010000 		.4byte	0x169
  1256 0179 03       		.uleb128 0x3
- 1257 017a CB070000 		.4byte	.LASF33
+ 1257 017a C1070000 		.4byte	.LASF33
  1258 017e 07       		.byte	0x7
  1259 017f 3F       		.byte	0x3f
  1260 0180 84010000 		.4byte	0x184
@@ -1378,7 +1378,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 1
  1290 01bf 0C       		.byte	0xc
  1291 01c0 07       		.uleb128 0x7
  1292 01c1 BE020000 		.4byte	.LASF38
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 24
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccDurPBS.s 			page 24
 
 
  1293 01c5 08       		.byte	0x8
@@ -1386,37 +1386,37 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 1
  1295 01c7 AD020000 		.4byte	0x2ad
  1296 01cb 10       		.byte	0x10
  1297 01cc 07       		.uleb128 0x7
- 1298 01cd 5F080000 		.4byte	.LASF39
+ 1298 01cd 55080000 		.4byte	.LASF39
  1299 01d1 08       		.byte	0x8
  1300 01d2 CB       		.byte	0xcb
  1301 01d3 AD020000 		.4byte	0x2ad
  1302 01d7 14       		.byte	0x14
  1303 01d8 07       		.uleb128 0x7
- 1304 01d9 970A0000 		.4byte	.LASF40
+ 1304 01d9 8D0A0000 		.4byte	.LASF40
  1305 01dd 08       		.byte	0x8
  1306 01de D2       		.byte	0xd2
  1307 01df A1080000 		.4byte	0x8a1
  1308 01e3 18       		.byte	0x18
  1309 01e4 07       		.uleb128 0x7
- 1310 01e5 720A0000 		.4byte	.LASF41
+ 1310 01e5 680A0000 		.4byte	.LASF41
  1311 01e9 08       		.byte	0x8
  1312 01ea D8       		.byte	0xd8
  1313 01eb B8080000 		.4byte	0x8b8
  1314 01ef 1C       		.byte	0x1c
  1315 01f0 07       		.uleb128 0x7
- 1316 01f1 FB0A0000 		.4byte	.LASF42
+ 1316 01f1 F10A0000 		.4byte	.LASF42
  1317 01f5 08       		.byte	0x8
  1318 01f6 DD       		.byte	0xdd
  1319 01f7 11010000 		.4byte	0x111
  1320 01fb 20       		.byte	0x20
  1321 01fc 07       		.uleb128 0x7
- 1322 01fd D2060000 		.4byte	.LASF43
+ 1322 01fd 05070000 		.4byte	.LASF43
  1323 0201 08       		.byte	0x8
  1324 0202 E1       		.byte	0xe1
  1325 0203 06010000 		.4byte	0x106
  1326 0207 21       		.byte	0x21
  1327 0208 07       		.uleb128 0x7
- 1328 0209 1E070000 		.4byte	.LASF44
+ 1328 0209 51070000 		.4byte	.LASF44
  1329 020d 08       		.byte	0x8
  1330 020e E6       		.byte	0xe6
  1331 020f 1C010000 		.4byte	0x11c
@@ -1428,7 +1428,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 1
  1337 021b 27010000 		.4byte	0x127
  1338 021f 23       		.byte	0x23
  1339 0220 07       		.uleb128 0x7
- 1340 0221 97070000 		.4byte	.LASF46
+ 1340 0221 8D070000 		.4byte	.LASF46
  1341 0225 08       		.byte	0x8
  1342 0226 F3       		.byte	0xf3
  1343 0227 74010000 		.4byte	0x174
@@ -1438,12 +1438,12 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 1
  1347 0231 08       		.byte	0x8
  1348 0232 3101     		.2byte	0x131
  1349 0234 D0070000 		.4byte	0x7d0
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 25
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccDurPBS.s 			page 25
 
 
  1350 0238 28       		.byte	0x28
  1351 0239 09       		.uleb128 0x9
- 1352 023a BE060000 		.4byte	.LASF47
+ 1352 023a F1060000 		.4byte	.LASF47
  1353 023e 08       		.byte	0x8
  1354 023f 3601     		.2byte	0x136
  1355 0241 B3020000 		.4byte	0x2b3
@@ -1455,7 +1455,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 1
  1361 024e D7020000 		.4byte	0x2d7
  1362 0252 30       		.byte	0x30
  1363 0253 09       		.uleb128 0x9
- 1364 0254 F50A0000 		.4byte	.LASF49
+ 1364 0254 EB0A0000 		.4byte	.LASF49
  1365 0258 08       		.byte	0x8
  1366 0259 4001     		.2byte	0x140
  1367 025b 3D010000 		.4byte	0x13d
@@ -1473,13 +1473,13 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 1
  1379 0275 9B080000 		.4byte	0x89b
  1380 0279 40       		.byte	0x40
  1381 027a 09       		.uleb128 0x9
- 1382 027b F3070000 		.4byte	.LASF52
+ 1382 027b E9070000 		.4byte	.LASF52
  1383 027f 08       		.byte	0x8
  1384 0280 5101     		.2byte	0x151
  1385 0282 32010000 		.4byte	0x132
  1386 0286 44       		.byte	0x44
  1387 0287 09       		.uleb128 0x9
- 1388 0288 16070000 		.4byte	.LASF53
+ 1388 0288 49070000 		.4byte	.LASF53
  1389 028c 08       		.byte	0x8
  1390 028d 5801     		.2byte	0x158
  1391 028f 8A030000 		.4byte	0x38a
@@ -1492,18 +1492,18 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 1
  1398 02a0 50       		.byte	0x50
  1399 02a1 00       		.byte	0
  1400 02a2 03       		.uleb128 0x3
- 1401 02a3 E0070000 		.4byte	.LASF55
+ 1401 02a3 D6070000 		.4byte	.LASF55
  1402 02a7 07       		.byte	0x7
  1403 02a8 44       		.byte	0x44
  1404 02a9 AD020000 		.4byte	0x2ad
  1405 02ad 0A       		.uleb128 0xa
  1406 02ae 04       		.byte	0x4
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 26
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccDurPBS.s 			page 26
 
 
  1407 02af 79010000 		.4byte	0x179
  1408 02b3 03       		.uleb128 0x3
- 1409 02b4 030A0000 		.4byte	.LASF56
+ 1409 02b4 F9090000 		.4byte	.LASF56
  1410 02b8 07       		.byte	0x7
  1411 02b9 49       		.byte	0x49
  1412 02ba BE020000 		.4byte	0x2be
@@ -1526,7 +1526,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 1
  1429 02dd 50       		.byte	0x50
  1430 02de E2020000 		.4byte	0x2e2
  1431 02e2 06       		.uleb128 0x6
- 1432 02e3 76080000 		.4byte	.LASF60
+ 1432 02e3 6C080000 		.4byte	.LASF60
  1433 02e7 08       		.byte	0x8
  1434 02e8 08       		.byte	0x8
  1435 02e9 B7       		.byte	0xb7
@@ -1556,16 +1556,16 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 1
  1459 0319 9001     		.2byte	0x190
  1460 031b 6E030000 		.4byte	0x36e
  1461 031f 09       		.uleb128 0x9
- 1462 0320 D7080000 		.4byte	.LASF63
+ 1462 0320 CD080000 		.4byte	.LASF63
  1463 0324 08       		.byte	0x8
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 27
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccDurPBS.s 			page 27
 
 
  1464 0325 9101     		.2byte	0x191
  1465 0327 D7020000 		.4byte	0x2d7
  1466 032b 00       		.byte	0
  1467 032c 09       		.uleb128 0x9
- 1468 032d 7D090000 		.4byte	.LASF64
+ 1468 032d 73090000 		.4byte	.LASF64
  1469 0331 08       		.byte	0x8
  1470 0332 9201     		.2byte	0x192
  1471 0334 32010000 		.4byte	0x132
@@ -1583,13 +1583,13 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 1
  1483 034e AD020000 		.4byte	0x2ad
  1484 0352 10       		.byte	0x10
  1485 0353 09       		.uleb128 0x9
- 1486 0354 26090000 		.4byte	.LASF67
+ 1486 0354 1C090000 		.4byte	.LASF67
  1487 0358 08       		.byte	0x8
  1488 0359 9801     		.2byte	0x198
  1489 035b AD020000 		.4byte	0x2ad
  1490 035f 14       		.byte	0x14
  1491 0360 09       		.uleb128 0x9
- 1492 0361 9E080000 		.4byte	.LASF68
+ 1492 0361 94080000 		.4byte	.LASF68
  1493 0365 08       		.byte	0x8
  1494 0366 9B01     		.2byte	0x19b
  1495 0368 AD020000 		.4byte	0x2ad
@@ -1618,10 +1618,10 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 1
  1518 0397 61       		.byte	0x61
  1519 0398 9C030000 		.4byte	0x39c
  1520 039c 0B       		.uleb128 0xb
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 28
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccDurPBS.s 			page 28
 
 
- 1521 039d 1F080000 		.4byte	.LASF71
+ 1521 039d 15080000 		.4byte	.LASF71
  1522 03a1 14       		.byte	0x14
  1523 03a2 08       		.byte	0x8
  1524 03a3 6B01     		.2byte	0x16b
@@ -1639,7 +1639,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 1
  1536 03be BE080000 		.4byte	0x8be
  1537 03c2 04       		.byte	0x4
  1538 03c3 09       		.uleb128 0x9
- 1539 03c4 16080000 		.4byte	.LASF74
+ 1539 03c4 0C080000 		.4byte	.LASF74
  1540 03c8 08       		.byte	0x8
  1541 03c9 6E01     		.2byte	0x16e
  1542 03cb 69010000 		.4byte	0x169
@@ -1678,19 +1678,19 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 1
  1575 0411 8C060000 		.4byte	.LASF73
  1576 0415 08       		.byte	0x8
  1577 0416 7E01     		.2byte	0x17e
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 29
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccDurPBS.s 			page 29
 
 
  1578 0418 BE080000 		.4byte	0x8be
  1579 041c 04       		.byte	0x4
  1580 041d 09       		.uleb128 0x9
- 1581 041e 16080000 		.4byte	.LASF74
+ 1581 041e 0C080000 		.4byte	.LASF74
  1582 0422 08       		.byte	0x8
  1583 0423 8001     		.2byte	0x180
  1584 0425 69010000 		.4byte	0x169
  1585 0429 08       		.byte	0x8
  1586 042a 09       		.uleb128 0x9
- 1587 042b 1B090000 		.4byte	.LASF79
+ 1587 042b 11090000 		.4byte	.LASF79
  1588 042f 08       		.byte	0x8
  1589 0430 8201     		.2byte	0x182
  1590 0432 74010000 		.4byte	0x174
@@ -1702,7 +1702,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 1
  1596 043e 6B       		.byte	0x6b
  1597 043f 43040000 		.4byte	0x443
  1598 0443 10       		.uleb128 0x10
- 1599 0444 8D090000 		.4byte	.LASF81
+ 1599 0444 83090000 		.4byte	.LASF81
  1600 0448 1404     		.2byte	0x414
  1601 044a 08       		.byte	0x8
  1602 044b A201     		.2byte	0x1a2
@@ -1733,27 +1733,27 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 1
  1627 0484 0C       		.byte	0xc
  1628 0485 00       		.byte	0
  1629 0486 03       		.uleb128 0x3
- 1630 0487 540A0000 		.4byte	.LASF86
+ 1630 0487 4A0A0000 		.4byte	.LASF86
  1631 048b 07       		.byte	0x7
  1632 048c 70       		.byte	0x70
  1633 048d 91040000 		.4byte	0x491
  1634 0491 10       		.uleb128 0x10
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 30
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccDurPBS.s 			page 30
 
 
- 1635 0492 120A0000 		.4byte	.LASF87
+ 1635 0492 080A0000 		.4byte	.LASF87
  1636 0496 7006     		.2byte	0x670
  1637 0498 08       		.byte	0x8
  1638 0499 C201     		.2byte	0x1c2
  1639 049b FE040000 		.4byte	0x4fe
  1640 049f 09       		.uleb128 0x9
- 1641 04a0 0D090000 		.4byte	.LASF88
+ 1641 04a0 03090000 		.4byte	.LASF88
  1642 04a4 08       		.byte	0x8
  1643 04a5 C601     		.2byte	0x1c6
  1644 04a7 07030000 		.4byte	0x307
  1645 04ab 00       		.byte	0
  1646 04ac 09       		.uleb128 0x9
- 1647 04ad CD090000 		.4byte	.LASF89
+ 1647 04ad C3090000 		.4byte	.LASF89
  1648 04b1 08       		.byte	0x8
  1649 04b2 CA01     		.2byte	0x1ca
  1650 04b4 EB030000 		.4byte	0x3eb
@@ -1765,7 +1765,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 1
  1656 04c1 38040000 		.4byte	0x438
  1657 04c5 2C       		.byte	0x2c
  1658 04c6 11       		.uleb128 0x11
- 1659 04c7 C7080000 		.4byte	.LASF90
+ 1659 04c7 BD080000 		.4byte	.LASF90
  1660 04cb 08       		.byte	0x8
  1661 04cc D201     		.2byte	0x1d2
  1662 04ce 79010000 		.4byte	0x179
@@ -1777,13 +1777,13 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 1
  1668 04db 33070000 		.4byte	0x733
  1669 04df A804     		.2byte	0x4a8
  1670 04e1 11       		.uleb128 0x11
- 1671 04e2 36080000 		.4byte	.LASF91
+ 1671 04e2 2C080000 		.4byte	.LASF91
  1672 04e6 08       		.byte	0x8
  1673 04e7 DD01     		.2byte	0x1dd
  1674 04e9 C5070000 		.4byte	0x7c5
  1675 04ed B004     		.2byte	0x4b0
  1676 04ef 11       		.uleb128 0x11
- 1677 04f0 E6060000 		.4byte	.LASF92
+ 1677 04f0 19070000 		.4byte	.LASF92
  1678 04f4 08       		.byte	0x8
  1679 04f5 E301     		.2byte	0x1e3
  1680 04f7 C4080000 		.4byte	0x8c4
@@ -1798,7 +1798,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 1
  1689 050b 71050000 		.4byte	.LASF94
  1690 050f 0A       		.byte	0xa
  1691 0510 4C       		.byte	0x4c
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 31
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccDurPBS.s 			page 31
 
 
  1692 0511 DA000000 		.4byte	0xda
@@ -1826,7 +1826,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 1
  1714 0542 00       		.byte	0
  1715 0543 00       		.byte	0
  1716 0544 06       		.uleb128 0x6
- 1717 0545 FE070000 		.4byte	.LASF98
+ 1717 0545 F4070000 		.4byte	.LASF98
  1718 0549 64       		.byte	0x64
  1719 054a 0C       		.byte	0xc
  1720 054b F4       		.byte	0xf4
@@ -1858,7 +1858,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 1
  1746 0580 15       		.uleb128 0x15
  1747 0581 73323000 		.ascii	"s20\000"
  1748 0585 0C       		.byte	0xc
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 32
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccDurPBS.s 			page 32
 
 
  1749 0586 FA       		.byte	0xfa
@@ -1918,7 +1918,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 1
  1803 05f5 0301     		.2byte	0x103
  1804 05f7 15050000 		.4byte	0x515
  1805 05fb 34       		.byte	0x34
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 33
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccDurPBS.s 			page 33
 
 
  1806 05fc 08       		.uleb128 0x8
@@ -1978,7 +1978,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 1
  1860 066b 08       		.uleb128 0x8
  1861 066c 72313100 		.ascii	"r11\000"
  1862 0670 0C       		.byte	0xc
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 34
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccDurPBS.s 			page 34
 
 
  1863 0671 0E01     		.2byte	0x10e
@@ -2000,7 +2000,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 1
  1879 068e 51       		.byte	0x51
  1880 068f C4060000 		.4byte	0x6c4
  1881 0693 07       		.uleb128 0x7
- 1882 0694 8F0A0000 		.4byte	.LASF99
+ 1882 0694 850A0000 		.4byte	.LASF99
  1883 0698 0D       		.byte	0xd
  1884 0699 55       		.byte	0x55
  1885 069a 69010000 		.4byte	0x169
@@ -2012,7 +2012,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 1
  1891 06a6 AD020000 		.4byte	0x2ad
  1892 06aa 04       		.byte	0x4
  1893 06ab 07       		.uleb128 0x7
- 1894 06ac C8060000 		.4byte	.LASF101
+ 1894 06ac FB060000 		.4byte	.LASF101
  1895 06b0 0D       		.byte	0xd
  1896 06b1 5D       		.byte	0x5d
  1897 06b2 8A030000 		.4byte	0x38a
@@ -2038,19 +2038,19 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 1
  1917 06d9 94060000 		.4byte	.LASF104
  1918 06dd 0D       		.byte	0xd
  1919 06de 6B       		.byte	0x6b
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 35
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccDurPBS.s 			page 35
 
 
  1920 06df 37000000 		.4byte	0x37
  1921 06e3 00       		.byte	0
  1922 06e4 07       		.uleb128 0x7
- 1923 06e5 AA0A0000 		.4byte	.LASF105
+ 1923 06e5 A00A0000 		.4byte	.LASF105
  1924 06e9 0D       		.byte	0xd
  1925 06ea 6F       		.byte	0x6f
  1926 06eb FD060000 		.4byte	0x6fd
  1927 06ef 04       		.byte	0x4
  1928 06f0 07       		.uleb128 0x7
- 1929 06f1 8D070000 		.4byte	.LASF106
+ 1929 06f1 83070000 		.4byte	.LASF106
  1930 06f5 0D       		.byte	0xd
  1931 06f6 73       		.byte	0x73
  1932 06f7 03070000 		.4byte	0x703
@@ -2077,14 +2077,14 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 1
  1953 0721 38       		.byte	0x38
  1954 0722 33070000 		.4byte	0x733
  1955 0726 07       		.uleb128 0x7
- 1956 0727 86070000 		.4byte	.LASF108
+ 1956 0727 7C070000 		.4byte	.LASF108
  1957 072b 0E       		.byte	0xe
  1958 072c 3C       		.byte	0x3c
  1959 072d F0000000 		.4byte	0xf0
  1960 0731 00       		.byte	0
  1961 0732 00       		.byte	0
  1962 0733 03       		.uleb128 0x3
- 1963 0734 2E090000 		.4byte	.LASF109
+ 1963 0734 24090000 		.4byte	.LASF109
  1964 0738 0E       		.byte	0xe
  1965 0739 3D       		.byte	0x3d
  1966 073a 1E070000 		.4byte	0x71e
@@ -2094,11 +2094,11 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 1
  1970 0741 48       		.byte	0x48
  1971 0742 81070000 		.4byte	0x781
  1972 0746 07       		.uleb128 0x7
- 1973 0747 D2080000 		.4byte	.LASF110
+ 1973 0747 C8080000 		.4byte	.LASF110
  1974 074b 0E       		.byte	0xe
  1975 074c 49       		.byte	0x49
  1976 074d F0000000 		.4byte	0xf0
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 36
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccDurPBS.s 			page 36
 
 
  1977 0751 00       		.byte	0
@@ -2109,7 +2109,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 1
  1982 0759 F0000000 		.4byte	0xf0
  1983 075d 04       		.byte	0x4
  1984 075e 07       		.uleb128 0x7
- 1985 075f F00A0000 		.4byte	.LASF112
+ 1985 075f E60A0000 		.4byte	.LASF112
  1986 0763 0E       		.byte	0xe
  1987 0764 4B       		.byte	0x4b
  1988 0765 F0000000 		.4byte	0xf0
@@ -2158,7 +2158,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 1
  2031 07b8 07       		.uleb128 0x7
  2032 07b9 2D050000 		.4byte	.LASF118
  2033 07bd 0F       		.byte	0xf
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 37
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccDurPBS.s 			page 37
 
 
  2034 07be 3D       		.byte	0x3d
@@ -2166,7 +2166,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 1
  2036 07c3 20       		.byte	0x20
  2037 07c4 00       		.byte	0
  2038 07c5 03       		.uleb128 0x3
- 2039 07c6 6E070000 		.4byte	.LASF119
+ 2039 07c6 64070000 		.4byte	.LASF119
  2040 07ca 0F       		.byte	0xf
  2041 07cb 3F       		.byte	0x3f
  2042 07cc 8C070000 		.4byte	0x78c
@@ -2176,7 +2176,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 1
  2046 07d3 FA       		.byte	0xfa
  2047 07d4 2D080000 		.4byte	0x82d
  2048 07d8 1B       		.uleb128 0x1b
- 2049 07d9 3A0A0000 		.4byte	.LASF120
+ 2049 07d9 300A0000 		.4byte	.LASF120
  2050 07dd 08       		.byte	0x8
  2051 07de 0101     		.2byte	0x101
  2052 07e0 3D010000 		.4byte	0x13d
@@ -2218,19 +2218,19 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 1
  2088 0834 81050000 		.4byte	.LASF127
  2089 0838 0C       		.byte	0xc
  2090 0839 10       		.byte	0x10
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 38
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccDurPBS.s 			page 38
 
 
  2091 083a 34       		.byte	0x34
  2092 083b 58080000 		.4byte	0x858
  2093 083f 07       		.uleb128 0x7
- 2094 0840 4B090000 		.4byte	.LASF128
+ 2094 0840 41090000 		.4byte	.LASF128
  2095 0844 10       		.byte	0x10
  2096 0845 35       		.byte	0x35
  2097 0846 D7020000 		.4byte	0x2d7
  2098 084a 00       		.byte	0
  2099 084b 07       		.uleb128 0x7
- 2100 084c 30080000 		.4byte	.LASF129
+ 2100 084c 26080000 		.4byte	.LASF129
  2101 0850 10       		.byte	0x10
  2102 0851 37       		.byte	0x37
  2103 0852 53010000 		.4byte	0x153
@@ -2240,7 +2240,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 1
  2107 0859 04       		.byte	0x4
  2108 085a 33080000 		.4byte	0x833
  2109 085e 06       		.uleb128 0x6
- 2110 085f 66090000 		.4byte	.LASF130
+ 2110 085f 5C090000 		.4byte	.LASF130
  2111 0863 14       		.byte	0x14
  2112 0864 11       		.byte	0x11
  2113 0865 39       		.byte	0x39
@@ -2258,7 +2258,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 1
  2125 087d AD020000 		.4byte	0x2ad
  2126 0881 08       		.byte	0x8
  2127 0882 07       		.uleb128 0x7
- 2128 0883 A30A0000 		.4byte	.LASF133
+ 2128 0883 990A0000 		.4byte	.LASF133
  2129 0887 11       		.byte	0x11
  2130 0888 3E       		.byte	0x3e
  2131 0889 F6090000 		.4byte	0x9f6
@@ -2278,7 +2278,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 1
  2145 08a3 B3080000 		.4byte	0x8b3
  2146 08a7 05       		.uleb128 0x5
  2147 08a8 A1080000 		.4byte	0x8a1
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 39
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccDurPBS.s 			page 39
 
 
  2148 08ac 04       		.uleb128 0x4
@@ -2323,7 +2323,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 1
  2187 08fa B4000000 		.4byte	0xb4
  2188 08fe 04       		.byte	0x4
  2189 08ff 07       		.uleb128 0x7
- 2190 0900 6A0A0000 		.4byte	.LASF138
+ 2190 0900 600A0000 		.4byte	.LASF138
  2191 0904 12       		.byte	0x12
  2192 0905 37       		.byte	0x37
  2193 0906 B4000000 		.4byte	0xb4
@@ -2338,13 +2338,13 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 1
  2202 0918 40020000 		.4byte	.LASF140
  2203 091c 12       		.byte	0x12
  2204 091d 39       		.byte	0x39
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 40
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccDurPBS.s 			page 40
 
 
  2205 091e B4000000 		.4byte	0xb4
  2206 0922 08       		.byte	0x8
  2207 0923 07       		.uleb128 0x7
- 2208 0924 62070000 		.4byte	.LASF141
+ 2208 0924 58070000 		.4byte	.LASF141
  2209 0928 12       		.byte	0x12
  2210 0929 3A       		.byte	0x3a
  2211 092a B4000000 		.4byte	0xb4
@@ -2374,7 +2374,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 1
  2235 095a B4000000 		.4byte	0xb4
  2236 095e 0D       		.byte	0xd
  2237 095f 07       		.uleb128 0x7
- 2238 0960 AA090000 		.4byte	.LASF146
+ 2238 0960 A0090000 		.4byte	.LASF146
  2239 0964 12       		.byte	0x12
  2240 0965 3F       		.byte	0x3f
  2241 0966 B4000000 		.4byte	0xb4
@@ -2386,7 +2386,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 1
  2247 0972 B4000000 		.4byte	0xb4
  2248 0976 0F       		.byte	0xf
  2249 0977 07       		.uleb128 0x7
- 2250 0978 F3090000 		.4byte	.LASF148
+ 2250 0978 E9090000 		.4byte	.LASF148
  2251 097c 12       		.byte	0x12
  2252 097d 41       		.byte	0x41
  2253 097e B4000000 		.4byte	0xb4
@@ -2398,16 +2398,16 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 1
  2259 098a B4000000 		.4byte	0xb4
  2260 098e 11       		.byte	0x11
  2261 098f 07       		.uleb128 0x7
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 41
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccDurPBS.s 			page 41
 
 
- 2262 0990 87080000 		.4byte	.LASF150
+ 2262 0990 7D080000 		.4byte	.LASF150
  2263 0994 12       		.byte	0x12
  2264 0995 44       		.byte	0x44
  2265 0996 B4000000 		.4byte	0xb4
  2266 099a 12       		.byte	0x12
  2267 099b 07       		.uleb128 0x7
- 2268 099c 9E070000 		.4byte	.LASF151
+ 2268 099c 94070000 		.4byte	.LASF151
  2269 09a0 12       		.byte	0x12
  2270 09a1 45       		.byte	0x45
  2271 09a2 B4000000 		.4byte	0xb4
@@ -2419,7 +2419,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 1
  2277 09ae B4000000 		.4byte	0xb4
  2278 09b2 14       		.byte	0x14
  2279 09b3 07       		.uleb128 0x7
- 2280 09b4 0A080000 		.4byte	.LASF153
+ 2280 09b4 00080000 		.4byte	.LASF153
  2281 09b8 12       		.byte	0x12
  2282 09b9 48       		.byte	0x48
  2283 09ba B4000000 		.4byte	0xb4
@@ -2433,7 +2433,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 1
  2291 09ce 03       		.byte	0x3
  2292 09cf 00       		.byte	0
  2293 09d0 03       		.uleb128 0x3
- 2294 09d1 600A0000 		.4byte	.LASF154
+ 2294 09d1 560A0000 		.4byte	.LASF154
  2295 09d5 12       		.byte	0x12
  2296 09d6 49       		.byte	0x49
  2297 09d7 DF080000 		.4byte	0x8df
@@ -2445,7 +2445,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 1
  2303 09e6 6E       		.byte	0x6e
  2304 09e7 DB090000 		.4byte	0x9db
  2305 09eb 03       		.uleb128 0x3
- 2306 09ec E3090000 		.4byte	.LASF156
+ 2306 09ec D9090000 		.4byte	.LASF156
  2307 09f0 11       		.byte	0x11
  2308 09f1 34       		.byte	0x34
  2309 09f2 5E080000 		.4byte	0x85e
@@ -2453,12 +2453,12 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 1
  2311 09f7 04       		.byte	0x4
  2312 09f8 EB090000 		.4byte	0x9eb
  2313 09fc 03       		.uleb128 0x3
- 2314 09fd BE070000 		.4byte	.LASF157
+ 2314 09fd B4070000 		.4byte	.LASF157
  2315 0a01 13       		.byte	0x13
  2316 0a02 36       		.byte	0x36
  2317 0a03 070A0000 		.4byte	0xa07
  2318 0a07 0A       		.uleb128 0xa
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 42
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccDurPBS.s 			page 42
 
 
  2319 0a08 04       		.byte	0x4
@@ -2481,7 +2481,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 1
  2336 0a2e 4F       		.byte	0x4f
  2337 0a2f 580A0000 		.4byte	0xa58
  2338 0a33 07       		.uleb128 0x7
- 2339 0a34 C80A0000 		.4byte	.LASF160
+ 2339 0a34 BE0A0000 		.4byte	.LASF160
  2340 0a38 14       		.byte	0x14
  2341 0a39 50       		.byte	0x50
  2342 0a3a FC090000 		.4byte	0x9fc
@@ -2505,7 +2505,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 1
  2360 0a5b 44       		.byte	0x44
  2361 0a5c 770A0000 		.4byte	0xa77
  2362 0a60 1E       		.uleb128 0x1e
- 2363 0a61 9E0A0000 		.4byte	.LASF163
+ 2363 0a61 940A0000 		.4byte	.LASF163
  2364 0a65 14       		.byte	0x14
  2365 0a66 45       		.byte	0x45
  2366 0a67 980A0000 		.4byte	0xa98
@@ -2516,9 +2516,9 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 1
  2371 0a72 9E0A0000 		.4byte	0xa9e
  2372 0a76 00       		.byte	0
  2373 0a77 1F       		.uleb128 0x1f
- 2374 0a78 DA060000 		.4byte	.LASF178
+ 2374 0a78 0D070000 		.4byte	.LASF178
  2375 0a7c 08       		.byte	0x8
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 43
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccDurPBS.s 			page 43
 
 
  2376 0a7d 14       		.byte	0x14
@@ -2553,7 +2553,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 1
  2405 0ab1 580A0000 		.4byte	0xa58
  2406 0ab5 00       		.byte	0
  2407 0ab6 07       		.uleb128 0x7
- 2408 0ab7 43080000 		.4byte	.LASF166
+ 2408 0ab7 39080000 		.4byte	.LASF166
  2409 0abb 14       		.byte	0x14
  2410 0abc 48       		.byte	0x48
  2411 0abd 2C000000 		.4byte	0x2c
@@ -2578,43 +2578,43 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 1
  2430 0ae2 16       		.uleb128 0x16
  2431 0ae3 0C       		.byte	0xc
  2432 0ae4 15       		.byte	0x15
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 44
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccDurPBS.s 			page 44
 
 
  2433 0ae5 40       		.byte	0x40
  2434 0ae6 0F0B0000 		.4byte	0xb0f
  2435 0aea 07       		.uleb128 0x7
- 2436 0aeb 7D0A0000 		.4byte	.LASF169
+ 2436 0aeb 730A0000 		.4byte	.LASF169
  2437 0aef 15       		.byte	0x15
  2438 0af0 41       		.byte	0x41
  2439 0af1 DC0A0000 		.4byte	0xadc
  2440 0af5 00       		.byte	0
  2441 0af6 07       		.uleb128 0x7
- 2442 0af7 D4090000 		.4byte	.LASF170
+ 2442 0af7 CA090000 		.4byte	.LASF170
  2443 0afb 15       		.byte	0x15
  2444 0afc 42       		.byte	0x42
  2445 0afd 2C000000 		.4byte	0x2c
  2446 0b01 04       		.byte	0x4
  2447 0b02 07       		.uleb128 0x7
- 2448 0b03 B10A0000 		.4byte	.LASF171
+ 2448 0b03 A70A0000 		.4byte	.LASF171
  2449 0b07 15       		.byte	0x15
  2450 0b08 44       		.byte	0x44
  2451 0b09 FC090000 		.4byte	0x9fc
  2452 0b0d 08       		.byte	0x8
  2453 0b0e 00       		.byte	0
  2454 0b0f 03       		.uleb128 0x3
- 2455 0b10 EC080000 		.4byte	.LASF172
+ 2455 0b10 E2080000 		.4byte	.LASF172
  2456 0b14 15       		.byte	0x15
  2457 0b15 46       		.byte	0x46
  2458 0b16 E20A0000 		.4byte	0xae2
  2459 0b1a 06       		.uleb128 0x6
- 2460 0b1b 84090000 		.4byte	.LASF173
+ 2460 0b1b 7A090000 		.4byte	.LASF173
  2461 0b1f 10       		.byte	0x10
  2462 0b20 16       		.byte	0x16
  2463 0b21 3B       		.byte	0x3b
  2464 0b22 570B0000 		.4byte	0xb57
  2465 0b26 07       		.uleb128 0x7
- 2466 0b27 46090000 		.4byte	.LASF174
+ 2466 0b27 3C090000 		.4byte	.LASF174
  2467 0b2b 16       		.byte	0x16
  2468 0b2c 3C       		.byte	0x3c
  2469 0b2d A1080000 		.4byte	0x8a1
@@ -2626,19 +2626,19 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 1
  2475 0b39 5D0B0000 		.4byte	0xb5d
  2476 0b3d 04       		.byte	0x4
  2477 0b3e 07       		.uleb128 0x7
- 2478 0b3f 7D070000 		.4byte	.LASF176
+ 2478 0b3f 73070000 		.4byte	.LASF176
  2479 0b43 16       		.byte	0x16
  2480 0b44 3E       		.byte	0x3e
  2481 0b45 5D0B0000 		.4byte	0xb5d
  2482 0b49 08       		.byte	0x8
  2483 0b4a 07       		.uleb128 0x7
- 2484 0b4b AE080000 		.4byte	.LASF177
+ 2484 0b4b A4080000 		.4byte	.LASF177
  2485 0b4f 16       		.byte	0x16
  2486 0b50 3F       		.byte	0x3f
  2487 0b51 5D0B0000 		.4byte	0xb5d
  2488 0b55 0C       		.byte	0xc
  2489 0b56 00       		.byte	0
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 45
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccDurPBS.s 			page 45
 
 
  2490 0b57 0F       		.uleb128 0xf
@@ -2698,7 +2698,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 1
  2544 0bc1 DB0B0000 		.4byte	0xbdb
  2545 0bc5 20       		.uleb128 0x20
  2546 0bc6 776100   		.ascii	"wa\000"
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 46
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccDurPBS.s 			page 46
 
 
  2547 0bc9 16       		.byte	0x16
@@ -2718,7 +2718,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 1
  2561 0be9 D709     		.2byte	0x9d7
  2562 0beb 00       		.byte	0
  2563 0bec 14       		.uleb128 0x14
- 2564 0bed B6080000 		.4byte	.LASF181
+ 2564 0bed AC080000 		.4byte	.LASF181
  2565 0bf1 16       		.byte	0x16
  2566 0bf2 4F       		.byte	0x4f
  2567 0bf3 F70B0000 		.4byte	0xbf7
@@ -2734,7 +2734,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 1
  2577 0c0c 04       		.byte	0x4
  2578 0c0d 00       		.byte	0
  2579 0c0e 14       		.uleb128 0x14
- 2580 0c0f 05090000 		.4byte	.LASF183
+ 2580 0c0f FB080000 		.4byte	.LASF183
  2581 0c13 16       		.byte	0x16
  2582 0c14 A7       		.byte	0xa7
  2583 0c15 FE0B0000 		.4byte	0xbfe
@@ -2758,13 +2758,13 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 1
  2601 0c3e 14       		.uleb128 0x14
  2602 0c3f 05050000 		.4byte	.LASF185
  2603 0c43 16       		.byte	0x16
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 47
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccDurPBS.s 			page 47
 
 
  2604 0c44 AA       		.byte	0xaa
  2605 0c45 F70B0000 		.4byte	0xbf7
  2606 0c49 27       		.uleb128 0x27
- 2607 0c4a A8080000 		.4byte	.LASF186
+ 2607 0c4a 9E080000 		.4byte	.LASF186
  2608 0c4e 01       		.byte	0x1
  2609 0c4f 36       		.byte	0x36
  2610 0c50 1C0A0000 		.4byte	0xa1c
@@ -2788,7 +2788,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 1
  2628 0c77 03       		.byte	0x3
  2629 0c78 00000000 		.4byte	testdyn1
  2630 0c7c 29       		.uleb128 0x29
- 2631 0c7d D30A0000 		.4byte	.LASF188
+ 2631 0c7d C90A0000 		.4byte	.LASF188
  2632 0c81 01       		.byte	0x1
  2633 0c82 AF       		.byte	0xaf
  2634 0c83 570B0000 		.4byte	0xb57
@@ -2796,7 +2796,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 1
  2636 0c88 03       		.byte	0x3
  2637 0c89 00000000 		.4byte	testdyn2
  2638 0c8d 29       		.uleb128 0x29
- 2639 0c8e DC0A0000 		.4byte	.LASF189
+ 2639 0c8e D20A0000 		.4byte	.LASF189
  2640 0c92 01       		.byte	0x1
  2641 0c93 EF       		.byte	0xef
  2642 0c94 570B0000 		.4byte	0xb57
@@ -2818,10 +2818,10 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 1
  2658 0cb9 0F       		.uleb128 0xf
  2659 0cba B30C0000 		.4byte	0xcb3
  2660 0cbe 29       		.uleb128 0x29
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 48
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccDurPBS.s 			page 48
 
 
- 2661 0cbf BD0A0000 		.4byte	.LASF190
+ 2661 0cbf B30A0000 		.4byte	.LASF190
  2662 0cc3 01       		.byte	0x1
  2663 0cc4 FB       		.byte	0xfb
  2664 0cc5 AE0C0000 		.4byte	0xcae
@@ -2878,7 +2878,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 1
  2715 0d39 03       		.uleb128 0x3
  2716 0d3a 0A       		.byte	0xa
  2717 0d3b F801     		.2byte	0x1f8
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 49
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccDurPBS.s 			page 49
 
 
  2718 0d3d 30       		.uleb128 0x30
@@ -2938,7 +2938,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 1
  2772 0d9d 00       		.sleb128 0
  2773 0d9e 00       		.byte	0
  2774 0d9f 2F       		.uleb128 0x2f
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 50
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccDurPBS.s 			page 50
 
 
  2775 0da0 7C000000 		.4byte	.LVL62
@@ -2998,7 +2998,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 1
  2829 0e09 140E0000 		.4byte	0xe14
  2830 0e0d 30       		.uleb128 0x30
  2831 0e0e 01       		.uleb128 0x1
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 51
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccDurPBS.s 			page 51
 
 
  2832 0e0f 50       		.byte	0x50
@@ -3058,7 +3058,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 1
  2886 0e72 74       		.byte	0x74
  2887 0e73 00       		.sleb128 0
  2888 0e74 00       		.byte	0
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 52
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccDurPBS.s 			page 52
 
 
  2889 0e75 2F       		.uleb128 0x2f
@@ -3118,7 +3118,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 1
  2943 0edb 0E0F0000 		.4byte	0xf0e
  2944 0edf EA0E0000 		.4byte	0xeea
  2945 0ee3 30       		.uleb128 0x30
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 53
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccDurPBS.s 			page 53
 
 
  2946 0ee4 01       		.uleb128 0x1
@@ -3146,7 +3146,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 1
  2968 0f0c 01       		.byte	0x1
  2969 0f0d CC       		.byte	0xcc
  2970 0f0e 34       		.uleb128 0x34
- 2971 0f0f 250A0000 		.4byte	.LASF223
+ 2971 0f0f 1B0A0000 		.4byte	.LASF223
  2972 0f13 01       		.byte	0x1
  2973 0f14 C0       		.byte	0xc0
  2974 0f15 F70B0000 		.4byte	0xbf7
@@ -3178,7 +3178,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 1
  3000 0f58 44140000 		.4byte	0x1444
  3001 0f5c 32       		.uleb128 0x32
  3002 0f5d 22000000 		.4byte	.LVL50
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 54
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccDurPBS.s 			page 54
 
 
  3003 0f61 4F140000 		.4byte	0x144f
@@ -3187,7 +3187,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 1
  3006 0f6a 3B140000 		.4byte	0x143b
  3007 0f6e 00       		.byte	0
  3008 0f6f 2A       		.uleb128 0x2a
- 3009 0f70 DF080000 		.4byte	.LASF193
+ 3009 0f70 D5080000 		.4byte	.LASF193
  3010 0f74 01       		.byte	0x1
  3011 0f75 8F       		.byte	0x8f
  3012 0f76 00000000 		.4byte	.LFB223
@@ -3238,7 +3238,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 1
  3057 0fe0 30       		.uleb128 0x30
  3058 0fe1 01       		.uleb128 0x1
  3059 0fe2 50       		.byte	0x50
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 55
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccDurPBS.s 			page 55
 
 
  3060 0fe3 02       		.uleb128 0x2
@@ -3298,7 +3298,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 1
  3114 1034 57100000 		.4byte	0x1057
  3115 1038 30       		.uleb128 0x30
  3116 1039 01       		.uleb128 0x1
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 56
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccDurPBS.s 			page 56
 
 
  3117 103a 50       		.byte	0x50
@@ -3358,7 +3358,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 1
  3171 1088 65140000 		.4byte	0x1465
  3172 108c AF100000 		.4byte	0x10af
  3173 1090 30       		.uleb128 0x30
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 57
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccDurPBS.s 			page 57
 
 
  3174 1091 01       		.uleb128 0x1
@@ -3418,7 +3418,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 1
  3228 10e8 B8000000 		.4byte	.LVL35
  3229 10ec 86140000 		.4byte	0x1486
  3230 10f0 FB100000 		.4byte	0x10fb
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 58
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccDurPBS.s 			page 58
 
 
  3231 10f4 30       		.uleb128 0x30
@@ -3478,7 +3478,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 1
  3285 115d 77110000 		.4byte	0x1177
  3286 1161 30       		.uleb128 0x30
  3287 1162 01       		.uleb128 0x1
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 59
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccDurPBS.s 			page 59
 
 
  3288 1163 50       		.byte	0x50
@@ -3502,7 +3502,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 1
  3306 117c 3B140000 		.4byte	0x143b
  3307 1180 00       		.byte	0
  3308 1181 2A       		.uleb128 0x2a
- 3309 1182 9D090000 		.4byte	.LASF196
+ 3309 1182 93090000 		.4byte	.LASF196
  3310 1186 01       		.byte	0x1
  3311 1187 52       		.byte	0x52
  3312 1188 00000000 		.4byte	.LFB221
@@ -3538,7 +3538,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 1
  3342 11c3 55       		.byte	0x55
  3343 11c4 32010000 		.4byte	0x132
  3344 11c8 2D       		.uleb128 0x2d
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 60
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccDurPBS.s 			page 60
 
 
  3345 11c9 EC130000 		.4byte	0x13ec
@@ -3598,7 +3598,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 1
  3399 122d 53       		.byte	0x53
  3400 122e 05       		.uleb128 0x5
  3401 122f 03       		.byte	0x3
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 61
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccDurPBS.s 			page 61
 
 
  3402 1230 00000000 		.4byte	thread
@@ -3658,7 +3658,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 1
  3456 1288 00000000 		.4byte	.LANCHOR0
  3457 128c 30       		.uleb128 0x30
  3458 128d 01       		.uleb128 0x1
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 62
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccDurPBS.s 			page 62
 
 
  3459 128e 51       		.byte	0x51
@@ -3718,7 +3718,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 1
  3513 12e6 B2140000 		.4byte	0x14b2
  3514 12ea F5120000 		.4byte	0x12f5
  3515 12ee 30       		.uleb128 0x30
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 63
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccDurPBS.s 			page 63
 
 
  3516 12ef 01       		.uleb128 0x1
@@ -3778,7 +3778,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 1
  3570 134f 0F140000 		.4byte	0x140f
  3571 1353 5D130000 		.4byte	0x135d
  3572 1357 30       		.uleb128 0x30
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 64
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccDurPBS.s 			page 64
 
 
  3573 1358 01       		.uleb128 0x1
@@ -3831,14 +3831,14 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 1
  3620 13b2 3B140000 		.4byte	0x143b
  3621 13b6 00       		.byte	0
  3622 13b7 2A       		.uleb128 0x2a
- 3623 13b8 3F090000 		.4byte	.LASF198
+ 3623 13b8 35090000 		.4byte	.LASF198
  3624 13bc 01       		.byte	0x1
  3625 13bd 47       		.byte	0x47
  3626 13be 00000000 		.4byte	.LFB219
  3627 13c2 28000000 		.4byte	.LFE219-.LFB219
  3628 13c6 01       		.uleb128 0x1
  3629 13c7 9C       		.byte	0x9c
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 65
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccDurPBS.s 			page 65
 
 
  3630 13c8 EC130000 		.4byte	0x13ec
@@ -3862,24 +3862,24 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 1
  3648 13f3 32010000 		.4byte	0x132
  3649 13f7 03       		.byte	0x3
  3650 13f8 38       		.uleb128 0x38
- 3651 13f9 6F090000 		.4byte	.LASF200
+ 3651 13f9 65090000 		.4byte	.LASF200
  3652 13fd 02       		.byte	0x2
  3653 13fe AE       		.byte	0xae
  3654 13ff AD020000 		.4byte	0x2ad
  3655 1403 03       		.byte	0x3
  3656 1404 39       		.uleb128 0x39
- 3657 1405 AA070000 		.4byte	.LASF201
- 3658 1409 AA070000 		.4byte	.LASF201
+ 3657 1405 A0070000 		.4byte	.LASF201
+ 3658 1409 A0070000 		.4byte	.LASF201
  3659 140d 17       		.byte	0x17
  3660 140e 4D       		.byte	0x4d
  3661 140f 39       		.uleb128 0x39
- 3662 1410 2D0A0000 		.4byte	.LASF202
- 3663 1414 2D0A0000 		.4byte	.LASF202
+ 3662 1410 230A0000 		.4byte	.LASF202
+ 3663 1414 230A0000 		.4byte	.LASF202
  3664 1418 16       		.byte	0x16
  3665 1419 5A       		.byte	0x5a
  3666 141a 39       		.uleb128 0x39
- 3667 141b 02070000 		.4byte	.LASF203
- 3668 141f 02070000 		.4byte	.LASF203
+ 3667 141b 35070000 		.4byte	.LASF203
+ 3668 141f 35070000 		.4byte	.LASF203
  3669 1423 17       		.byte	0x17
  3670 1424 4A       		.byte	0x4a
  3671 1425 39       		.uleb128 0x39
@@ -3898,7 +3898,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 1
  3684 1444 39       		.uleb128 0x39
  3685 1445 85020000 		.4byte	.LASF206
  3686 1449 85020000 		.4byte	.LASF206
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 66
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccDurPBS.s 			page 66
 
 
  3687 144d 12       		.byte	0x12
@@ -3909,8 +3909,8 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 1
  3692 1458 12       		.byte	0x12
  3693 1459 70       		.byte	0x70
  3694 145a 39       		.uleb128 0x39
- 3695 145b FA080000 		.4byte	.LASF208
- 3696 145f FA080000 		.4byte	.LASF208
+ 3695 145b F0080000 		.4byte	.LASF208
+ 3696 145f F0080000 		.4byte	.LASF208
  3697 1463 15       		.byte	0x15
  3698 1464 71       		.byte	0x71
  3699 1465 39       		.uleb128 0x39
@@ -3924,8 +3924,8 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 1
  3707 1479 16       		.byte	0x16
  3708 147a 5E       		.byte	0x5e
  3709 147b 39       		.uleb128 0x39
- 3710 147c B7090000 		.4byte	.LASF211
- 3711 1480 B7090000 		.4byte	.LASF211
+ 3710 147c AD090000 		.4byte	.LASF211
+ 3711 1480 AD090000 		.4byte	.LASF211
  3712 1484 16       		.byte	0x16
  3713 1485 5B       		.byte	0x5b
  3714 1486 39       		.uleb128 0x39
@@ -3949,8 +3949,8 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 1
  3732 14b0 14       		.byte	0x14
  3733 14b1 67       		.byte	0x67
  3734 14b2 39       		.uleb128 0x39
- 3735 14b3 E50A0000 		.4byte	.LASF216
- 3736 14b7 E50A0000 		.4byte	.LASF216
+ 3735 14b3 DB0A0000 		.4byte	.LASF216
+ 3736 14b7 DB0A0000 		.4byte	.LASF216
  3737 14bb 14       		.byte	0x14
  3738 14bc 68       		.byte	0x68
  3739 14bd 39       		.uleb128 0x39
@@ -3958,7 +3958,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 1
  3741 14c2 29030000 		.4byte	.LASF217
  3742 14c6 14       		.byte	0x14
  3743 14c7 66       		.byte	0x66
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 67
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccDurPBS.s 			page 67
 
 
  3744 14c8 39       		.uleb128 0x39
@@ -4018,7 +4018,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 1
  3798 002e 0B       		.uleb128 0xb
  3799 002f 0B       		.uleb128 0xb
  3800 0030 3E       		.uleb128 0x3e
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 68
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccDurPBS.s 			page 68
 
 
  3801 0031 0B       		.uleb128 0xb
@@ -4078,7 +4078,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 1
  3855 0067 0B       		.uleb128 0xb
  3856 0068 00       		.byte	0
  3857 0069 00       		.byte	0
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 69
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccDurPBS.s 			page 69
 
 
  3858 006a 09       		.uleb128 0x9
@@ -4138,7 +4138,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 1
  3912 00a0 00       		.byte	0
  3913 00a1 0E       		.uleb128 0xe
  3914 00a2 0F       		.uleb128 0xf
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 70
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccDurPBS.s 			page 70
 
 
  3915 00a3 00       		.byte	0
@@ -4198,7 +4198,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 1
  3969 00d9 05       		.uleb128 0x5
  3970 00da 00       		.byte	0
  3971 00db 00       		.byte	0
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 71
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccDurPBS.s 			page 71
 
 
  3972 00dc 13       		.uleb128 0x13
@@ -4258,7 +4258,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 1
  4026 0112 3A       		.uleb128 0x3a
  4027 0113 0B       		.uleb128 0xb
  4028 0114 3B       		.uleb128 0x3b
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 72
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccDurPBS.s 			page 72
 
 
  4029 0115 0B       		.uleb128 0xb
@@ -4318,7 +4318,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 1
  4083 014b 3A       		.uleb128 0x3a
  4084 014c 0B       		.uleb128 0xb
  4085 014d 3B       		.uleb128 0x3b
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 73
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccDurPBS.s 			page 73
 
 
  4086 014e 05       		.uleb128 0x5
@@ -4378,7 +4378,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 1
  4140 0184 0B       		.uleb128 0xb
  4141 0185 3B       		.uleb128 0x3b
  4142 0186 0B       		.uleb128 0xb
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 74
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccDurPBS.s 			page 74
 
 
  4143 0187 01       		.uleb128 0x1
@@ -4438,7 +4438,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 1
  4197 01bd 24       		.uleb128 0x24
  4198 01be 21       		.uleb128 0x21
  4199 01bf 00       		.byte	0
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 75
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccDurPBS.s 			page 75
 
 
  4200 01c0 49       		.uleb128 0x49
@@ -4498,7 +4498,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 1
  4254 01f6 02       		.uleb128 0x2
  4255 01f7 18       		.uleb128 0x18
  4256 01f8 00       		.byte	0
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 76
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccDurPBS.s 			page 76
 
 
  4257 01f9 00       		.byte	0
@@ -4558,7 +4558,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 1
  4311 0230 00       		.byte	0
  4312 0231 00       		.byte	0
  4313 0232 2C       		.uleb128 0x2c
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 77
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccDurPBS.s 			page 77
 
 
  4314 0233 34       		.uleb128 0x34
@@ -4618,7 +4618,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 1
  4368 026b 00       		.byte	0
  4369 026c 30       		.uleb128 0x30
  4370 026d 8A8201   		.uleb128 0x410a
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 78
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccDurPBS.s 			page 78
 
 
  4371 0270 00       		.byte	0
@@ -4678,7 +4678,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 1
  4425 02ac 13       		.uleb128 0x13
  4426 02ad 11       		.uleb128 0x11
  4427 02ae 01       		.uleb128 0x1
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 79
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccDurPBS.s 			page 79
 
 
  4428 02af 12       		.uleb128 0x12
@@ -4738,7 +4738,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 1
  4482 02e9 03       		.uleb128 0x3
  4483 02ea 0E       		.uleb128 0xe
  4484 02eb 3A       		.uleb128 0x3a
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 80
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccDurPBS.s 			page 80
 
 
  4485 02ec 0B       		.uleb128 0xb
@@ -4798,7 +4798,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 1
  4539 001a 5C010000 		.4byte	.LFE226
  4540 001e 0100     		.2byte	0x1
  4541 0020 54       		.byte	0x54
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 81
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccDurPBS.s 			page 81
 
 
  4542 0021 00000000 		.4byte	0
@@ -4858,7 +4858,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 1
  4596 00aa 74       		.byte	0x74
  4597 00ab 00       		.sleb128 0
  4598 00ac 1C       		.byte	0x1c
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 82
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccDurPBS.s 			page 82
 
 
  4599 00ad 9F       		.byte	0x9f
@@ -4918,7 +4918,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 1
  4653 000e 0000     		.2byte	0
  4654 0010 00000000 		.4byte	.LFB221
  4655 0014 08010000 		.4byte	.LFE221-.LFB221
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 83
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccDurPBS.s 			page 83
 
 
  4656 0018 00000000 		.4byte	.LFB219
@@ -4978,7 +4978,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 1
  4710 0000 BB050000 		.section	.debug_str,"MS",%progbits,1
  4710      02003704 
  4710      00000201 
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 84
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccDurPBS.s 			page 84
 
 
  4710      FB0E0D00 
@@ -5038,7 +5038,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 1
  4735      6E203235 
  4735      35323034 
  4736 00db 61726420 		.ascii	"ard -mfpu=fpv4-sp-d16 -mno-thumb-interwork -mthumb "
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 85
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccDurPBS.s 			page 85
 
 
  4736      2D6D6670 
@@ -5098,7 +5098,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 1
  4756      616C5F74 
  4756      696D6572 
  4756      735F6C69 
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 86
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccDurPBS.s 			page 86
 
 
  4757              	.LASF199:
@@ -5158,7 +5158,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 1
  4783              	.LASF5:
  4784 029f 5F5F7569 		.ascii	"__uint8_t\000"
  4784      6E74385F 
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 87
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccDurPBS.s 			page 87
 
 
  4784      7400
@@ -5218,7 +5218,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 1
  4812      61704F62 
  4812      6A656374 
  4812      496E6974 
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 88
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccDurPBS.s 			page 88
 
 
  4812      00
@@ -5278,7 +5278,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 1
  4839      66666572 
  4839      00
  4840              	.LASF66:
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 89
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccDurPBS.s 			page 89
 
 
  4841 03ec 725F6E65 		.ascii	"r_newer\000"
@@ -5338,7 +5338,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 1
  4869 047b 74657374 		.ascii	"testdyn1\000"
  4869      64796E31 
  4869      00
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 90
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccDurPBS.s 			page 90
 
 
  4870              	.LASF143:
@@ -5398,7 +5398,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 1
  4898              	.LASF218:
  4899 0515 74657374 		.ascii	"test_emit_token\000"
  4899      5F656D69 
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 91
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccDurPBS.s 			page 91
 
 
  4899      745F746F 
@@ -5458,7 +5458,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 1
  4924              	.LASF70:
  4925 05b9 76697274 		.ascii	"virtual_timer_t\000"
  4925      75616C5F 
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 92
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccDurPBS.s 			page 92
 
 
  4925      74696D65 
@@ -5518,7 +5518,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 1
  4949      6720696E 
  4949      7400
  4950              	.LASF139:
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 93
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccDurPBS.s 			page 93
 
 
  4951 065f 63685F76 		.ascii	"ch_version\000"
@@ -5556,471 +5556,469 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 1
  4969      52784275 
  4969      66666572 
  4969      00
- 4970              	.LASF47:
- 4971 06be 705F7761 		.ascii	"p_waiting\000"
- 4971      6974696E 
- 4971      6700
- 4972              	.LASF101:
- 4973 06c8 73655F77 		.ascii	"se_wtobjp\000"
- 4973      746F626A 
- 4973      7000
- 4974              	.LASF43:
- 4975 06d2 705F666C 		.ascii	"p_flags\000"
- 4975      61677300 
- 4976              	.LASF178:
- 4977 06da 68656170 		.ascii	"heap_header\000"
- 4977      5F686561 
- 4977      64657200 
- 4978              	.LASF92:
- 4979 06e6 69646C65 		.ascii	"idle_thread_wa\000"
- 4979      5F746872 
- 4979      6561645F 
- 4979      776100
- 4980              	.LASF0:
- 4981 06f5 756E7369 		.ascii	"unsigned int\000"
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 94
+ 4970              	.LASF221:
+ 4971 06be 433A5C55 		.ascii	"C:\\Users\\osour\\Desktop\\Robotique\\2Puck\\2Puck\\"
+ 4971      73657273 
+ 4971      5C6F736F 
+ 4971      75725C44 
+ 4971      65736B74 
+ 4972 06eb 32507563 		.ascii	"2Puck\000"
+ 4972      6B00
+ 4973              	.LASF47:
+ 4974 06f1 705F7761 		.ascii	"p_waiting\000"
+ 4974      6974696E 
+ 4974      6700
+ 4975              	.LASF101:
+ 4976 06fb 73655F77 		.ascii	"se_wtobjp\000"
+ 4976      746F626A 
+ 4976      7000
+ 4977              	.LASF43:
+ 4978 0705 705F666C 		.ascii	"p_flags\000"
+ 4978      61677300 
+ 4979              	.LASF178:
+ 4980 070d 68656170 		.ascii	"heap_header\000"
+ 4980      5F686561 
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccDurPBS.s 			page 94
 
 
- 4981      676E6564 
- 4981      20696E74 
- 4981      00
- 4982              	.LASF203:
- 4983 0702 63685468 		.ascii	"chThdAddRef\000"
- 4983      64416464 
- 4983      52656600 
- 4984              	.LASF21:
- 4985 070e 7274636E 		.ascii	"rtcnt_t\000"
- 4985      745F7400 
- 4986              	.LASF53:
- 4987 0716 705F6D70 		.ascii	"p_mpool\000"
- 4987      6F6F6C00 
- 4988              	.LASF44:
- 4989 071e 705F7265 		.ascii	"p_refs\000"
- 4989      667300
- 4990              	.LASF221:
- 4991 0725 433A5C55 		.ascii	"C:\\Users\\osour\\Desktop\\Robotique\\Projet\\Code\\"
- 4991      73657273 
- 4991      5C6F736F 
- 4991      75725C44 
- 4991      65736B74 
- 4992 0752 50726F6A 		.ascii	"Project\\Project\000"
- 4992      6563745C 
- 4992      50726F6A 
- 4992      65637400 
+ 4980      64657200 
+ 4981              	.LASF92:
+ 4982 0719 69646C65 		.ascii	"idle_thread_wa\000"
+ 4982      5F746872 
+ 4982      6561645F 
+ 4982      776100
+ 4983              	.LASF0:
+ 4984 0728 756E7369 		.ascii	"unsigned int\000"
+ 4984      676E6564 
+ 4984      20696E74 
+ 4984      00
+ 4985              	.LASF203:
+ 4986 0735 63685468 		.ascii	"chThdAddRef\000"
+ 4986      64416464 
+ 4986      52656600 
+ 4987              	.LASF21:
+ 4988 0741 7274636E 		.ascii	"rtcnt_t\000"
+ 4988      745F7400 
+ 4989              	.LASF53:
+ 4990 0749 705F6D70 		.ascii	"p_mpool\000"
+ 4990      6F6F6C00 
+ 4991              	.LASF44:
+ 4992 0751 705F7265 		.ascii	"p_refs\000"
+ 4992      667300
  4993              	.LASF141:
- 4994 0762 63685F74 		.ascii	"ch_timesize\000"
+ 4994 0758 63685F74 		.ascii	"ch_timesize\000"
  4994      696D6573 
  4994      697A6500 
  4995              	.LASF119:
- 4996 076e 6B65726E 		.ascii	"kernel_stats_t\000"
+ 4996 0764 6B65726E 		.ascii	"kernel_stats_t\000"
  4996      656C5F73 
  4996      74617473 
  4996      5F7400
  4997              	.LASF176:
- 4998 077d 74656172 		.ascii	"teardown\000"
+ 4998 0773 74656172 		.ascii	"teardown\000"
  4998      646F776E 
  4998      00
  4999              	.LASF108:
- 5000 0786 6F666673 		.ascii	"offset\000"
+ 5000 077c 6F666673 		.ascii	"offset\000"
  5000      657400
  5001              	.LASF106:
- 5002 078d 74625F62 		.ascii	"tb_buffer\000"
+ 5002 0783 74625F62 		.ascii	"tb_buffer\000"
  5002      75666665 
  5002      7200
  5003              	.LASF46:
- 5004 0797 705F7469 		.ascii	"p_time\000"
+ 5004 078d 705F7469 		.ascii	"p_time\000"
  5004      6D6500
  5005              	.LASF151:
- 5006 079e 63665F6F 		.ascii	"cf_off_refs\000"
+ 5006 0794 63665F6F 		.ascii	"cf_off_refs\000"
  5006      66665F72 
  5006      65667300 
  5007              	.LASF201:
- 5008 07aa 63685468 		.ascii	"chThdCreateFromHeap\000"
+ 5008 07a0 63685468 		.ascii	"chThdCreateFromHeap\000"
  5008      64437265 
  5008      61746546 
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 95
-
-
  5008      726F6D48 
  5008      65617000 
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccDurPBS.s 			page 95
+
+
  5009              	.LASF157:
- 5010 07be 6D656D67 		.ascii	"memgetfunc_t\000"
+ 5010 07b4 6D656D67 		.ascii	"memgetfunc_t\000"
  5010      65746675 
  5010      6E635F74 
  5010      00
  5011              	.LASF33:
- 5012 07cb 74687265 		.ascii	"thread_t\000"
+ 5012 07c1 74687265 		.ascii	"thread_t\000"
  5012      61645F74 
  5012      00
  5013              	.LASF2:
- 5014 07d4 6C6F6E67 		.ascii	"long double\000"
+ 5014 07ca 6C6F6E67 		.ascii	"long double\000"
  5014      20646F75 
  5014      626C6500 
  5015              	.LASF55:
- 5016 07e0 74687265 		.ascii	"thread_reference_t\000"
+ 5016 07d6 74687265 		.ascii	"thread_reference_t\000"
  5016      61645F72 
  5016      65666572 
  5016      656E6365 
  5016      5F7400
  5017              	.LASF52:
- 5018 07f3 705F7265 		.ascii	"p_realprio\000"
+ 5018 07e9 705F7265 		.ascii	"p_realprio\000"
  5018      616C7072 
  5018      696F00
  5019              	.LASF98:
- 5020 07fe 706F7274 		.ascii	"port_intctx\000"
+ 5020 07f4 706F7274 		.ascii	"port_intctx\000"
  5020      5F696E74 
  5020      63747800 
  5021              	.LASF153:
- 5022 080a 63665F6F 		.ascii	"cf_off_time\000"
+ 5022 0800 63665F6F 		.ascii	"cf_off_time\000"
  5022      66665F74 
  5022      696D6500 
  5023              	.LASF74:
- 5024 0816 76745F64 		.ascii	"vt_delta\000"
+ 5024 080c 76745F64 		.ascii	"vt_delta\000"
  5024      656C7461 
  5024      00
  5025              	.LASF71:
- 5026 081f 63685F76 		.ascii	"ch_virtual_timer\000"
+ 5026 0815 63685F76 		.ascii	"ch_virtual_timer\000"
  5026      69727475 
  5026      616C5F74 
  5026      696D6572 
  5026      00
  5027              	.LASF129:
- 5028 0830 735F636E 		.ascii	"s_cnt\000"
+ 5028 0826 735F636E 		.ascii	"s_cnt\000"
  5028      7400
  5029              	.LASF91:
- 5030 0836 6B65726E 		.ascii	"kernel_stats\000"
+ 5030 082c 6B65726E 		.ascii	"kernel_stats\000"
  5030      656C5F73 
  5030      74617473 
  5030      00
  5031              	.LASF166:
- 5032 0843 73697A65 		.ascii	"size\000"
+ 5032 0839 73697A65 		.ascii	"size\000"
  5032      00
  5033              	.LASF15:
- 5034 0848 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 5034 083e 6C6F6E67 		.ascii	"long long unsigned int\000"
  5034      206C6F6E 
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 96
-
-
  5034      6720756E 
  5034      7369676E 
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccDurPBS.s 			page 96
+
+
  5034      65642069 
  5035              	.LASF39:
- 5036 085f 705F6F6C 		.ascii	"p_older\000"
+ 5036 0855 705F6F6C 		.ascii	"p_older\000"
  5036      64657200 
  5037              	.LASF17:
- 5038 0867 75696E74 		.ascii	"uint16_t\000"
+ 5038 085d 75696E74 		.ascii	"uint16_t\000"
  5038      31365F74 
  5038      00
  5039              	.LASF28:
- 5040 0870 6D73675F 		.ascii	"msg_t\000"
+ 5040 0866 6D73675F 		.ascii	"msg_t\000"
  5040      7400
  5041              	.LASF60:
- 5042 0876 63685F74 		.ascii	"ch_threads_queue\000"
+ 5042 086c 63685F74 		.ascii	"ch_threads_queue\000"
  5042      68726561 
  5042      64735F71 
  5042      75657565 
  5042      00
  5043              	.LASF150:
- 5044 0887 63665F6F 		.ascii	"cf_off_flags\000"
+ 5044 087d 63665F6F 		.ascii	"cf_off_flags\000"
  5044      66665F66 
  5044      6C616773 
  5044      00
  5045              	.LASF26:
- 5046 0894 74736C69 		.ascii	"tslices_t\000"
+ 5046 088a 74736C69 		.ascii	"tslices_t\000"
  5046      6365735F 
  5046      7400
  5047              	.LASF68:
- 5048 089e 725F6375 		.ascii	"r_current\000"
+ 5048 0894 725F6375 		.ascii	"r_current\000"
  5048      7272656E 
  5048      7400
  5049              	.LASF186:
- 5050 08a8 68656170 		.ascii	"heap1\000"
+ 5050 089e 68656170 		.ascii	"heap1\000"
  5050      3100
  5051              	.LASF177:
- 5052 08ae 65786563 		.ascii	"execute\000"
+ 5052 08a4 65786563 		.ascii	"execute\000"
  5052      75746500 
  5053              	.LASF181:
- 5054 08b6 74657374 		.ascii	"test_global_fail\000"
+ 5054 08ac 74657374 		.ascii	"test_global_fail\000"
  5054      5F676C6F 
  5054      62616C5F 
  5054      6661696C 
  5054      00
  5055              	.LASF90:
- 5056 08c7 6D61696E 		.ascii	"mainthread\000"
+ 5056 08bd 6D61696E 		.ascii	"mainthread\000"
  5056      74687265 
  5056      616400
  5057              	.LASF110:
- 5058 08d2 62657374 		.ascii	"best\000"
+ 5058 08c8 62657374 		.ascii	"best\000"
  5058      00
  5059              	.LASF63:
- 5060 08d7 725F7175 		.ascii	"r_queue\000"
+ 5060 08cd 725F7175 		.ascii	"r_queue\000"
  5060      65756500 
  5061              	.LASF193:
- 5062 08df 64796E32 		.ascii	"dyn2_execute\000"
+ 5062 08d5 64796E32 		.ascii	"dyn2_execute\000"
  5062      5F657865 
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 97
-
-
  5062      63757465 
  5062      00
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccDurPBS.s 			page 97
+
+
  5063              	.LASF172:
- 5064 08ec 6D656D6F 		.ascii	"memory_pool_t\000"
+ 5064 08e2 6D656D6F 		.ascii	"memory_pool_t\000"
  5064      72795F70 
  5064      6F6F6C5F 
  5064      7400
  5065              	.LASF208:
- 5066 08fa 6368506F 		.ascii	"chPoolFree\000"
+ 5066 08f0 6368506F 		.ascii	"chPoolFree\000"
  5066      6F6C4672 
  5066      656500
  5067              	.LASF183:
- 5068 0905 74687265 		.ascii	"threads\000"
+ 5068 08fb 74687265 		.ascii	"threads\000"
  5068      61647300 
  5069              	.LASF88:
- 5070 090d 726C6973 		.ascii	"rlist\000"
+ 5070 0903 726C6973 		.ascii	"rlist\000"
  5070      7400
  5071              	.LASF23:
- 5072 0913 746D6F64 		.ascii	"tmode_t\000"
+ 5072 0909 746D6F64 		.ascii	"tmode_t\000"
  5072      655F7400 
  5073              	.LASF79:
- 5074 091b 76745F73 		.ascii	"vt_systime\000"
+ 5074 0911 76745F73 		.ascii	"vt_systime\000"
  5074      79737469 
  5074      6D6500
  5075              	.LASF67:
- 5076 0926 725F6F6C 		.ascii	"r_older\000"
+ 5076 091c 725F6F6C 		.ascii	"r_older\000"
  5076      64657200 
  5077              	.LASF109:
- 5078 092e 746D5F63 		.ascii	"tm_calibration_t\000"
+ 5078 0924 746D5F63 		.ascii	"tm_calibration_t\000"
  5078      616C6962 
  5078      72617469 
  5078      6F6E5F74 
  5078      00
  5079              	.LASF198:
- 5080 093f 74687265 		.ascii	"thread\000"
+ 5080 0935 74687265 		.ascii	"thread\000"
  5080      616400
  5081              	.LASF174:
- 5082 0946 6E616D65 		.ascii	"name\000"
+ 5082 093c 6E616D65 		.ascii	"name\000"
  5082      00
  5083              	.LASF128:
- 5084 094b 735F7175 		.ascii	"s_queue\000"
+ 5084 0941 735F7175 		.ascii	"s_queue\000"
  5084      65756500 
  5085              	.LASF7:
- 5086 0953 73686F72 		.ascii	"short int\000"
+ 5086 0949 73686F72 		.ascii	"short int\000"
  5086      7420696E 
  5086      7400
  5087              	.LASF20:
- 5088 095d 75696E74 		.ascii	"uint64_t\000"
+ 5088 0953 75696E74 		.ascii	"uint64_t\000"
  5088      36345F74 
  5088      00
  5089              	.LASF130:
- 5090 0966 63685F6D 		.ascii	"ch_mutex\000"
+ 5090 095c 63685F6D 		.ascii	"ch_mutex\000"
  5090      75746578 
  5090      00
  5091              	.LASF200:
- 5092 096f 63685468 		.ascii	"chThdGetSelfX\000"
+ 5092 0965 63685468 		.ascii	"chThdGetSelfX\000"
  5092      64476574 
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 98
-
-
  5092      53656C66 
  5092      5800
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccDurPBS.s 			page 98
+
+
  5093              	.LASF64:
- 5094 097d 725F7072 		.ascii	"r_prio\000"
+ 5094 0973 725F7072 		.ascii	"r_prio\000"
  5094      696F00
  5095              	.LASF173:
- 5096 0984 74657374 		.ascii	"testcase\000"
+ 5096 097a 74657374 		.ascii	"testcase\000"
  5096      63617365 
  5096      00
  5097              	.LASF81:
- 5098 098d 63685F73 		.ascii	"ch_system_debug\000"
+ 5098 0983 63685F73 		.ascii	"ch_system_debug\000"
  5098      79737465 
  5098      6D5F6465 
  5098      62756700 
  5099              	.LASF196:
- 5100 099d 64796E31 		.ascii	"dyn1_execute\000"
+ 5100 0993 64796E31 		.ascii	"dyn1_execute\000"
  5100      5F657865 
  5100      63757465 
  5100      00
  5101              	.LASF146:
- 5102 09aa 63665F6F 		.ascii	"cf_off_older\000"
+ 5102 09a0 63665F6F 		.ascii	"cf_off_older\000"
  5102      66665F6F 
  5102      6C646572 
  5102      00
  5103              	.LASF211:
- 5104 09b7 5F746573 		.ascii	"_test_assert_sequence\000"
+ 5104 09ad 5F746573 		.ascii	"_test_assert_sequence\000"
  5104      745F6173 
  5104      73657274 
  5104      5F736571 
  5104      75656E63 
  5105              	.LASF89:
- 5106 09cd 76746C69 		.ascii	"vtlist\000"
+ 5106 09c3 76746C69 		.ascii	"vtlist\000"
  5106      737400
  5107              	.LASF170:
- 5108 09d4 6D705F6F 		.ascii	"mp_object_size\000"
+ 5108 09ca 6D705F6F 		.ascii	"mp_object_size\000"
  5108      626A6563 
  5108      745F7369 
  5108      7A6500
  5109              	.LASF156:
- 5110 09e3 6D757465 		.ascii	"mutex_t\000"
+ 5110 09d9 6D757465 		.ascii	"mutex_t\000"
  5110      785F7400 
  5111              	.LASF25:
- 5112 09eb 74726566 		.ascii	"trefs_t\000"
+ 5112 09e1 74726566 		.ascii	"trefs_t\000"
  5112      735F7400 
  5113              	.LASF148:
- 5114 09f3 63665F6F 		.ascii	"cf_off_stklimit\000"
+ 5114 09e9 63665F6F 		.ascii	"cf_off_stklimit\000"
  5114      66665F73 
  5114      746B6C69 
  5114      6D697400 
  5115              	.LASF56:
- 5116 0a03 74687265 		.ascii	"threads_list_t\000"
+ 5116 09f9 74687265 		.ascii	"threads_list_t\000"
  5116      6164735F 
  5116      6C697374 
  5116      5F7400
  5117              	.LASF87:
- 5118 0a12 63685F73 		.ascii	"ch_system\000"
+ 5118 0a08 63685F73 		.ascii	"ch_system\000"
  5118      79737465 
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 99
-
-
  5118      6D00
  5119              	.LASF19:
- 5120 0a1c 75696E74 		.ascii	"uint32_t\000"
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccDurPBS.s 			page 99
+
+
+ 5120 0a12 75696E74 		.ascii	"uint32_t\000"
  5120      33325F74 
  5120      00
  5121              	.LASF223:
- 5122 0a25 72656766 		.ascii	"regfind\000"
+ 5122 0a1b 72656766 		.ascii	"regfind\000"
  5122      696E6400 
  5123              	.LASF202:
- 5124 0a2d 5F746573 		.ascii	"_test_assert\000"
+ 5124 0a23 5F746573 		.ascii	"_test_assert\000"
  5124      745F6173 
  5124      73657274 
  5124      00
  5125              	.LASF120:
- 5126 0a3a 7264796D 		.ascii	"rdymsg\000"
+ 5126 0a30 7264796D 		.ascii	"rdymsg\000"
  5126      736700
  5127              	.LASF9:
- 5128 0a41 73686F72 		.ascii	"short unsigned int\000"
+ 5128 0a37 73686F72 		.ascii	"short unsigned int\000"
  5128      7420756E 
  5128      7369676E 
  5128      65642069 
  5128      6E7400
  5129              	.LASF86:
- 5130 0a54 63685F73 		.ascii	"ch_system_t\000"
+ 5130 0a4a 63685F73 		.ascii	"ch_system_t\000"
  5130      79737465 
  5130      6D5F7400 
  5131              	.LASF154:
- 5132 0a60 63686465 		.ascii	"chdebug_t\000"
+ 5132 0a56 63686465 		.ascii	"chdebug_t\000"
  5132      6275675F 
  5132      7400
  5133              	.LASF138:
- 5134 0a6a 63685F73 		.ascii	"ch_size\000"
+ 5134 0a60 63685F73 		.ascii	"ch_size\000"
  5134      697A6500 
  5135              	.LASF41:
- 5136 0a72 705F7374 		.ascii	"p_stklimit\000"
+ 5136 0a68 705F7374 		.ascii	"p_stklimit\000"
  5136      6B6C696D 
  5136      697400
  5137              	.LASF169:
- 5138 0a7d 6D705F6E 		.ascii	"mp_next\000"
+ 5138 0a73 6D705F6E 		.ascii	"mp_next\000"
  5138      65787400 
  5139              	.LASF10:
- 5140 0a85 5F5F696E 		.ascii	"__int32_t\000"
+ 5140 0a7b 5F5F696E 		.ascii	"__int32_t\000"
  5140      7433325F 
  5140      7400
  5141              	.LASF99:
- 5142 0a8f 73655F74 		.ascii	"se_time\000"
+ 5142 0a85 73655F74 		.ascii	"se_time\000"
  5142      696D6500 
  5143              	.LASF40:
- 5144 0a97 705F6E61 		.ascii	"p_name\000"
+ 5144 0a8d 705F6E61 		.ascii	"p_name\000"
  5144      6D6500
  5145              	.LASF163:
- 5146 0a9e 6E657874 		.ascii	"next\000"
+ 5146 0a94 6E657874 		.ascii	"next\000"
  5146      00
  5147              	.LASF133:
- 5148 0aa3 6D5F6E65 		.ascii	"m_next\000"
+ 5148 0a99 6D5F6E65 		.ascii	"m_next\000"
  5148      787400
  5149              	.LASF105:
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 100
-
-
- 5150 0aaa 74625F70 		.ascii	"tb_ptr\000"
+ 5150 0aa0 74625F70 		.ascii	"tb_ptr\000"
  5150      747200
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccDurPBS.s 			page 100
+
+
  5151              	.LASF171:
- 5152 0ab1 6D705F70 		.ascii	"mp_provider\000"
+ 5152 0aa7 6D705F70 		.ascii	"mp_provider\000"
  5152      726F7669 
  5152      64657200 
  5153              	.LASF190:
- 5154 0abd 70617474 		.ascii	"patterndyn\000"
+ 5154 0ab3 70617474 		.ascii	"patterndyn\000"
  5154      65726E64 
  5154      796E00
  5155              	.LASF160:
- 5156 0ac8 685F7072 		.ascii	"h_provider\000"
+ 5156 0abe 685F7072 		.ascii	"h_provider\000"
  5156      6F766964 
  5156      657200
  5157              	.LASF188:
- 5158 0ad3 74657374 		.ascii	"testdyn2\000"
+ 5158 0ac9 74657374 		.ascii	"testdyn2\000"
  5158      64796E32 
  5158      00
  5159              	.LASF189:
- 5160 0adc 74657374 		.ascii	"testdyn3\000"
+ 5160 0ad2 74657374 		.ascii	"testdyn3\000"
  5160      64796E33 
  5160      00
  5161              	.LASF216:
- 5162 0ae5 63684865 		.ascii	"chHeapFree\000"
+ 5162 0adb 63684865 		.ascii	"chHeapFree\000"
  5162      61704672 
  5162      656500
  5163              	.LASF112:
- 5164 0af0 6C617374 		.ascii	"last\000"
+ 5164 0ae6 6C617374 		.ascii	"last\000"
  5164      00
  5165              	.LASF49:
- 5166 0af5 705F6D73 		.ascii	"p_msg\000"
+ 5166 0aeb 705F6D73 		.ascii	"p_msg\000"
  5166      6700
  5167              	.LASF42:
- 5168 0afb 705F7374 		.ascii	"p_state\000"
+ 5168 0af1 705F7374 		.ascii	"p_state\000"
  5168      61746500 
  5169              		.ident	"GCC: (GNU Tools for Arm Embedded Processors 7-2017-q4-major) 7.2.1 20170904 (release) [ARM
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 101
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccDurPBS.s 			page 101
 
 
 DEFINED SYMBOLS
                             *ABS*:00000000 testdyn.c
-C:\Users\osour\AppData\Local\Temp\ccb18S6B.s:18     .text.dyn1_execute:00000000 $t
-C:\Users\osour\AppData\Local\Temp\ccb18S6B.s:25     .text.dyn1_execute:00000000 dyn1_execute
-C:\Users\osour\AppData\Local\Temp\ccb18S6B.s:212    .text.dyn1_execute:000000e4 $d
-C:\Users\osour\AppData\Local\Temp\ccb18S6B.s:232    .text.thread:00000000 thread
-C:\Users\osour\AppData\Local\Temp\ccb18S6B.s:225    .text.thread:00000000 $t
-C:\Users\osour\AppData\Local\Temp\ccb18S6B.s:273    .text.thread:00000024 $d
-C:\Users\osour\AppData\Local\Temp\ccb18S6B.s:278    .text.dyn1_setup:00000000 $t
-C:\Users\osour\AppData\Local\Temp\ccb18S6B.s:285    .text.dyn1_setup:00000000 dyn1_setup
-C:\Users\osour\AppData\Local\Temp\ccb18S6B.s:326    .text.dyn1_setup:00000028 $d
-C:\Users\osour\AppData\Local\Temp\ccb18S6B.s:333    .text.dyn3_setup:00000000 $t
-C:\Users\osour\AppData\Local\Temp\ccb18S6B.s:340    .text.dyn3_setup:00000000 dyn3_setup
-C:\Users\osour\AppData\Local\Temp\ccb18S6B.s:371    .text.dyn3_setup:00000020 $d
-C:\Users\osour\AppData\Local\Temp\ccb18S6B.s:376    .text.dyn2_execute:00000000 $t
-C:\Users\osour\AppData\Local\Temp\ccb18S6B.s:383    .text.dyn2_execute:00000000 dyn2_execute
-C:\Users\osour\AppData\Local\Temp\ccb18S6B.s:590    .text.dyn2_execute:000000f0 $d
-C:\Users\osour\AppData\Local\Temp\ccb18S6B.s:606    .text.dyn2_setup:00000000 $t
-C:\Users\osour\AppData\Local\Temp\ccb18S6B.s:613    .text.dyn2_setup:00000000 dyn2_setup
-C:\Users\osour\AppData\Local\Temp\ccb18S6B.s:654    .text.dyn2_setup:00000028 $d
-C:\Users\osour\AppData\Local\Temp\ccb18S6B.s:660    .text.regfind:00000000 $t
-C:\Users\osour\AppData\Local\Temp\ccb18S6B.s:667    .text.regfind:00000000 regfind
-C:\Users\osour\AppData\Local\Temp\ccb18S6B.s:729    .text.regfind:0000003c $d
-C:\Users\osour\AppData\Local\Temp\ccb18S6B.s:734    .text.dyn3_execute:00000000 $t
-C:\Users\osour\AppData\Local\Temp\ccb18S6B.s:741    .text.dyn3_execute:00000000 dyn3_execute
-C:\Users\osour\AppData\Local\Temp\ccb18S6B.s:962    .text.dyn3_execute:00000148 $d
-C:\Users\osour\AppData\Local\Temp\ccb18S6B.s:1015   .rodata.patterndyn:00000000 patterndyn
-C:\Users\osour\AppData\Local\Temp\ccb18S6B.s:1051   .rodata.testdyn3:00000000 testdyn3
-C:\Users\osour\AppData\Local\Temp\ccb18S6B.s:1042   .rodata.testdyn2:00000000 testdyn2
-C:\Users\osour\AppData\Local\Temp\ccb18S6B.s:1033   .rodata.testdyn1:00000000 testdyn1
-C:\Users\osour\AppData\Local\Temp\ccb18S6B.s:975    .bss.heap1:00000000 $d
-C:\Users\osour\AppData\Local\Temp\ccb18S6B.s:979    .bss.heap1:00000000 heap1
-C:\Users\osour\AppData\Local\Temp\ccb18S6B.s:982    .bss.mp1:00000000 $d
-C:\Users\osour\AppData\Local\Temp\ccb18S6B.s:986    .bss.mp1:00000000 mp1
-C:\Users\osour\AppData\Local\Temp\ccb18S6B.s:989    .rodata.dyn1_execute.str1.4:00000000 $d
-C:\Users\osour\AppData\Local\Temp\ccb18S6B.s:1002   .rodata.dyn2_execute.str1.4:00000000 $d
-C:\Users\osour\AppData\Local\Temp\ccb18S6B.s:1012   .rodata.patterndyn:00000000 $d
-C:\Users\osour\AppData\Local\Temp\ccb18S6B.s:1021   .rodata.str1.4:00000000 $d
-C:\Users\osour\AppData\Local\Temp\ccb18S6B.s:1030   .rodata.testdyn1:00000000 $d
-C:\Users\osour\AppData\Local\Temp\ccb18S6B.s:1039   .rodata.testdyn2:00000000 $d
-C:\Users\osour\AppData\Local\Temp\ccb18S6B.s:1048   .rodata.testdyn3:00000000 $d
+C:\Users\osour\AppData\Local\Temp\ccDurPBS.s:18     .text.dyn1_execute:00000000 $t
+C:\Users\osour\AppData\Local\Temp\ccDurPBS.s:25     .text.dyn1_execute:00000000 dyn1_execute
+C:\Users\osour\AppData\Local\Temp\ccDurPBS.s:212    .text.dyn1_execute:000000e4 $d
+C:\Users\osour\AppData\Local\Temp\ccDurPBS.s:232    .text.thread:00000000 thread
+C:\Users\osour\AppData\Local\Temp\ccDurPBS.s:225    .text.thread:00000000 $t
+C:\Users\osour\AppData\Local\Temp\ccDurPBS.s:273    .text.thread:00000024 $d
+C:\Users\osour\AppData\Local\Temp\ccDurPBS.s:278    .text.dyn1_setup:00000000 $t
+C:\Users\osour\AppData\Local\Temp\ccDurPBS.s:285    .text.dyn1_setup:00000000 dyn1_setup
+C:\Users\osour\AppData\Local\Temp\ccDurPBS.s:326    .text.dyn1_setup:00000028 $d
+C:\Users\osour\AppData\Local\Temp\ccDurPBS.s:333    .text.dyn3_setup:00000000 $t
+C:\Users\osour\AppData\Local\Temp\ccDurPBS.s:340    .text.dyn3_setup:00000000 dyn3_setup
+C:\Users\osour\AppData\Local\Temp\ccDurPBS.s:371    .text.dyn3_setup:00000020 $d
+C:\Users\osour\AppData\Local\Temp\ccDurPBS.s:376    .text.dyn2_execute:00000000 $t
+C:\Users\osour\AppData\Local\Temp\ccDurPBS.s:383    .text.dyn2_execute:00000000 dyn2_execute
+C:\Users\osour\AppData\Local\Temp\ccDurPBS.s:590    .text.dyn2_execute:000000f0 $d
+C:\Users\osour\AppData\Local\Temp\ccDurPBS.s:606    .text.dyn2_setup:00000000 $t
+C:\Users\osour\AppData\Local\Temp\ccDurPBS.s:613    .text.dyn2_setup:00000000 dyn2_setup
+C:\Users\osour\AppData\Local\Temp\ccDurPBS.s:654    .text.dyn2_setup:00000028 $d
+C:\Users\osour\AppData\Local\Temp\ccDurPBS.s:660    .text.regfind:00000000 $t
+C:\Users\osour\AppData\Local\Temp\ccDurPBS.s:667    .text.regfind:00000000 regfind
+C:\Users\osour\AppData\Local\Temp\ccDurPBS.s:729    .text.regfind:0000003c $d
+C:\Users\osour\AppData\Local\Temp\ccDurPBS.s:734    .text.dyn3_execute:00000000 $t
+C:\Users\osour\AppData\Local\Temp\ccDurPBS.s:741    .text.dyn3_execute:00000000 dyn3_execute
+C:\Users\osour\AppData\Local\Temp\ccDurPBS.s:962    .text.dyn3_execute:00000148 $d
+C:\Users\osour\AppData\Local\Temp\ccDurPBS.s:1015   .rodata.patterndyn:00000000 patterndyn
+C:\Users\osour\AppData\Local\Temp\ccDurPBS.s:1051   .rodata.testdyn3:00000000 testdyn3
+C:\Users\osour\AppData\Local\Temp\ccDurPBS.s:1042   .rodata.testdyn2:00000000 testdyn2
+C:\Users\osour\AppData\Local\Temp\ccDurPBS.s:1033   .rodata.testdyn1:00000000 testdyn1
+C:\Users\osour\AppData\Local\Temp\ccDurPBS.s:975    .bss.heap1:00000000 $d
+C:\Users\osour\AppData\Local\Temp\ccDurPBS.s:979    .bss.heap1:00000000 heap1
+C:\Users\osour\AppData\Local\Temp\ccDurPBS.s:982    .bss.mp1:00000000 $d
+C:\Users\osour\AppData\Local\Temp\ccDurPBS.s:986    .bss.mp1:00000000 mp1
+C:\Users\osour\AppData\Local\Temp\ccDurPBS.s:989    .rodata.dyn1_execute.str1.4:00000000 $d
+C:\Users\osour\AppData\Local\Temp\ccDurPBS.s:1002   .rodata.dyn2_execute.str1.4:00000000 $d
+C:\Users\osour\AppData\Local\Temp\ccDurPBS.s:1012   .rodata.patterndyn:00000000 $d
+C:\Users\osour\AppData\Local\Temp\ccDurPBS.s:1021   .rodata.str1.4:00000000 $d
+C:\Users\osour\AppData\Local\Temp\ccDurPBS.s:1030   .rodata.testdyn1:00000000 $d
+C:\Users\osour\AppData\Local\Temp\ccDurPBS.s:1039   .rodata.testdyn2:00000000 $d
+C:\Users\osour\AppData\Local\Temp\ccDurPBS.s:1048   .rodata.testdyn3:00000000 $d
 
 UNDEFINED SYMBOLS
 chHeapStatus
@@ -6037,7 +6035,7 @@ threads
 test_emit_token
 chHeapObjectInit
 test
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccb18S6B.s 			page 102
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccDurPBS.s 			page 102
 
 
 chPoolFree

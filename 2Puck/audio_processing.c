@@ -11,31 +11,31 @@
 #include <fft.h>
 #include <arm_math.h>
 
-//semaphore
-static BSEMAPHORE_DECL(sendToComputer_sem, TRUE);
-
-static float micLeft_cmplx_input[2 * FFT_SIZE];
-static float micLeft_output[FFT_SIZE];
-
-static uint16_t discret_freq = 0;
-static float freq = 0;
-
-#define PI						3.1415
 #define RESOLUTION  			(I2S_AUDIOFREQ_16K/2)/(FFT_SIZE/2)
-#define MIN_VALUE_THRESHOLD		10000
-#define FREQ_INDEX_OFFSET 		(-2.7)
+#define HIGH_MAG_THRESHOLD		1000000
+#define LOW_MAG_THRESHOLD		550000
+#define FREQ_INDEX_OFFSET 		(-2)
 #define MIN_FREQ				10
 #define MAX_FREQ				(FFT_SIZE - 30)
 #define NB_NOTES				36
 #define NB_SAMPLES				160
+#define RECORDING_SIZE			20
 
-static float hann_window[2*FFT_SIZE] = {0};
+
+static float micLeft_cmplx_input[2 * FFT_SIZE];
+static float micLeft_output[FFT_SIZE];
+static float freq = 0;
+
+static uint8_t played_note[RECORDING_SIZE];
+static uint16_t discret_freq = 0;
+static uint32_t magnitude = 0;
 
 static const uint16_t note_frequency[NB_NOTES] = {
-/*    E    F    F#   G   G#    A   A#    B    C   C#   D   D#    */
-	 82,  87,  92,  98, 104, 110, 117, 123, 131, 139, 147, 156,
-	165, 175, 185, 196, 208, 220, 233, 247, 262, 277, 294, 311,
-	330, 349, 370, 392, 415, 440, 466, 494, 554, 587, 622, 659
+/* 	  A   A#    B    C     C#    D     D#     E     F    F#     G   G#*/
+
+	220, 233, 247,  262,  277,  294,  311,  330,  349,  370,  392,  415,
+	440, 466, 494,  523,  554,  587,  622,  659,  698,  740,  784,  831,
+	880, 932, 988, 1047, 1108, 1174, 1244, 1318, 1396, 1480, 1568, 1662
 };
 
 
@@ -59,12 +59,9 @@ void processAudioDataCmplx(int16_t *data, uint16_t num_samples){
 	*/
 
 	static uint16_t nb_samples = 0;
-	static uint8_t mustSend = 0;
-	static uint8_t current_buffer = 0;
+	static uint8_t register_note = 0;
+	uint8_t status = 0;
 
-	uint8_t register_note = 0;
-
-	//loop to fill the buffers
 	for(uint16_t i = 0 ; i < num_samples ; i+=4){
 		micLeft_cmplx_input[nb_samples] = (float)data[i + MIC_LEFT];
 		nb_samples++;
@@ -76,109 +73,134 @@ void processAudioDataCmplx(int16_t *data, uint16_t num_samples){
 	}
 
 
+	//chprintf((BaseSequentialStream *)&SD3, "%d %f %d \r \n", register_note, freq, get_mic_volume());
+	status = note_volume(data, num_samples);
+	if(status == 1 && register_note == 0){
+		register_note = 1;
+	}
 	if(nb_samples >= (2 * FFT_SIZE)){
-		doCmplxFFT_optimized(FFT_SIZE, micLeft_cmplx_input);
-		arm_cmplx_mag_f32(micLeft_cmplx_input, micLeft_output, FFT_SIZE);
-
-		//register_note = note_volume(data, num_samples);
-		//if(register_note == 1){
-			//fundamental_frequency(micLeft_output, 2);
+		if(register_note == 1){
+			doCmplxFFT_optimized(FFT_SIZE, micLeft_cmplx_input);
+			arm_cmplx_mag_f32(micLeft_cmplx_input, micLeft_output, FFT_SIZE);
+			//fundamental_frequency(micLeft_output, 4);
 			frequency_to_note(micLeft_output);
-		//}
+			register_note = 0;
+		}
 		nb_samples = 0;
-		chBSemSignal(&sendToComputer_sem);
 	}
 }
 
-
-void wait_send_to_computer(void){
-	chBSemWait(&sendToComputer_sem);
-}
-
-float* get_audio_buffer_ptr(BUFFER_NAME_t name){
-	if(name == LEFT_CMPLX_INPUT){
-		return micLeft_cmplx_input;
-	}
-	else if (name == LEFT_OUTPUT){
-		return micLeft_output;
-	}else{
-		return NULL;
-	}
-}
 
 
 void frequency_to_note(float* data){
-	float max_freq = 0;
+	static uint8_t state = 0;
+	float max_freq_mag = 0;
 	uint32_t max_index = 0;
-	float smallest_error = 0, curr_error = 0;
 
-	arm_max_f32(data, (FFT_SIZE/2 - 100), &max_freq, &max_index);
+	arm_max_f32(data, (FFT_SIZE/2), &max_freq_mag, &max_index);
+	check_smallest_error(&max_index);
 
-	freq = (float)RESOLUTION*((float)(max_index + FREQ_INDEX_OFFSET ));
-	smallest_error = abs(freq - note_frequency[0]);
-	for(uint8_t i = 1; i<NB_NOTES; i++){
-		curr_error = abs(freq - note_frequency[i]);
-		if(curr_error < smallest_error){
-			smallest_error = curr_error;
-			discret_freq = note_frequency[i];
-			max_index = i;
-		}
-	}
+//	if(max_freq_mag > HIGH_MAG_THRESHOLD){
+//		if(state == 0){
+//			state = 1;
+//			check_smallest_error(&max_index);
+//		}else if (max_freq_mag < LOW_MAG_THRESHOLD){
+//			state = 0;
+//		}
 
 	max_index = max_index%12;
 	find_note(max_index);
-
-	chprintf((BaseSequentialStream *)&SD3, "%f %d \r  \n", freq, max_index);
+	record_note(max_index);
+//	}
 }
 
+
+void check_smallest_error(uint32_t *max_index){
+	float smallest_error = 0, curr_error = 0;
+	freq = (float)RESOLUTION*((float)(*max_index + FREQ_INDEX_OFFSET ));
+
+	smallest_error = abs(freq - (float)note_frequency[0]);
+	for(uint8_t i = 1; i<NB_NOTES; i++){
+		curr_error = abs(freq - (float)note_frequency[i]);
+		if(curr_error < smallest_error){
+			smallest_error = curr_error;
+			discret_freq = note_frequency[i];
+			*max_index = i;
+		}
+	}
+
+}
 
 void find_note (int16_t index){
 	switch (index){
 		case 0:
-			chprintf((BaseSequentialStream *)&SD3, "E   %f  %d  \r  \n", freq, get_mic_volume());
+			chprintf((BaseSequentialStream *)&SD3, "A  ");
 			break;
 		case 1:
-			chprintf((BaseSequentialStream *)&SD3, "F %f  %d  \r  \n", freq, get_mic_volume());
+			chprintf((BaseSequentialStream *)&SD3, "A# ");
 			break;
 		case 2:
-			chprintf((BaseSequentialStream *)&SD3, "F# %f  %d  \r  \n", freq, get_mic_volume());
+			chprintf((BaseSequentialStream *)&SD3, "B ");
 			break;
 		case 3:
-			chprintf((BaseSequentialStream *)&SD3, "G %f  %d  \r  \n", freq, get_mic_volume());
+			chprintf((BaseSequentialStream *)&SD3, "C ");
 			break;
 		case 4:
-			chprintf((BaseSequentialStream *)&SD3, "G# %f  %d  \r  \n", freq, get_mic_volume());
+			chprintf((BaseSequentialStream *)&SD3, "C# ");
 			break;
 		case 5:
-			chprintf((BaseSequentialStream *)&SD3, "A %f  %d  \r  \n", freq, get_mic_volume());
+			chprintf((BaseSequentialStream *)&SD3, "D ");
 			break;
 		case 6:
-			chprintf((BaseSequentialStream *)&SD3, "A# %f  %d  \r  \n", freq, get_mic_volume());
+			chprintf((BaseSequentialStream *)&SD3, "D# ");
 			break;
 		case 7:
-			chprintf((BaseSequentialStream *)&SD3, "B %f  %d  \r  \n", freq, get_mic_volume());
+			chprintf((BaseSequentialStream *)&SD3, "E ");
 			break;
 		case 8:
-			chprintf((BaseSequentialStream *)&SD3, "C %f  %d  \r  \n", freq, get_mic_volume());
+			chprintf((BaseSequentialStream *)&SD3, "F ");
 			break;
 		case 9:
-			chprintf((BaseSequentialStream *)&SD3, "C# %f  %d  \r  \n", freq, get_mic_volume());
+			chprintf((BaseSequentialStream *)&SD3, "F# ");
 			break;
 		case 10:
-			chprintf((BaseSequentialStream *)&SD3, "D %f  %d  \r  \n", freq, get_mic_volume());
+			chprintf((BaseSequentialStream *)&SD3, "G ");
 			break;
 		case 11:
-			chprintf((BaseSequentialStream *)&SD3, "D# %f  %d  \r  \n", freq, get_mic_volume());
+			chprintf((BaseSequentialStream *)&SD3, "G# ");
 			break;
 		case 12:
-			chprintf((BaseSequentialStream *)&SD3, "none %f  %d  \r  \n", freq, get_mic_volume());
+			chprintf((BaseSequentialStream *)&SD3, "none  \r ");
 			break;
+	}
+
+
+}
+
+void record_note(const uint8_t note_index){
+	static uint16_t current_index = 0;
+	played_note[current_index] = note_index;
+
+	if(current_index < RECORDING_SIZE){
+		current_index ++;
+	}else{
+		chprintf((BaseSequentialStream *)&SD3, "\n Recording play back \r \n");
+		for(uint16_t i = 0; i<RECORDING_SIZE; i++){
+			find_note(played_note[i]);
+			current_index = 0;
+		}
+		chprintf((BaseSequentialStream *)&SD3, "\r \n");
 	}
 }
 
+
+/*
+ * CHECK IF THERE IS A CMSIS FUNCTION FOR THIS
+ */
+
 void fundamental_frequency(float* data, uint8_t nb_harmonic){
 	if(nb_harmonic > 1){
-		for(uint8_t harmonic = 1; harmonic<=nb_harmonic;harmonic++ ){
+		for(uint8_t harmonic = 1; harmonic <= nb_harmonic;harmonic++ ){
 			for(uint16_t i = 0; i< FFT_SIZE; i++){
 				data[i] += data[i]/(float)harmonic;
 			}
@@ -186,16 +208,7 @@ void fundamental_frequency(float* data, uint8_t nb_harmonic){
 	}
 }
 
+uint8_t* get_recording_buffer(){
+	return played_note;
+}
 
-void init_hann_window(void){
-	for(uint16_t i = 0; i<FFT_SIZE;i++){
-		hann_window[2*i] = 0.5*(1 - arm_cos_f32(2*PI*(float)i/(float)NB_SAMPLES));
-		hann_window[2*i + 1] = 0;								//cmplx data index, don't care
-	}
-}
-/*
- * Windowing function on the sampled data
- */
-void window(float* data, uint16_t size){
-	arm_dot_prod_f32(data, hann_window, size, data);
-}
