@@ -28,7 +28,8 @@ void wait_send_to_computer(void);
 *	Returns the pointer to the BUFFER_NAME_t buffer asked
 */
 float* get_audio_buffer_ptr(BUFFER_NAME_t name);
-
+void wait_finish_playing();
+uint8_t* get_recording();
 void frequency_to_note(float* data);
 void find_note (int16_t index);
 void check_smallest_error(uint32_t *max_index);

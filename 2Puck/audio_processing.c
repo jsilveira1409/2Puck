@@ -21,6 +21,7 @@
 #define NB_SAMPLES				160
 #define RECORDING_SIZE			20
 
+static BSEMAPHORE_DECL(sem_finished_playing, TRUE);
 
 static float micLeft_cmplx_input[2 * FFT_SIZE];
 static float micLeft_output[FFT_SIZE];
@@ -32,7 +33,7 @@ static uint32_t magnitude = 0;
 
 static const uint16_t note_frequency[NB_NOTES] = {
 /* 	  A   A#    B    C     C#    D     D#     E     F    F#     G   G#*/
-
+//	110, 116, 124, 	131,  138, 	146,  155, 	165,  175, 	185,  196,  208,
 	220, 233, 247,  262,  277,  294,  311,  330,  349,  370,  392,  415,
 	440, 466, 494,  523,  554,  587,  622,  659,  698,  740,  784,  831,
 	880, 932, 988, 1047, 1108, 1174, 1244, 1318, 1396, 1480, 1568, 1662
@@ -99,19 +100,9 @@ void frequency_to_note(float* data){
 
 	arm_max_f32(data, (FFT_SIZE/2), &max_freq_mag, &max_index);
 	check_smallest_error(&max_index);
-
-//	if(max_freq_mag > HIGH_MAG_THRESHOLD){
-//		if(state == 0){
-//			state = 1;
-//			check_smallest_error(&max_index);
-//		}else if (max_freq_mag < LOW_MAG_THRESHOLD){
-//			state = 0;
-//		}
-
 	max_index = max_index%12;
-	find_note(max_index);
+	//find_note(max_index);
 	record_note(max_index);
-//	}
 }
 
 
@@ -184,15 +175,20 @@ void record_note(const uint8_t note_index){
 	if(current_index < RECORDING_SIZE){
 		current_index ++;
 	}else{
-		chprintf((BaseSequentialStream *)&SD3, "\n Recording play back \r \n");
+		chprintf((BaseSequentialStream *)&SD3, "Recording play back \r \n");
 		for(uint16_t i = 0; i<RECORDING_SIZE; i++){
 			find_note(played_note[i]);
 			current_index = 0;
 		}
-		chprintf((BaseSequentialStream *)&SD3, "\r \n");
+		chBSemSignal(&sem_finished_playing);
+		chprintf((BaseSequentialStream *)&SD3, "\r");
 	}
 }
 
+
+void wait_finish_playing(){
+	chBSemWait(&sem_finished_playing);
+}
 
 /*
  * CHECK IF THERE IS A CMSIS FUNCTION FOR THIS
@@ -208,7 +204,7 @@ void fundamental_frequency(float* data, uint8_t nb_harmonic){
 	}
 }
 
-uint8_t* get_recording_buffer(){
+uint8_t* get_recording(){
 	return played_note;
 }
 

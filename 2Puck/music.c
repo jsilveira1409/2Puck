@@ -36,9 +36,16 @@ static const uint8_t *song_list[NB_SONGS] ={COME_AS_YOU_ARE, MISS_YOU};
  */
 
 int16_t check_note_sequence(uint8_t song_index){
-	uint16_t melody_size = sizeof(*song_list[song_index]);
+	uint16_t melody_size = 15;
 	int16_t score = 0;
-	for(uint16_t i=0; i< melody_size; i++){
+	uint16_t starting_index = 0;
+	for(uint16_t i=0; i<melody_size; i++){
+		if((song_list[song_index])[0] == recording[i]){
+			starting_index = i;
+			break;
+		}
+	}
+	for(uint16_t i=starting_index; i< (starting_index+melody_size); i++){
 		if(recording[i] == (song_list[song_index])[i]){
 			score ++;
 		}else{
@@ -62,10 +69,13 @@ int16_t check_note_order(uint8_t song_index){
 			if((song_list[song_index])[i] == recording[j]){
 				score ++;
 				break;
-			}else{
-				score --;
 			}
 		}
 	}
 	return score;
+}
+
+
+void set_recording(uint8_t *data){
+	recording = data;
 }
