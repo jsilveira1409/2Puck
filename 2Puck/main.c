@@ -12,10 +12,11 @@
 #include <audio/microphone.h>
 #include <music.h>
 
-//#include <audio_processing.h>
+#include <audio_processing.h>
 #include <fft.h>
 #include <communications.h>
 #include <arm_math.h>
+#include <pathing.h>
 
 static void serial_start(void)
 {
@@ -41,8 +42,10 @@ int main(void)
     dac_start();
     usb_start();
 
-   // mic_start(&processAudioDataCmplx);
+
+    // mic_start(&processAudioDataCmplx);
     //init_music();
+    init_pathing();
     while (1) {
 
 

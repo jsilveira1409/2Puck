@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 1
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccEJMmqt.s 			page 1
 
 
    1              		.cpu cortex-m4
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 1
   55              	.LBB70:
   56              		.file 2 "../../lib/e-puck2_main-processor/ChibiOS//os/rt/include/chschd.h"
   57              		.loc 2 604 0
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 2
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccEJMmqt.s 			page 2
 
 
   58 000e 0060     		str	r0, [r0]
@@ -118,7 +118,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 1
  112              		.align	1
  113              		.p2align 4,,15
  114              		.global	chIQResetI
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 3
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccEJMmqt.s 			page 3
 
 
  115              		.syntax unified
@@ -178,7 +178,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 1
  169              		.cfi_def_cfa_offset 0
  170              	.LVL9:
  171              		.loc 1 118 0
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 4
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccEJMmqt.s 			page 4
 
 
  172 002e FFF7FEBF 		b	chThdDequeueAllI
@@ -238,7 +238,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 1
  226 001a 9A42     		cmp	r2, r3
  227 001c A368     		ldr	r3, [r4, #8]
  228 001e 16D0     		beq	.L24
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 5
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccEJMmqt.s 			page 5
 
 
  229              	.L18:
@@ -298,7 +298,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 1
  283 0056 F1E7     		b	.L15
  284              	.LVL19:
  285              	.L25:
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 6
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccEJMmqt.s 			page 6
 
 
  286              		.loc 1 151 0
@@ -358,7 +358,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 1
  340              	.LVL23:
  341              		.thumb
  342              		.syntax unified
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 7
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccEJMmqt.s 			page 7
 
 
  343              	.LBE100:
@@ -418,7 +418,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 1
  397              		.loc 1 191 0
  398 0044 8242     		cmp	r2, r0
  399              		.loc 1 189 0
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 8
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccEJMmqt.s 			page 8
 
 
  400 0046 A360     		str	r3, [r4, #8]
@@ -478,7 +478,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 1
  454 0078 9A42     		cmp	r2, r3
  455 007a 2846     		mov	r0, r5
  456 007c 05D1     		bne	.L47
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 9
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccEJMmqt.s 			page 9
 
 
  457 007e 03B0     		add	sp, sp, #12
@@ -538,7 +538,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 1
  511              		.cfi_offset 10, -12
  512              		.cfi_offset 11, -8
  513              		.cfi_offset 14, -4
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 10
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccEJMmqt.s 			page 10
 
 
  514 0004 DFF8F490 		ldr	r9, .L73+12
@@ -598,7 +598,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 1
  568 003a 2046     		mov	r0, r4
  569 003c C047     		blx	r8
  570              	.LVL48:
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 11
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccEJMmqt.s 			page 11
 
 
  571 003e 04E0     		b	.L53
@@ -658,7 +658,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 1
  625 007a B342     		cmp	r3, r6
  626 007c 04D0     		beq	.L58
  627 007e B269     		ldr	r2, [r6, #24]
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 12
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccEJMmqt.s 			page 12
 
 
  628 0080 9B68     		ldr	r3, [r3, #8]
@@ -718,7 +718,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 1
  682              	.LVL63:
  683              	.L70:
  684              	.LBE147:
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 13
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccEJMmqt.s 			page 13
 
 
  685              	.LBE146:
@@ -778,7 +778,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 1
  739              		.cfi_restore_state
  740              	.LBB156:
  741              	.LBB145:
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 14
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccEJMmqt.s 			page 14
 
 
  742              		.loc 5 367 0
@@ -838,7 +838,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 1
  796              		.loc 1 276 0
  797 0006 2E68     		ldr	r6, [r5]
  798              		.loc 1 280 0
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 15
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccEJMmqt.s 			page 15
 
 
  799 0008 C160     		str	r1, [r0, #12]
@@ -898,7 +898,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 1
  853              		.global	chOQResetI
  854              		.syntax unified
  855              		.thumb
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 16
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccEJMmqt.s 			page 16
 
 
  856              		.thumb_func
@@ -958,7 +958,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 1
  910              	.LVL82:
  911              		.loc 1 306 0
  912 0030 FFF7FEBF 		b	chThdDequeueAllI
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 17
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccEJMmqt.s 			page 17
 
 
  913              	.LVL83:
@@ -1018,7 +1018,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 1
  967              	@ 546 "../../lib/e-puck2_main-processor/ChibiOS//os/ext/CMSIS/include/core_cmFunc.h" 1
  968 0014 83F31188 		MSR basepri, r3
  969              	@ 0 "" 2
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 18
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccEJMmqt.s 			page 18
 
 
  970              	.LVL87:
@@ -1078,7 +1078,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 1
  1024 004a 9A42     		cmp	r2, r3
  1025              		.loc 1 345 0
  1026 004c 24BF     		itt	cs
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 19
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccEJMmqt.s 			page 19
 
 
  1027 004e E368     		ldrcs	r3, [r4, #12]
@@ -1138,7 +1138,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 1
  1081 0084 02B0     		add	sp, sp, #8
  1082              		.cfi_remember_state
  1083              		.cfi_def_cfa_offset 24
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 20
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccEJMmqt.s 			page 20
 
 
  1084              		@ sp needed
@@ -1198,7 +1198,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 1
  1138              	.LVL105:
  1139 00b8 DCE7     		b	.L95
  1140              	.L104:
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 21
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccEJMmqt.s 			page 21
 
 
  1141              	.LBE196:
@@ -1258,7 +1258,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 1
  1195 001a A368     		ldr	r3, [r4, #8]
  1196 001c 15D0     		beq	.L116
  1197              	.L110:
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 22
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccEJMmqt.s 			page 22
 
 
  1198              	.LVL110:
@@ -1318,7 +1318,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 1
  1252              	.LBE202:
  1253              		.loc 1 372 0
  1254 004e 6FF00200 		mvn	r0, #2
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 23
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccEJMmqt.s 			page 23
 
 
  1255 0052 F1E7     		b	.L107
@@ -1378,7 +1378,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 1
  1309              		.loc 1 415 0
  1310 0016 1646     		mov	r6, r2
  1311 0018 002A     		cmp	r2, #0
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 24
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccEJMmqt.s 			page 24
 
 
  1312 001a 61D0     		beq	.L142
@@ -1438,7 +1438,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 1
  1366              		.loc 1 419 0
  1367 003a 002B     		cmp	r3, #0
  1368 003c 32D0     		beq	.L126
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 25
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccEJMmqt.s 			page 25
 
 
  1369              	.L143:
@@ -1498,7 +1498,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 1
  1423              	.LBB235:
  1424              		.loc 4 546 0
  1425              		.syntax unified
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 26
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccEJMmqt.s 			page 26
 
 
  1426              	@ 546 "../../lib/e-puck2_main-processor/ChibiOS//os/ext/CMSIS/include/core_cmFunc.h" 1
@@ -1558,7 +1558,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 1
  1480 00a0 002B     		cmp	r3, #0
  1481 00a2 CCD1     		bne	.L143
  1482              	.L126:
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 27
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccEJMmqt.s 			page 27
 
 
  1483              		.loc 1 420 0
@@ -1618,7 +1618,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 1
  1537              		.cfi_def_cfa_offset 36
  1538              		@ sp needed
  1539 00dc BDE8F08F 		pop	{r4, r5, r6, r7, r8, r9, r10, fp, pc}
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 28
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccEJMmqt.s 			page 28
 
 
  1540              	.LVL146:
@@ -1678,7 +1678,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 1
  1589              		.align	2
  1590              		.set	.LANCHOR2,. + 0
  1591              		.type	__func__.7913, %object
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 29
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccEJMmqt.s 			page 29
 
 
  1592              		.size	__func__.7913, 17
@@ -1738,7 +1738,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 1
  1642 0040 05       		.byte	0x5
  1643 0041 A4010000 		.4byte	.LASF1
  1644 0045 04       		.uleb128 0x4
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 30
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccEJMmqt.s 			page 30
 
 
  1645 0046 08       		.byte	0x8
@@ -1798,7 +1798,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 1
  1699 00af 07       		.byte	0x7
  1700 00b0 E6000000 		.4byte	.LASF15
  1701 00b4 03       		.uleb128 0x3
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 31
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccEJMmqt.s 			page 31
 
 
  1702 00b5 A3090000 		.4byte	.LASF16
@@ -1858,7 +1858,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 1
  1756 012d FE010000 		.4byte	.LASF26
  1757 0131 09       		.byte	0x9
  1758 0132 4B       		.byte	0x4b
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 32
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccEJMmqt.s 			page 32
 
 
  1759 0133 B4000000 		.4byte	0xb4
@@ -1918,7 +1918,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 1
  1813 01a8 B2020000 		.4byte	0x2b2
  1814 01ac 04       		.byte	0x4
  1815 01ad 08       		.uleb128 0x8
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 33
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccEJMmqt.s 			page 33
 
 
  1816 01ae 86010000 		.4byte	.LASF36
@@ -1978,7 +1978,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 1
  1870 021a 7A070000 		.4byte	.LASF45
  1871 021e 02       		.byte	0x2
  1872 021f EC       		.byte	0xec
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 34
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccEJMmqt.s 			page 34
 
 
  1873 0220 2C010000 		.4byte	0x12c
@@ -2038,7 +2038,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 1
  1927 0294 8F030000 		.4byte	0x38f
  1928 0298 48       		.byte	0x48
  1929 0299 0A       		.uleb128 0xa
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 35
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccEJMmqt.s 			page 35
 
 
  1930 029a CC070000 		.4byte	.LASF54
@@ -2098,7 +2098,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 1
  1984 030a 04       		.byte	0x4
  1985 030b 00       		.byte	0
  1986 030c 03       		.uleb128 0x3
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 36
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccEJMmqt.s 			page 36
 
 
  1987 030d 1C000000 		.4byte	.LASF61
@@ -2158,7 +2158,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 1
  2041 0380 84030000 		.4byte	0x384
  2042 0384 0D       		.uleb128 0xd
  2043 0385 8F030000 		.4byte	0x38f
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 37
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccEJMmqt.s 			page 37
 
 
  2044 0389 0E       		.uleb128 0xe
@@ -2218,7 +2218,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 1
  2098 03fb 10       		.byte	0x10
  2099 03fc 02       		.byte	0x2
  2100 03fd 7B01     		.2byte	0x17b
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 38
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccEJMmqt.s 			page 38
 
 
  2101 03ff 38040000 		.4byte	0x438
@@ -2278,7 +2278,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 1
  2155 0477 08       		.byte	0x8
  2156 0478 0A       		.uleb128 0xa
  2157 0479 030A0000 		.4byte	.LASF85
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 39
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccEJMmqt.s 			page 39
 
 
  2158 047d 02       		.byte	0x2
@@ -2338,7 +2338,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 1
  2212 04f4 02       		.byte	0x2
  2213 04f5 E301     		.2byte	0x1e3
  2214 04f7 C4080000 		.4byte	0x8c4
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 40
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccEJMmqt.s 			page 40
 
 
  2215 04fb E804     		.2byte	0x4e8
@@ -2398,7 +2398,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 1
  2269 0569 73313800 		.ascii	"s18\000"
  2270 056d 0E       		.byte	0xe
  2271 056e F8       		.byte	0xf8
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 41
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccEJMmqt.s 			page 41
 
 
  2272 056f 15050000 		.4byte	0x515
@@ -2458,7 +2458,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 1
  2326 05dd 15050000 		.4byte	0x515
  2327 05e1 2C       		.byte	0x2c
  2328 05e2 09       		.uleb128 0x9
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 42
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccEJMmqt.s 			page 42
 
 
  2329 05e3 73323800 		.ascii	"s28\000"
@@ -2518,7 +2518,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 1
  2383 0653 723900   		.ascii	"r9\000"
  2384 0656 0E       		.byte	0xe
  2385 0657 0C01     		.2byte	0x10c
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 43
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccEJMmqt.s 			page 43
 
 
  2386 0659 15050000 		.4byte	0x515
@@ -2578,7 +2578,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 1
  2440 06c4 03       		.uleb128 0x3
  2441 06c5 28060000 		.4byte	.LASF103
  2442 06c9 0F       		.byte	0xf
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 44
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccEJMmqt.s 			page 44
 
 
  2443 06ca 62       		.byte	0x62
@@ -2638,7 +2638,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 1
  2497 0734 7D050000 		.4byte	.LASF109
  2498 0738 10       		.byte	0x10
  2499 0739 3D       		.byte	0x3d
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 45
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccEJMmqt.s 			page 45
 
 
  2500 073a 1E070000 		.4byte	0x71e
@@ -2698,7 +2698,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 1
  2554 07a1 2B070000 		.4byte	.LASF116
  2555 07a5 11       		.byte	0x11
  2556 07a6 3A       		.byte	0x3a
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 46
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccEJMmqt.s 			page 46
 
 
  2557 07a7 63010000 		.4byte	0x163
@@ -2758,7 +2758,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 1
  2611 081c 9B080000 		.4byte	0x89b
  2612 0820 1B       		.uleb128 0x1b
  2613 0821 99070000 		.4byte	.LASF126
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 47
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccEJMmqt.s 			page 47
 
 
  2614 0825 02       		.byte	0x2
@@ -2818,7 +2818,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 1
  2668 088f C7020000 		.4byte	.LASF134
  2669 0893 13       		.byte	0x13
  2670 0894 41       		.byte	0x41
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 48
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccEJMmqt.s 			page 48
 
 
  2671 0895 58010000 		.4byte	0x158
@@ -2878,7 +2878,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 1
  2725 0904 14       		.byte	0x14
  2726 0905 37       		.byte	0x37
  2727 0906 B4000000 		.4byte	0xb4
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 49
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccEJMmqt.s 			page 49
 
 
  2728 090a 05       		.byte	0x5
@@ -2938,7 +2938,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 1
  2782 0976 0F       		.byte	0xf
  2783 0977 08       		.uleb128 0x8
  2784 0978 BE010000 		.4byte	.LASF148
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 50
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccEJMmqt.s 			page 50
 
 
  2785 097c 14       		.byte	0x14
@@ -2998,7 +2998,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 1
  2839 09eb 03       		.uleb128 0x3
  2840 09ec 2E0A0000 		.4byte	.LASF156
  2841 09f0 13       		.byte	0x13
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 51
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccEJMmqt.s 			page 51
 
 
  2842 09f1 34       		.byte	0x34
@@ -3058,7 +3058,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 1
  2896 0a60 03       		.byte	0x3
  2897 0a61 55       		.byte	0x55
  2898 0a62 740A0000 		.4byte	0xa74
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 52
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccEJMmqt.s 			page 52
 
 
  2899 0a66 1C       		.byte	0x1c
@@ -3118,7 +3118,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 1
  2953 0ada 4A0D0000 		.4byte	0xd4a
  2954 0ade 00000000 		.4byte	.LLST43
  2955 0ae2 1E       		.uleb128 0x1e
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 53
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccEJMmqt.s 			page 53
 
 
  2956 0ae3 627000   		.ascii	"bp\000"
@@ -3178,7 +3178,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 1
  3010 0b6f 0E       		.byte	0xe
  3011 0b70 BF01     		.2byte	0x1bf
  3012 0b72 25       		.uleb128 0x25
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 54
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccEJMmqt.s 			page 54
 
 
  3013 0b73 7E170000 		.4byte	0x177e
@@ -3238,7 +3238,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 1
  3067 0bfd 00000000 		.4byte	.LANCHOR0
  3068 0c01 00       		.byte	0
  3069 0c02 00       		.byte	0
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 55
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccEJMmqt.s 			page 55
 
 
  3070 0c03 00       		.byte	0
@@ -3298,7 +3298,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 1
  3124 0c97 01       		.byte	0x1
  3125 0c98 A501     		.2byte	0x1a5
  3126 0c9a FE0C0000 		.4byte	0xcfe
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 56
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccEJMmqt.s 			page 56
 
 
  3127 0c9e 28       		.uleb128 0x28
@@ -3358,7 +3358,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 1
  3181 0d1b 2C       		.uleb128 0x2c
  3182 0d1c 01       		.uleb128 0x1
  3183 0d1d 50       		.byte	0x50
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 57
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccEJMmqt.s 			page 57
 
 
  3184 0d1e 02       		.uleb128 0x2
@@ -3418,7 +3418,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 1
  3238 0d8f 21       		.uleb128 0x21
  3239 0d90 6200     		.ascii	"b\000"
  3240 0d92 01       		.byte	0x1
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 58
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccEJMmqt.s 			page 58
 
 
  3241 0d93 6F01     		.2byte	0x16f
@@ -3478,7 +3478,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 1
  3295 0e12 4A0D0000 		.4byte	0xd4a
  3296 0e16 F5010000 		.4byte	.LLST33
  3297 0e1a 1E       		.uleb128 0x1e
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 59
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccEJMmqt.s 			page 59
 
 
  3298 0e1b 6200     		.ascii	"b\000"
@@ -3538,7 +3538,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 1
  3352 0eac 92000000 		.4byte	.LVL101
  3353 0eb0 AC170000 		.4byte	0x17ac
  3354 0eb4 2B       		.uleb128 0x2b
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 60
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccEJMmqt.s 			page 60
 
 
  3355 0eb5 AA000000 		.4byte	.LVL102
@@ -3598,7 +3598,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 1
  3409 0f24 1C000000 		.4byte	.LVL88
  3410 0f28 8B170000 		.4byte	0x178b
  3411 0f2c 26       		.uleb128 0x26
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 61
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccEJMmqt.s 			page 61
 
 
  3412 0f2d 20000000 		.4byte	.LVL89
@@ -3658,7 +3658,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 1
  3466 0fbb B8000000 		.4byte	.LVL105
  3467 0fbf B7170000 		.4byte	0x17b7
  3468 0fc3 2C       		.uleb128 0x2c
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 62
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccEJMmqt.s 			page 62
 
 
  3469 0fc4 01       		.uleb128 0x1
@@ -3718,7 +3718,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 1
  3523 102f 02       		.uleb128 0x2
  3524 1030 09       		.byte	0x9
  3525 1031 FE       		.byte	0xfe
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 63
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccEJMmqt.s 			page 63
 
 
  3526 1032 00       		.byte	0
@@ -3778,7 +3778,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 1
  3580 10bc 45170000 		.4byte	0x1745
  3581 10c0 0C000000 		.4byte	.LBB158
  3582 10c4 04000000 		.4byte	.LBE158-.LBB158
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 64
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccEJMmqt.s 			page 64
 
 
  3583 10c8 15       		.byte	0x15
@@ -3838,7 +3838,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 1
  3637 113f E2       		.byte	0xe2
  3638 1140 2C000000 		.4byte	0x2c
  3639 1144 99040000 		.4byte	.LLST21
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 65
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccEJMmqt.s 			page 65
 
 
  3640 1148 22       		.uleb128 0x22
@@ -3898,7 +3898,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 1
  3694 11d7 70000000 		.4byte	.LBB140
  3695 11db 48000000 		.4byte	.Ldebug_ranges0+0x48
  3696 11df 01       		.byte	0x1
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 66
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccEJMmqt.s 			page 66
 
 
  3697 11e0 F8       		.byte	0xf8
@@ -3958,7 +3958,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 1
  3751 1266 5C01     		.2byte	0x15c
  3752 1268 87120000 		.4byte	0x1287
  3753 126c 24       		.uleb128 0x24
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 67
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccEJMmqt.s 			page 67
 
 
  3754 126d 71170000 		.4byte	0x1771
@@ -4018,7 +4018,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 1
  3808 12fd C2000000 		.4byte	.LVL66
  3809 1301 B7170000 		.4byte	0x17b7
  3810 1305 2C       		.uleb128 0x2c
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 68
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccEJMmqt.s 			page 68
 
 
  3811 1306 01       		.uleb128 0x1
@@ -4078,7 +4078,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 1
  3865 1363 B3080000 		.4byte	0x8b3
  3866 1367 72130000 		.4byte	0x1372
  3867 136b 19       		.uleb128 0x19
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 69
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccEJMmqt.s 			page 69
 
 
  3868 136c 37000000 		.4byte	0x37
@@ -4138,7 +4138,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 1
  3922 13e8 51       		.byte	0x51
  3923 13e9 02       		.uleb128 0x2
  3924 13ea 76       		.byte	0x76
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 70
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccEJMmqt.s 			page 70
 
 
  3925 13eb 00       		.sleb128 0
@@ -4198,7 +4198,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 1
  3979 1474 01       		.byte	0x1
  3980 1475 C2       		.byte	0xc2
  3981 1476 DA140000 		.4byte	0x14da
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 71
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccEJMmqt.s 			page 71
 
 
  3982 147a 28       		.uleb128 0x28
@@ -4258,7 +4258,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 1
  4036 14f4 35       		.uleb128 0x35
  4037 14f5 BE020000 		.4byte	.LASF182
  4038 14f9 01       		.byte	0x1
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 72
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccEJMmqt.s 			page 72
 
 
  4039 14fa 86       		.byte	0x86
@@ -4318,7 +4318,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 1
  4093 1576 D9170000 		.4byte	0x17d9
  4094 157a 00       		.byte	0
  4095 157b 3D       		.uleb128 0x3d
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 73
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccEJMmqt.s 			page 73
 
 
  4096 157c 48090000 		.4byte	.LASF183
@@ -4378,7 +4378,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 1
  4150 15f1 36       		.uleb128 0x36
  4151 15f2 627000   		.ascii	"bp\000"
  4152 15f5 01       		.byte	0x1
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 74
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccEJMmqt.s 			page 74
 
 
  4153 15f6 57       		.byte	0x57
@@ -4438,7 +4438,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 1
  4207 167f 6F717000 		.ascii	"oqp\000"
  4208 1683 03       		.byte	0x3
  4209 1684 9301     		.2byte	0x193
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 75
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccEJMmqt.s 			page 75
 
 
  4210 1686 4A0D0000 		.4byte	0xd4a
@@ -4498,7 +4498,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 1
  4264 16ff 1601     		.2byte	0x116
  4265 1701 06170000 		.4byte	0x1706
  4266 1705 00       		.byte	0
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 76
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccEJMmqt.s 			page 76
 
 
  4267 1706 0B       		.uleb128 0xb
@@ -4558,7 +4558,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 1
  4321 1779 03       		.byte	0x3
  4322 177a 8B170000 		.4byte	0x178b
  4323 177e 43       		.uleb128 0x43
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 77
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccEJMmqt.s 			page 77
 
 
  4324 177f D5020000 		.4byte	.LASF198
@@ -4618,7 +4618,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 1
  4378              		.section	.debug_abbrev,"",%progbits
  4379              	.Ldebug_abbrev0:
  4380 0000 01       		.uleb128 0x1
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 78
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccEJMmqt.s 			page 78
 
 
  4381 0001 11       		.uleb128 0x11
@@ -4678,7 +4678,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 1
  4435 0037 26       		.uleb128 0x26
  4436 0038 00       		.byte	0
  4437 0039 49       		.uleb128 0x49
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 79
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccEJMmqt.s 			page 79
 
 
  4438 003a 13       		.uleb128 0x13
@@ -4738,7 +4738,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 1
  4492 0070 00       		.byte	0
  4493 0071 0A       		.uleb128 0xa
  4494 0072 0D       		.uleb128 0xd
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 80
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccEJMmqt.s 			page 80
 
 
  4495 0073 00       		.byte	0
@@ -4798,7 +4798,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 1
  4549 00a9 0F       		.uleb128 0xf
  4550 00aa 00       		.byte	0
  4551 00ab 0B       		.uleb128 0xb
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 81
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccEJMmqt.s 			page 81
 
 
  4552 00ac 0B       		.uleb128 0xb
@@ -4858,7 +4858,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 1
  4606 00e2 0B       		.uleb128 0xb
  4607 00e3 3B       		.uleb128 0x3b
  4608 00e4 05       		.uleb128 0x5
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 82
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccEJMmqt.s 			page 82
 
 
  4609 00e5 49       		.uleb128 0x49
@@ -4918,7 +4918,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 1
  4663 011b 13       		.uleb128 0x13
  4664 011c 01       		.byte	0x1
  4665 011d 0B       		.uleb128 0xb
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 83
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccEJMmqt.s 			page 83
 
 
  4666 011e 05       		.uleb128 0x5
@@ -4978,7 +4978,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 1
  4720 0154 34       		.uleb128 0x34
  4721 0155 00       		.byte	0
  4722 0156 03       		.uleb128 0x3
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 84
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccEJMmqt.s 			page 84
 
 
  4723 0157 08       		.uleb128 0x8
@@ -5038,7 +5038,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 1
  4777 018e 00       		.byte	0
  4778 018f 1F       		.uleb128 0x1f
  4779 0190 05       		.uleb128 0x5
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 85
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccEJMmqt.s 			page 85
 
 
  4780 0191 00       		.byte	0
@@ -5098,7 +5098,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 1
  4834 01c7 00       		.byte	0
  4835 01c8 00       		.byte	0
  4836 01c9 23       		.uleb128 0x23
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 86
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccEJMmqt.s 			page 86
 
 
  4837 01ca 1D       		.uleb128 0x1d
@@ -5158,7 +5158,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 1
  4891 0202 52       		.uleb128 0x52
  4892 0203 01       		.uleb128 0x1
  4893 0204 55       		.uleb128 0x55
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 87
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccEJMmqt.s 			page 87
 
 
  4894 0205 17       		.uleb128 0x17
@@ -5218,7 +5218,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 1
  4948 0240 00       		.byte	0
  4949 0241 00       		.byte	0
  4950 0242 2D       		.uleb128 0x2d
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 88
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccEJMmqt.s 			page 88
 
 
  4951 0243 898201   		.uleb128 0x4109
@@ -5278,7 +5278,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 1
  5005 027d 0B       		.uleb128 0xb
  5006 027e 3B       		.uleb128 0x3b
  5007 027f 05       		.uleb128 0x5
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 89
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccEJMmqt.s 			page 89
 
 
  5008 0280 27       		.uleb128 0x27
@@ -5338,7 +5338,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 1
  5062 02ba 18       		.uleb128 0x18
  5063 02bb 9742     		.uleb128 0x2117
  5064 02bd 19       		.uleb128 0x19
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 90
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccEJMmqt.s 			page 90
 
 
  5065 02be 01       		.uleb128 0x1
@@ -5398,7 +5398,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 1
  5119 02f4 3A       		.uleb128 0x3a
  5120 02f5 0B       		.uleb128 0xb
  5121 02f6 3B       		.uleb128 0x3b
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 91
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccEJMmqt.s 			page 91
 
 
  5122 02f7 0B       		.uleb128 0xb
@@ -5458,7 +5458,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 1
  5176 032d 01       		.byte	0x1
  5177 032e 3F       		.uleb128 0x3f
  5178 032f 19       		.uleb128 0x19
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 92
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccEJMmqt.s 			page 92
 
 
  5179 0330 03       		.uleb128 0x3
@@ -5518,7 +5518,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 1
  5233 0367 01       		.byte	0x1
  5234 0368 03       		.uleb128 0x3
  5235 0369 0E       		.uleb128 0xe
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 93
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccEJMmqt.s 			page 93
 
 
  5236 036a 3A       		.uleb128 0x3a
@@ -5578,7 +5578,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 1
  5290 03a0 2E       		.uleb128 0x2e
  5291 03a1 00       		.byte	0
  5292 03a2 3F       		.uleb128 0x3f
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 94
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccEJMmqt.s 			page 94
 
 
  5293 03a3 19       		.uleb128 0x19
@@ -5638,7 +5638,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 1
  5347 0015 54       		.byte	0x54
  5348 0016 00000000 		.4byte	0
  5349 001a 00000000 		.4byte	0
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 95
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccEJMmqt.s 			page 95
 
 
  5350              	.LLST44:
@@ -5698,7 +5698,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 1
  5404 00ad E0000000 		.4byte	.LVL146
  5405 00b1 0200     		.2byte	0x2
  5406 00b3 91       		.byte	0x91
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 96
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccEJMmqt.s 			page 96
 
 
  5407 00b4 4C       		.sleb128 -52
@@ -5758,7 +5758,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 1
  5461              	.LLST49:
  5462 0140 82000000 		.4byte	.LVL131
  5463 0144 86000000 		.4byte	.LVL132
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 97
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccEJMmqt.s 			page 97
 
 
  5464 0148 0200     		.2byte	0x2
@@ -5818,7 +5818,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 1
  5518 01d3 00000000 		.4byte	0
  5519              	.LLST42:
  5520 01d7 10000000 		.4byte	.LVL108
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 98
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccEJMmqt.s 			page 98
 
 
  5521 01db 1E000000 		.4byte	.LVL110
@@ -5878,7 +5878,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 1
  5575 0268 8D000000 		.4byte	.LVL100-1
  5576 026c B2000000 		.4byte	.LVL104
  5577 0270 0100     		.2byte	0x1
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 99
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccEJMmqt.s 			page 99
 
 
  5578 0272 55       		.byte	0x55
@@ -5938,7 +5938,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 1
  5632              	.LLST27:
  5633 02fa 00000000 		.4byte	.LVL75
  5634 02fe 2F000000 		.4byte	.LVL79-1
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 100
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccEJMmqt.s 			page 100
 
 
  5635 0302 0100     		.2byte	0x1
@@ -5998,7 +5998,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 1
  5689 0380 53       		.byte	0x53
  5690 0381 9F       		.byte	0x9f
  5691 0382 00000000 		.4byte	0
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 101
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccEJMmqt.s 			page 101
 
 
  5692 0386 00000000 		.4byte	0
@@ -6058,7 +6058,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 1
  5746 040e E7000000 		.4byte	.LVL72-1
  5747 0412 EA000000 		.4byte	.LVL73
  5748 0416 0100     		.2byte	0x1
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 102
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccEJMmqt.s 			page 102
 
 
  5749 0418 5A       		.byte	0x5a
@@ -6118,7 +6118,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 1
  5803 04a3 30       		.byte	0x30
  5804 04a4 9F       		.byte	0x9f
  5805 04a5 34000000 		.4byte	.LVL47
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 103
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccEJMmqt.s 			page 103
 
 
  5806 04a9 D4000000 		.4byte	.LVL68
@@ -6178,7 +6178,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 1
  5860              	.LLST25:
  5861 0537 94000000 		.4byte	.LVL59
  5862 053b 9A000000 		.4byte	.LVL60
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 104
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccEJMmqt.s 			page 104
 
 
  5863 053f 0300     		.2byte	0x3
@@ -6238,7 +6238,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 1
  5917 05cc 08       		.byte	0x8
  5918 05cd 20       		.byte	0x20
  5919 05ce 9F       		.byte	0x9f
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 105
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccEJMmqt.s 			page 105
 
 
  5920 05cf 00000000 		.4byte	0
@@ -6298,7 +6298,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 1
  5974 065d 54       		.byte	0x54
  5975 065e 2E000000 		.4byte	.LVL9
  5976 0662 31000000 		.4byte	.LVL10-1
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 106
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccEJMmqt.s 			page 106
 
 
  5977 0666 0100     		.2byte	0x1
@@ -6358,7 +6358,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 1
  6031 06e7 38000000 		.4byte	.LFE219
  6032 06eb 0400     		.2byte	0x4
  6033 06ed F3       		.byte	0xf3
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 107
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccEJMmqt.s 			page 107
 
 
  6034 06ee 01       		.uleb128 0x1
@@ -6418,7 +6418,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 1
  6088 002c 9C000000 		.4byte	.LFE222-.LFB222
  6089 0030 00000000 		.4byte	.LFB223
  6090 0034 00010000 		.4byte	.LFE223-.LFB223
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 108
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccEJMmqt.s 			page 108
 
 
  6091 0038 00000000 		.4byte	.LFB224
@@ -6478,7 +6478,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 1
  6145 00a0 00000000 		.4byte	0
  6146 00a4 00000000 		.4byte	0
  6147 00a8 32000000 		.4byte	.LBB230
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 109
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccEJMmqt.s 			page 109
 
 
  6148 00ac 34000000 		.4byte	.LBE230
@@ -6538,7 +6538,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 1
  6197      50757454 
  6197      696D656F 
  6197      757400
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 110
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccEJMmqt.s 			page 110
 
 
  6198              	.LASF146:
@@ -6598,7 +6598,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 1
  6223 0099 63684951 		.ascii	"chIQReadTimeout\000"
  6223      52656164 
  6223      54696D65 
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 111
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccEJMmqt.s 			page 111
 
 
  6223      6F757400 
@@ -6658,7 +6658,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 1
  6246              	.LASF77:
  6247 014f 76697274 		.ascii	"virtual_timers_list_t\000"
  6247      75616C5F 
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 112
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccEJMmqt.s 			page 112
 
 
  6247      74696D65 
@@ -6718,7 +6718,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 1
  6273 01eb 76746C69 		.ascii	"vtlist\000"
  6273      737400
  6274              	.LASF195:
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 113
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccEJMmqt.s 			page 113
 
 
  6275 01f2 706F7274 		.ascii	"port_unlock\000"
@@ -6778,7 +6778,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 1
  6302              	.LASF104:
  6303 027e 74625F73 		.ascii	"tb_size\000"
  6303      697A6500 
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 114
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccEJMmqt.s 			page 114
 
 
  6304              	.LASF66:
@@ -6838,7 +6838,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 1
  6333      20696E74 
  6333      00
  6334              	.LASF208:
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 115
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccEJMmqt.s 			page 115
 
 
  6335 0311 474E5520 		.ascii	"GNU C11 7.2.1 20170904 (release) [ARM/embedded-7-br"
@@ -6898,7 +6898,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 1
  6352              	.LASF48:
  6353 0485 705F6D73 		.ascii	"p_msgqueue\000"
  6353      67717565 
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 116
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccEJMmqt.s 			page 116
 
 
  6353      756500
@@ -6958,7 +6958,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 1
  6381      737200
  6382              	.LASF62:
  6383 051a 63685F72 		.ascii	"ch_ready_list\000"
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 117
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccEJMmqt.s 			page 117
 
 
  6383      65616479 
@@ -7018,7 +7018,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 1
  6407      74735F73 
  6407      746F705F 
  6407      6D656173 
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 118
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccEJMmqt.s 			page 118
 
 
  6407      7572655F 
@@ -7078,7 +7078,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 1
  6435 0664 776F7273 		.ascii	"worst\000"
  6435      7400
  6436              	.LASF68:
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 119
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccEJMmqt.s 			page 119
 
 
  6437 066a 725F6375 		.ascii	"r_current\000"
@@ -7138,7 +7138,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 1
  6464 0723 715F7264 		.ascii	"q_rdptr\000"
  6464      70747200 
  6465              	.LASF116:
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 120
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccEJMmqt.s 			page 120
 
 
  6466 072b 6E5F6374 		.ascii	"n_ctxswc\000"
@@ -7198,7 +7198,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 1
  6494      7265656D 
  6494      707400
  6495              	.LASF43:
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 121
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccEJMmqt.s 			page 121
 
 
  6496 07bb 705F666C 		.ascii	"p_flags\000"
@@ -7258,7 +7258,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 1
  6520      66665F70 
  6520      72696F00 
  6521              	.LASF63:
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 122
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccEJMmqt.s 			page 122
 
 
  6522 0856 725F7175 		.ascii	"r_queue\000"
@@ -7318,7 +7318,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 1
  6550      5F7400
  6551              	.LASF197:
  6552 08e3 5F5F7365 		.ascii	"__set_BASEPRI\000"
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 123
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccEJMmqt.s 			page 123
 
 
  6552      745F4241 
@@ -7378,7 +7378,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 1
  6580              	.LASF165:
  6581 0994 715F6E6F 		.ascii	"q_notify\000"
  6581      74696679 
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 124
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccEJMmqt.s 			page 124
 
 
  6581      00
@@ -7438,7 +7438,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 1
  6609 0a27 715F6C69 		.ascii	"q_link\000"
  6609      6E6B00
  6610              	.LASF156:
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 125
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccEJMmqt.s 			page 125
 
 
  6611 0a2e 6D757465 		.ascii	"mutex_t\000"
@@ -7478,47 +7478,47 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 1
  6627      6974696E 
  6627      6700
  6628              		.ident	"GCC: (GNU Tools for Arm Embedded Processors 7-2017-q4-major) 7.2.1 20170904 (release) [ARM
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s 			page 126
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccEJMmqt.s 			page 126
 
 
 DEFINED SYMBOLS
                             *ABS*:00000000 chqueues.c
-C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s:18     .text.chIQObjectInit:00000000 $t
-C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s:26     .text.chIQObjectInit:00000000 chIQObjectInit
-C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s:107    .text.chIQObjectInit:00000034 $d
-C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s:112    .text.chIQResetI:00000000 $t
-C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s:120    .text.chIQResetI:00000000 chIQResetI
-C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s:181    .text.chIQResetI:00000038 $d
-C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s:186    .text.chIQPutI:00000000 $t
-C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s:194    .text.chIQPutI:00000000 chIQPutI
-C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s:292    .text.chIQPutI:0000005c $d
-C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s:297    .text.chIQGetTimeout:00000000 $t
-C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s:305    .text.chIQGetTimeout:00000000 chIQGetTimeout
-C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s:481    .text.chIQGetTimeout:00000090 $d
-C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s:488    .text.chIQReadTimeout:00000000 $t
-C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s:496    .text.chIQReadTimeout:00000000 chIQReadTimeout
-C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s:764    .text.chIQReadTimeout:000000f0 $d
-C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s:772    .text.chOQObjectInit:00000000 $t
-C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s:780    .text.chOQObjectInit:00000000 chOQObjectInit
-C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s:846    .text.chOQObjectInit:00000030 $d
-C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s:851    .text.chOQResetI:00000000 $t
-C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s:859    .text.chOQResetI:00000000 chOQResetI
-C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s:921    .text.chOQResetI:00000038 $d
-C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s:926    .text.chOQPutTimeout:00000000 $t
-C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s:934    .text.chOQPutTimeout:00000000 chOQPutTimeout
-C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s:1149   .text.chOQPutTimeout:000000c0 $d
-C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s:1156   .text.chOQGetI:00000000 $t
-C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s:1164   .text.chOQGetI:00000000 chOQGetI
-C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s:1264   .text.chOQGetI:00000058 $d
-C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s:1269   .text.chOQWriteTimeout:00000000 $t
-C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s:1277   .text.chOQWriteTimeout:00000000 chOQWriteTimeout
-C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s:1567   .text.chOQWriteTimeout:000000f4 $d
-C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s:1575   .rodata.__func__.7153:00000000 $d
-C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s:1579   .rodata.__func__.7153:00000000 __func__.7153
-C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s:1582   .rodata.__func__.7877:00000000 $d
-C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s:1586   .rodata.__func__.7877:00000000 __func__.7877
-C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s:1589   .rodata.__func__.7913:00000000 $d
-C:\Users\osour\AppData\Local\Temp\ccFHdWgk.s:1593   .rodata.__func__.7913:00000000 __func__.7913
+C:\Users\osour\AppData\Local\Temp\ccEJMmqt.s:18     .text.chIQObjectInit:00000000 $t
+C:\Users\osour\AppData\Local\Temp\ccEJMmqt.s:26     .text.chIQObjectInit:00000000 chIQObjectInit
+C:\Users\osour\AppData\Local\Temp\ccEJMmqt.s:107    .text.chIQObjectInit:00000034 $d
+C:\Users\osour\AppData\Local\Temp\ccEJMmqt.s:112    .text.chIQResetI:00000000 $t
+C:\Users\osour\AppData\Local\Temp\ccEJMmqt.s:120    .text.chIQResetI:00000000 chIQResetI
+C:\Users\osour\AppData\Local\Temp\ccEJMmqt.s:181    .text.chIQResetI:00000038 $d
+C:\Users\osour\AppData\Local\Temp\ccEJMmqt.s:186    .text.chIQPutI:00000000 $t
+C:\Users\osour\AppData\Local\Temp\ccEJMmqt.s:194    .text.chIQPutI:00000000 chIQPutI
+C:\Users\osour\AppData\Local\Temp\ccEJMmqt.s:292    .text.chIQPutI:0000005c $d
+C:\Users\osour\AppData\Local\Temp\ccEJMmqt.s:297    .text.chIQGetTimeout:00000000 $t
+C:\Users\osour\AppData\Local\Temp\ccEJMmqt.s:305    .text.chIQGetTimeout:00000000 chIQGetTimeout
+C:\Users\osour\AppData\Local\Temp\ccEJMmqt.s:481    .text.chIQGetTimeout:00000090 $d
+C:\Users\osour\AppData\Local\Temp\ccEJMmqt.s:488    .text.chIQReadTimeout:00000000 $t
+C:\Users\osour\AppData\Local\Temp\ccEJMmqt.s:496    .text.chIQReadTimeout:00000000 chIQReadTimeout
+C:\Users\osour\AppData\Local\Temp\ccEJMmqt.s:764    .text.chIQReadTimeout:000000f0 $d
+C:\Users\osour\AppData\Local\Temp\ccEJMmqt.s:772    .text.chOQObjectInit:00000000 $t
+C:\Users\osour\AppData\Local\Temp\ccEJMmqt.s:780    .text.chOQObjectInit:00000000 chOQObjectInit
+C:\Users\osour\AppData\Local\Temp\ccEJMmqt.s:846    .text.chOQObjectInit:00000030 $d
+C:\Users\osour\AppData\Local\Temp\ccEJMmqt.s:851    .text.chOQResetI:00000000 $t
+C:\Users\osour\AppData\Local\Temp\ccEJMmqt.s:859    .text.chOQResetI:00000000 chOQResetI
+C:\Users\osour\AppData\Local\Temp\ccEJMmqt.s:921    .text.chOQResetI:00000038 $d
+C:\Users\osour\AppData\Local\Temp\ccEJMmqt.s:926    .text.chOQPutTimeout:00000000 $t
+C:\Users\osour\AppData\Local\Temp\ccEJMmqt.s:934    .text.chOQPutTimeout:00000000 chOQPutTimeout
+C:\Users\osour\AppData\Local\Temp\ccEJMmqt.s:1149   .text.chOQPutTimeout:000000c0 $d
+C:\Users\osour\AppData\Local\Temp\ccEJMmqt.s:1156   .text.chOQGetI:00000000 $t
+C:\Users\osour\AppData\Local\Temp\ccEJMmqt.s:1164   .text.chOQGetI:00000000 chOQGetI
+C:\Users\osour\AppData\Local\Temp\ccEJMmqt.s:1264   .text.chOQGetI:00000058 $d
+C:\Users\osour\AppData\Local\Temp\ccEJMmqt.s:1269   .text.chOQWriteTimeout:00000000 $t
+C:\Users\osour\AppData\Local\Temp\ccEJMmqt.s:1277   .text.chOQWriteTimeout:00000000 chOQWriteTimeout
+C:\Users\osour\AppData\Local\Temp\ccEJMmqt.s:1567   .text.chOQWriteTimeout:000000f4 $d
+C:\Users\osour\AppData\Local\Temp\ccEJMmqt.s:1575   .rodata.__func__.7153:00000000 $d
+C:\Users\osour\AppData\Local\Temp\ccEJMmqt.s:1579   .rodata.__func__.7153:00000000 __func__.7153
+C:\Users\osour\AppData\Local\Temp\ccEJMmqt.s:1582   .rodata.__func__.7877:00000000 $d
+C:\Users\osour\AppData\Local\Temp\ccEJMmqt.s:1586   .rodata.__func__.7877:00000000 __func__.7877
+C:\Users\osour\AppData\Local\Temp\ccEJMmqt.s:1589   .rodata.__func__.7913:00000000 $d
+C:\Users\osour\AppData\Local\Temp\ccEJMmqt.s:1593   .rodata.__func__.7913:00000000 __func__.7913
 
 UNDEFINED SYMBOLS
 __stack_chk_fail

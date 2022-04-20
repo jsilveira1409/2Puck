@@ -14,6 +14,7 @@ CSRC += ./main.c \
 		./communications.c \
 		./fft.c \
 		./music.c \
+		./pathing.c \	
 
 #Header folders to include
 INCDIR += 
