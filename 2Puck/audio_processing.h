@@ -4,6 +4,17 @@
 
 //#define FFT_SIZE 	1024
 #define FFT_SIZE 	4096
+#define NB_NOTES				36
+
+
+const static uint16_t note_frequency[NB_NOTES] = {
+/* 	  A   A#    B    C     C#    D     D#     E     F    F#     G   G#*/
+//	110, 116, 124, 	131,  138, 	146,  155, 	165,  175, 	185,  196,  208,
+	220, 233, 247,  262,  277,  294,  311,  330,  349,  370,  392,  415,
+	440, 466, 494,  523,  554,  587,  622,  659,  698,  740,  784,  831,
+	880, 932, 988, 1047, 1108, 1174, 1244, 1318, 1396, 1480, 1568, 1662
+};
+
 
 typedef enum {
 	//2 times FFT_SIZE because these arrays contain complex numbers (real + imaginary)

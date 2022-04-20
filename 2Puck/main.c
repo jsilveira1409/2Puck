@@ -12,7 +12,7 @@
 #include <audio/microphone.h>
 #include <music.h>
 
-#include <audio_processing.h>
+//#include <audio_processing.h>
 #include <fft.h>
 #include <communications.h>
 #include <arm_math.h>
@@ -33,28 +33,19 @@ static void serial_start(void)
 
 int main(void)
 {
-	int16_t seq_score = 0;
-	int16_t ord_score = 0;
     halInit();
     chSysInit();
     mpu_init();
 
     serial_start();
-
+    dac_start();
     usb_start();
 
-    mic_start(&processAudioDataCmplx);
-
-
+   // mic_start(&processAudioDataCmplx);
+    //init_music();
     while (1) {
-    	seq_score = 0;
-    	ord_score = 0;
-    	wait_finish_playing();
-    	set_recording(get_recording());
-    	ord_score = check_note_order(0);
-    	seq_score = check_note_sequence(0);
-		chprintf((BaseSequentialStream *)&SD3, "sequence score :  %d \r \n", seq_score);
-		//chprintf((BaseSequentialStream *)&SD3, "order score    :  %d \r \n", ord_score);
+
+
     }
 }
 
