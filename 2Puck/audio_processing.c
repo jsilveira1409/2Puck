@@ -29,7 +29,6 @@ static float freq = 0;
 
 static uint8_t played_note[RECORDING_SIZE];
 static uint16_t discret_freq = 0;
-static uint32_t magnitude = 0;
 
 
 
@@ -198,7 +197,7 @@ void fundamental_frequency(float* data, uint8_t nb_harmonic){
 	}
 }
 
-uint8_t* get_recording(){
+uint8_t* get_recording(void){
 	return played_note;
 }
 

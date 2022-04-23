@@ -7,7 +7,7 @@
 #define NB_NOTES				36
 
 
-const static uint16_t note_frequency[NB_NOTES] = {
+static const uint16_t note_frequency[NB_NOTES] = {
 /* 	  A   A#    B    C     C#    D     D#     E     F    F#     G   G#*/
 //	110, 116, 124, 	131,  138, 	146,  155, 	165,  175, 	185,  196,  208,
 	220, 233, 247,  262,  277,  294,  311,  330,  349,  370,  392,  415,
@@ -39,8 +39,7 @@ void wait_send_to_computer(void);
 *	Returns the pointer to the BUFFER_NAME_t buffer asked
 */
 float* get_audio_buffer_ptr(BUFFER_NAME_t name);
-void wait_finish_playing();
-uint8_t* get_recording();
+uint8_t* get_recording(void);
 void frequency_to_note(float* data);
 void find_note (int16_t index);
 void check_smallest_error(uint32_t *max_index);

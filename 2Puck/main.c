@@ -16,7 +16,9 @@
 #include <fft.h>
 #include <communications.h>
 #include <arm_math.h>
+
 #include <pathing.h>
+#include <photo.h>
 
 static void serial_start(void)
 {

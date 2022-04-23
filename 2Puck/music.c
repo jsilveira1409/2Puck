@@ -126,7 +126,7 @@ static THD_FUNCTION(music, arg) {
  * FUNCTIONS
  */
 
-void init_music(){
+void init_music(void){
 	chThdCreateStatic(musicWorkingArea, sizeof(musicWorkingArea),
 	                             NORMALPRIO, music, NULL);
 	dac_start();
