@@ -12,8 +12,6 @@
 #include <arm_math.h>
 
 #define RESOLUTION  			(I2S_AUDIOFREQ_16K/2)/(FFT_SIZE/2)
-#define HIGH_MAG_THRESHOLD		1000000
-#define LOW_MAG_THRESHOLD		550000
 #define FREQ_INDEX_OFFSET 		(-2)
 #define MIN_FREQ				10
 #define MAX_FREQ				(FFT_SIZE - 30)
@@ -95,7 +93,7 @@ void frequency_to_note(float* data){
 	arm_max_f32(data, (FFT_SIZE/2), &max_freq_mag, &max_index);
 	check_smallest_error(&max_index);
 	max_index = max_index%12;
-	//find_note(max_index);
+//	find_note(max_index);
 	record_note(max_index);
 }
 
@@ -175,7 +173,6 @@ void record_note(const uint8_t note_index){
 			current_index = 0;
 		}
 		chBSemSignal(&sem_finished_playing);
-		chprintf((BaseSequentialStream *)&SD3, "\r");
 	}
 }
 

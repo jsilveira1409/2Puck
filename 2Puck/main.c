@@ -38,11 +38,9 @@ int main(void)
     mpu_init();
 
     serial_start();
-    dac_start();
     usb_start();
 
-   // mic_start(&processAudioDataCmplx);
-    //init_music();
+    init_music();
     while (1) {
 
 

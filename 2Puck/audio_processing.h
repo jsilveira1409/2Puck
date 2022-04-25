@@ -3,8 +3,8 @@
 
 
 //#define FFT_SIZE 	1024
-#define FFT_SIZE 	4096
-#define NB_NOTES				36
+#define FFT_SIZE 		4096
+#define NB_NOTES		36
 
 
 const static uint16_t note_frequency[NB_NOTES] = {
