@@ -41,14 +41,16 @@ int main(void)
     mpu_init();
 
     serial_start();
-    dac_start();
+    //dac_start();	audio
     usb_start();
 
 
     // mic_start(&processAudioDataCmplx);
     //init_music();
-    init_pathing();
+    //init_pathing();
+    init_photo();
     while (1) {
+    	chThdSleepMilliseconds(100);
 
 
     }
