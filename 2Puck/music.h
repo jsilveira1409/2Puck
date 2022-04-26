@@ -2,10 +2,12 @@
 #define MUSIC_H
 
 
-
-void init_music();
-int16_t check_note_sequence(uint8_t song_index);
-int16_t check_note_order(uint8_t song_index);
+/*
+ * Public Functions
+ */
+void init_music(void);
+void play_song(uint8_t index);
 void set_recording(uint8_t *data);
+
 
 #endif

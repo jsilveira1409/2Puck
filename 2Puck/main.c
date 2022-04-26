@@ -11,8 +11,6 @@
 #include <motors.h>
 #include <audio/microphone.h>
 #include <music.h>
-
-//#include <audio_processing.h>
 #include <fft.h>
 #include <communications.h>
 #include <arm_math.h>

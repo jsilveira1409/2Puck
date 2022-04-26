@@ -7,6 +7,7 @@
 #include <music.h>
 #include <audio/audio_thread.h>
 #include <audio_processing.h>
+#include <audio/custom_microphone.h>
 
 #define NB_SONGS 			5
 #define MS_IN_MINUTE		(60*1000)		//milliseconds in a minute, needed for bpm to ms conversion
@@ -90,13 +91,13 @@ static uint8_t duration_SOLD_THE_WORLD[17]={
 
 
 static uint8_t melody_GOOD_TIMES[27] = {
-	E2, E2, E2, E2,  	E2, FS2, G2, A3, B3, CS3, D3, E3, A2,
-	A2, A2, A2, 		A2, FS3, A2, G3, FS3, A2, E2, B3, E2, FS2, G2
+	E2, E2, E2, E2,  E2, FS2, G2, A3, B3, CS3, D3, E3, A2,
+	A2, A2, A2, A2, FS3, A2, G3, FS3, A2, E2, B3, E2, FS2, G2
 };
 
 static uint8_t duration_GOOD_TIMES[27] = {
-	2, 	2, 	1,	1,		1,	2,	 2,	  2,  2,  2, 2, 1, 1,
-	2,	2,	1,			1,	1,	1,	2,	2,	2,	1,	1,1,1,1
+	2, 	2, 	1,	1,	1,	2,	 2,	  2,  2,  2, 2, 1, 1,
+	2,	2,	1,	1,	1,	1,	2,	2,	2,	1,	1,	1,	1,	1
 };
 
 /*
@@ -121,63 +122,9 @@ struct song{
 
 
 
-
 /*
- * THREADS
+ * Static Functions
  */
-
-static THD_WORKING_AREA(musicWorkingArea, 128);
-static THD_FUNCTION(music, arg) {
-
-  while (true) {
-//	  int16_t score = 0;
-//	  wait_finish_playing();
-//	  set_recording(get_recording());
-//
-//	  score += check_note_sequence(come_as_you_are);
-//	  score += check_note_order(come_as_you_are);
-
-//	  chprintf((BaseSequentialStream *)&SD3, "%d \r \n",score);
-
-	  chThdSleepMilliseconds(1000);
-	  play_song(good_times);
-	  chThdSleepMilliseconds(2000);
-//	  play_song(miss_you);
-//	  chThdSleepMilliseconds(2000);
-//	  play_song(killing_in_the_name_of);
-//	  chThdSleepMilliseconds(2000);
-//	  play_song(sold_the_world);
-//	  chThdSleepMilliseconds(2000);
-
-  }
-}
-
-
-
-/*
- * FUNCTIONS
- */
-
-void init_music(){
-    mic_start(&processAudioDataCmplx);
-    dac_start();
-	chThdCreateStatic(musicWorkingArea, sizeof(musicWorkingArea),NORMALPRIO, music, NULL);
-}
-
-uint32_t duration_to_ms(uint8_t duration, uint16_t bpm){
-	return ( (MS_IN_MINUTE*duration)/( bpm * SIXTEENTH_NOTE) );
-}
-
-void play_song(uint8_t index){
-	for(uint8_t i = 0; i < songs[index].melody_size; i++){
-		dac_play(note_frequency[songs[index].melody_ptr[i]]);
-
-		chThdSleepMilliseconds(duration_to_ms(songs[index].note_duration_ptr[i],songs[index].bpm));
-		dac_stop();
-		chThdSleepMilliseconds(50);
-	}
-}
-
 
 
 /*
@@ -185,16 +132,23 @@ void play_song(uint8_t index){
  * be played ?
  */
 
-int16_t check_note_sequence(uint8_t index){
+static int16_t check_note_sequence(uint8_t index){
 	int16_t score = 0;
 	uint16_t starting_index = 0;
-
+	/*
+	 * First we find the first correct note on the recording,
+	 * which will be our starting index for the melody-recording
+	 * comparison
+	 */
 	for(uint16_t i=0; i<songs[index].melody_size; i++){
 		if(((songs[index].melody_ptr[i])%12) == recording[i]){
 			starting_index = i;
 			break;
 		}
 	}
+	/*
+	 * Here we compare the melody and the recording
+	 */
 	for(uint16_t i=starting_index; i< (starting_index+songs[index].melody_size); i++){
 		if(recording[i] == (songs[index].melody_ptr[i]%12)){
 			score ++;
@@ -210,7 +164,7 @@ int16_t check_note_sequence(uint8_t index){
  * Checking order of played notes is correct: was note y played after note x, even
  * if there is a wrong note in between?
  */
-int16_t check_note_order(uint8_t index){
+static int16_t check_note_order(uint8_t index){
 	int16_t score = 0;
 
 	for(uint16_t i=0; i< songs[index].melody_size; i++){
@@ -224,6 +178,61 @@ int16_t check_note_order(uint8_t index){
 	return score;
 }
 
+
+static uint32_t duration_to_ms(uint8_t duration, uint16_t bpm){
+	return ( (MS_IN_MINUTE*duration)/( bpm * SIXTEENTH_NOTE) );
+}
+
+/*
+ * Threads
+ */
+
+static THD_WORKING_AREA(musicWorkingArea, 128);
+static THD_FUNCTION(music, arg) {
+  while (true) {
+	  int16_t score = 0;
+	  wait_finish_playing();
+	  set_recording(get_recording());
+
+	  score += check_note_sequence(come_as_you_are);
+	  score += check_note_order(come_as_you_are);
+
+	  chprintf((BaseSequentialStream *)&SD3, "%d \r \n",score);
+
+	  chThdSleepMilliseconds(1000);
+	  play_song(good_times);
+	  chThdSleepMilliseconds(2000);
+	  play_song(miss_you);
+	  chThdSleepMilliseconds(2000);
+	  play_song(killing_in_the_name_of);
+	  chThdSleepMilliseconds(2000);
+	  play_song(sold_the_world);
+	  chThdSleepMilliseconds(2000);
+
+  }
+}
+
+
+
+/*
+ * Public Functions
+ */
+
+void init_music(void){
+    mic_start(&processAudioDataCmplx);
+    dac_start();
+	chThdCreateStatic(musicWorkingArea, sizeof(musicWorkingArea),NORMALPRIO, music, NULL);
+}
+
+void play_song(uint8_t index){
+	for(uint8_t i = 0; i < songs[index].melody_size; i++){
+		dac_play(note_frequency[songs[index].melody_ptr[i]]);
+
+		chThdSleepMilliseconds(duration_to_ms(songs[index].note_duration_ptr[i],songs[index].bpm));
+		dac_stop();
+		chThdSleepMilliseconds(50);
+	}
+}
 
 void set_recording(uint8_t *data){
 	recording = data;

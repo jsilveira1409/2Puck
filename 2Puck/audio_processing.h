@@ -1,13 +1,11 @@
 #ifndef AUDIO_PROCESSING_H
 #define AUDIO_PROCESSING_H
 
-
-//#define FFT_SIZE 	1024
 #define FFT_SIZE 		4096
 #define NB_NOTES		36
 
 
-const static uint16_t note_frequency[NB_NOTES] = {
+static const uint16_t note_frequency[NB_NOTES] = {
 /* 	  A   A#    B    C     C#    D     D#     E     F    F#     G   G#*/
 //	110, 116, 124, 	131,  138, 	146,  155, 	165,  175, 	185,  196,  208,
 	220, 233, 247,  262,  277,  294,  311,  330,  349,  370,  392,  415,
@@ -29,22 +27,16 @@ typedef enum {
 	BACK_OUTPUT
 } BUFFER_NAME_t;
 
+/*
+ * Public functions
+ */
 void processAudioDataCmplx(int16_t *data, uint16_t num_samples);
-/*
-*	put the invoking thread into sleep until it can process the audio datas
-*/
 void wait_send_to_computer(void);
+void wait_finish_playing(void);
+uint8_t* get_recording(void);
 
-/*
-*	Returns the pointer to the BUFFER_NAME_t buffer asked
-*/
-float* get_audio_buffer_ptr(BUFFER_NAME_t name);
-void wait_finish_playing();
-uint8_t* get_recording();
-void frequency_to_note(float* data);
-void find_note (int16_t index);
-void check_smallest_error(uint32_t *max_index);
-void record_note(const uint8_t note_index);
+
+
 
 #endif /* AUDIO_PROCESSING_H */
 
