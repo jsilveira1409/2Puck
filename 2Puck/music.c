@@ -199,15 +199,15 @@ static THD_FUNCTION(music, arg) {
 
 	  chprintf((BaseSequentialStream *)&SD3, "%d \r \n",score);
 
-	  chThdSleepMilliseconds(1000);
-	  play_song(good_times);
-	  chThdSleepMilliseconds(2000);
-	  play_song(miss_you);
-	  chThdSleepMilliseconds(2000);
-	  play_song(killing_in_the_name_of);
-	  chThdSleepMilliseconds(2000);
-	  play_song(sold_the_world);
-	  chThdSleepMilliseconds(2000);
+//	  chThdSleepMilliseconds(1000);
+//	  play_song(good_times);
+//	  chThdSleepMilliseconds(2000);
+//	  play_song(miss_you);
+//	  chThdSleepMilliseconds(2000);
+//	  play_song(killing_in_the_name_of);
+//	  chThdSleepMilliseconds(2000);
+//	  play_song(sold_the_world);
+//	  chThdSleepMilliseconds(2000);
 
   }
 }

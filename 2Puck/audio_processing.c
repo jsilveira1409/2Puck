@@ -77,7 +77,7 @@ void processAudioDataCmplx(int16_t *data, uint16_t num_samples){
 		if(register_note == 1){
 			doCmplxFFT_optimized(FFT_SIZE, micLeft_cmplx_input);
 			arm_cmplx_mag_f32(micLeft_cmplx_input, micLeft_output, FFT_SIZE);
-			//fundamental_frequency(micLeft_output, 4);
+			fundamental_frequency(micLeft_output, 4);
 			frequency_to_note(micLeft_output);
 			register_note = 0;
 		}
@@ -97,13 +97,17 @@ void frequency_to_note(float* data){
 	arm_max_f32(data, (FFT_SIZE/2), &max_freq_mag, &max_index);
 	check_smallest_error(&max_index);
 	max_index = max_index%12;
-//	find_note(max_index);
+	find_note(max_index);
 	record_note(max_index);
 }
 
 /*
  * Finds the smallest error between the FFT data
  * and the discrete note frequency in note_frequency[]
+ *
+ *	TODO: implement something that ignores the note when the error is too big,
+ *	could help with resolution
+ *
  */
 void check_smallest_error(uint32_t *max_index){
 	float smallest_error = 0, curr_error = 0;
