@@ -1,5 +1,4 @@
-#reads the data in uint8 from the serial
-def readUint8Serial(port, data):
+def readSyncMsg(port):
     state = 0
     while(state != 5):
         #reads 1 byte
@@ -42,7 +41,10 @@ def readUint8Serial(port, data):
             else:
                 state = 0
 
+#reads the data in uint8 from the serial
+def readUint8Serial(port, data):
     #reads the size
+    readSyncMsg(port)
     #converts as short int in little endian the two bytes read
     size = struct.unpack('<h',port.read(2)) 
     

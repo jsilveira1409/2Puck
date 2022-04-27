@@ -37,7 +37,7 @@ class serial_thread(Thread):
                 if(mode == 1):
                     print("Start Game")
                     self.start_game()
-                    self.wait_score()
+                   # self.wait_score()
                 if(mode == 2):
                     print("Next Player")
                     self.next_player()
@@ -45,16 +45,24 @@ class serial_thread(Thread):
 
                     
     def start_game(self):
+        data =[]
         self.port.write(b'START')
         self.port.write(b'SG')
+        readUint8Serial(self.port, data)
+        for x in data:
+            print(x)
 
     def next_player(self):
         self.port.write(b'START')
         self.port.write(b'NP')
+        readSyncMsg(self.port)
+        print(self.port.read(2))
 
     def wait_score(self):
-        self.port.read()
- #clean exit of the thread if we need to stop it
+        readSyncMsg(self.port)
+        print('size',self.port.read(1))
+        print(self.port.read(2))
+
     def stop(self):
         if(self.port.isOpen()):
             self.port.close()
