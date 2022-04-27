@@ -6,16 +6,16 @@
 PROJECT = 2Puck
 
 #Define path to the e-puck2_main-processor folder
-GLOBAL_PATH = ../../lib/e-puck2_main-processor
+GLOBAL_PATH = ../lib/e-puck2_main-processor
 
 #Source files to include
-CSRC += ./main.c \
-		./audio_processing.c \
-		./communications.c \
-		./fft.c \
-		./music.c \
-		./pathing.c \
-		./photo.c \
+CSRC += main.c \
+		audio_processing.c \
+		communications.c \
+		fft.c \
+		music.c \
+		pathing.c \
+		photo.c \
 		
 #Header folders to include
 INCDIR += 

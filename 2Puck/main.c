@@ -45,7 +45,7 @@ int main(void)
     usb_start();
 
 
-     mic_start(&processAudioDataCmplx);
+    mic_start(&processAudioDataCmplx);
     //init_music();
     //init_pathing();
 //    init_photo();
