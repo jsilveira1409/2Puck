@@ -45,28 +45,13 @@ int main(void)
     usb_start();
 
 
-//     mic_start(&processAudioDataCmplx);
+    mic_start(&processAudioDataCmplx);
     //init_music();
     //init_pathing();
 //    init_photo();
     while (1) {
-    	float* rec_msg;
-    	float send_msg = 1;
-//    	*send_msg = 1;
-    	SendFloatToComputer((BaseSequentialStream *) &SD3, &send_msg, 1);
-//    	int16_t size = ReceiveInt16FromComputer((BaseSequentialStream *) &SD3,&rec_msg,1);
-//    	if(size == 2 ){
-//    		if(rec_msg[0] == 'S'){
-//    			if(rec_msg[1] == 'G'){
-//    				SendFloatToComputer((BaseSequentialStream *) &SD3, &send_msg, 1);
-//    			}
-//    		}
-//    		if(rec_msg[0] == 'N'){
-//				if(rec_msg[1] == 'P'){
-//					chprintf((BaseSequentialStream *) &SD3,"PN");
-//				}
-//			}
-//    	}
+    	float msg = 0;
+//    	ReceiveInt16FromComputer(&msg,1);
     	chThdSleepMilliseconds(100);
 
 
