@@ -1,3 +1,19 @@
+/*
+ * 				  P: target(TARGET_X, TARGET_Y)
+ * 			   	 ^
+ * 				/
+ * 		+y	^  /dist: vector between epuck current pos and target
+ * 			| /
+ * 			|/
+ * 	origin 	o ----> +x
+ * 	  =
+ * 	center of
+ * 	puck
+ *
+ * 	ALL POSITION VALUES ARE IN mm
+ */
+
+
 #include "ch.h"
 #include "hal.h"
 #include <main.h>
@@ -8,6 +24,8 @@
 #include <sensors/proximity.h>
 #include <motors.h>
 #include <arm_math.h>
+
+
 
 /*
  * For the position and target vectors
@@ -30,12 +48,9 @@ enum { 	hard_left = 0, 	soft_left, straight_left,
 #define RAD2DEG			(360/3.14)
 #define ANGLE_EPSILON	0.05
 #define MIN_DISTANCE	5
-/*
- * Position values are in mm
- */
 
 #define TARGET_X	(100)		//ptn de parenthese merci pour la nuit blanche
-#define TARGET_Y	300
+#define TARGET_Y	(300)
 
 
 
@@ -43,9 +58,8 @@ enum { 	hard_left = 0, 	soft_left, straight_left,
  * Current position of the puck, center of axis of the wheels
  */
 volatile static float position[2] = {0,0};
-
 /*
- * LA COORDONNE X SEMBLE INVERSé, PAS COMPRIS POURQUOI ENCORE
+ * Target position for the end of the pathing
  */
 volatile static float target[2] = {TARGET_X,TARGET_Y};
 volatile static float orientation[2] = {0,0};
