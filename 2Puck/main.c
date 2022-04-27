@@ -9,7 +9,7 @@
 #include <main.h>
 #include <chprintf.h>
 #include <motors.h>
-#include <audio/microphone.h>
+#include <custom_microphone.h>
 #include <music.h>
 
 #include <audio_processing.h>

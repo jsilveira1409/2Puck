@@ -56,21 +56,21 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY
  17 .comment      0000007e  00000000  00000000  00021239  2**0
                   CONTENTS, READONLY
- 18 .debug_info   000d3f3f  00000000  00000000  000212b7  2**0
+ 18 .debug_info   000d3f34  00000000  00000000  000212b7  2**0
                   CONTENTS, READONLY, DEBUGGING
- 19 .debug_abbrev 0000e507  00000000  00000000  000f51f6  2**0
+ 19 .debug_abbrev 0000e4fa  00000000  00000000  000f51eb  2**0
                   CONTENTS, READONLY, DEBUGGING
- 20 .debug_aranges 00001858  00000000  00000000  001036fd  2**0
+ 20 .debug_aranges 00001858  00000000  00000000  001036e5  2**0
                   CONTENTS, READONLY, DEBUGGING
- 21 .debug_ranges 000036a8  00000000  00000000  00104f55  2**0
+ 21 .debug_ranges 000036a8  00000000  00000000  00104f3d  2**0
                   CONTENTS, READONLY, DEBUGGING
- 22 .debug_line   000256c3  00000000  00000000  001085fd  2**0
+ 22 .debug_line   000256c7  00000000  00000000  001085e5  2**0
                   CONTENTS, READONLY, DEBUGGING
- 23 .debug_str    00007850  00000000  00000000  0012dcc0  2**0
+ 23 .debug_str    00007840  00000000  00000000  0012dcac  2**0
                   CONTENTS, READONLY, DEBUGGING
- 24 .debug_frame  00007344  00000000  00000000  00135510  2**2
+ 24 .debug_frame  00007344  00000000  00000000  001354ec  2**2
                   CONTENTS, READONLY, DEBUGGING
- 25 .debug_loc    00012e55  00000000  00000000  0013c854  2**0
+ 25 .debug_loc    00012e55  00000000  00000000  0013c830  2**0
                   CONTENTS, READONLY, DEBUGGING
 SYMBOL TABLE:
 08000000 l    d  startup	00000000 startup
@@ -125,14 +125,14 @@ e000ed04 l       *ABS*	00000000 SCB_ICSR
 00000000 l    df *ABS*	00000000 _arm_cmpdf2.o
 00000000 l    df *ABS*	00000000 _arm_unorddf2.o
 00000000 l    df *ABS*	00000000 main.c
-20000804 l     O .data	0000000c ser_cfg.14921
+20000804 l     O .data	0000000c ser_cfg.14914
 00000000 l    df *ABS*	00000000 photo.c
 08001320 l     F .text	000000ec TakePhoto
 20001208 l     O .bss	00000278 waTakePhoto
-20000810 l     O .data	00000002 line_cnt.11392
+20000810 l     O .data	00000002 line_cnt.11391
 20000814 l     O .data	0000000c line_ready_sem
-20000820 l     O .data	00000001 send.11393
-0800e960 l     O .text	0000000a __FUNCTION__.11391
+20000820 l     O .data	00000001 send.11392
+0800e960 l     O .text	0000000a __FUNCTION__.11390
 0800e970 l     O .text	0000000c __func__.7153
 00000000 l    df *ABS*	00000000 dcmi_lld.c
 08001410 l     F .text	0000004c dcmi_lld_stop_stream.part.0
