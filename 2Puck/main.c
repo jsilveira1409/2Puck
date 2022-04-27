@@ -9,7 +9,7 @@
 #include <main.h>
 #include <chprintf.h>
 #include <motors.h>
-#include <custom_microphone.h>
+#include <audio/microphone.h>
 #include <music.h>
 
 #include <audio_processing.h>
@@ -41,15 +41,17 @@ int main(void)
     mpu_init();
 
     serial_start();
-    //dac_start();	audio
+    //dac_start();
     usb_start();
 
 
-    // mic_start(&processAudioDataCmplx);
+     mic_start(&processAudioDataCmplx);
     //init_music();
     //init_pathing();
-    init_photo();
+//    init_photo();
     while (1) {
+    	float msg = 0;
+//    	ReceiveInt16FromComputer(&msg,1);
     	chThdSleepMilliseconds(100);
 
 

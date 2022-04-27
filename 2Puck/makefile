@@ -16,9 +16,7 @@ CSRC += ./main.c \
 		./music.c \
 		./pathing.c \
 		./photo.c \
-		./custom_mp45dt02_processing.c \
-		./custom_microphone.c \	
-
+		
 #Header folders to include
 INCDIR += 
 

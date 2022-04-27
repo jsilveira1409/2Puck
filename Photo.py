@@ -29,14 +29,32 @@ class serial_thread(Thread):
             sys.exit(0)
     #function called after the init
     def run(self):
-        #data = bytes(size)
-        option = input("Enter option: \n")
-        if(option == 'n')
+        mode = 0
+        while(True):
+            option = input("Enter option: \n")   
+            if(option == 'n'):
+                mode += 1
+                if(mode == 1):
+                    print("Start Game")
+                    self.start_game()
+                    self.wait_score()
+                if(mode == 2):
+                    print("Next Player")
+                    self.next_player()
+                
 
-        
-            
+                    
+    def start_game(self):
+        self.port.write(b'START')
+        self.port.write(b'SG')
 
-    #clean exit of the thread if we need to stop it
+    def next_player(self):
+        self.port.write(b'START')
+        self.port.write(b'NP')
+
+    def wait_score(self):
+        self.port.read()
+ #clean exit of the thread if we need to stop it
     def stop(self):
         if(self.port.isOpen()):
             self.port.close()

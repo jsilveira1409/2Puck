@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccmyfwc7.s 			page 1
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccRBc9Sd.s 			page 1
 
 
    1              		.cpu cortex-m4
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccmyfwc7.s 			page 1
   55 0018 B0F1016F 		cmp	r0, #135266304
   56              		.loc 1 44 0
   57 001c 0199     		ldr	r1, [sp, #4]
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccmyfwc7.s 			page 2
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccRBc9Sd.s 			page 2
 
 
   58 001e 1268     		ldr	r2, [r2]
@@ -118,7 +118,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccmyfwc7.s 			page 1
  112              	.LFB1:
  113              		.loc 1 47 0
  114              		.cfi_startproc
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccmyfwc7.s 			page 3
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccRBc9Sd.s 			page 3
 
 
  115              		@ args = 0, pretend = 0, frame = 8
@@ -178,7 +178,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccmyfwc7.s 			page 1
  169              		@ frame_needed = 0, uses_anonymous_args = 0
  170 0000 30B5     		push	{r4, r5, lr}
  171              		.cfi_def_cfa_offset 12
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccmyfwc7.s 			page 4
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccRBc9Sd.s 			page 4
 
 
  172              		.cfi_offset 4, -12
@@ -238,7 +238,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccmyfwc7.s 			page 1
  226              		.global	flash_write
  227              		.syntax unified
  228              		.thumb
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccmyfwc7.s 			page 5
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccRBc9Sd.s 			page 5
 
 
  229              		.thumb_func
@@ -298,7 +298,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccmyfwc7.s 			page 1
  283              	.LBE28:
  284              	.LBB36:
  285              	.LBB26:
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccmyfwc7.s 			page 6
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccRBc9Sd.s 			page 6
 
 
  286              		.loc 1 64 0
@@ -358,7 +358,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccmyfwc7.s 			page 1
  340              	.L33:
  341              		.loc 1 102 0
  342 0042 084A     		ldr	r2, .L35+8
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccmyfwc7.s 			page 7
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccRBc9Sd.s 			page 7
 
 
  343 0044 1368     		ldr	r3, [r2]
@@ -418,7 +418,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccmyfwc7.s 			page 1
  397 0006 2368     		ldr	r3, [r4]
  398              	.LBB43:
  399              	.LBB44:
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccmyfwc7.s 			page 8
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccRBc9Sd.s 			page 8
 
 
  400              		.loc 1 69 0
@@ -478,7 +478,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccmyfwc7.s 			page 1
  454              	.LBB51:
  455              	.LBB50:
  456              		.loc 1 69 0
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccmyfwc7.s 			page 9
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccRBc9Sd.s 			page 9
 
 
  457 0042 0B68     		ldr	r3, [r1]
@@ -538,7 +538,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccmyfwc7.s 			page 1
  511              	.LBB52:
  512              	.LBB53:
  513              		.loc 1 31 0
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccmyfwc7.s 			page 10
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccRBc9Sd.s 			page 10
 
 
  514 000a 20F07F43 		bic	r3, r0, #-16777216
@@ -598,7 +598,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccmyfwc7.s 			page 1
  568              		.loc 1 35 0
  569 0040 0423     		movcc	r3, #4
  570              	.LVL37:
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccmyfwc7.s 			page 11
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccRBc9Sd.s 			page 11
 
 
  571 0042 E9E7     		b	.L49
@@ -658,7 +658,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccmyfwc7.s 			page 1
  625 0048 A5000000 		.4byte	.LASF3
  626 004c 02       		.uleb128 0x2
  627 004d 04       		.byte	0x4
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccmyfwc7.s 			page 12
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccRBc9Sd.s 			page 12
 
 
  628 004e 05       		.byte	0x5
@@ -718,7 +718,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccmyfwc7.s 			page 1
  682 00ba 04010000 		.4byte	0x104
  683 00be 06       		.uleb128 0x6
  684 00bf 38000000 		.4byte	.LASF17
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccmyfwc7.s 			page 13
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccRBc9Sd.s 			page 13
 
 
  685 00c3 01       		.byte	0x1
@@ -778,7 +778,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccmyfwc7.s 			page 1
  739 014a 0B       		.uleb128 0xb
  740 014b C5020000 		.4byte	0x2c5
  741 014f 83000000 		.4byte	.LLST14
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccmyfwc7.s 			page 14
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccRBc9Sd.s 			page 14
 
 
  742 0153 0C       		.uleb128 0xc
@@ -838,7 +838,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccmyfwc7.s 			page 1
  796 01d0 01       		.byte	0x1
  797 01d1 5F       		.byte	0x5f
  798 01d2 3E020000 		.4byte	0x23e
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccmyfwc7.s 			page 15
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccRBc9Sd.s 			page 15
 
 
  799 01d6 5C010000 		.4byte	.LLST8
@@ -898,7 +898,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccmyfwc7.s 			page 1
  853 0257 3E020000 		.4byte	0x23e
  854 025b 15       		.uleb128 0x15
  855 025c 6F000000 		.4byte	.LASF22
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccmyfwc7.s 			page 16
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccRBc9Sd.s 			page 16
 
 
  856 0260 01       		.byte	0x1
@@ -958,7 +958,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccmyfwc7.s 			page 1
  910 02d3 01       		.byte	0x1
  911 02d4 1D       		.byte	0x1d
  912 02d5 8C000000 		.4byte	0x8c
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccmyfwc7.s 			page 17
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccRBc9Sd.s 			page 17
 
 
  913 02d9 19       		.uleb128 0x19
@@ -1018,7 +1018,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccmyfwc7.s 			page 1
  967 000e 01       		.uleb128 0x1
  968 000f 10       		.uleb128 0x10
  969 0010 17       		.uleb128 0x17
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccmyfwc7.s 			page 18
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccRBc9Sd.s 			page 18
 
 
  970 0011 00       		.byte	0
@@ -1078,7 +1078,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccmyfwc7.s 			page 1
  1024 0047 40       		.uleb128 0x40
  1025 0048 18       		.uleb128 0x18
  1026 0049 9742     		.uleb128 0x2117
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccmyfwc7.s 			page 19
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccRBc9Sd.s 			page 19
 
 
  1027 004b 19       		.uleb128 0x19
@@ -1138,7 +1138,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccmyfwc7.s 			page 1
  1081 0083 13       		.uleb128 0x13
  1082 0084 02       		.uleb128 0x2
  1083 0085 17       		.uleb128 0x17
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccmyfwc7.s 			page 20
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccRBc9Sd.s 			page 20
 
 
  1084 0086 00       		.byte	0
@@ -1198,7 +1198,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccmyfwc7.s 			page 1
  1138 00bf 0F       		.uleb128 0xf
  1139 00c0 00       		.byte	0
  1140 00c1 0B       		.uleb128 0xb
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccmyfwc7.s 			page 21
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccRBc9Sd.s 			page 21
 
 
  1141 00c2 0B       		.uleb128 0xb
@@ -1258,7 +1258,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccmyfwc7.s 			page 1
  1195 00f8 3B       		.uleb128 0x3b
  1196 00f9 0B       		.uleb128 0xb
  1197 00fa 27       		.uleb128 0x27
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccmyfwc7.s 			page 22
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccRBc9Sd.s 			page 22
 
 
  1198 00fb 19       		.uleb128 0x19
@@ -1318,7 +1318,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccmyfwc7.s 			page 1
  1252 0131 00       		.byte	0
  1253 0132 00       		.byte	0
  1254 0133 18       		.uleb128 0x18
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccmyfwc7.s 			page 23
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccRBc9Sd.s 			page 23
 
 
  1255 0134 05       		.uleb128 0x5
@@ -1378,7 +1378,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccmyfwc7.s 			page 1
  1309 016b 3F       		.uleb128 0x3f
  1310 016c 19       		.uleb128 0x19
  1311 016d 3C       		.uleb128 0x3c
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccmyfwc7.s 			page 24
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccRBc9Sd.s 			page 24
 
 
  1312 016e 19       		.uleb128 0x19
@@ -1438,7 +1438,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccmyfwc7.s 			page 1
  1366 0066 00       		.sleb128 0
  1367 0067 08       		.byte	0x8
  1368 0068 FF       		.byte	0xff
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccmyfwc7.s 			page 25
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccRBc9Sd.s 			page 25
 
 
  1369 0069 1A       		.byte	0x1a
@@ -1498,7 +1498,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccmyfwc7.s 			page 1
  1423 00e6 51       		.byte	0x51
  1424 00e7 9F       		.byte	0x9f
  1425 00e8 00000000 		.4byte	0
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccmyfwc7.s 			page 26
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccRBc9Sd.s 			page 26
 
 
  1426 00ec 00000000 		.4byte	0
@@ -1558,7 +1558,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccmyfwc7.s 			page 1
  1480 0166 70       		.byte	0x70
  1481 0167 01       		.sleb128 1
  1482 0168 9F       		.byte	0x9f
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccmyfwc7.s 			page 27
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccRBc9Sd.s 			page 27
 
 
  1483 0169 28000000 		.4byte	.LVL19
@@ -1618,7 +1618,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccmyfwc7.s 			page 1
  1537 01e6 F3       		.byte	0xf3
  1538 01e7 01       		.uleb128 0x1
  1539 01e8 50       		.byte	0x50
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccmyfwc7.s 			page 28
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccRBc9Sd.s 			page 28
 
 
  1540 01e9 9F       		.byte	0x9f
@@ -1678,7 +1678,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccmyfwc7.s 			page 1
  1594 0273 0900     		.2byte	0x9
  1595 0275 70       		.byte	0x70
  1596 0276 00       		.sleb128 0
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccmyfwc7.s 			page 29
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccRBc9Sd.s 			page 29
 
 
  1597 0277 0C       		.byte	0xc
@@ -1738,7 +1738,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccmyfwc7.s 			page 1
  1651 002c 68000000 		.4byte	.LFE6-.LFB6
  1652 0030 00000000 		.4byte	.LFB8
  1653 0034 64000000 		.4byte	.LFE8-.LFB8
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccmyfwc7.s 			page 30
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccRBc9Sd.s 			page 30
 
 
  1654 0038 00000000 		.4byte	.LFB7
@@ -1798,7 +1798,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccmyfwc7.s 			page 1
  1708 00c0 20000000 		.4byte	.LBB56
  1709 00c4 26000000 		.4byte	.LBE56
  1710 00c8 36000000 		.4byte	.LBB57
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccmyfwc7.s 			page 31
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccRBc9Sd.s 			page 31
 
 
  1711 00cc 44000000 		.4byte	.LBE57
@@ -1858,7 +1858,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccmyfwc7.s 			page 1
  1744      385F7400 
  1745              	.LASF32:
  1746 005a 666C6173 		.ascii	"flash_addr_to_sector\000"
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccmyfwc7.s 			page 32
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccRBc9Sd.s 			page 32
 
 
  1746      685F6164 
@@ -1918,7 +1918,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccmyfwc7.s 			page 1
  1770 00f9 5F5F7569 		.ascii	"__uint32_t\000"
  1770      6E743332 
  1770      5F7400
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccmyfwc7.s 			page 33
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccRBc9Sd.s 			page 33
 
 
  1771              	.LASF28:
@@ -1978,7 +1978,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccmyfwc7.s 			page 1
  1786 029f 6C6F6E67 		.ascii	"long long int\000"
  1786      206C6F6E 
  1786      6720696E 
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccmyfwc7.s 			page 34
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccRBc9Sd.s 			page 34
 
 
  1786      7400
@@ -2025,29 +2025,29 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccmyfwc7.s 			page 1
  1805      6C6F636B 
  1805      00
  1806              		.ident	"GCC: (GNU Tools for Arm Embedded Processors 7-2017-q4-major) 7.2.1 20170904 (release) [ARM
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccmyfwc7.s 			page 35
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccRBc9Sd.s 			page 35
 
 
 DEFINED SYMBOLS
                             *ABS*:00000000 flash.c
-C:\Users\osour\AppData\Local\Temp\ccmyfwc7.s:18     .text.flash_addr_to_sector:00000000 $t
-C:\Users\osour\AppData\Local\Temp\ccmyfwc7.s:26     .text.flash_addr_to_sector:00000000 flash_addr_to_sector
-C:\Users\osour\AppData\Local\Temp\ccmyfwc7.s:98     .text.flash_addr_to_sector:00000044 $d
-C:\Users\osour\AppData\Local\Temp\ccmyfwc7.s:103    .text.flash_lock:00000000 $t
-C:\Users\osour\AppData\Local\Temp\ccmyfwc7.s:111    .text.flash_lock:00000000 flash_lock
-C:\Users\osour\AppData\Local\Temp\ccmyfwc7.s:150    .text.flash_lock:00000028 $d
-C:\Users\osour\AppData\Local\Temp\ccmyfwc7.s:156    .text.flash_unlock:00000000 $t
-C:\Users\osour\AppData\Local\Temp\ccmyfwc7.s:164    .text.flash_unlock:00000000 flash_unlock
-C:\Users\osour\AppData\Local\Temp\ccmyfwc7.s:215    .text.flash_unlock:00000030 $d
-C:\Users\osour\AppData\Local\Temp\ccmyfwc7.s:224    .text.flash_write:00000000 $t
-C:\Users\osour\AppData\Local\Temp\ccmyfwc7.s:232    .text.flash_write:00000000 flash_write
-C:\Users\osour\AppData\Local\Temp\ccmyfwc7.s:363    .text.flash_write:0000005c $d
-C:\Users\osour\AppData\Local\Temp\ccmyfwc7.s:370    .text.flash_sector_erase_number:00000000 $t
-C:\Users\osour\AppData\Local\Temp\ccmyfwc7.s:378    .text.flash_sector_erase_number:00000000 flash_sector_erase_number
-C:\Users\osour\AppData\Local\Temp\ccmyfwc7.s:479    .text.flash_sector_erase_number:00000058 $d
-C:\Users\osour\AppData\Local\Temp\ccmyfwc7.s:486    .text.flash_sector_erase:00000000 $t
-C:\Users\osour\AppData\Local\Temp\ccmyfwc7.s:494    .text.flash_sector_erase:00000000 flash_sector_erase
-C:\Users\osour\AppData\Local\Temp\ccmyfwc7.s:582    .text.flash_sector_erase:00000048 $d
+C:\Users\osour\AppData\Local\Temp\ccRBc9Sd.s:18     .text.flash_addr_to_sector:00000000 $t
+C:\Users\osour\AppData\Local\Temp\ccRBc9Sd.s:26     .text.flash_addr_to_sector:00000000 flash_addr_to_sector
+C:\Users\osour\AppData\Local\Temp\ccRBc9Sd.s:98     .text.flash_addr_to_sector:00000044 $d
+C:\Users\osour\AppData\Local\Temp\ccRBc9Sd.s:103    .text.flash_lock:00000000 $t
+C:\Users\osour\AppData\Local\Temp\ccRBc9Sd.s:111    .text.flash_lock:00000000 flash_lock
+C:\Users\osour\AppData\Local\Temp\ccRBc9Sd.s:150    .text.flash_lock:00000028 $d
+C:\Users\osour\AppData\Local\Temp\ccRBc9Sd.s:156    .text.flash_unlock:00000000 $t
+C:\Users\osour\AppData\Local\Temp\ccRBc9Sd.s:164    .text.flash_unlock:00000000 flash_unlock
+C:\Users\osour\AppData\Local\Temp\ccRBc9Sd.s:215    .text.flash_unlock:00000030 $d
+C:\Users\osour\AppData\Local\Temp\ccRBc9Sd.s:224    .text.flash_write:00000000 $t
+C:\Users\osour\AppData\Local\Temp\ccRBc9Sd.s:232    .text.flash_write:00000000 flash_write
+C:\Users\osour\AppData\Local\Temp\ccRBc9Sd.s:363    .text.flash_write:0000005c $d
+C:\Users\osour\AppData\Local\Temp\ccRBc9Sd.s:370    .text.flash_sector_erase_number:00000000 $t
+C:\Users\osour\AppData\Local\Temp\ccRBc9Sd.s:378    .text.flash_sector_erase_number:00000000 flash_sector_erase_number
+C:\Users\osour\AppData\Local\Temp\ccRBc9Sd.s:479    .text.flash_sector_erase_number:00000058 $d
+C:\Users\osour\AppData\Local\Temp\ccRBc9Sd.s:486    .text.flash_sector_erase:00000000 $t
+C:\Users\osour\AppData\Local\Temp\ccRBc9Sd.s:494    .text.flash_sector_erase:00000000 flash_sector_erase
+C:\Users\osour\AppData\Local\Temp\ccRBc9Sd.s:582    .text.flash_sector_erase:00000048 $d
 
 UNDEFINED SYMBOLS
 __stack_chk_fail

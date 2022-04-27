@@ -5,7 +5,7 @@
 #include <chprintf.h>
 
 #include <motors.h>
-#include <audio/custom_microphone.h>
+#include <audio/microphone.h>
 #include <audio_processing.h>
 #include <communications.h>
 #include <fft.h>
@@ -20,6 +20,8 @@
 
 #define NB_SAMPLES				160
 #define RECORDING_SIZE			20
+#define NB_MICS 2
+
 
 static BSEMAPHORE_DECL(sem_finished_playing, TRUE);
 
@@ -27,10 +29,13 @@ static float micLeft_cmplx_input[2 * FFT_SIZE];
 static float micLeft_output[FFT_SIZE];
 static float freq = 0;
 
+static const uint16_t MAX_VOLUME = 900, MIN_VOLUME = 800;
+static uint16_t mic_volume = 0;
+static int16_t mic_last;
+
+
 static uint8_t played_note[RECORDING_SIZE];
 static uint16_t discret_freq = 0;
-
-
 
 
 /*
@@ -76,7 +81,7 @@ void processAudioDataCmplx(int16_t *data, uint16_t num_samples){
 		if(register_note == 1){
 			doCmplxFFT_optimized(FFT_SIZE, micLeft_cmplx_input);
 			arm_cmplx_mag_f32(micLeft_cmplx_input, micLeft_output, FFT_SIZE);
-			//fundamental_frequency(micLeft_output, 4);
+			fundamental_frequency(micLeft_output, 4);
 			frequency_to_note(micLeft_output);
 			register_note = 0;
 		}
@@ -94,7 +99,7 @@ void frequency_to_note(float* data){
 	arm_max_f32(data, (FFT_SIZE/2), &max_freq_mag, &max_index);
 	check_smallest_error(&max_index);
 	max_index = max_index%12;
-	//find_note(max_index);
+	find_note(max_index);
 	record_note(max_index);
 }
 
@@ -199,5 +204,38 @@ void fundamental_frequency(float* data, uint8_t nb_harmonic){
 
 uint8_t* get_recording(void){
 	return played_note;
+}
+
+
+
+uint8_t note_volume(int16_t *data, uint16_t num_samples){
+	static uint8_t state = 0;
+
+	int16_t max_value=INT16_MIN, min_value=INT16_MAX;
+
+	for(uint16_t i=0; i<num_samples; i+=2) {
+		if(data[i + MIC_LEFT] > max_value) {
+			max_value = data[i + MIC_LEFT];
+		}
+		if(data[i + MIC_LEFT] < min_value) {
+			min_value = data[i + MIC_LEFT];
+		}
+	}
+
+	mic_volume = max_value - min_value;
+	mic_last = data[MIC_BUFFER_LEN-(NB_MICS-MIC_LEFT)];
+
+	if(mic_volume > MAX_VOLUME){
+		if(state == 0){
+			state = 1;
+			return 1;
+		}else if(state == 1){
+			return 0;
+		}
+	}else if (mic_volume < MIN_VOLUME){
+		state = 0;
+		return 0;
+	}
+	return 0;
 }
 

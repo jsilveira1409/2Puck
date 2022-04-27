@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 1
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccG7rZuj.s 			page 1
 
 
    1              		.cpu cortex-m4
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 1
   55 000c 0193     		str	r3, [sp, #4]
   56              		.loc 1 64 0
   57 000e FFF7FEFF 		bl	strlen
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 2
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccG7rZuj.s 			page 2
 
 
   58              	.LVL1:
@@ -118,7 +118,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 1
  112 003e 01D1     		bne	.L11
  113 0040 03B0     		add	sp, sp, #12
  114              		.cfi_remember_state
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 3
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccG7rZuj.s 			page 3
 
 
  115              		.cfi_def_cfa_offset 20
@@ -178,7 +178,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 1
  169              	.LBB112:
  170              	.LBB109:
  171              		.loc 1 41 0
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 4
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccG7rZuj.s 			page 4
 
 
  172 0008 DFF858C0 		ldr	ip, .L23+8
@@ -238,7 +238,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 1
  226              	.LBE122:
  227              	.LBE121:
  228              		.loc 1 78 0 discriminator 3
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 5
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccG7rZuj.s 			page 5
 
 
  229 0032 9542     		cmp	r5, r2
@@ -298,7 +298,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 1
  283              		.thumb
  284              		.thumb_func
  285              		.fpu fpv4-sp-d16
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 6
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccG7rZuj.s 			page 6
 
 
  286              		.type	AsebaSendVariables, %function
@@ -358,7 +358,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 1
  340              	.LBE138:
  341              	.LBE142:
  342              	.LBE146:
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 7
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccG7rZuj.s 			page 7
 
 
  343              	.LBE150:
@@ -418,7 +418,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 1
  397              	.L27:
  398              		.loc 1 106 0 discriminator 3
  399 002c C468     		ldr	r4, [r0, #12]
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 8
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccG7rZuj.s 			page 8
 
 
  400 002e 34F91140 		ldrsh	r4, [r4, r1, lsl #1]
@@ -478,7 +478,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 1
  454              		.loc 1 108 0 is_stmt 1
  455 0052 0199     		ldr	r1, [sp, #4]
  456              	.LVL32:
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 9
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccG7rZuj.s 			page 9
 
 
  457 0054 2B68     		ldr	r3, [r5]
@@ -538,7 +538,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 1
  511              		.cfi_offset 8, -20
  512              		.cfi_offset 9, -16
  513              		.cfi_offset 10, -12
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 10
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccG7rZuj.s 			page 10
 
 
  514              		.cfi_offset 11, -8
@@ -598,7 +598,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 1
  568              	.LBE177:
  569              	.LBE181:
  570              	.LBE185:
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 11
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccG7rZuj.s 			page 11
 
 
  571              		.loc 1 136 0
@@ -658,7 +658,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 1
  625              	.LBE193:
  626              	.LBE192:
  627              		.loc 1 148 0
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 12
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccG7rZuj.s 			page 12
 
 
  628 0054 388A     		ldrh	r0, [r7, #16]
@@ -718,7 +718,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 1
  682 0082 F9D1     		bne	.L38
  683 0084 110A     		lsrs	r1, r2, #8
  684 0086 D2B2     		uxtb	r2, r2
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 13
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccG7rZuj.s 			page 13
 
 
  685              	.LVL46:
@@ -778,7 +778,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 1
  739 00bc CA72     		strb	r2, [r1, #11]
  740              	.LVL54:
  741              	.LBE219:
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 14
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccG7rZuj.s 			page 14
 
 
  742              	.LBE218:
@@ -838,7 +838,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 1
  796              		.loc 1 41 0
  797 00ee 8CF80DE0 		strb	lr, [ip, #13]
  798              	.LVL60:
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 15
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccG7rZuj.s 			page 15
 
 
  799              	.LBE228:
@@ -898,7 +898,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 1
  853              		.loc 1 41 0 discriminator 3
  854 0114 0423     		movs	r3, #4
  855 0116 2B60     		str	r3, [r5]
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 16
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccG7rZuj.s 			page 16
 
 
  856              	.LBE240:
@@ -958,7 +958,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 1
  910              	.LBE250:
  911              	.LBE251:
  912              		.loc 1 184 0 discriminator 3
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 17
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccG7rZuj.s 			page 17
 
 
  913 014c 0BF1010B 		add	fp, fp, #1
@@ -1018,7 +1018,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 1
  967              	.LBB259:
  968              	.LBB257:
  969              		.loc 1 41 0
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 18
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccG7rZuj.s 			page 18
 
 
  970 0190 0223     		movs	r3, #2
@@ -1078,7 +1078,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 1
  1024              	.LVL89:
  1025              	.LBE268:
  1026              	.LBE267:
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 19
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccG7rZuj.s 			page 19
 
 
  1027              	.LBE266:
@@ -1138,7 +1138,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 1
  1081              	.LBB282:
  1082              	.LBB280:
  1083              	.LBB278:
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 20
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccG7rZuj.s 			page 20
 
 
  1084              		.loc 1 41 0 discriminator 3
@@ -1198,7 +1198,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 1
  1138              	.LBB287:
  1139              		.loc 1 209 0
  1140 023a 1846     		mov	r0, r3
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 21
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccG7rZuj.s 			page 21
 
 
  1141 023c C1E7     		b	.L48
@@ -1258,7 +1258,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 1
  1195 0004 2B4E     		ldr	r6, .L104+4
  1196              		.loc 1 224 0
  1197 0006 2B68     		ldr	r3, [r5]
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 22
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccG7rZuj.s 			page 22
 
 
  1198 0008 83B0     		sub	sp, sp, #12
@@ -1318,7 +1318,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 1
  1252              	.LVL114:
  1253 004a BDF802C0 		ldrh	ip, [sp, #2]
  1254 004e 27F812C0 		strh	ip, [r7, r2, lsl #1]	@ movhi
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 23
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccG7rZuj.s 			page 23
 
 
  1255 0052 0132     		adds	r2, r2, #1
@@ -1378,7 +1378,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 1
  1309 009e F0BD     		pop	{r4, r5, r6, r7, pc}
  1310              	.LVL121:
  1311              	.L84:
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 24
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccG7rZuj.s 			page 24
 
 
  1312              		.cfi_restore_state
@@ -1438,7 +1438,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 1
  1362              	.Ldebug_info0:
  1363 0000 0F190000 		.4byte	0x190f
  1364 0004 0400     		.2byte	0x4
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 25
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccG7rZuj.s 			page 25
 
 
  1365 0006 00000000 		.4byte	.Ldebug_abbrev0
@@ -1498,7 +1498,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 1
  1419 0072 04       		.uleb128 0x4
  1420 0073 D4070000 		.4byte	.LASF10
  1421 0077 02       		.byte	0x2
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 26
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccG7rZuj.s 			page 26
 
 
  1422 0078 22       		.byte	0x22
@@ -1558,7 +1558,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 1
  1476 00e8 2C000000 		.4byte	0x2c
  1477 00ec 00       		.byte	0
  1478 00ed 0D       		.uleb128 0xd
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 27
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccG7rZuj.s 			page 27
 
 
  1479 00ee 150D0000 		.4byte	.LASF17
@@ -1618,7 +1618,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 1
  1533 0159 2C000000 		.4byte	0x2c
  1534 015d 08       		.byte	0x8
  1535 015e 0D       		.uleb128 0xd
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 28
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccG7rZuj.s 			page 28
 
 
  1536 015f 63040000 		.4byte	.LASF24
@@ -1678,7 +1678,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 1
  1590 01cd 05       		.byte	0x5
  1591 01ce 3C       		.byte	0x3c
  1592 01cf 2C000000 		.4byte	0x2c
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 29
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccG7rZuj.s 			page 29
 
 
  1593 01d3 0C       		.byte	0xc
@@ -1738,7 +1738,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 1
  1647 023d 24010000 		.4byte	0x124
  1648 0241 0001     		.2byte	0x100
  1649 0243 13       		.uleb128 0x13
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 30
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccG7rZuj.s 			page 30
 
 
  1650 0244 2F030000 		.4byte	.LASF41
@@ -1798,7 +1798,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 1
  1704 02b5 05       		.uleb128 0x5
  1705 02b6 04       		.byte	0x4
  1706 02b7 BB020000 		.4byte	0x2bb
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 31
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccG7rZuj.s 			page 31
 
 
  1707 02bb 14       		.uleb128 0x14
@@ -1858,7 +1858,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 1
  1761 0321 E1060000 		.4byte	.LASF50
  1762 0325 05       		.byte	0x5
  1763 0326 BA       		.byte	0xba
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 32
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccG7rZuj.s 			page 32
 
 
  1764 0327 4F000000 		.4byte	0x4f
@@ -1918,7 +1918,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 1
  1818 0393 E1020000 		.4byte	0x2e1
  1819 0397 38       		.byte	0x38
  1820 0398 11       		.uleb128 0x11
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 33
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccG7rZuj.s 			page 33
 
 
  1821 0399 5F757200 		.ascii	"_ur\000"
@@ -1978,7 +1978,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 1
  1875 0405 A9080000 		.4byte	.LASF64
  1876 0409 05       		.byte	0x5
  1877 040a E5       		.byte	0xe5
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 34
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccG7rZuj.s 			page 34
 
 
  1878 040b 2C000000 		.4byte	0x2c
@@ -2038,7 +2038,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 1
  1932 0484 2C000000 		.4byte	0x2c
  1933 0488 10       		.byte	0x10
  1934 0489 18       		.uleb128 0x18
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 35
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccG7rZuj.s 			page 35
 
 
  1935 048a C0000000 		.4byte	.LASF71
@@ -2098,7 +2098,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 1
  1989 04ff A7060000 		.4byte	.LASF80
  1990 0503 05       		.byte	0x5
  1991 0504 5402     		.2byte	0x254
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 36
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccG7rZuj.s 			page 36
 
 
  1992 0506 2C000000 		.4byte	0x2c
@@ -2158,7 +2158,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 1
  2046 0581 10010000 		.4byte	0x110
  2047 0585 16       		.uleb128 0x16
  2048 0586 90050000 		.4byte	0x590
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 37
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccG7rZuj.s 			page 37
 
 
  2049 058a 16       		.uleb128 0x16
@@ -2218,7 +2218,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 1
  2103 0606 1A       		.uleb128 0x1a
  2104 0607 B50F0000 		.4byte	.LASF88
  2105 060b 0C       		.byte	0xc
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 38
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccG7rZuj.s 			page 38
 
 
  2106 060c 05       		.byte	0x5
@@ -2278,7 +2278,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 1
  2160 067d 56000000 		.4byte	0x56
  2161 0681 8C060000 		.4byte	0x68c
  2162 0685 0B       		.uleb128 0xb
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 39
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccG7rZuj.s 			page 39
 
 
  2163 0686 25000000 		.4byte	0x25
@@ -2338,7 +2338,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 1
  2217 06f8 FA000000 		.4byte	0xfa
  2218 06fc 68       		.byte	0x68
  2219 06fd 18       		.uleb128 0x18
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 40
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccG7rZuj.s 			page 40
 
 
  2220 06fe BC100000 		.4byte	.LASF103
@@ -2398,7 +2398,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 1
  2274 0773 6E010000 		.4byte	.LASF112
  2275 0777 05       		.byte	0x5
  2276 0778 6C02     		.2byte	0x26c
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 41
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccG7rZuj.s 			page 41
 
 
  2277 077a FA000000 		.4byte	0xfa
@@ -2458,7 +2458,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 1
  2331 07f0 00       		.byte	0
  2332 07f1 0A       		.uleb128 0xa
  2333 07f2 25000000 		.4byte	0x25
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 42
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccG7rZuj.s 			page 42
 
 
  2334 07f6 01080000 		.4byte	0x801
@@ -2518,7 +2518,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 1
  2388 0868 55080000 		.4byte	0x855
  2389 086c 0A       		.uleb128 0xa
  2390 086d FA050000 		.4byte	0x5fa
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 43
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccG7rZuj.s 			page 43
 
 
  2391 0871 7C080000 		.4byte	0x87c
@@ -2578,7 +2578,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 1
  2445 08e8 10       		.byte	0x10
  2446 08e9 00       		.byte	0
  2447 08ea 0C       		.uleb128 0xc
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 44
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccG7rZuj.s 			page 44
 
 
  2448 08eb 40       		.byte	0x40
@@ -2638,7 +2638,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 1
  2502 0956 08       		.byte	0x8
  2503 0957 58       		.byte	0x58
  2504 0958 B6080000 		.4byte	0x8b6
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 45
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccG7rZuj.s 			page 45
 
 
  2505 095c 1A       		.byte	0x1a
@@ -2698,7 +2698,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 1
  2559 09c7 04       		.byte	0x4
  2560 09c8 00       		.byte	0
  2561 09c9 04       		.uleb128 0x4
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 46
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccG7rZuj.s 			page 46
 
 
  2562 09ca 1D0D0000 		.4byte	.LASF138
@@ -2758,7 +2758,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 1
  2616 0a39 00       		.byte	0
  2617 0a3a 04       		.uleb128 0x4
  2618 0a3b C80D0000 		.4byte	.LASF140
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 47
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccG7rZuj.s 			page 47
 
 
  2619 0a3f 09       		.byte	0x9
@@ -2818,7 +2818,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 1
  2673 0aa8 00       		.byte	0
  2674 0aa9 0A       		.uleb128 0xa
  2675 0aaa 710A0000 		.4byte	0xa71
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 48
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccG7rZuj.s 			page 48
 
 
  2676 0aae B80A0000 		.4byte	0xab8
@@ -2878,7 +2878,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 1
  2730 0b26 8A       		.byte	0x8a
  2731 0b27 C30A0000 		.4byte	0xac3
  2732 0b2b 21       		.uleb128 0x21
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 49
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccG7rZuj.s 			page 49
 
 
  2733 0b2c 86030000 		.4byte	.LASF153
@@ -2938,7 +2938,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 1
  2787 0ba4 21       		.uleb128 0x21
  2788 0ba5 BD010000 		.4byte	.LASF164
  2789 0ba9 09       		.byte	0x9
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 50
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccG7rZuj.s 			page 50
 
 
  2790 0baa C6       		.byte	0xc6
@@ -2998,7 +2998,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 1
  2844 0c1d 0090     		.2byte	0x9000
  2845 0c1f 25       		.uleb128 0x25
  2846 0c20 DD0C0000 		.4byte	.LASF178
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 51
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccG7rZuj.s 			page 51
 
 
  2847 0c24 0190     		.2byte	0x9001
@@ -3058,7 +3058,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 1
  2901 0ca2 06A0     		.2byte	0xa006
  2902 0ca4 25       		.uleb128 0x25
  2903 0ca5 7B0B0000 		.4byte	.LASF197
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 52
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccG7rZuj.s 			page 52
 
 
  2904 0ca9 07A0     		.2byte	0xa007
@@ -3118,7 +3118,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 1
  2958 0d20 6E0C0000 		.4byte	.LASF210
  2959 0d24 01       		.byte	0x1
  2960 0d25 1B       		.byte	0x1b
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 53
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccG7rZuj.s 			page 53
 
 
  2961 0d26 0E0D0000 		.4byte	0xd0e
@@ -3178,7 +3178,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 1
  3015 0da0 B6080000 		.4byte	0x8b6
  3016 0da4 5A000000 		.4byte	.LLST76
  3017 0da8 2A       		.uleb128 0x2a
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 54
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccG7rZuj.s 			page 54
 
 
  3018 0da9 AF090000 		.4byte	.LASF216
@@ -3238,7 +3238,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 1
  3072 0e1f 01       		.uleb128 0x1
  3073 0e20 52       		.byte	0x52
  3074 0e21 02       		.uleb128 0x2
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 55
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccG7rZuj.s 			page 55
 
 
  3075 0e22 76       		.byte	0x76
@@ -3298,7 +3298,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 1
  3129 0e77 83       		.byte	0x83
  3130 0e78 00000000 		.4byte	.LFB8
  3131 0e7c 5C020000 		.4byte	.LFE8-.LFB8
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 56
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccG7rZuj.s 			page 56
 
 
  3132 0e80 01       		.uleb128 0x1
@@ -3358,7 +3358,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 1
  3186 0eff CC       		.byte	0xcc
  3187 0f00 4E0F0000 		.4byte	0xf4e
  3188 0f04 33       		.uleb128 0x33
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 57
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccG7rZuj.s 			page 57
 
 
  3189 0f05 50180000 		.4byte	0x1850
@@ -3418,7 +3418,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 1
  3243 0f92 C0010000 		.4byte	.Ldebug_ranges0+0x1c0
  3244 0f96 35       		.uleb128 0x35
  3245 0f97 A1180000 		.4byte	0x18a1
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 58
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccG7rZuj.s 			page 58
 
 
  3246 0f9b 5E030000 		.4byte	.LLST67
@@ -3478,7 +3478,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 1
  3300 1025 01       		.uleb128 0x1
  3301 1026 50       		.byte	0x50
  3302 1027 02       		.uleb128 0x2
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 59
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccG7rZuj.s 			page 59
 
 
  3303 1028 77       		.byte	0x77
@@ -3538,7 +3538,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 1
  3357 109d 5B180000 		.4byte	0x185b
  3358 10a1 3B       		.uleb128 0x3b
  3359 10a2 7F180000 		.4byte	0x187f
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 60
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccG7rZuj.s 			page 60
 
 
  3360 10a6 38000000 		.4byte	.LBB190
@@ -3598,7 +3598,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 1
  3414 112a 01       		.byte	0x1
  3415 112b 94       		.byte	0x94
  3416 112c 6E110000 		.4byte	0x116e
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 61
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccG7rZuj.s 			page 61
 
 
  3417 1130 37       		.uleb128 0x37
@@ -3658,7 +3658,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 1
  3471 11b4 00       		.byte	0
  3472 11b5 00       		.byte	0
  3473 11b6 00       		.byte	0
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 62
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccG7rZuj.s 			page 62
 
 
  3474 11b7 32       		.uleb128 0x32
@@ -3718,7 +3718,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 1
  3528 123e 96180000 		.4byte	0x1896
  3529 1242 29040000 		.4byte	.LLST38
  3530 1246 33       		.uleb128 0x33
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 63
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccG7rZuj.s 			page 63
 
 
  3531 1247 8B180000 		.4byte	0x188b
@@ -3778,7 +3778,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 1
  3585 12ce C1040000 		.4byte	.LLST44
  3586 12d2 3A       		.uleb128 0x3a
  3587 12d3 00010000 		.4byte	.LBB233
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 64
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccG7rZuj.s 			page 64
 
 
  3588 12d7 08000000 		.4byte	.LBE233-.LBB233
@@ -3838,7 +3838,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 1
  3642 1367 48010000 		.4byte	.Ldebug_ranges0+0x148
  3643 136b 35       		.uleb128 0x35
  3644 136c A1180000 		.4byte	0x18a1
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 65
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccG7rZuj.s 			page 65
 
 
  3645 1370 42050000 		.4byte	.LLST53
@@ -3898,7 +3898,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 1
  3699 13ee F1180000 		.4byte	0x18f1
  3700 13f2 FD130000 		.4byte	0x13fd
  3701 13f6 2F       		.uleb128 0x2f
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 66
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccG7rZuj.s 			page 66
 
 
  3702 13f7 01       		.uleb128 0x1
@@ -3958,7 +3958,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 1
  3756 1454 74       		.byte	0x74
  3757 1455 00       		.sleb128 0
  3758 1456 00       		.byte	0
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 67
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccG7rZuj.s 			page 67
 
 
  3759 1457 31       		.uleb128 0x31
@@ -4018,7 +4018,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 1
  3813 14c5 4A0A0000 		.4byte	0xa4a
  3814 14c9 A4050000 		.4byte	.LLST16
  3815 14cd 3C       		.uleb128 0x3c
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 68
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccG7rZuj.s 			page 68
 
 
  3816 14ce B6100000 		.4byte	.LASF227
@@ -4078,7 +4078,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 1
  3870 1556 44180000 		.4byte	0x1844
  3871 155a 08000000 		.4byte	.LBB134
  3872 155e 68000000 		.4byte	.Ldebug_ranges0+0x68
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 69
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccG7rZuj.s 			page 69
 
 
  3873 1562 01       		.byte	0x1
@@ -4138,7 +4138,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 1
  3927 15e9 34       		.uleb128 0x34
  3928 15ea 98000000 		.4byte	.Ldebug_ranges0+0x98
  3929 15ee 35       		.uleb128 0x35
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 70
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccG7rZuj.s 			page 70
 
 
  3930 15ef A1180000 		.4byte	0x18a1
@@ -4198,7 +4198,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 1
  3984 166c 2D       		.uleb128 0x2d
  3985 166d 6900     		.ascii	"i\000"
  3986 166f 01       		.byte	0x1
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 71
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccG7rZuj.s 			page 71
 
 
  3987 1670 4A       		.byte	0x4a
@@ -4258,7 +4258,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 1
  4041 16f7 8B180000 		.4byte	0x188b
  4042 16fb 4D080000 		.4byte	.LLST14
  4043 16ff 3A       		.uleb128 0x3a
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 72
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccG7rZuj.s 			page 72
 
 
  4044 1700 2E000000 		.4byte	.LBB123
@@ -4318,7 +4318,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 1
  4098 1782 36       		.uleb128 0x36
  4099 1783 7F180000 		.4byte	0x187f
  4100 1787 04000000 		.4byte	.LBB94
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 73
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccG7rZuj.s 			page 73
 
 
  4101 178b 00000000 		.4byte	.Ldebug_ranges0+0
@@ -4378,7 +4378,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 1
  4155 180c 17180000 		.4byte	0x1817
  4156 1810 2F       		.uleb128 0x2f
  4157 1811 01       		.uleb128 0x1
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 74
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccG7rZuj.s 			page 74
 
 
  4158 1812 50       		.byte	0x50
@@ -4438,7 +4438,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 1
  4212 187e 00       		.byte	0
  4213 187f 42       		.uleb128 0x42
  4214 1880 31110000 		.4byte	.LASF236
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 75
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccG7rZuj.s 			page 75
 
 
  4215 1884 01       		.byte	0x1
@@ -4498,7 +4498,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 1
  4269 18fa 0B       		.byte	0xb
  4270 18fb 48       		.byte	0x48
  4271 18fc 47       		.uleb128 0x47
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 76
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccG7rZuj.s 			page 76
 
 
  4272 18fd DC0A0000 		.4byte	.LASF243
@@ -4558,7 +4558,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 1
  4326 002a 16       		.uleb128 0x16
  4327 002b 00       		.byte	0
  4328 002c 03       		.uleb128 0x3
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 77
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccG7rZuj.s 			page 77
 
 
  4329 002d 0E       		.uleb128 0xe
@@ -4618,7 +4618,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 1
  4383 0063 0D       		.uleb128 0xd
  4384 0064 00       		.byte	0
  4385 0065 03       		.uleb128 0x3
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 78
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccG7rZuj.s 			page 78
 
 
  4386 0066 0E       		.uleb128 0xe
@@ -4678,7 +4678,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 1
  4440 009c 00       		.byte	0
  4441 009d 0E       		.uleb128 0xe
  4442 009e 0F       		.uleb128 0xf
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 79
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccG7rZuj.s 			page 79
 
 
  4443 009f 00       		.byte	0
@@ -4738,7 +4738,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 1
  4497 00d5 13       		.uleb128 0x13
  4498 00d6 00       		.byte	0
  4499 00d7 00       		.byte	0
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 80
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccG7rZuj.s 			page 80
 
 
  4500 00d8 13       		.uleb128 0x13
@@ -4798,7 +4798,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 1
  4554 010e 00       		.byte	0
  4555 010f 18       		.uleb128 0x18
  4556 0110 0D       		.uleb128 0xd
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 81
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccG7rZuj.s 			page 81
 
 
  4557 0111 00       		.byte	0
@@ -4858,7 +4858,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 1
  4611 0147 00       		.byte	0
  4612 0148 00       		.byte	0
  4613 0149 1C       		.uleb128 0x1c
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 82
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccG7rZuj.s 			page 82
 
 
  4614 014a 17       		.uleb128 0x17
@@ -4918,7 +4918,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 1
  4668 0180 00       		.byte	0
  4669 0181 00       		.byte	0
  4670 0182 21       		.uleb128 0x21
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 83
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccG7rZuj.s 			page 83
 
 
  4671 0183 34       		.uleb128 0x34
@@ -4978,7 +4978,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 1
  4725 01b9 1C       		.uleb128 0x1c
  4726 01ba 05       		.uleb128 0x5
  4727 01bb 00       		.byte	0
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 84
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccG7rZuj.s 			page 84
 
 
  4728 01bc 00       		.byte	0
@@ -5038,7 +5038,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 1
  4782 01f3 08       		.uleb128 0x8
  4783 01f4 3A       		.uleb128 0x3a
  4784 01f5 0B       		.uleb128 0xb
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 85
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccG7rZuj.s 			page 85
 
 
  4785 01f6 3B       		.uleb128 0x3b
@@ -5098,7 +5098,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 1
  4839 022c 02       		.uleb128 0x2
  4840 022d 17       		.uleb128 0x17
  4841 022e 00       		.byte	0
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 86
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccG7rZuj.s 			page 86
 
 
  4842 022f 00       		.byte	0
@@ -5158,7 +5158,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 1
  4896 026e 00       		.byte	0
  4897 026f 00       		.byte	0
  4898 0270 33       		.uleb128 0x33
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 87
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccG7rZuj.s 			page 87
 
 
  4899 0271 05       		.uleb128 0x5
@@ -5218,7 +5218,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 1
  4953 02a7 1D       		.uleb128 0x1d
  4954 02a8 01       		.byte	0x1
  4955 02a9 31       		.uleb128 0x31
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 88
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccG7rZuj.s 			page 88
 
 
  4956 02aa 13       		.uleb128 0x13
@@ -5278,7 +5278,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 1
  5010 02e2 01       		.byte	0x1
  5011 02e3 11       		.uleb128 0x11
  5012 02e4 01       		.uleb128 0x1
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 89
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccG7rZuj.s 			page 89
 
 
  5013 02e5 9542     		.uleb128 0x2115
@@ -5338,7 +5338,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 1
  5067 031d 1C       		.uleb128 0x1c
  5068 031e 0B       		.uleb128 0xb
  5069 031f 00       		.byte	0
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 90
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccG7rZuj.s 			page 90
 
 
  5070 0320 00       		.byte	0
@@ -5398,7 +5398,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 1
  5124 0356 13       		.uleb128 0x13
  5125 0357 00       		.byte	0
  5126 0358 00       		.byte	0
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 91
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccG7rZuj.s 			page 91
 
 
  5127 0359 46       		.uleb128 0x46
@@ -5458,7 +5458,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 1
  5181 0015 54       		.byte	0x54
  5182 0016 00000000 		.4byte	0
  5183 001a 00000000 		.4byte	0
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 92
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccG7rZuj.s 			page 92
 
 
  5184              	.LLST74:
@@ -5518,7 +5518,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 1
  5238 00af 6C000000 		.4byte	.LVL118
  5239 00b3 0300     		.2byte	0x3
  5240 00b5 76       		.byte	0x76
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 93
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccG7rZuj.s 			page 93
 
 
  5241 00b6 01       		.sleb128 1
@@ -5578,7 +5578,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 1
  5295 0143 0100     		.2byte	0x1
  5296 0145 50       		.byte	0x50
  5297 0146 1A000000 		.4byte	.LVL38
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 94
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccG7rZuj.s 			page 94
 
 
  5298 014a 00010000 		.4byte	.LVL62
@@ -5638,7 +5638,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 1
  5352 01d9 30       		.byte	0x30
  5353 01da 9F       		.byte	0x9f
  5354 01db A2000000 		.4byte	.LVL49
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 95
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccG7rZuj.s 			page 95
 
 
  5355 01df A4000000 		.4byte	.LVL50
@@ -5698,7 +5698,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 1
  5409 026d 56       		.byte	0x56
  5410 026e 1E020000 		.4byte	.LVL98
  5411 0272 2A020000 		.4byte	.LVL99
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 96
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccG7rZuj.s 			page 96
 
 
  5412 0276 0100     		.2byte	0x1
@@ -5758,7 +5758,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 1
  5466 02fe 00000000 		.4byte	0
  5467 0302 00000000 		.4byte	0
  5468              	.LLST62:
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 97
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccG7rZuj.s 			page 97
 
 
  5469 0306 86010000 		.4byte	.LVL81
@@ -5818,7 +5818,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 1
  5523 0391 DE010000 		.4byte	.LVL90
  5524 0395 E8010000 		.4byte	.LVL93
  5525 0399 0200     		.2byte	0x2
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 98
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccG7rZuj.s 			page 98
 
 
  5526 039b 32       		.byte	0x32
@@ -5878,7 +5878,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 1
  5580 0421 00000000 		.4byte	0
  5581 0425 00000000 		.4byte	0
  5582              	.LLST38:
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 99
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccG7rZuj.s 			page 99
 
 
  5583 0429 B4000000 		.4byte	.LVL52
@@ -5938,7 +5938,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 1
  5637 04b5 0200     		.2byte	0x2
  5638 04b7 32       		.byte	0x32
  5639 04b8 9F       		.byte	0x9f
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 100
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccG7rZuj.s 			page 100
 
 
  5640 04b9 00000000 		.4byte	0
@@ -5998,7 +5998,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 1
  5694 0546 0C010000 		.4byte	.LVL66
  5695 054a 0200     		.2byte	0x2
  5696 054c 31       		.byte	0x31
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 101
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccG7rZuj.s 			page 101
 
 
  5697 054d 9F       		.byte	0x9f
@@ -6058,7 +6058,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 1
  5751 05d3 01       		.uleb128 0x1
  5752 05d4 50       		.byte	0x50
  5753 05d5 9F       		.byte	0x9f
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 102
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccG7rZuj.s 			page 102
 
 
  5754 05d6 00000000 		.4byte	0
@@ -6118,7 +6118,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 1
  5808 065b 24000000 		.4byte	.LVL23
  5809 065f 0400     		.2byte	0x4
  5810 0661 0B       		.byte	0xb
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 103
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccG7rZuj.s 			page 103
 
 
  5811 0662 0590     		.2byte	0x9005
@@ -6178,7 +6178,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 1
  5865 06ee 32       		.byte	0x32
  5866 06ef 9F       		.byte	0x9f
  5867 06f0 00000000 		.4byte	0
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 104
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccG7rZuj.s 			page 104
 
 
  5868 06f4 00000000 		.4byte	0
@@ -6238,7 +6238,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 1
  5922 0774 0100     		.2byte	0x1
  5923 0776 52       		.byte	0x52
  5924 0777 2A000000 		.4byte	.LVL11
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 105
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccG7rZuj.s 			page 105
 
 
  5925 077b 42000000 		.4byte	.LVL16
@@ -6298,7 +6298,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 1
  5979 07f7 00       		.sleb128 0
  5980 07f8 F3       		.byte	0xf3
  5981 07f9 01       		.uleb128 0x1
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 106
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccG7rZuj.s 			page 106
 
 
  5982 07fa 52       		.byte	0x52
@@ -6358,7 +6358,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 1
  6036 0874 28000000 		.4byte	.LVL4
  6037 0878 0100     		.2byte	0x1
  6038 087a 54       		.byte	0x54
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 107
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccG7rZuj.s 			page 107
 
 
  6039 087b 28000000 		.4byte	.LVL4
@@ -6418,7 +6418,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 1
  6093 08f8 72       		.byte	0x72
  6094 08f9 7F       		.sleb128 -1
  6095 08fa 00000000 		.4byte	0
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 108
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccG7rZuj.s 			page 108
 
 
  6096 08fe 00000000 		.4byte	0
@@ -6478,7 +6478,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 1
  6150 0038 16000000 		.4byte	.LBB120
  6151 003c 1E000000 		.4byte	.LBE120
  6152 0040 00000000 		.4byte	0
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 109
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccG7rZuj.s 			page 109
 
 
  6153 0044 00000000 		.4byte	0
@@ -6538,7 +6538,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 1
  6207 011c BE000000 		.4byte	.LBE216
  6208 0120 C2000000 		.4byte	.LBB223
  6209 0124 C6000000 		.4byte	.LBE223
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 110
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccG7rZuj.s 			page 110
 
 
  6210 0128 00000000 		.4byte	0
@@ -6598,7 +6598,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 1
  6264 0200 A0000000 		.4byte	.LBB290
  6265 0204 A8000000 		.4byte	.LBE290
  6266 0208 00000000 		.4byte	0
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 111
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccG7rZuj.s 			page 111
 
 
  6267 020c 00000000 		.4byte	0
@@ -6658,7 +6658,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 1
  6298      756E6374 
  6298      696F6E41 
  6299              	.LASF129:
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 112
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccG7rZuj.s 			page 112
 
 
  6300 00a0 76617269 		.ascii	"variables\000"
@@ -6718,7 +6718,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 1
  6322      415F4D45 
  6322      53534147 
  6322      455F4E4F 
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 113
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccG7rZuj.s 			page 113
 
 
  6322      44455F53 
@@ -6778,7 +6778,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 1
  6344      53697A65 
  6344      00
  6345              	.LASF28:
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 114
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccG7rZuj.s 			page 114
 
 
  6346 0244 5F5F746D 		.ascii	"__tm_sec\000"
@@ -6838,7 +6838,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 1
  6370      585F4252 
  6370      45414B50 
  6370      4F494E54 
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 115
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccG7rZuj.s 			page 115
 
 
  6371              	.LASF85:
@@ -6898,7 +6898,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 1
  6398      455F4445 
  6398      53435249 
  6399              	.LASF223:
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 116
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccG7rZuj.s 			page 116
 
 
  6400 03d0 6E616D65 		.ascii	"namedVariables\000"
@@ -6958,7 +6958,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 1
  6422      636B5F74 
  6422      00
  6423              	.LASF69:
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 117
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccG7rZuj.s 			page 117
 
 
  6424 0490 5F737464 		.ascii	"_stderr\000"
@@ -7018,7 +7018,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 1
  6445      62202D4F 
  6445      32202D66 
  6445      6F6D6974 
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 118
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccG7rZuj.s 			page 118
 
 
  6445      2D667261 
@@ -7078,7 +7078,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 1
  6466      6500
  6467              	.LASF163:
  6468 06e7 41736562 		.ascii	"AsebaNativeDescription_mathsqrt\000"
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 119
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccG7rZuj.s 			page 119
 
 
  6468      614E6174 
@@ -7138,7 +7138,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 1
  6493              	.LASF215:
  6494 07a2 74797065 		.ascii	"type\000"
  6494      00
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 120
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccG7rZuj.s 			page 120
 
 
  6495              	.LASF170:
@@ -7198,7 +7198,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 1
  6517      65736372 
  6517      69707469 
  6518              	.LASF64:
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 121
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccG7rZuj.s 			page 121
 
 
  6519 08a9 5F666C61 		.ascii	"_flags2\000"
@@ -7258,7 +7258,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 1
  6541      53534147 
  6541      455F5354 
  6541      455000
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 122
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccG7rZuj.s 			page 122
 
 
  6542              	.LASF212:
@@ -7318,7 +7318,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 1
  6567      6700
  6568              	.LASF74:
  6569 0a40 5F5F7364 		.ascii	"__sdidinit\000"
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 123
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccG7rZuj.s 			page 123
 
 
  6569      6964696E 
@@ -7378,7 +7378,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 1
  6589      455F424F 
  6589      4F544C4F 
  6590              	.LASF180:
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 124
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccG7rZuj.s 			page 124
 
 
  6591 0b32 41534542 		.ascii	"ASEBA_MESSAGE_NATIVE_FUNCTION_DESCRIPTION\000"
@@ -7438,7 +7438,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 1
  6615 0bff 5F696F62 		.ascii	"_iobs\000"
  6615      7300
  6616              	.LASF169:
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 125
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccG7rZuj.s 			page 125
 
 
  6617 0c05 41534542 		.ascii	"ASEBA_VM_EVENT_RUNNING_MASK\000"
@@ -7498,7 +7498,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 1
  6643      5F6C6F63 
  6643      616C655F 
  6644              	.LASF249:
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 126
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccG7rZuj.s 			page 126
 
 
  6645 0cb7 5F5F7374 		.ascii	"__stack_chk_fail\000"
@@ -7558,7 +7558,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 1
  6671      53534147 
  6671      455F5245 
  6671      53455400 
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 127
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccG7rZuj.s 			page 127
 
 
  6672              	.LASF66:
@@ -7618,7 +7618,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 1
  6695      65736372 
  6695      69707469 
  6696              	.LASF96:
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 128
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccG7rZuj.s 			page 128
 
 
  6697 0e39 5F737472 		.ascii	"_strtok_last\000"
@@ -7678,7 +7678,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 1
  6718      69766544 
  6718      65736372 
  6718      69707469 
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 129
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccG7rZuj.s 			page 129
 
 
  6719              	.LASF120:
@@ -7738,7 +7738,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 1
  6741              	.LASF105:
  6742 0fe3 5F6C3634 		.ascii	"_l64a_buf\000"
  6742      615F6275 
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 130
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccG7rZuj.s 			page 130
 
 
  6742      6600
@@ -7798,7 +7798,7 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 1
  6768      455F4252 
  6768      45414B50 
  6769              	.LASF101:
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 131
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccG7rZuj.s 			page 131
 
 
  6770 10b1 5F723438 		.ascii	"_r48\000"
@@ -7851,30 +7851,30 @@ ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 1
  6790      63726970 
  6790      74696F6E 
  6791              		.ident	"GCC: (GNU Tools for Arm Embedded Processors 7-2017-q4-major) 7.2.1 20170904 (release) [ARM
-ARM GAS  C:\Users\osour\AppData\Local\Temp\ccTT64j7.s 			page 132
+ARM GAS  C:\Users\osour\AppData\Local\Temp\ccG7rZuj.s 			page 132
 
 
 DEFINED SYMBOLS
                             *ABS*:00000000 vm-buffer.c
-C:\Users\osour\AppData\Local\Temp\ccTT64j7.s:18     .text.buffer_add_string:00000000 $t
-C:\Users\osour\AppData\Local\Temp\ccTT64j7.s:25     .text.buffer_add_string:00000000 buffer_add_string
-C:\Users\osour\AppData\Local\Temp\ccTT64j7.s:125    .text.buffer_add_string:00000048 $d
-C:\Users\osour\AppData\Local\Temp\ccTT64j7.s:132    .text.AsebaSendMessage:00000000 $t
-C:\Users\osour\AppData\Local\Temp\ccTT64j7.s:140    .text.AsebaSendMessage:00000000 AsebaSendMessage
-C:\Users\osour\AppData\Local\Temp\ccTT64j7.s:272    .text.AsebaSendMessage:0000005c $d
-C:\Users\osour\AppData\Local\Temp\ccTT64j7.s:279    .text.AsebaSendVariables:00000000 $t
-C:\Users\osour\AppData\Local\Temp\ccTT64j7.s:287    .text.AsebaSendVariables:00000000 AsebaSendVariables
-C:\Users\osour\AppData\Local\Temp\ccTT64j7.s:483    .text.AsebaSendVariables:0000006c $d
-C:\Users\osour\AppData\Local\Temp\ccTT64j7.s:490    .text.AsebaSendDescription:00000000 $t
-C:\Users\osour\AppData\Local\Temp\ccTT64j7.s:498    .text.AsebaSendDescription:00000000 AsebaSendDescription
-C:\Users\osour\AppData\Local\Temp\ccTT64j7.s:1164   .text.AsebaSendDescription:00000250 $d
-C:\Users\osour\AppData\Local\Temp\ccTT64j7.s:1171   .text.AsebaProcessIncomingEvents:00000000 $t
-C:\Users\osour\AppData\Local\Temp\ccTT64j7.s:1179   .text.AsebaProcessIncomingEvents:00000000 AsebaProcessIncomingEvents
-C:\Users\osour\AppData\Local\Temp\ccTT64j7.s:1329   .text.AsebaProcessIncomingEvents:000000b0 $d
-C:\Users\osour\AppData\Local\Temp\ccTT64j7.s:1335   .bss.buffer:00000000 $d
-C:\Users\osour\AppData\Local\Temp\ccTT64j7.s:1339   .bss.buffer:00000000 buffer
-C:\Users\osour\AppData\Local\Temp\ccTT64j7.s:1342   .bss.buffer_pos:00000000 $d
-C:\Users\osour\AppData\Local\Temp\ccTT64j7.s:1346   .bss.buffer_pos:00000000 buffer_pos
+C:\Users\osour\AppData\Local\Temp\ccG7rZuj.s:18     .text.buffer_add_string:00000000 $t
+C:\Users\osour\AppData\Local\Temp\ccG7rZuj.s:25     .text.buffer_add_string:00000000 buffer_add_string
+C:\Users\osour\AppData\Local\Temp\ccG7rZuj.s:125    .text.buffer_add_string:00000048 $d
+C:\Users\osour\AppData\Local\Temp\ccG7rZuj.s:132    .text.AsebaSendMessage:00000000 $t
+C:\Users\osour\AppData\Local\Temp\ccG7rZuj.s:140    .text.AsebaSendMessage:00000000 AsebaSendMessage
+C:\Users\osour\AppData\Local\Temp\ccG7rZuj.s:272    .text.AsebaSendMessage:0000005c $d
+C:\Users\osour\AppData\Local\Temp\ccG7rZuj.s:279    .text.AsebaSendVariables:00000000 $t
+C:\Users\osour\AppData\Local\Temp\ccG7rZuj.s:287    .text.AsebaSendVariables:00000000 AsebaSendVariables
+C:\Users\osour\AppData\Local\Temp\ccG7rZuj.s:483    .text.AsebaSendVariables:0000006c $d
+C:\Users\osour\AppData\Local\Temp\ccG7rZuj.s:490    .text.AsebaSendDescription:00000000 $t
+C:\Users\osour\AppData\Local\Temp\ccG7rZuj.s:498    .text.AsebaSendDescription:00000000 AsebaSendDescription
+C:\Users\osour\AppData\Local\Temp\ccG7rZuj.s:1164   .text.AsebaSendDescription:00000250 $d
+C:\Users\osour\AppData\Local\Temp\ccG7rZuj.s:1171   .text.AsebaProcessIncomingEvents:00000000 $t
+C:\Users\osour\AppData\Local\Temp\ccG7rZuj.s:1179   .text.AsebaProcessIncomingEvents:00000000 AsebaProcessIncomingEvents
+C:\Users\osour\AppData\Local\Temp\ccG7rZuj.s:1329   .text.AsebaProcessIncomingEvents:000000b0 $d
+C:\Users\osour\AppData\Local\Temp\ccG7rZuj.s:1335   .bss.buffer:00000000 $d
+C:\Users\osour\AppData\Local\Temp\ccG7rZuj.s:1339   .bss.buffer:00000000 buffer
+C:\Users\osour\AppData\Local\Temp\ccG7rZuj.s:1342   .bss.buffer_pos:00000000 $d
+C:\Users\osour\AppData\Local\Temp\ccG7rZuj.s:1346   .bss.buffer_pos:00000000 buffer_pos
 
 UNDEFINED SYMBOLS
 strlen

@@ -44,6 +44,7 @@ void frequency_to_note(float* data);
 void find_note (int16_t index);
 void check_smallest_error(uint32_t *max_index);
 void record_note(const uint8_t note_index);
+uint8_t note_volume(int16_t *data, uint16_t num_samples);
 
 #endif /* AUDIO_PROCESSING_H */
 
