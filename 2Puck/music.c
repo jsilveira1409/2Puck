@@ -109,6 +109,7 @@ static THD_WORKING_AREA(musicWorkingArea, 128);
 static THD_FUNCTION(music, arg) {
 
   while (true) {
+	  wait_finish_playing();
 	  play_song(come_as_you_are);
 	  chThdSleepMilliseconds(2000);
 //	  play_song(miss_you);

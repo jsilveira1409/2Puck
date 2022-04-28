@@ -5,6 +5,8 @@
 #include <communications.h>
 #include <music.h>
 #include <leds.h>
+#include <music.h>
+#include <audio_processing.h>
 
 /*
  * Messages received and sent to and from the PC
@@ -54,6 +56,7 @@ static THD_FUNCTION(communication, arg) {
 			SendUint8ToComputer(&score1, 1);
 			mic_start(&processAudioDataCmplx);
 			init_music();
+			wait_finish_playing();
 			msg = player1_finish;
 			set_led(LED5,1);
 		}else if (msg == player2_play){

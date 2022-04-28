@@ -81,7 +81,6 @@ class serial_thread(Thread):
         s1 = 0
         print("Score 1")
         readUint8Serial(self.port, data)
-        print("score 2 ",data)
         s1 = data [0][0]
         return s1
 
@@ -90,7 +89,6 @@ class serial_thread(Thread):
         s2 = 0
         print("Score 2")
         readUint8Serial(self.port, data)
-        print("score 2 ",data)
         s2 = data [0][0]
         return s2
 
