@@ -59,18 +59,18 @@ enum { 	hard_left = 0, 	soft_left, straight_left,
 /*
  * Current position of the puck, center of axis of the wheels
  */
-volatile static float position[2] = {0,0};
+static float position[2] = {0,0};
 /*
  * Target position for the end of the pathing
  */
-volatile static float target[2] = {TARGET_X,TARGET_Y};
-volatile static float orientation[2] = {0,0};
+static float target[2] = {TARGET_X,TARGET_Y};
+static float orientation[2] = {0,0};
 
 /*
  * Angle between puck's orientation and vector between itself
  * and the target point
  */
-volatile static float alpha = 0;
+static float alpha = 0;
 
 
 
@@ -291,10 +291,7 @@ void update_orientation(float cos, float sin){
  */
 
 void move_to_target(float cos_alpha, float distance){
-//	chprintf((BaseSequentialStream *)&SD3, "%f %f \r \n", position[0], position[1]);
-	volatile float move_l = 0, move_r = 0;
-//	chprintf((BaseSequentialStream *)&SD3, "%f \r \n", distance);
-//		if( (cos_alpha < (1-ANGLE_EPSILON) && (cos_alpha > 0)) ||(cos_alpha > (ANGLE_EPSILON - 1) && (cos_alpha < 0)) ){
+	float move_l = 0, move_r = 0;
 
 	if( (cos_alpha < (1-ANGLE_EPSILON) && (cos_alpha > 0))){
 		if(position[X_AXIS] >= 0){
@@ -317,7 +314,7 @@ void move_to_target(float cos_alpha, float distance){
 }
 
 float distance_to_target(float* cos_alpha){
-	volatile float dist[2] = {0,0};					//Vector between puck and target point
+	float dist[2] = {0,0};					//Vector between puck and target point
 	float mag = 0;
 
 	arm_sub_f32(target, position, dist, 2);
@@ -330,7 +327,7 @@ float distance_to_target(float* cos_alpha){
 	return mag;
 }
 
-void init_pathing(){
+void init_pathing(void){
 	motors_init();
 
 	proximity_start();

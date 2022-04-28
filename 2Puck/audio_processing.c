@@ -10,6 +10,7 @@
 #include <fft.h>
 #include <arm_math.h>
 #include <audio_processing.h>
+#include <leds.h>
 
 
 #define RESOLUTION  			(I2S_AUDIOFREQ_16K/2)/(FFT_SIZE/2)
@@ -187,16 +188,16 @@ void find_note (int16_t index){
  */
 void record_note(const uint8_t note_index){
 	static uint16_t current_index = 0;
+	static uint8_t led = 0;
+	set_led(LED7,led);
+	if(led == 1) led = 0;
+	else led = 1;
 	played_note[current_index] = note_index;
 
 	if(current_index < RECORDING_SIZE){
 		current_index ++;
 	}else{
-//		chprintf((BaseSequentialStream *)&SD3, "Recording play back \r \n");
-		for(uint16_t i = 0; i<RECORDING_SIZE; i++){
-//			find_note(played_note[i]);
-			current_index = 0;
-		}
+		current_index = 0;
 		chBSemSignal(&sem_finished_playing);
 	}
 }
@@ -217,7 +218,6 @@ void fundamental_frequency(float* data, uint8_t nb_harmonic){
 uint8_t* get_recording(void){
 	return played_note;
 }
-
 
 
 uint8_t note_volume(int16_t *data, uint16_t num_samples){
@@ -248,6 +248,11 @@ uint8_t note_volume(int16_t *data, uint16_t num_samples){
 		state = 0;
 		return 0;
 	}
+
 	return 0;
 }
 
+
+void wait_finish_playing(void){
+	chBSemWait(&sem_finished_playing);
+}

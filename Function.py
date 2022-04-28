@@ -50,7 +50,6 @@ def readUint8Serial(port, data):
     readSyncMsg(port)
     #converts as short int in little endian the two bytes read
     size = struct.unpack('<h',port.read(2)) 
-    
     #removes the second element which is void
     size = size[0]  
 

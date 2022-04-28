@@ -2,7 +2,7 @@
 #define AUDIO_PROCESSING_H
 
 #define FFT_SIZE 		4096
-#define NB_NOTES		48
+#define NB_NOTES		60
 
 
 static const uint16_t note_frequency[NB_NOTES] = {
@@ -33,7 +33,6 @@ typedef enum {
  */
 void processAudioDataCmplx(int16_t *data, uint16_t num_samples);
 void wait_send_to_computer(void);
-void wait_finish_playing(void);
 uint8_t* get_recording(void);
 
 
@@ -41,6 +40,8 @@ uint8_t* get_recording(void);
 /*
 *	Returns the pointer to the BUFFER_NAME_t buffer asked
 */
+void fundamental_frequency(float* data, uint8_t nb_harmonic);
+void wait_finish_playing(void);
 float* get_audio_buffer_ptr(BUFFER_NAME_t name);
 uint8_t* get_recording(void);
 void frequency_to_note(float* data);

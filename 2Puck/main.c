@@ -32,22 +32,16 @@ static void serial_start(void)
 	sdStart(&SD3, &ser_cfg); // UART3.
 }
 
-
-
 int main(void)
 {
     halInit();
     chSysInit();
     mpu_init();
-
     serial_start();
-    //dac_start();
     usb_start();
+    dcmi_start();
+    po8030_start();
 
-
-//    mic_start(&processAudioDataCmplx);
-//    init_music();
-//    init_pathing();
 //    init_photo();
     init_communication();
     while (1) {

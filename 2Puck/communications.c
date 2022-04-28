@@ -7,6 +7,7 @@
 #include <leds.h>
 #include <music.h>
 #include <audio_processing.h>
+#include <photo.h>
 
 /*
  * Messages received and sent to and from the PC
@@ -37,40 +38,52 @@ static THD_FUNCTION(communication, arg) {
 
 
 	uint8_t msg = none;
-	const uint8_t score1 = 11;
-	const uint8_t score2 = 12;
+	uint8_t score1 = 0;
+	uint8_t score2 = 0;
 
 	while (msg != player2_finish) {
 		if(msg == none || msg == chosen_song || msg  == player1_finish){
 			ReceiveModeFromComputer((BaseSequentialStream *) &SD3, &msg);
-			set_led(LED1, 1);
+			set_body_led(1);
+			chThdSleepMilliseconds(100);
+			set_body_led(0);
+			chThdSleepMilliseconds(100);
+
 		}else if(msg == start_game){
-			uint8_t chosen_song = come_as_you_are;
-			SendUint8ToComputer(&chosen_song, 1);
+			uint8_t song = random_song();
+			SendUint8ToComputer(&song, 1);
 			msg = chosen_song;
-			set_led(LED3, 1);
+			set_led(LED1, 1);
+
 		}else if(msg == player1_play){
 			/*
 			 * Start player 1 recording, compute score and send
 			 */
-			SendUint8ToComputer(&score1, 1);
-			mic_start(&processAudioDataCmplx);
 			init_music();
-			wait_finish_playing();
+			wait_finish_music();
+			score1 = get_score();
+			SendUint8ToComputer(&score1, 1);
 			msg = player1_finish;
 			set_led(LED5,1);
+
 		}else if (msg == player2_play){
 			/*
 			 * Start player 2 recording, compute score and send
 			 */
+			wait_finish_music();
+			score2 = get_score();
 			SendUint8ToComputer(&score2, 1);
 			msg = player2_finish;
-			set_led(LED7,1);
 		}
+
 		chThdSleepMilliseconds(200);
 	}
-	set_body_led(1);
+	chThdSleepMilliseconds(2000);
+	init_photo();
 
+	/*
+	 * Here we would send the photo
+	 */
 }
 
 
@@ -178,7 +191,6 @@ uint16_t ReceiveModeFromComputer(BaseSequentialStream* in, uint8_t* data){
 
 	volatile uint8_t c1;
 	volatile uint16_t temp_size = 0;
-	uint16_t i=0;
 
 	uint8_t state = 0;
 	while(state != 5){
@@ -232,7 +244,7 @@ uint16_t ReceiveModeFromComputer(BaseSequentialStream* in, uint8_t* data){
 }
 
 
-void init_communication(){
+void init_communication(void){
 	(void) chThdCreateStatic(communicationWorkingArea, sizeof(communicationWorkingArea), NORMALPRIO, communication, NULL);
 }
 

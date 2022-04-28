@@ -7,17 +7,19 @@
 #include <music.h>
 #include <audio/audio_thread.h>
 #include <audio_processing.h>
-#include <audio/custom_microphone.h>
+#include <audio/microphone.h>
+#include <leds.h>
 
 #define NB_SONGS 			5
 #define MS_IN_MINUTE		(60*1000)		//milliseconds in a minute, needed for bpm to ms conversion
 #define SIXTEENTH_NOTE		16
 
-
+static BSEMAPHORE_DECL(sem_finished_music, TRUE);
 /*
  * DATA TYPES AND VARIABLES
  */
 
+static int16_t score = 0;
 /*
  * Enum for others functions to choose the song more explicitely,
  * Basically the song index in the songs array
@@ -126,59 +128,38 @@ struct song{
  */
 
 static THD_WORKING_AREA(musicWorkingArea, 128);
-
-
-
 static THD_FUNCTION(music, arg) {
 
   while (true) {
 	  wait_finish_playing();
-	  play_song(come_as_you_are);
+//	  score += check_note_sequence(come_as_you_are);
+//	  score += check_note_order(come_as_you_are);
+	  set_led(LED1, 0);
+	  chBSemSignal(&sem_finished_music);
+	  set_led(LED5, 0);
+//	  play_song(come_as_you_are);
 	  chThdSleepMilliseconds(2000);
-//	  play_song(miss_you);
-//	  chThdSleepMilliseconds(2000);
-//	  play_song(killing_in_the_name_of);
-//	  chThdSleepMilliseconds(2000);
-//	  play_song(sold_the_world);
-//	  chThdSleepMilliseconds(2000);
   }
 }
-
-
 
 /*
  * FUNCTIONS
  */
 
-void init_music(void){
-	chThdCreateStatic(musicWorkingArea, sizeof(musicWorkingArea),
-	                             NORMALPRIO, music, NULL);
-	dac_start();
-
+void wait_finish_music(void){
+	chBSemWait(&sem_finished_music);
 }
 
-
-void play_song(uint8_t index){
-	for(uint8_t i = 0; i < songs[index].melody_size; i++){
-		dac_play(note_frequency[songs[index].melody_ptr[i]]);
-
-		chThdSleepMilliseconds(100 * songs[index].note_duration_ptr[i]);
-		dac_stop();
-		chThdSleepMilliseconds(100);
-	}
-
+uint8_t random_song(void){
+	return 2;
 }
-
-
-
-
 
 /*
  * Checking notes time sequence is correct: was note x played when it should
  * be played ?
  */
 
-static int16_t check_note_sequence(uint8_t index){
+int16_t check_note_sequence(uint8_t index){
 	int16_t score = 0;
 	uint16_t starting_index = 0;
 	/*
@@ -210,7 +191,7 @@ static int16_t check_note_sequence(uint8_t index){
  * Checking order of played notes is correct: was note y played after note x, even
  * if there is a wrong note in between?
  */
-static int16_t check_note_order(uint8_t index){
+int16_t check_note_order(uint8_t index){
 	int16_t score = 0;
 
 	for(uint16_t i=0; i< songs[index].melody_size; i++){
@@ -233,32 +214,6 @@ static uint32_t duration_to_ms(uint8_t duration, uint16_t bpm){
  * Threads
  */
 
-static THD_WORKING_AREA(musicWorkingArea, 128);
-static THD_FUNCTION(music, arg) {
-  while (true) {
-	  int16_t score = 0;
-	  wait_finish_playing();
-	  set_recording(get_recording());
-
-	  score += check_note_sequence(come_as_you_are);
-	  score += check_note_order(come_as_you_are);
-
-	  chprintf((BaseSequentialStream *)&SD3, "%d \r \n",score);
-
-//	  chThdSleepMilliseconds(1000);
-//	  play_song(good_times);
-//	  chThdSleepMilliseconds(2000);
-//	  play_song(miss_you);
-//	  chThdSleepMilliseconds(2000);
-//	  play_song(killing_in_the_name_of);
-//	  chThdSleepMilliseconds(2000);
-//	  play_song(sold_the_world);
-//	  chThdSleepMilliseconds(2000);
-
-  }
-}
-
-
 
 /*
  * Public Functions
@@ -267,7 +222,8 @@ static THD_FUNCTION(music, arg) {
 void init_music(void){
     mic_start(&processAudioDataCmplx);
     dac_start();
-	chThdCreateStatic(musicWorkingArea, sizeof(musicWorkingArea),NORMALPRIO, music, NULL);
+	chThdCreateStatic(musicWorkingArea, sizeof(musicWorkingArea),
+			NORMALPRIO+1, music, NULL);
 }
 
 void play_song(uint8_t index){
@@ -284,3 +240,6 @@ void set_recording(uint8_t *data){
 	recording = data;
 }
 
+int16_t get_score(void){
+	return score;
+}

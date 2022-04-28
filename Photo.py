@@ -8,7 +8,7 @@ import serial
 from Function import*
 
 width = 500
-height = 500
+height = 400
 size = width * height
 
 score1 = 0
@@ -27,7 +27,7 @@ class serial_thread(Thread):
         print('Connecting to port {}'.format(port))
 
         try:
-            self.port = serial.Serial(port, timeout=0.5)
+            self.port = serial.Serial(port, timeout=None)
         except:
             print('Cannot connect to the e-puck2')
             sys.exit(0)
@@ -39,17 +39,13 @@ class serial_thread(Thread):
         option = input("Enter option: \n")   
         if(option == 'n'):
             self.send_start_game()
-            time.sleep(0.1)
             chosen_song = self.rec_chose_song()
-            time.sleep(0.1)
             self.send_player1_play() 
-            time.sleep(0.1)
             score1 = self.rec_score1()
-            time.sleep(0.1)
-            self.send_player2_play()  
-            time.sleep(1)
+            self.send_player2_play()              
             score2 = self.rec_score2()    
-            time.sleep(0.1)
+            self.rec_picture()
+            
             print("chosen song",chosen_song)
             print("score 1",score1)
             print("score 2",score2)
