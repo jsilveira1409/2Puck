@@ -41,8 +41,11 @@ int main(void)
     usb_start();
     dcmi_start();
     po8030_start();
+    dac_start();
 
 //    init_photo();
+
+//    init_music();
     init_communication();
     while (1) {
 

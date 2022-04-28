@@ -7,8 +7,12 @@ from PIL import Image  		# Used for the pictures of the camera
 import serial
 from Function import*
 
-width = 500
-height = 400
+x_subsampling = 2
+y_subsampling = 2
+width = 400
+height = 550
+
+
 size = width * height
 
 score1 = 0
@@ -98,23 +102,17 @@ class serial_thread(Thread):
     def rec_winner(self):
         data = []
         print("Winner")
-        #readSyncMsg(self.port)
         readUint8Serial(self.port, data)
         winner = data[0][0]
         return winner
 
-    def stop(self):
-        if(self.port.isOpen()):
-            self.port.close()
-        print('Goodbye')
-
     def rec_picture(self):
+        print('Taking Phot...')
         data = []
         line = 0
         while (line < height):
             if(readUint8Serial(self.port, data)):
                 line = line + 1
-                print(line)
         print('done')
         im = []
         for x in data:            
@@ -123,6 +121,12 @@ class serial_thread(Thread):
         img = bytes(im)
         image = Image.frombuffer("RGB", (width, height), img, "raw",  "BGR;16", 0, 1)
         image.save('capture.png')
+
+    def stop(self):
+        if(self.port.isOpen()):
+            self.port.close()
+        print('Goodbye')
+
         
             
 reader_thd = serial_thread('com10')

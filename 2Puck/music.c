@@ -132,12 +132,12 @@ static THD_FUNCTION(music, arg) {
 
   while (true) {
 	  wait_finish_playing();
-//	  score += check_note_sequence(come_as_you_are);
-//	  score += check_note_order(come_as_you_are);
+	  set_recording(get_recording());
+	  score += check_note_sequence(come_as_you_are);
+	  score += check_note_order(come_as_you_are);
 	  set_led(LED1, 0);
 	  chBSemSignal(&sem_finished_music);
 	  set_led(LED5, 0);
-//	  play_song(come_as_you_are);
 	  chThdSleepMilliseconds(2000);
   }
 }
@@ -221,7 +221,6 @@ static uint32_t duration_to_ms(uint8_t duration, uint16_t bpm){
 
 void init_music(void){
     mic_start(&processAudioDataCmplx);
-    dac_start();
 	chThdCreateStatic(musicWorkingArea, sizeof(musicWorkingArea),
 			NORMALPRIO+1, music, NULL);
 }

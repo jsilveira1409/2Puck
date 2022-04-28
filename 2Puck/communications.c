@@ -80,10 +80,6 @@ static THD_FUNCTION(communication, arg) {
 	}
 	chThdSleepMilliseconds(2000);
 	init_photo();
-
-	/*
-	 * Here we would send the photo
-	 */
 }
 
 

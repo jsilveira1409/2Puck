@@ -12,13 +12,13 @@
 #include <photo.h>
 
 
-#define X_start					50
+#define X_start					20
 #define	Y_start					0
-#define PHOTO_WIDTH				500
+#define PHOTO_WIDTH				600
 #define PHOTO_HEIGHT			2
 #define	BYTES_PER_PIXEL			2
 #define IMAGE_BUFFER_SIZE		(PHOTO_WIDTH*PHOTO_HEIGHT)	//Size in uint16
-#define	MAX_LINES_2_SEND		400
+#define	MAX_LINES_2_SEND		550
 
 //semaphore
 static BSEMAPHORE_DECL(line_ready_sem, TRUE);
