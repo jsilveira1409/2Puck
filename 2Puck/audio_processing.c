@@ -99,7 +99,7 @@ void frequency_to_note(float* data){
 	arm_max_f32(data, (FFT_SIZE/2), &max_freq_mag, &max_index);
 	check_smallest_error(&max_index);
 	max_index = max_index%12;
-	find_note(max_index);
+//	find_note(max_index);
 	record_note(max_index);
 }
 
@@ -173,13 +173,13 @@ void record_note(const uint8_t note_index){
 	if(current_index < RECORDING_SIZE){
 		current_index ++;
 	}else{
-		chprintf((BaseSequentialStream *)&SD3, "Recording play back \r \n");
+//		chprintf((BaseSequentialStream *)&SD3, "Recording play back \r \n");
 		for(uint16_t i = 0; i<RECORDING_SIZE; i++){
-			find_note(played_note[i]);
+//			find_note(played_note[i]);
 			current_index = 0;
 		}
 		chBSemSignal(&sem_finished_playing);
-		chprintf((BaseSequentialStream *)&SD3, "\r");
+//		chprintf((BaseSequentialStream *)&SD3, "\r");
 	}
 }
 

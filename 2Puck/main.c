@@ -45,17 +45,14 @@ int main(void)
     usb_start();
 
 
-    mic_start(&processAudioDataCmplx);
-    //init_music();
-    //init_pathing();
+//    mic_start(&processAudioDataCmplx);
+//    init_music();
+//    init_pathing();
 //    init_photo();
+    init_communication();
     while (1) {
-    	float msg = 0;
-//    	ReceiveInt16FromComputer(&msg,1);
-    	chThdSleepMilliseconds(100);
 
-
-    }
+	}
 }
 
 #define STACK_CHK_GUARD 0xe2dee396

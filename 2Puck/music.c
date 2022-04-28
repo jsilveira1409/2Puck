@@ -19,7 +19,7 @@
  * Enum for others functions to choose the song more explicitely,
  * Basically the song index in the songs array
  */
-enum jukebox{come_as_you_are, miss_you, killing_in_the_name_of, sold_the_world};
+
 enum chromatic_scale{
 	A1, AS1, B1, C1, CS1, D1, DS1,E1, F1, FS1, G1, GS1,
 	A2, AS2, B2, C2, CS2, D2, DS2,E2, F2, FS2, G2, GS2
@@ -111,12 +111,12 @@ static THD_FUNCTION(music, arg) {
   while (true) {
 	  play_song(come_as_you_are);
 	  chThdSleepMilliseconds(2000);
-	  play_song(miss_you);
-	  chThdSleepMilliseconds(2000);
-	  play_song(killing_in_the_name_of);
-	  chThdSleepMilliseconds(2000);
-	  play_song(sold_the_world);
-	  chThdSleepMilliseconds(2000);
+//	  play_song(miss_you);
+//	  chThdSleepMilliseconds(2000);
+//	  play_song(killing_in_the_name_of);
+//	  chThdSleepMilliseconds(2000);
+//	  play_song(sold_the_world);
+//	  chThdSleepMilliseconds(2000);
   }
 }
 
