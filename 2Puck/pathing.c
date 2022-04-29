@@ -24,6 +24,7 @@
 #include <sensors/proximity.h>
 #include <motors.h>
 #include <arm_math.h>
+#include <leds.h>
 
 
 
@@ -47,12 +48,12 @@ enum { 	hard_left = 0, 	soft_left, straight_left,
 #define NB_OF_PHASES	4
 #define RAD2DEG			(360/3.14)
 #define ANGLE_EPSILON	0.05
-#define MIN_DISTANCE_2_TARGET	5
-#define MIN_SPEED		200
+#define MIN_DISTANCE_2_TARGET	40
+#define MIN_SPEED		350
 
 
-#define TARGET_X	(140)		//ptn de parenthese merci pour la nuit blanche
-#define TARGET_Y	(300)
+#define TARGET_X	(200)		//ptn de parenthese merci pour la nuit blanche
+#define TARGET_Y	(400)
 
 
 
@@ -88,23 +89,29 @@ static arm_pid_instance_f32 pid;
 static THD_WORKING_AREA(pathingWorkingArea, 256);
 
 static THD_FUNCTION(pathing, arg) {
+	int ir_max = 0;
+	float distance = 0;
+	float cos_alpha = 0;
+	uint8_t ir_index = 0;
 	uint8_t arrived = 0;
-	move(5,5);
+	update_orientation(1,0);
+
+	distance = distance_to_target(&cos_alpha);
+
 	while (true) {
 
 		while(arrived == 0){
-			int ir_max = 0;
-			float distance = 0;
-			float cos_alpha = 0;
-			uint8_t ir_index = 0;
+
 			distance = distance_to_target(&cos_alpha);
-			chprintf((BaseSequentialStream *)&SD3, " %f %f  \r \n", cos_alpha, distance);
+//			chprintf((BaseSequentialStream *)&SD3, " %f %f  \r \n", cos_alpha, distance);
 
 			if(distance < MIN_DISTANCE_2_TARGET){
 				arrived = 1;
-				move(10,10);
-				chprintf((BaseSequentialStream *)&SD3, " Arrived \r \n");
+				move(50,50);
+//				chprintf((BaseSequentialStream *)&SD3, " Arrived \r \n");
 			}else{
+
+
 				ir_index = radar(&ir_max);
 				switch(ir_index){
 					case none:
@@ -113,32 +120,36 @@ static THD_FUNCTION(pathing, arg) {
 						 * be called here, move is called inside move_to_target
 						 * in this case
 						 */
-						move_to_target(cos_alpha, distance);
+						set_led(LED1, 1);
+						move_to_target(cos_alpha);
+						set_led(LED1, 0);
 						break;
 					case hard_left:
-						move(4, 2);
+						move(10, 8);
 						break;
 					case soft_left:
-						move(4, 0);
+						move(10, 0);
 						break;
 					case straight_left:
-						move(5,-5);
+						move(10,-5);
 						break;
 					case straight_right:
-						move(-5,5);
+						move(-5,10);
 						break;
 					case soft_right:
-						move(0,4);
+						move(0,10);
 						break;
 					case hard_right:
-						move(2,4);
+						move(8,10);
 						break;
 					default:
-						move(5,5);
+						move(2,2);
 						break;
 				}
 			}
+
 		}
+		set_led(LED5, 1);
 	}
 }
 
@@ -163,8 +174,8 @@ uint8_t radar(int* ir_max){
 		}
 	}
 	*ir_max = max;
-
-	if(max < 130){
+	chprintf((BaseSequentialStream *)&SD3, " %d \r \n", *ir_max);
+	if(max < 140){
 		return none;
 	}else{
 		return index_max;
@@ -224,7 +235,7 @@ void move (float left_pos, float right_pos){
 			}
 		}
 
-		if(error_left < 5 && error_right < 5){
+		if(error_left < 10 && error_right < 10){
 			state = 1;
 			right_motor_set_speed(0);
 			left_motor_set_speed(0);
@@ -249,10 +260,10 @@ void register_path( float left_pos,  float right_pos){
 	 * Due to floating point intrinsic arithmetics, it generally never gives a zero
 	 */
 
-	if((alpha >= 0 && alpha < 0.1) || (alpha <= 0 && alpha > -0.1)){
+	if((alpha >= 0 && alpha < 0.05) || (alpha < 0 && alpha > -0.05)){
 		alpha = 0;
 	}
-	if((displacement < 1 && displacement >= 0) || (displacement > -1 && displacement <= 0)){
+	if((displacement < 0.5 && displacement >= 0) || (displacement > -0.5 && displacement < 0)){
 		displacement = 0;
 	}
 	cos = arm_cos_f32(alpha);
@@ -290,20 +301,29 @@ void update_orientation(float cos, float sin){
  * more or less equal to one
  */
 
-void move_to_target(float cos_alpha, float distance){
+void move_to_target(float cos_alpha){
 	float move_l = 0, move_r = 0;
 
-	if( (cos_alpha < (1-ANGLE_EPSILON) && (cos_alpha > 0))){
+	if( (cos_alpha < (1 - ANGLE_EPSILON) && (cos_alpha >= 0)) ||
+			 (cos_alpha < (ANGLE_EPSILON - 1) && (cos_alpha < 0))  ){
 		if(position[X_AXIS] >= 0){
-			move_l = 5;
-			move_r = -5;
+			move_l = 10;
+			move_r = -10;
 		}else{
-			move_l = -5;
-			move_r = 5;
+			move_l = -10;
+			move_r = 10;
 		}
-	}else if ((cos_alpha >= (1 - ANGLE_EPSILON))){
-		move_l = 5;
-		move_r = 5;
+	}else if (cos_alpha >= (1 - ANGLE_EPSILON) && (cos_alpha > 0)){
+		move_l = 10;
+		move_r = 10;
+	}else if(cos_alpha <= (ANGLE_EPSILON - 1) && (cos_alpha < 0) ){
+		if(position[X_AXIS] >= 0){
+			move_l = -10;
+			move_r = 10;
+		}else{
+			move_l = 10;
+			move_r = -10;
+		}
 	}
 	/*
 	 * move() is called in the end because the move positions for each
@@ -321,6 +341,7 @@ float distance_to_target(float* cos_alpha){
 	arm_dot_prod_f32(orientation, dist, 2, cos_alpha);
 	/*
 	 * Orientation is unitary, so we divide by dist magnitude only
+	 * TODO : check if it is actually the case
 	 */
 	arm_cmplx_mag_f32(dist, &mag,1);
 	*cos_alpha = (*cos_alpha)/mag;
@@ -333,9 +354,12 @@ void init_pathing(void){
 	proximity_start();
 	calibrate_ir();
 
-	pid.Kd = 0.0001;
+
+//	pid.Kd = 0.001;
+//	pid.Ki = 0.0001;
 	pid.Ki = 0;
-	pid.Kp = 1;
+	pid.Kd = 0.00001;
+	pid.Kp = 1.2;
 
 	arm_pid_init_f32(&pid, 0);
 

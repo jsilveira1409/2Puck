@@ -20,6 +20,7 @@
 #include <pathing.h>
 #include <photo.h>
 
+#include <leds.h>
 static void serial_start(void)
 {
 	static SerialConfig ser_cfg = {
@@ -42,11 +43,15 @@ int main(void)
     dcmi_start();
     po8030_start();
     dac_start();
+//    spi_comm_start();
 
 //    init_photo();
 
 //    init_music();
-    init_communication();
+//    init_communication();
+    init_pathing();
+
+
     while (1) {
 
 	}
