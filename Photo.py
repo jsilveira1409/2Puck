@@ -6,6 +6,7 @@ from tkinter import N 		# Used for Big-Endian messages
 from PIL import Image  		# Used for the pictures of the camera
 import serial
 from Function import*
+import yagmail
 
 x_subsampling = 2
 y_subsampling = 2
@@ -107,7 +108,7 @@ class serial_thread(Thread):
         return winner
 
     def rec_picture(self):
-        print('Taking Phot...')
+        print('Taking Photo...')
         data = []
         line = 0
         while (line < height):
@@ -121,14 +122,27 @@ class serial_thread(Thread):
         img = bytes(im)
         image = Image.frombuffer("RGB", (width, height), img, "raw",  "BGR;16", 0, 1)
         image.save('capture.png')
+        send_mail()
 
     def stop(self):
         if(self.port.isOpen()):
             self.port.close()
         print('Goodbye')
 
-        
+def send_mail():
+    yagmail.register('2puckshakour@gmail.com', 'HsmTD2k@15Sr')
+    receiver = "joaquim.silveira@epfl.ch"
+    body = "Dear Prof. Mondada,\n\n Please find attached the Winner of the amazing music competition. \n\n Kind regards,\n 2Puck"
+    filename = "capture.png"
+
+    yag = yagmail.SMTP("2puckshakour@gmail.com")
+    yag.send(
+        to=receiver,
+        subject="2Puck Competition",
+        contents=body, 
+        attachments=filename,
+    )
             
-reader_thd = serial_thread('com10')
+reader_thd = serial_thread('/dev/cu.usbmodemEPUCK3')
 reader_thd.start()
 

@@ -100,9 +100,15 @@ static arm_pid_instance_f32 pid;
 
 static THD_WORKING_AREA(pathingWorkingArea, 256);
 
-static THD_FUNCTION(ThdPathing, arg) {
+static THD_FUNCTION(pathing, arg) {
 
-	uint8_t state = waiting;
+	(void) arg;
+
+	int ir_max = 0;
+	float distance = 0;
+	float cos_alpha = 0;
+	uint8_t ir_index = 0;
+	uint8_t arrived = 0;
 	update_orientation(1,0);
 
 	while (true) {

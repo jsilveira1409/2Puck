@@ -10,6 +10,7 @@
 #include <chprintf.h>
 #include <motors.h>
 #include <audio/microphone.h>
+#include <audio/audio_thread.h>
 #include <music.h>
 
 #include <audio_processing.h>
@@ -40,7 +41,6 @@ int main(void)
     chSysInit();
     mpu_init();
     serial_start();
-    usb_start();
     dcmi_start();
     po8030_start();
     dac_start();
@@ -49,8 +49,8 @@ int main(void)
 //    init_photo();
 
 //    init_music();
-//    init_communication();
-    init_pathing();
+    init_communication();
+//    init_pathing();
 
 
     while (1) {

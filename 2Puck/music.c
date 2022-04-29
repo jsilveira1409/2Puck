@@ -130,6 +130,8 @@ struct song{
 static THD_WORKING_AREA(musicWorkingArea, 128);
 static THD_FUNCTION(music, arg) {
 
+	(void) arg;
+
   while (true) {
 	  wait_finish_playing();
 	  set_recording(get_recording());
