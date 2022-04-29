@@ -9,7 +9,7 @@ from Function import*
 
 x_subsampling = 2
 y_subsampling = 2
-width = 400
+width = 600
 height = 550
 
 

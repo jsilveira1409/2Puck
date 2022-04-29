@@ -16,6 +16,7 @@
 #include <fft.h>
 #include <communications.h>
 #include <arm_math.h>
+#include <audio/audio_thread.h>
 
 #include <pathing.h>
 #include <photo.h>

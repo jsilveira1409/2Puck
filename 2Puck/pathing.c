@@ -40,6 +40,20 @@ enum { 	hard_left = 0, 	soft_left, straight_left,
 		straight_right, soft_right, hard_right, none};
 
 /*
+ * For the next position to move depending on the general FSM
+ * Ex: after dancing , recenter the puck
+ * Ex: after score comparison, go to winning player
+ */
+enum{
+	player1_winner,				//move towards player 1
+	player2_winner, 			//move towards player 2
+	recenter, 					//move towards center, where the ePuck was turned on
+	moving, 					//already moving, cannot change target during this
+	waiting,					//waits for other threads to give the target position
+	finished					//already took a picture of the winner, so the thread can exit
+};
+
+/*
  * VARIABLES ET CONSTANTES
  */
 #define WHEEL_DIST 		52		//mm
@@ -52,9 +66,10 @@ enum { 	hard_left = 0, 	soft_left, straight_left,
 #define MIN_SPEED		350
 
 
-#define TARGET_X	(200)		//ptn de parenthese merci pour la nuit blanche
-#define TARGET_Y	(400)
-
+#define PLAYER1_X	(0)		//ptn de parenthese merci pour la nuit blanche
+#define PLAYER1_Y	(500)
+#define PLAYER2_X	(500)
+#define PLAYER2_Y	(0)
 
 
 /*
@@ -64,7 +79,7 @@ static float position[2] = {0,0};
 /*
  * Target position for the end of the pathing
  */
-static float target[2] = {TARGET_X,TARGET_Y};
+static float target[2] = {0,0};
 static float orientation[2] = {0,0};
 
 /*
@@ -73,13 +88,10 @@ static float orientation[2] = {0,0};
  */
 static float alpha = 0;
 
-
-
 /*
  * PID instance for the PID cmsis
  */
 static arm_pid_instance_f32 pid;
-
 
 /*
  * THREADS
@@ -88,67 +100,39 @@ static arm_pid_instance_f32 pid;
 
 static THD_WORKING_AREA(pathingWorkingArea, 256);
 
-static THD_FUNCTION(pathing, arg) {
-	int ir_max = 0;
-	float distance = 0;
-	float cos_alpha = 0;
-	uint8_t ir_index = 0;
-	uint8_t arrived = 0;
+static THD_FUNCTION(ThdPathing, arg) {
+
+	uint8_t state = waiting;
 	update_orientation(1,0);
 
-	distance = distance_to_target(&cos_alpha);
-
 	while (true) {
-
-		while(arrived == 0){
-
-			distance = distance_to_target(&cos_alpha);
-//			chprintf((BaseSequentialStream *)&SD3, " %f %f  \r \n", cos_alpha, distance);
-
-			if(distance < MIN_DISTANCE_2_TARGET){
-				arrived = 1;
-				move(50,50);
-//				chprintf((BaseSequentialStream *)&SD3, " Arrived \r \n");
-			}else{
-
-
-				ir_index = radar(&ir_max);
-				switch(ir_index){
-					case none:
-						/*
-						 * No obstacles in front, so move_to_target should
-						 * be called here, move is called inside move_to_target
-						 * in this case
-						 */
-						set_led(LED1, 1);
-						move_to_target(cos_alpha);
-						set_led(LED1, 0);
-						break;
-					case hard_left:
-						move(10, 8);
-						break;
-					case soft_left:
-						move(10, 0);
-						break;
-					case straight_left:
-						move(10,-5);
-						break;
-					case straight_right:
-						move(-5,10);
-						break;
-					case soft_right:
-						move(0,10);
-						break;
-					case hard_right:
-						move(8,10);
-						break;
-					default:
-						move(2,2);
-						break;
+		switch (state){
+			case player1_winner:
+				update_target(PLAYER1_X, PLAYER1_Y);
+				state = moving;
+			break;
+			case player2_winner:
+				update_target(PLAYER2_X, PLAYER2_Y);
+				state = moving;
+			break;
+			case recenter:
+				recenter_puck();
+				state = moving;
+			break;
+			case waiting:
+				chThdSleepMilliseconds(100);
+			break;
+			case moving:
+				while(state == moving){
+					pathing(&state);
 				}
-			}
+				state = waiting;
+			break;
+		};
 
-		}
+
+
+
 		set_led(LED5, 1);
 	}
 }
@@ -157,7 +141,54 @@ static THD_FUNCTION(pathing, arg) {
 /*
  * FUNCTIONS
  */
+void pathing(uint8_t *state){
+	int ir_max = 0;
+	float distance = 0;
+	float cos_alpha = 0;
+	uint8_t ir_index = 0;
 
+	distance = distance_to_target(&cos_alpha);
+
+	if(distance < MIN_DISTANCE_2_TARGET){
+		move(50,50);
+		*state = waiting;
+	}else{
+		ir_index = radar(&ir_max);
+		switch(ir_index){
+			case none:
+				/*
+				 * No obstacles in front, so move_to_target should
+				 * be called here, move is called inside move_to_target
+				 * in this case
+				 */
+				set_led(LED1, 1);
+				move_to_target(cos_alpha);
+				set_led(LED1, 0);
+				break;
+			case hard_left:
+				move(10, 8);
+				break;
+			case soft_left:
+				move(10, 0);
+				break;
+			case straight_left:
+				move(10,-5);
+				break;
+			case straight_right:
+				move(-5,10);
+				break;
+			case soft_right:
+				move(0,10);
+				break;
+			case hard_right:
+				move(8,10);
+				break;
+			default:
+				move(2,2);
+				break;
+		}
+	}
+}
 
 uint8_t radar(int* ir_max){
 
@@ -354,9 +385,6 @@ void init_pathing(void){
 	proximity_start();
 	calibrate_ir();
 
-
-//	pid.Kd = 0.001;
-//	pid.Ki = 0.0001;
 	pid.Ki = 0;
 	pid.Kd = 0.00001;
 	pid.Kp = 1.2;
@@ -364,7 +392,17 @@ void init_pathing(void){
 	arm_pid_init_f32(&pid, 0);
 
 	(void) chThdCreateStatic(pathingWorkingArea, sizeof(pathingWorkingArea),
-	                           NORMALPRIO, pathing, NULL);
+	                           NORMALPRIO, ThdPathing, NULL);
+}
+
+void update_target(int16_t x_coord, int16_t y_coord){
+	target[X_AXIS] = x_coord;
+	target[Y_AXIS] = y_coord;
+}
+
+void recenter_puck(){
+	target[X_AXIS] = 0;
+	target[Y_AXIS] = 0;
 }
 
 
