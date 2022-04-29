@@ -107,41 +107,49 @@ static THD_FUNCTION(ThdPathing, arg) {
 	int ir_max = 0;
 	float distance = 0;
 	float cos_alpha = 0;
+	uint8_t prev_state = 0;
 	uint8_t ir_index = 0;
 	uint8_t arrived = 0;
-	uint8_t state = waiting;
+	uint8_t state = player1_winner;
 	update_orientation(1,0);
 
 	while (true) {
-		switch (state){
-			case player1_winner:
-				update_target(PLAYER1_X, PLAYER1_Y);
-				state = moving;
-			break;
-			case player2_winner:
-				update_target(PLAYER2_X, PLAYER2_Y);
-				state = moving;
-			break;
-			case recenter:
-				recenter_puck();
-				state = moving;
-			break;
-			case waiting:
-				chThdSleepMilliseconds(100);
-			break;
-			case moving:
-				while(state == moving){
-					pathing(&state);
-				}
-				state = waiting;
-			break;
-		};
-
-
-
-
+		while(state != finished){
+			switch (state){
+				case player1_winner:
+					update_target(PLAYER1_X, PLAYER1_Y);
+					state = moving;
+					prev_state = player1_winner;
+				break;
+				case player2_winner:
+					update_target(PLAYER2_X, PLAYER2_Y);
+					state = moving;
+					prev_state = player2_winner;
+				break;
+				case recenter:
+					recenter_puck();
+					state = moving;
+					prev_state =recenter;
+				break;
+				case waiting:
+					chThdSleepMilliseconds(100);
+				break;
+				case moving:
+					while(state == moving){
+						pathing(&state);
+					}
+					if(prev_state == recenter){
+						prev_state = state;
+						state = finished;
+					}
+					prev_state = state;
+				break;
+			};
+		}
 		set_led(LED5, 1);
 	}
+	set_led(LED1, 1);
+
 }
 
 
@@ -157,43 +165,45 @@ void pathing(uint8_t *state){
 	distance = distance_to_target(&cos_alpha);
 
 	if(distance < MIN_DISTANCE_2_TARGET){
-		move(50,50);
-		*state = waiting;
+		move(20,20);
+		*state = recenter;
+		return;
 	}else{
-		ir_index = radar(&ir_max);
-		switch(ir_index){
-			case none:
-				/*
-				 * No obstacles in front, so move_to_target should
-				 * be called here, move is called inside move_to_target
-				 * in this case
-				 */
-				set_led(LED1, 1);
-				move_to_target(cos_alpha);
-				set_led(LED1, 0);
-				break;
-			case hard_left:
-				move(10, 8);
-				break;
-			case soft_left:
-				move(10, 0);
-				break;
-			case straight_left:
-				move(10,-5);
-				break;
-			case straight_right:
-				move(-5,10);
-				break;
-			case soft_right:
-				move(0,10);
-				break;
-			case hard_right:
-				move(8,10);
-				break;
-			default:
-				move(2,2);
-				break;
-		}
+		move_to_target(cos_alpha);
+//		ir_index = radar(&ir_max);
+//		switch(ir_index){
+//			case none:
+//				/*
+//				 * No obstacles in front, so move_to_target should
+//				 * be called here, move is called inside move_to_target
+//				 * in this case
+//				 */
+//				set_led(LED1, 1);
+//				move_to_target(cos_alpha);
+//				set_led(LED1, 0);
+//				break;
+//			case hard_left:
+//				move(10, 8);
+//				break;
+//			case soft_left:
+//				move(10, 0);
+//				break;
+//			case straight_left:
+//				move(10,-5);
+//				break;
+//			case straight_right:
+//				move(-5,10);
+//				break;
+//			case soft_right:
+//				move(0,10);
+//				break;
+//			case hard_right:
+//				move(8,10);
+//				break;
+//			default:
+//				move(2,2);
+//				break;
+//		}
 	}
 }
 
@@ -342,25 +352,24 @@ void update_orientation(float cos, float sin){
 void move_to_target(float cos_alpha){
 	float move_l = 0, move_r = 0;
 
-	if( (cos_alpha < (1 - ANGLE_EPSILON) && (cos_alpha >= 0)) ||
-			 (cos_alpha < (ANGLE_EPSILON - 1) && (cos_alpha < 0))  ){
-		if(position[X_AXIS] >= 0){
-			move_l = 10;
-			move_r = -10;
+	if( (cos_alpha < (1 - ANGLE_EPSILON) && (cos_alpha >= 0)) || (cos_alpha < (ANGLE_EPSILON - 1) && (cos_alpha < 0))  ){
+		if((position[X_AXIS] - target[X_AXIS]) >= 0){
+			move_l = -5;	//TURN LEFT
+			move_r = 5;
 		}else{
-			move_l = -10;
-			move_r = 10;
+			move_l = 5;	//TURN RIGHT
+			move_r = -5;
 		}
 	}else if (cos_alpha >= (1 - ANGLE_EPSILON) && (cos_alpha > 0)){
-		move_l = 10;
-		move_r = 10;
-	}else if(cos_alpha <= (ANGLE_EPSILON - 1) && (cos_alpha < 0) ){
-		if(position[X_AXIS] >= 0){
-			move_l = -10;
-			move_r = 10;
+		move_l = 5;
+		move_r = 5;
+	}else if(cos_alpha >= (ANGLE_EPSILON - 1) && (cos_alpha < 0) ){
+		if((position[X_AXIS] - target[X_AXIS]) >= 0){
+			move_l = -5;
+			move_r = 5;
 		}else{
-			move_l = 10;
-			move_r = -10;
+			move_l = 5;
+			move_r = -5;
 		}
 	}
 	/*
