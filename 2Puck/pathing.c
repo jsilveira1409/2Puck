@@ -66,10 +66,10 @@ enum{
 #define MIN_SPEED		350
 
 
-#define PLAYER1_X	(0)		//ptn de parenthese merci pour la nuit blanche
-#define PLAYER1_Y	(500)
-#define PLAYER2_X	(500)
-#define PLAYER2_Y	(0)
+#define PLAYER1_X	(200)		//ptn de parenthese merci pour la nuit blanche
+#define PLAYER1_Y	(300)
+#define PLAYER2_X	(-200)
+#define PLAYER2_Y	(300)
 
 
 /*
@@ -100,7 +100,7 @@ static arm_pid_instance_f32 pid;
 
 static THD_WORKING_AREA(pathingWorkingArea, 256);
 
-static THD_FUNCTION(pathing, arg) {
+static THD_FUNCTION(ThdPathing, arg) {
 
 	(void) arg;
 
@@ -109,6 +109,7 @@ static THD_FUNCTION(pathing, arg) {
 	float cos_alpha = 0;
 	uint8_t ir_index = 0;
 	uint8_t arrived = 0;
+	uint8_t state = waiting;
 	update_orientation(1,0);
 
 	while (true) {
