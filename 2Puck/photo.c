@@ -8,6 +8,7 @@
 #include <inttypes.h>
 #include <leds.h>
 
+#include "communications.h"
 
 #include <photo.h>
 

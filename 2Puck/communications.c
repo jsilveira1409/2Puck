@@ -36,6 +36,7 @@ static THD_WORKING_AREA(communicationWorkingArea, 128);
 
 static THD_FUNCTION(communication, arg) {
 
+	(void) arg;
 
 	uint8_t msg = none;
 	uint8_t score1 = 0;

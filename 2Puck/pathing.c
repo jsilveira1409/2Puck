@@ -89,6 +89,9 @@ static arm_pid_instance_f32 pid;
 static THD_WORKING_AREA(pathingWorkingArea, 256);
 
 static THD_FUNCTION(pathing, arg) {
+
+	(void) arg;
+
 	int ir_max = 0;
 	float distance = 0;
 	float cos_alpha = 0;
