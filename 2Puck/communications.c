@@ -1,90 +1,7 @@
-#include "ch.h"
-#include "hal.h"
+
+#include <hal.h>
 #include <main.h>
-
 #include <communications.h>
-#include <music.h>
-#include <leds.h>
-#include <music.h>
-#include <audio_processing.h>
-#include <photo.h>
-
-/*
- * Messages received and sent to and from the PC
- */
-enum{
-	/*
-	 * Received messages
-	 */
-	none,
-	start_game,
-	player1_play,
-	player2_play,
-	/*
-	 * Send message
-	 */
-	chosen_song,
-	player1_finish,
-	player2_finish,
-	send_winner,
-	send_photo,
-	finished
-}message;
-
-
-static THD_WORKING_AREA(communicationWorkingArea, 128);
-
-static THD_FUNCTION(communication, arg) {
-
-	(void) arg;
-
-	uint8_t msg = none;
-	uint8_t score1 = 0;
-	uint8_t score2 = 0;
-
-	while (msg != player2_finish) {
-		if(msg == none || msg == chosen_song || msg  == player1_finish){
-			ReceiveModeFromComputer((BaseSequentialStream *) &SD3, &msg);
-			set_body_led(1);
-			chThdSleepMilliseconds(100);
-			set_body_led(0);
-			chThdSleepMilliseconds(100);
-
-		}else if(msg == start_game){
-			uint8_t song = random_song();
-			SendUint8ToComputer(&song, 1);
-			msg = chosen_song;
-			set_led(LED1, 1);
-
-		}else if(msg == player1_play){
-			/*
-			 * Start player 1 recording, compute score and send
-			 */
-			init_music();
-			wait_finish_music();
-			score1 = get_score();
-			SendUint8ToComputer(&score1, 1);
-			msg = player1_finish;
-			set_led(LED5,1);
-
-		}else if (msg == player2_play){
-			/*
-			 * Start player 2 recording, compute score and send
-			 */
-			wait_finish_music();
-			score2 = get_score();
-			SendUint8ToComputer(&score2, 1);
-			msg = player2_finish;
-		}
-
-		chThdSleepMilliseconds(200);
-	}
-	chThdSleepMilliseconds(2000);
-	init_photo();
-}
-
-
-
 
 
 /*
@@ -239,9 +156,3 @@ uint16_t ReceiveModeFromComputer(BaseSequentialStream* in, uint8_t* data){
 	*data = (uint8_t)c1;
 	return temp_size;
 }
-
-
-void init_communication(void){
-	(void) chThdCreateStatic(communicationWorkingArea, sizeof(communicationWorkingArea), NORMALPRIO, communication, NULL);
-}
-

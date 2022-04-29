@@ -22,6 +22,8 @@
 #include <photo.h>
 
 #include <leds.h>
+#include <game.h>
+
 static void serial_start(void)
 {
 	static SerialConfig ser_cfg = {
@@ -48,7 +50,7 @@ int main(void)
 //    init_photo();
 
 //    init_music();
-    init_communication();
+    init_game();
 //    init_pathing();
 
 
