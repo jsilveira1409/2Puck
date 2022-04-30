@@ -52,7 +52,7 @@ int main(void)
 
 //    init_music();
 //    init_game();
-    init_pathing();
+    pathing_init();
 
 
     while (1) {
