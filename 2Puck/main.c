@@ -53,6 +53,9 @@ int main(void)
 //    init_music();
 //    init_game();
     pathing_init();
+    pathing_set(PATH_TO_PLAYER1);
+    pathing_wait_finish();
+//    pathing_set(RECENTER);
 
 
     while (1) {
