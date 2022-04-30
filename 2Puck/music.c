@@ -121,7 +121,7 @@ struct song{
 		{melody_GOOD_TIMES, 				duration_GOOD_TIMES,				30,		27}
 };
 
-
+song_selection chosen_song = 0;
 
 /*
  * Static Functions
@@ -132,11 +132,13 @@ static THD_FUNCTION(music, arg) {
 
 	(void) arg;
 
+	chosen_song = random_song();
+
 	while (true) {
 		wait_finish_playing();
 		set_recording(get_recording());
-		score += check_note_sequence(come_as_you_are);
-		score += check_note_order(come_as_you_are);
+		score += check_note_sequence(chosen_song);
+		score += check_note_order(chosen_song);
 		set_led(LED1, 0);
 		chBSemSignal(&sem_finished_music);
 		set_led(LED5, 0);
@@ -153,7 +155,7 @@ void wait_finish_music(void){
 }
 
 uint8_t random_song(void){
-	return 2;
+	return COME_AS_YOU_ARE;
 }
 
 /*
@@ -243,4 +245,8 @@ void set_recording(uint8_t *data){
 
 int16_t get_score(void){
 	return score;
+}
+
+song_selection get_song(void){
+	return chosen_song;
 }

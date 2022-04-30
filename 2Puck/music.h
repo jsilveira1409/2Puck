@@ -1,7 +1,13 @@
 #ifndef MUSIC_H
 #define MUSIC_H
 
-enum jukebox{come_as_you_are, miss_you, killing_in_the_name_of, sold_the_world};
+
+typedef enum {
+	COME_AS_YOU_ARE,
+	MISS_YOU,
+	KILLING_IN_THE_NAME_OF,
+	SOLD_THE_WORLD
+}song_selection;
 
 /*
  * Public Functions
@@ -12,6 +18,7 @@ void set_recording(uint8_t *data);
 uint8_t random_song(void);
 void wait_finish_music(void);
 int16_t get_score(void);
+song_selection get_song(void);
 /*
  * Static functions
  */

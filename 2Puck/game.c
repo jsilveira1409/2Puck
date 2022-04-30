@@ -51,7 +51,7 @@ static THD_FUNCTION(game_thd, arg) {
 				break;
 
 			case START_GAME:
-				song = random_song();
+				song = get_song();
 				chSequentialStreamWrite(&SD3, &song, 1);
 				state = CHOSEN_SONG;
 				set_led(LED1, 1);
@@ -63,8 +63,6 @@ static THD_FUNCTION(game_thd, arg) {
 				ReceiveInt8FromComputer((BaseSequentialStream *) &SD3, &message);
 				set_body_led(1);
 				break;
-
-
 
 			case PLAYER1_PLAY: // Start player 1 recording, compute score and send
 				init_music();
