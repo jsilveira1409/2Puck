@@ -30,14 +30,14 @@
 #define NSTEP_ONE_TURN			1000	//Nb steps for 1 turn
 #define WHEEL_PERIMETER			130		//in mm
 #define NB_OF_PHASES			4
-#define RAD2DEG					(360/3.14)
+#define RAD2DEG					(360/3.14159)
 #define ANGLE_EPSILON			0.01
 #define MIN_DISTANCE_2_TARGET	20
-#define MIN_SPEED				400
-#define MIN_IR_VAL				125
+#define MIN_SPEED				300
+#define MIN_IR_VAL				100
 #define MIN_STEPS				2
-#define ANGLE_RESOLUTION 		0.000001
-#define DISPLACEMENT_RESOLUTION 0.000001
+#define ANGLE_RESOLUTION 		0.0000001
+#define DISPLACEMENT_RESOLUTION 0.0000001
 
 #define PLAYER1_X				(200)		//ptn de parenthese merci pour la nuit blanche
 #define PLAYER1_Y				(500)
@@ -205,24 +205,23 @@ static void move (float left_pos, float right_pos){
 	}
 }
 
-static ir_dir check_irs(int* ir_max){
+static ir_dir check_irs(){
 	int ir[6] = {get_prox(5),get_prox(6),get_prox(7),
 				 get_prox(0),get_prox(1),get_prox(2)};
-
+	ir_dir max_ir_index = ir_hard_left;
 	int max = ir[ir_hard_left];
-	ir_dir index_max = 0;
 
-	for(ir_dir i = ir_soft_left; i < ir_hard_right; i++){
+	for(ir_dir i = ir_soft_left; i <= ir_hard_right; i++){
 		if(ir[i] > max){
 			max = ir[i];
-			index_max = i;
+			max_ir_index = i;
 		}
 	}
-	*ir_max = max;
+
 	if(max < MIN_IR_VAL){
 		return none;
 	}else{
-		return index_max;
+		return max_ir_index;
 	}
 }
 
@@ -280,28 +279,34 @@ static void pathing(void){
 		pathing_finished();
 		return;
 	}else{
-		ir = check_irs(&ir_max);
+		ir = check_irs();
 		switch(ir){
 			case none:
+				set_led(LED1, 1);
 				update_path(cos_alpha);
+				set_led(LED1, 0);
 				break;
 			case ir_hard_left:
-				update_path(cos_alpha);
+				set_led(LED7, 1);
+				move(6,4.5);
+				set_led(LED7, 0);
 				break;
 			case ir_soft_left:
-				move(4, 0);
+				move(5, 2);
 				break;
 			case ir_straight_left:
-				move(4,-4);
+				move(5,-2);
 				break;
 			case ir_straight_right:
-				move(-4,4);
+				move(-2,5);
 				break;
 			case ir_soft_right:
-				move(0,4);
+				move(2,5);
 				break;
 			case ir_hard_right:
-				update_path(cos_alpha);
+				set_led(LED3, 1);
+				move(4.5,6);
+				set_led(LED3, 0);
 				break;
 		}
 	}
@@ -334,25 +339,26 @@ static THD_FUNCTION(ThdPathing, arg) {
 	while (true) {
 		switch (current_option){
 			case WAIT:
-				set_led(LED1, 1);
+				set_body_led(1);
 				chThdSleepMilliseconds(200);
 				break;
 			case DANCE:
 				dance();
 				break;
 			case PATH_TO_PLAYER1:
-				set_led(LED1, 0);
+				set_body_led(0);
 				move_to_target(PLAYER1_X,PLAYER1_Y);
 				break;
 			case PATH_TO_PLAYER2:
-				set_led(LED1, 0);
+				set_body_led(0);
 				move_to_target(PLAYER2_X,PLAYER2_Y);
 				break;
 			case RECENTER:
-				set_led(LED1, 0);
+				set_body_led(0);
 				move_to_target(CENTER_X, CENTER_Y);
 				break;
 			case PATHING:
+				set_body_led(0);
 				pathing();
 				break;
 		}

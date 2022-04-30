@@ -12,6 +12,7 @@
 #include <audio/microphone.h>
 #include <audio/audio_thread.h>
 #include <music.h>
+#include <spi_comm.h>
 
 #include <audio_processing.h>
 #include <fft.h>
@@ -46,7 +47,7 @@ int main(void)
     dcmi_start();
     po8030_start();
     dac_start();
-//    spi_comm_start();
+    spi_comm_start();
 
 //    init_photo();
 
@@ -54,8 +55,6 @@ int main(void)
 //    init_game();
     pathing_init();
     pathing_set(PATH_TO_PLAYER1);
-    pathing_wait_finish();
-//    pathing_set(RECENTER);
 
 
     while (1) {
