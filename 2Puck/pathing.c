@@ -36,8 +36,13 @@ enum {X_AXIS, Y_AXIS};
 /*
  * For the IR obstacle position relative to the puck
  */
-enum { 	hard_left = 0, 	soft_left, straight_left,
-		straight_right, soft_right, hard_right, none};
+typedef enum { 	ir_hard_left = 0,
+		ir_soft_left,
+		ir_straight_left,
+		ir_straight_right,
+		ir_soft_right,
+		ir_hard_right,
+		none}ir_dir;
 
 /*
  * For the next position to move depending on the general FSM
@@ -56,20 +61,23 @@ enum{
 /*
  * VARIABLES ET CONSTANTES
  */
-#define WHEEL_DIST 		52		//mm
-#define NSTEP_ONE_TURN	1000	//Nb steps for 1 turn
-#define WHEEL_PERIMETER	130		//in mm
-#define NB_OF_PHASES	4
-#define RAD2DEG			(360/3.14)
-#define ANGLE_EPSILON	0.05
-#define MIN_DISTANCE_2_TARGET	40
-#define MIN_SPEED		350
+#define WHEEL_DIST 				52		//mm
+#define NSTEP_ONE_TURN			1000	//Nb steps for 1 turn
+#define WHEEL_PERIMETER			130		//in mm
+#define NB_OF_PHASES			4
+#define RAD2DEG					(360/3.14)
+#define ANGLE_EPSILON			0.01
+#define MIN_DISTANCE_2_TARGET	20
+#define MIN_SPEED				200
+#define MIN_IR_VAL				125
+#define MIN_STEPS				2
+#define ANGLE_RESOLUTION 		0.000001
+#define DISPLACEMENT_RESOLUTION 0.000001
 
-
-#define PLAYER1_X	(200)		//ptn de parenthese merci pour la nuit blanche
-#define PLAYER1_Y	(300)
-#define PLAYER2_X	(-200)
-#define PLAYER2_Y	(300)
+#define PLAYER1_X				(200)		//ptn de parenthese merci pour la nuit blanche
+#define PLAYER1_Y				(500)
+#define PLAYER2_X				(-200)
+#define PLAYER2_Y				(300)
 
 
 /*
@@ -86,7 +94,7 @@ static float orientation[2] = {0,0};
  * Angle between puck's orientation and vector between itself
  * and the target point
  */
-static float alpha = 0;
+
 
 /*
  * PID instance for the PID cmsis
@@ -104,12 +112,6 @@ static THD_FUNCTION(ThdPathing, arg) {
 
 	(void) arg;
 
-	int ir_max = 0;
-	float distance = 0;
-	float cos_alpha = 0;
-	uint8_t prev_state = 0;
-	uint8_t ir_index = 0;
-	uint8_t arrived = 0;
 	uint8_t state = player1_winner;
 	update_orientation(1,0);
 
@@ -119,30 +121,23 @@ static THD_FUNCTION(ThdPathing, arg) {
 				case player1_winner:
 					update_target(PLAYER1_X, PLAYER1_Y);
 					state = moving;
-					prev_state = player1_winner;
 				break;
 				case player2_winner:
 					update_target(PLAYER2_X, PLAYER2_Y);
 					state = moving;
-					prev_state = player2_winner;
 				break;
 				case recenter:
 					recenter_puck();
 					state = moving;
-					prev_state =recenter;
 				break;
 				case waiting:
+					set_led(LED5, 1);
 					chThdSleepMilliseconds(100);
 				break;
 				case moving:
 					while(state == moving){
 						pathing(&state);
 					}
-					if(prev_state == recenter){
-						prev_state = state;
-						state = finished;
-					}
-					prev_state = state;
 				break;
 			};
 		}
@@ -160,70 +155,70 @@ void pathing(uint8_t *state){
 	int ir_max = 0;
 	float distance = 0;
 	float cos_alpha = 0;
-	uint8_t ir_index = 0;
+	ir_dir ir = 0;
 
 	distance = distance_to_target(&cos_alpha);
 
 	if(distance < MIN_DISTANCE_2_TARGET){
 		move(20,20);
-		*state = recenter;
+		*state = waiting;
 		return;
 	}else{
-		move_to_target(cos_alpha);
-//		ir_index = radar(&ir_max);
-//		switch(ir_index){
-//			case none:
-//				/*
-//				 * No obstacles in front, so move_to_target should
-//				 * be called here, move is called inside move_to_target
-//				 * in this case
-//				 */
-//				set_led(LED1, 1);
-//				move_to_target(cos_alpha);
-//				set_led(LED1, 0);
-//				break;
-//			case hard_left:
-//				move(10, 8);
-//				break;
-//			case soft_left:
-//				move(10, 0);
-//				break;
-//			case straight_left:
-//				move(10,-5);
-//				break;
-//			case straight_right:
-//				move(-5,10);
-//				break;
-//			case soft_right:
-//				move(0,10);
-//				break;
-//			case hard_right:
-//				move(8,10);
-//				break;
-//			default:
-//				move(2,2);
-//				break;
-//		}
+		ir = check_irs(&ir_max);
+		switch(ir){
+			case none:
+				/*
+				 * No obstacles in front, so move_to_target should
+				 * be called here, move is called inside move_to_target
+				 * in this case
+				 */
+				set_led(LED1, 1);
+				move_to_target(cos_alpha);
+				set_led(LED1, 0);
+				break;
+			case ir_hard_left:
+				set_led(LED1, 1);
+				move_to_target(cos_alpha);
+				set_led(LED1, 0);
+				break;
+			case ir_soft_left:
+				move(5, 1);
+				break;
+			case ir_straight_left:
+				move(4,-4);
+				break;
+			case ir_straight_right:
+				move(-4,4);
+				break;
+			case ir_soft_right:
+				move(1,5);
+				break;
+			case ir_hard_right:
+				set_led(LED1, 1);
+				move_to_target(cos_alpha);
+				set_led(LED1, 0);
+				break;
+		}
 	}
 }
 
-uint8_t radar(int* ir_max){
+uint8_t check_irs(int* ir_max){
 
 	int ir[6] = {get_prox(5),get_prox(6),get_prox(7),
 				 get_prox(0),get_prox(1),get_prox(2)};
 
-	int max = ir[hard_left];
+	int max = ir[ir_hard_left];
 	uint8_t index_max = 0;
 
-	for(uint8_t i = 1; i < hard_right; i++){
+	for(uint8_t i = 1; i < ir_hard_right; i++){
 		if(ir[i] > max){
 			max = ir[i];
 			index_max = i;
 		}
 	}
 	*ir_max = max;
-	chprintf((BaseSequentialStream *)&SD3, " %d \r \n", *ir_max);
-	if(max < 140){
+//	chprintf((BaseSequentialStream *)&SD3, " %d \r \n", *ir_max);
+	if(max < MIN_IR_VAL){
 		return none;
 	}else{
 		return index_max;
@@ -263,7 +258,7 @@ void move (float left_pos, float right_pos){
 		arm_abs_f32(&error_right,&error_right,1);
 		arm_abs_f32(&error_left,&error_left,1);
 
-		if( error_right >= 5){
+		if( error_right >= MIN_STEPS){
 			if(output_right < MIN_SPEED && output_right >= 0){
 				right_motor_set_speed(MIN_SPEED);
 			}else if (output_right > -MIN_SPEED && output_right <= 0){
@@ -273,7 +268,7 @@ void move (float left_pos, float right_pos){
 			}
 		}
 
-		if(error_left >= 5){
+		if(error_left >= MIN_STEPS){
 			if(output_left < MIN_SPEED && output_left >= 0){
 				left_motor_set_speed(MIN_SPEED);
 			}else if(output_left > -MIN_SPEED && output_left <= 0){
@@ -283,7 +278,7 @@ void move (float left_pos, float right_pos){
 			}
 		}
 
-		if(error_left < 10 && error_right < 10){
+		if(error_left < MIN_STEPS && error_right < MIN_STEPS){
 			state = 1;
 			right_motor_set_speed(0);
 			left_motor_set_speed(0);
@@ -299,8 +294,9 @@ void move (float left_pos, float right_pos){
  */
 
 void register_path( float left_pos,  float right_pos){
-	volatile float displacement = (left_pos + right_pos)/(float)2;						//Center of mass displacement
-	volatile float sin, cos;
+	static float alpha = 0;
+	float displacement = (left_pos + right_pos)/(float)2;						//Center of mass displacement
+	float sin, cos;
 
 	alpha += (left_pos - right_pos) / ((float)WHEEL_DIST);	//angle between the x axis and the forward pointing vector of the puck
 
@@ -308,10 +304,7 @@ void register_path( float left_pos,  float right_pos){
 	 * Due to floating point intrinsic arithmetics, it generally never gives a zero
 	 */
 
-	if((alpha >= 0 && alpha < 0.05) || (alpha < 0 && alpha > -0.05)){
-		alpha = 0;
-	}
-	if((displacement < 0.5 && displacement >= 0) || (displacement > -0.5 && displacement < 0)){
+	if((displacement < DISPLACEMENT_RESOLUTION && displacement >= 0) || (displacement > -DISPLACEMENT_RESOLUTION && displacement < 0)){
 		displacement = 0;
 	}
 	cos = arm_cos_f32(alpha);

@@ -3,7 +3,7 @@
 
 void init_pathing(void);
 void move( float right_pos, float left_pos);
-uint8_t radar(int* ir_max);
+uint8_t check_irs(int* ir_max);
 void register_path(volatile float left_pos,volatile  float right_pos);
 float distance_to_target(float* cos_alpha);
 void move_to_target(float cos_alpha);
