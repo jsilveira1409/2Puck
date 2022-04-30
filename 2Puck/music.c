@@ -132,16 +132,16 @@ static THD_FUNCTION(music, arg) {
 
 	(void) arg;
 
-  while (true) {
-	  wait_finish_playing();
-	  set_recording(get_recording());
-	  score += check_note_sequence(come_as_you_are);
-	  score += check_note_order(come_as_you_are);
-	  set_led(LED1, 0);
-	  chBSemSignal(&sem_finished_music);
-	  set_led(LED5, 0);
-	  chThdSleepMilliseconds(2000);
-  }
+	while (true) {
+		wait_finish_playing();
+		set_recording(get_recording());
+		score += check_note_sequence(come_as_you_are);
+		score += check_note_order(come_as_you_are);
+		set_led(LED1, 0);
+		chBSemSignal(&sem_finished_music);
+		set_led(LED5, 0);
+		chThdSleepMilliseconds(2000);
+	}
 }
 
 /*
