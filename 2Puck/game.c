@@ -18,12 +18,6 @@
 typedef enum {
 	IDLE,
 	START_GAME,
-	PLAYER1_PLAY,
-	PLAYER2_PLAY,
-	CHOSEN_SONG,
-	PLAYER1_FINISHED,
-	PLAYER2_FINISHED,
-	SEND_WINNER,
 	SEND_PHOTO,
 	FINISHED
 } GAME_STATE;
@@ -51,41 +45,29 @@ static THD_FUNCTION(game_thd, arg) {
 				break;
 
 			case START_GAME:
+				init_music();
 				song = get_song();
 				chSequentialStreamWrite(&SD3, &song, 1);
-				state = CHOSEN_SONG;
 				set_led(LED1, 1);
-				break;
 
-			case CHOSEN_SONG:
-				break;
-			case PLAYER1_FINISHED:
-				ReceiveInt8FromComputer((BaseSequentialStream *) &SD3, &message);
-				set_body_led(1);
-				break;
-
-			case PLAYER1_PLAY: // Start player 1 recording, compute score and send
-				init_music();
 				wait_finish_music();
 				score1 = get_score();
 				SendUint8ToComputer(&score1, 1);
-				state = PLAYER1_FINISHED;
 				set_led(LED5,1);
-				break;
 
-			case PLAYER2_PLAY: // Start player 2 recording, compute score and send
 				wait_finish_music();
 				score2 = get_score();
 				SendUint8ToComputer(&score2, 1);
-				state = PLAYER2_FINISHED;
+				state++;
 				break;
 
-			case PLAYER2_FINISHED:
-			case SEND_WINNER:
 			case SEND_PHOTO:
 				init_photo();
+				state++;
 				break;
+
 			case FINISHED:
+				state = IDLE;
 				break;
 		}
 		chThdSleepMilliseconds(200);

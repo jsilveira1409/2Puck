@@ -51,8 +51,8 @@ int main(void)
 //    init_photo();
 
 //    init_music();
-//    init_game();
-    init_pathing();
+    game_init();
+//    init_pathing();
 
 
     while (1) {
