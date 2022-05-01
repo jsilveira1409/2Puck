@@ -10,15 +10,20 @@
 #include <chprintf.h>
 #include <motors.h>
 #include <audio/microphone.h>
+#include <audio/audio_thread.h>
 #include <music.h>
 
 #include <audio_processing.h>
 #include <fft.h>
 #include <communications.h>
 #include <arm_math.h>
+#include <audio/audio_thread.h>
 
 #include <pathing.h>
 #include <photo.h>
+
+#include <leds.h>
+#include <game.h>
 
 static void serial_start(void)
 {
@@ -32,30 +37,27 @@ static void serial_start(void)
 	sdStart(&SD3, &ser_cfg); // UART3.
 }
 
-
-
 int main(void)
 {
     halInit();
     chSysInit();
     mpu_init();
-
     serial_start();
-    //dac_start();
-    usb_start();
+    dcmi_start();
+    po8030_start();
+    dac_start();
+//    spi_comm_start();
 
-
-    mic_start(&processAudioDataCmplx);
-    //init_music();
-    //init_pathing();
 //    init_photo();
+
+//    init_music();
+//    init_game();
+    init_pathing();
+
+
     while (1) {
-    	float msg = 0;
-//    	ReceiveInt16FromComputer(&msg,1);
-    	chThdSleepMilliseconds(100);
 
-
-    }
+	}
 }
 
 #define STACK_CHK_GUARD 0xe2dee396

@@ -163,11 +163,11 @@ static THD_FUNCTION(proximity_thd, arg)
     (void) arg;
     chRegSetThreadName(__FUNCTION__);
 
-    messagebus_topic_t proximity_topic;
+//    messagebus_topic_t proximity_topic;
     MUTEX_DECL(prox_topic_lock);
     CONDVAR_DECL(prox_topic_condvar);
-//JOJO    messagebus_topic_init(&proximity_topic, &prox_topic_lock, &prox_topic_condvar, &prox_values, sizeof(prox_values));
-//JOJO    messagebus_advertise_topic(&bus, &proximity_topic, "/proximity");
+//    messagebus_topic_init(&proximity_topic, &prox_topic_lock, &prox_topic_condvar, &prox_values, sizeof(prox_values));
+//    messagebus_advertise_topic(&bus, &proximity_topic, "/proximity");
 
     while (true) {
 
@@ -195,7 +195,7 @@ static THD_FUNCTION(proximity_thd, arg)
         	prox_values.delta[i] = prox_values.ambient[i] - prox_values.reflected[i];
         }
 
-        //messagebus_topic_publish(&proximity_topic, &prox_values, sizeof(prox_values));
+//        messagebus_topic_publish(&proximity_topic, &prox_values, sizeof(prox_values));
 
         if(calibrationInProgress) {
         	switch(calibrationState) {

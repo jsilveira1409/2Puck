@@ -3,21 +3,18 @@
 #include <main.h>
 #include <usbcfg.h>
 #include <chprintf.h>
-
 #include <motors.h>
 #include <audio/microphone.h>
 #include <audio_processing.h>
 #include <communications.h>
 #include <fft.h>
 #include <arm_math.h>
+#include <audio_processing.h>
+#include <leds.h>
+
 
 #define RESOLUTION  			(I2S_AUDIOFREQ_16K/2)/(FFT_SIZE/2)
-#define HIGH_MAG_THRESHOLD		1000000
-#define LOW_MAG_THRESHOLD		550000
 #define FREQ_INDEX_OFFSET 		(-2)
-#define MIN_FREQ				10
-#define MAX_FREQ				(FFT_SIZE - 30)
-
 #define NB_SAMPLES				160
 #define RECORDING_SIZE			20
 #define NB_MICS 2
@@ -60,7 +57,9 @@ void processAudioDataCmplx(int16_t *data, uint16_t num_samples){
 	static uint16_t nb_samples = 0;
 	static uint8_t register_note = 0;
 	uint8_t status = 0;
-
+	/*
+	 * Fills the input buffer with the received samples
+	 */
 	for(uint16_t i = 0 ; i < num_samples ; i+=4){
 		micLeft_cmplx_input[nb_samples] = (float)data[i + MIC_LEFT];
 		nb_samples++;
@@ -71,12 +70,18 @@ void processAudioDataCmplx(int16_t *data, uint16_t num_samples){
 		}
 	}
 
-
-	//chprintf((BaseSequentialStream *)&SD3, "%d %f %d \r \n", register_note, freq, get_mic_volume());
+	/*
+	 * Checks if one (or more) sample has a volume higher than
+	 * that of the threshold. Here we implement a Schmitt Trigger
+	 */
 	status = note_volume(data, num_samples);
 	if(status == 1 && register_note == 0){
 		register_note = 1;
 	}
+	/*
+	 * Once we have enough samples, and we know that one of the samples
+	 * has a higher volume, we do a FFT and discretize it with frequency_to_note
+	 */
 	if(nb_samples >= (2 * FFT_SIZE)){
 		if(register_note == 1){
 			doCmplxFFT_optimized(FFT_SIZE, micLeft_cmplx_input);
@@ -89,21 +94,30 @@ void processAudioDataCmplx(int16_t *data, uint16_t num_samples){
 	}
 }
 
-
+/*
+ * Receives the FFT data, finds the closest discret error and
+ * records it
+ */
 
 void frequency_to_note(float* data){
-	static uint8_t state = 0;
 	float max_freq_mag = 0;
 	uint32_t max_index = 0;
 
 	arm_max_f32(data, (FFT_SIZE/2), &max_freq_mag, &max_index);
 	check_smallest_error(&max_index);
 	max_index = max_index%12;
-	find_note(max_index);
+//	find_note(max_index);
 	record_note(max_index);
 }
 
-
+/*
+ * Finds the smallest error between the FFT data
+ * and the discrete note frequency in note_frequency[]
+ *
+ *	TODO: implement something that ignores the note when the error is too big,
+ *	could help with resolution
+ *
+ */
 void check_smallest_error(uint32_t *max_index){
 	float smallest_error = 0, curr_error = 0;
 	freq = (float)RESOLUTION*((float)(*max_index + FREQ_INDEX_OFFSET ));
@@ -120,6 +134,9 @@ void check_smallest_error(uint32_t *max_index){
 
 }
 
+/*
+ * Prints the discrete note
+ */
 void find_note (int16_t index){
 	switch (index){
 		case 0:
@@ -162,36 +179,32 @@ void find_note (int16_t index){
 			chprintf((BaseSequentialStream *)&SD3, "none  \r ");
 			break;
 	}
-
-
 }
 
+/*
+ * Records the played note into the recording array,
+ * once we fill the limit, it signals the mutex to activate the
+ * scoring of the recording in music.c
+ */
 void record_note(const uint8_t note_index){
 	static uint16_t current_index = 0;
+	static uint8_t led = 0;
+	set_led(LED7,led);
+	if(led == 1) led = 0;
+	else led = 1;
 	played_note[current_index] = note_index;
 
 	if(current_index < RECORDING_SIZE){
 		current_index ++;
 	}else{
-		chprintf((BaseSequentialStream *)&SD3, "Recording play back \r \n");
-		for(uint16_t i = 0; i<RECORDING_SIZE; i++){
-			find_note(played_note[i]);
-			current_index = 0;
-		}
+		current_index = 0;
 		chBSemSignal(&sem_finished_playing);
-		chprintf((BaseSequentialStream *)&SD3, "\r");
 	}
-}
-
-
-void wait_finish_playing(){
-	chBSemWait(&sem_finished_playing);
 }
 
 /*
  * CHECK IF THERE IS A CMSIS FUNCTION FOR THIS
  */
-
 void fundamental_frequency(float* data, uint8_t nb_harmonic){
 	if(nb_harmonic > 1){
 		for(uint8_t harmonic = 1; harmonic <= nb_harmonic;harmonic++ ){
@@ -205,7 +218,6 @@ void fundamental_frequency(float* data, uint8_t nb_harmonic){
 uint8_t* get_recording(void){
 	return played_note;
 }
-
 
 
 uint8_t note_volume(int16_t *data, uint16_t num_samples){
@@ -236,6 +248,11 @@ uint8_t note_volume(int16_t *data, uint16_t num_samples){
 		state = 0;
 		return 0;
 	}
+
 	return 0;
 }
 
+
+void wait_finish_playing(void){
+	chBSemWait(&sem_finished_playing);
+}

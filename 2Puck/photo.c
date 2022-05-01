@@ -6,18 +6,20 @@
 #include <main.h>
 #include <camera/po8030.h>
 #include <inttypes.h>
+#include <leds.h>
 
+#include "communications.h"
 
 #include <photo.h>
 
 
-#define X_start					50
+#define X_start					20
 #define	Y_start					0
-#define PHOTO_WIDTH				500
+#define PHOTO_WIDTH				600
 #define PHOTO_HEIGHT			2
 #define	BYTES_PER_PIXEL			2
 #define IMAGE_BUFFER_SIZE		(PHOTO_WIDTH*PHOTO_HEIGHT)	//Size in uint16
-#define	MAX_LINES_2_SEND		500
+#define	MAX_LINES_2_SEND		550
 
 //semaphore
 static BSEMAPHORE_DECL(line_ready_sem, TRUE);
@@ -39,8 +41,15 @@ static THD_FUNCTION(TakePhoto, arg) {
     while(1){
     	uint8_t *img_buff_ptr;
 
+    	static uint8_t led = 0;
+		set_led(LED3,led);
+		if(led == 1) led = 0;
+		else led = 1;
+
     	po8030_advanced_config(FORMAT_RGB565, X_start, (Y_start + line_cnt), PHOTO_WIDTH, PHOTO_HEIGHT, SUBSAMPLING_X1, SUBSAMPLING_X1);
     	dcmi_prepare();
+
+
 
         //starts a capture
 
@@ -75,16 +84,8 @@ static THD_FUNCTION(TakePhoto, arg) {
 }
 
 void init_photo(void){
-	dcmi_start();
-	po8030_start();
-	chThdCreateStatic(waTakePhoto, sizeof(waTakePhoto), NORMALPRIO, TakePhoto, NULL);
+//	dcmi_start();
+//	po8030_start();
+	chThdCreateStatic(waTakePhoto, sizeof(waTakePhoto), NORMALPRIO+2, TakePhoto, NULL);
 }
-
-void SendUint8ToComputer(uint8_t* data, uint16_t size)
-{
-	chSequentialStreamWrite((BaseSequentialStream *)&SD3, (uint8_t*)"START", 5);
-	chSequentialStreamWrite((BaseSequentialStream *)&SD3, (uint8_t*)&size, sizeof(uint16_t));
-	chSequentialStreamWrite((BaseSequentialStream *)&SD3, (uint8_t*)data, size);
-}
-
 
