@@ -31,7 +31,7 @@
 #define WHEEL_PERIMETER			130		//in mm
 #define NB_OF_PHASES			4
 #define RAD2DEG					(360/3.14159)
-#define ANGLE_EPSILON			0.01
+#define ANGLE_EPSILON			0.1
 #define MIN_DISTANCE_2_TARGET	20
 #define MIN_SPEED				300
 #define MIN_IR_VAL				100
@@ -77,6 +77,11 @@ static float target[2] = {0,0};
  * as the TOF)
  */
 static float orientation[2] = {0,0};
+/*
+ * Vector between puck and target point
+ */
+float dist[2] = {0,0};
+
 /*
  * PID instance for the PID cmsis
  */
@@ -124,17 +129,25 @@ static void register_path( float left_pos,  float right_pos){
 	position[Y_AXIS] += displacement*cos;
 }
 
-static float distance_to_target(float* cos_alpha){
-	float dist[2] = {0,0};					//Vector between puck and target point
+static float distance_to_target(float* cos_alpha, float* sin_alpha){
+
 	float mag = 0;
+	/*
+	 * temporary vector used for the cross product, which is not implemented
+	 * by CMSIS's library, so we just invert and use the dot product
+	 */
+	float tmp_vector[2]={(orientation[Y_AXIS]), (-orientation[X_AXIS])};
 
 	arm_sub_f32(target, position, dist, 2);
 	arm_dot_prod_f32(orientation, dist, 2, cos_alpha);
+	arm_dot_prod_f32(tmp_vector, dist, 2, sin_alpha);
+
 	/*
 	 * Orientation is unitary, so we divide by dist magnitude only
 	 * TODO : check if it is actually the case
 	 */
 	arm_cmplx_mag_f32(dist, &mag,1);
+	*sin_alpha = (*sin_alpha)/mag;
 	*cos_alpha = (*cos_alpha)/mag;
 	return mag;
 }
@@ -205,7 +218,7 @@ static void move (float left_pos, float right_pos){
 	}
 }
 
-static ir_dir check_irs(){
+static ir_dir check_irs(void){
 	int ir[6] = {get_prox(5),get_prox(6),get_prox(7),
 				 get_prox(0),get_prox(1),get_prox(2)};
 	ir_dir max_ir_index = ir_hard_left;
@@ -233,29 +246,23 @@ static ir_dir check_irs(){
  * more or less equal to one
  */
 
-static void update_path(float cos_alpha){
+static void update_path(float cos_alpha, float sin_alpha){
 	float move_l = 0, move_r = 0;
 
-	if( (cos_alpha < (1 - ANGLE_EPSILON) && (cos_alpha >= 0)) ||
-			(cos_alpha < (ANGLE_EPSILON - 1) && (cos_alpha < 0))  ){
-		if((position[X_AXIS] - target[X_AXIS]) >= 0){
-			move_l = -5;	//TURN LEFT
-			move_r = 5;
-		}else{
-			move_l = 5;		//TURN RIGHT
-			move_r = -5;
-		}
-	}else if (cos_alpha >= (1 - ANGLE_EPSILON)){
-		move_l = 5;			//FORWARD
+	if((cos_alpha <= (1 - ANGLE_EPSILON) && sin_alpha <= -ANGLE_EPSILON)
+		|| 	(cos_alpha >= (ANGLE_EPSILON - 1) && sin_alpha <= -ANGLE_EPSILON)){
+		move_l = -5;
 		move_r = 5;
-	}else if(cos_alpha >= (ANGLE_EPSILON - 1) && (cos_alpha < 0) ){
-		if((position[X_AXIS] - target[X_AXIS]) >= 0){
-			move_l = -5;	//TURN LEFT
-			move_r = 5;
-		}else{
-			move_l = 5;		//TURN RIGHT
-			move_r = -5;
-		}
+		set_body_led(1);
+
+	}else if((cos_alpha < (1 - ANGLE_EPSILON) && sin_alpha > ANGLE_EPSILON)
+			|| (cos_alpha > (ANGLE_EPSILON - 1) && sin_alpha > ANGLE_EPSILON)){
+		move_l = 5;
+		move_r = -5;
+		set_body_led(0);
+	}else{
+		move_l = 5;
+		move_r = 5;
 	}
 	move(move_l, move_r);
 	return;
@@ -267,11 +274,11 @@ static void update_path(float cos_alpha){
 static void pathing(void){
 
 	float distance = 0;
-	float cos_alpha = 0;
+	float cos_alpha = 0, sin_alpha = 0;
 	int ir_max = 0;
 	ir_dir ir = 0;
 
-	distance = distance_to_target(&cos_alpha);
+	distance = distance_to_target(&cos_alpha, &sin_alpha);
 
 	if(distance < MIN_DISTANCE_2_TARGET){
 		move(20,20);
@@ -283,7 +290,7 @@ static void pathing(void){
 		switch(ir){
 			case none:
 				set_led(LED1, 1);
-				update_path(cos_alpha);
+				update_path(cos_alpha, sin_alpha);
 				set_led(LED1, 0);
 				break;
 			case ir_hard_left:
