@@ -138,7 +138,7 @@ bool isSDCardMounted(void){
  * Scan Files in a path and print them to the given stream.
  */
 FRESULT scan_files(BaseSequentialStream *chp, char *path) {
-    FRESULT res;
+    volatile FRESULT res;
     FILINFO fno;
     DIR dir;
     int fyear,fmonth,fday,fhour,fminute,fsecond;

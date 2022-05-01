@@ -9,8 +9,9 @@
 #include <audio_processing.h>
 #include <audio/microphone.h>
 #include <leds.h>
+#include <audio/play_melody.h>
 
-#define NB_SONGS 			5
+#define NB_SONGS 			6
 #define MS_IN_MINUTE		(60*1000)		//milliseconds in a minute, needed for bpm to ms conversion
 #define SIXTEENTH_NOTE		16
 
@@ -28,6 +29,24 @@ static uint8_t *recording;
  * Ex: for bpm = 120 	-> 1 sixteenth = 125ms = 1
  * 						-> 1 quarter = 4 sixteenth = 4
  */
+
+//seven nation army melody by White Stripes
+static const uint16_t seven_nation_army_melody[] = {
+  0,
+  NOTE_D4 , NOTE_D4, 0, NOTE_F4, 0, NOTE_D4, 0, NOTE_C4 , NOTE_AS3, NOTE_A3, 0,
+  NOTE_D4 , NOTE_D4, 0, NOTE_F4, 0, NOTE_D4, 0, NOTE_C4 , NOTE_AS3, NOTE_A3, 0,
+  NOTE_D4 , NOTE_D4, 0, NOTE_F4, 0, NOTE_D4, 0, NOTE_C4 , NOTE_AS3, NOTE_A3, 0,
+
+};
+
+//seven nation army tempo
+static const float seven_nation_army_tempo[] = {
+  12,
+  3,20,20,20,9,20,9,9,2.2,2.2,70,
+  3,20,20,20,9,20,9,9,2.2,2.2,70,
+  3,20,20,20,9,20,9,9,2.2,2.2,70,
+};
+
 
 /*
  * Come As you are - Nirvana
@@ -82,14 +101,40 @@ static uint8_t duration_SOLD_THE_WORLD[17]={
 };
 
 
-static uint8_t melody_GOOD_TIMES[27] = {
-	E2, E2, E2, E2,  E2, FS2, G2, A3, B3, CS3, D3, E3, A2,
-	A2, A2, A2, A2, FS3, A2, G3, FS3, A2, E2, B3, E2, FS2, G2
+/*
+ * Seven Nation Army - Whitesnake
+ */
+
+static uint8_t melody_SEVEN_NATION_ARMY[16]={
+	E1, E1, G2,	E1,	D1,
+	C1,	B1,
+	E1, E1, G2,	E1,	D1,
+	C1,	D1, C1, B1,
+
 };
 
-static uint8_t duration_GOOD_TIMES[27] = {
-	2, 	2, 	1,	1,	1,	2,	 2,	  2,  2,  2, 2, 1, 1,
-	2,	2,	1,	1,	1,	1,	2,	2,	2,	1,	1,	1,	1,	1
+static uint8_t duration_SEVEN_NATION_ARMY[16]={
+	6,	2,	3,	3,	3,
+	8,	8,
+	6,	2,	3,	3,	3,
+	4, 	4, 	4, 	4,
+};
+/*
+* The Next Episode - Dr Dre
+ */
+
+static uint8_t melody_NEXT_EPISODE[24]={
+	F3,  X, AS4, X,
+	AS4, X, GS4, X, AS4, X,
+	GS4, X, FS4, X, GS4, X,
+	GS4, X, FS4, X, F3,  X, FS4, X
+};
+
+static uint8_t duration_NEXT_EPISODE[24]={
+	6, 2, 6, 2,
+	4, 2, 4, 2, 4, 2,
+	4, 2, 4, 2, 4, 2,
+	4, 2, 4, 2, 4, 2, 4, 2
 };
 
 /*
@@ -97,8 +142,6 @@ static uint8_t duration_GOOD_TIMES[27] = {
  * Contains the melody, the corresponding note duration where 1 = sixteenth note (double crochet)
  * and the melody size
  */
-
-
 struct song{
 	uint8_t * melody_ptr;
 	uint8_t * note_duration_ptr;
@@ -109,7 +152,8 @@ struct song{
 		{melody_MISS_YOU,					duration_MISS_YOU,					50,		18},
 		{melody_KILLING_IN_THE_NAME_OF, 	duration_KILLING_IN_THE_NAME_OF,	50,		20},
 		{melody_SOLD_THE_WORLD, 			duration_SOLD_THE_WORLD,			50,		17},
-		{melody_GOOD_TIMES, 				duration_GOOD_TIMES,				30,		27}
+		{melody_SEVEN_NATION_ARMY,			duration_SEVEN_NATION_ARMY,			50,		16},
+		{melody_NEXT_EPISODE,				duration_NEXT_EPISODE,				50,		24}
 };
 
 
@@ -124,14 +168,16 @@ static THD_FUNCTION(music, arg) {
 	(void) arg;
 
   while (true) {
-	  wait_finish_playing();
-	  set_recording(get_recording());
-	  score += check_note_sequence(come_as_you_are);
-	  score += check_note_order(come_as_you_are);
-	  set_led(LED1, 0);
-	  chBSemSignal(&sem_finished_music);
-	  set_led(LED5, 0);
+
 	  chThdSleepMilliseconds(2000);
+//	  wait_finish_playing();
+//	  set_recording(get_recording());
+//	  score += check_note_sequence(come_as_you_are);
+//	  score += check_note_order(come_as_you_are);
+//	  set_led(LED1, 0);
+//	  chBSemSignal(&sem_finished_music);
+//	  set_led(LED5, 0);
+//	  chThdSleepMilliseconds(2000);
   }
 }
 
@@ -198,11 +244,6 @@ int16_t check_note_order(uint8_t index){
 	return score;
 }
 
-
-static uint32_t duration_to_ms(uint8_t duration, uint16_t bpm){
-	return ( (MS_IN_MINUTE*duration)/( bpm * SIXTEENTH_NOTE) );
-}
-
 /*
  * Threads
  */
@@ -215,18 +256,20 @@ static uint32_t duration_to_ms(uint8_t duration, uint16_t bpm){
 void init_music(void){
     mic_start(&processAudioDataCmplx);
 	chThdCreateStatic(musicWorkingArea, sizeof(musicWorkingArea),
-			NORMALPRIO+1, music, NULL);
+			NORMALPRIO, music, NULL);
 }
 
 void play_song(uint8_t index){
 	for(uint8_t i = 0; i < songs[index].melody_size; i++){
-		dac_play(note_frequency[songs[index].melody_ptr[i]]);
-
+		if(note_frequency[songs[index].melody_ptr[i]] == X){		//Silence
+			dac_stop();
+		}else{
+			dac_play(note_frequency[songs[index].melody_ptr[i]]);
+		}
 		chThdSleepMilliseconds(duration_to_ms(songs[index].note_duration_ptr[i],songs[index].bpm));
-		dac_stop();
-		chThdSleepMilliseconds(50);
 	}
 }
+
 
 void set_recording(uint8_t *data){
 	recording = data;

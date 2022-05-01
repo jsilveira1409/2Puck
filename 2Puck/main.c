@@ -19,12 +19,15 @@
 #include <communications.h>
 #include <arm_math.h>
 #include <audio/audio_thread.h>
+#include <audio/play_sound_file.h>
 
 #include <pathing.h>
 #include <photo.h>
 
 #include <leds.h>
 #include <game.h>
+#include <fat.h>
+#include <sdio.h>
 
 static void serial_start(void)
 {
@@ -44,21 +47,42 @@ int main(void)
     chSysInit();
     mpu_init();
     serial_start();
-    dcmi_start();
-    po8030_start();
-    dac_start();
-    spi_comm_start();
+//    dcmi_start();
+//    po8030_start();
+//    spi_comm_start();
 
 //    init_photo();
 
-    init_music();
+//    init_music();
 //    init_game();
-    pathing_init();
-    pathing_set(DANCE);
+//    pathing_init();
+//    pathing_set(DANCE);
+
+    sdio_start();
+    dac_start();
+    spi_comm_start();
+    playSoundFileStart();
+
+
+    while(!mountSDCard()){
+    	set_body_led(1);
+    	chThdSleepMilliseconds(200);
+    	set_body_led(0);
+		chThdSleepMilliseconds(200);
+    }
+    set_body_led(1);
+
+    set_body_led(1);
 
 
     while (1) {
-
+    	setSoundFileVolume(50);
+    	playSoundFile("nextepisode.wav", SF_FORCE_CHANGE);
+		waitSoundFileHasFinished();
+    	set_body_led(1);
+		chThdSleepMilliseconds(200);
+		set_body_led(0);
+		chThdSleepMilliseconds(200);
 	}
 }
 
