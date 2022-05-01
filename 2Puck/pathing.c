@@ -26,16 +26,16 @@
 #include <arm_math.h>
 #include <leds.h>
 
-#define WHEEL_DIST 				52		//mm
+#define WHEEL_DIST 				58		//mm
 #define NSTEP_ONE_TURN			1000	//Nb steps for 1 turn
 #define WHEEL_PERIMETER			130		//in mm
 #define NB_OF_PHASES			4
 #define RAD2DEG					(360/3.14159)
 #define ANGLE_EPSILON			0.1
-#define MIN_DISTANCE_2_TARGET	20
-#define MIN_SPEED				300
-#define MIN_IR_VAL				100
-#define MIN_STEPS				2
+#define MIN_DISTANCE_2_TARGET	10
+#define MIN_SPEED				200
+#define MIN_IR_VAL				140
+#define MIN_STEPS				3
 #define ANGLE_RESOLUTION 		0.0000001
 #define DISPLACEMENT_RESOLUTION 0.0000001
 
@@ -83,9 +83,14 @@ static float orientation[2] = {0,0};
 float dist[2] = {0,0};
 
 /*
- * PID instance for the PID cmsis
+ * PID instances for the PID cmsis lib
+ * steps_pid is used for the move functions, to soften the
+ * steps advancement
+ * angle_pid is used for the pathing functions, to improve
+ *  the angle closing between dist and orientation
  */
-static arm_pid_instance_f32 pid;
+static arm_pid_instance_f32 steps_pid;
+static arm_pid_instance_f32 angle_pid;
 
 static pathing_option current_option = WAIT;
 /*
@@ -109,28 +114,33 @@ static void update_orientation(float cos, float sin){
 }
 
 static void register_path( float left_pos,  float right_pos){
-	static float beta = 0;			//angle entre l'axe y et le forward vector du ePuck
-	float displacement = (left_pos + right_pos)/(float)2;						//Center of mass displacement
+	static float beta = 0;  //angle entre l'axe y et le forward vector du ePuck
+	float displacement = 0;	//Center of mass displacement
 	float sin, cos;
 
+	displacement = (left_pos + right_pos)/(float)2;
 	beta += (left_pos - right_pos) / ((float)WHEEL_DIST);	//angle between the x axis and the forward pointing vector of the puck
 
 	cos = arm_cos_f32(beta);
 	sin = arm_sin_f32(beta);
-
 	/*
 	 * if both pos are equal, the angle should not be updated
+	 * if both are opposite, it's turning on itself, so position shouldn't be updated
 	 */
 	if(left_pos != right_pos){
 		update_orientation(cos, sin);
 	}
 
-	position[X_AXIS] += displacement*sin;
-	position[Y_AXIS] += displacement*cos;
+	if(left_pos != (-right_pos)){
+		position[X_AXIS] += displacement*sin;
+		position[Y_AXIS] += displacement*cos;
+	}
 }
 
 static float distance_to_target(float* cos_alpha, float* sin_alpha){
 
+	float distance_mag = 0;
+	float orientation_mag = 0;
 	float mag = 0;
 	/*
 	 * temporary vector used for the cross product, which is not implemented
@@ -146,7 +156,9 @@ static float distance_to_target(float* cos_alpha, float* sin_alpha){
 	 * Orientation is unitary, so we divide by dist magnitude only
 	 * TODO : check if it is actually the case
 	 */
-	arm_cmplx_mag_f32(dist, &mag,1);
+	arm_cmplx_mag_f32(dist, &distance_mag,1);
+	arm_cmplx_mag_f32(orientation, &orientation_mag,1);
+	mag = orientation_mag*distance_mag;
 	*sin_alpha = (*sin_alpha)/mag;
 	*cos_alpha = (*cos_alpha)/mag;
 	return mag;
@@ -174,15 +186,15 @@ static void move (float left_pos, float right_pos){
 	float error_right = 0;
 	float error_left  = 0;
 
-	arm_pid_reset_f32(&pid);
+	arm_pid_reset_f32(&steps_pid);
 
 	while(state == MOVING){
 
 		error_left  = left_steps -  (float)left_motor_get_pos();
 		error_right = right_steps - (float)right_motor_get_pos();
 
-		output_right = arm_pid_f32(&pid, error_right);
-		output_left = arm_pid_f32(&pid, error_left);
+		output_right = arm_pid_f32(&steps_pid, error_right);
+		output_left = arm_pid_f32(&steps_pid, error_left);
 
 		arm_abs_f32(&error_right,&error_right,1);
 		arm_abs_f32(&error_left,&error_left,1);
@@ -195,6 +207,8 @@ static void move (float left_pos, float right_pos){
 			}else{
 				right_motor_set_speed((int)output_right);
 			}
+		}else{
+			right_motor_set_speed(0);
 		}
 
 		if(error_left >= MIN_STEPS){
@@ -205,10 +219,12 @@ static void move (float left_pos, float right_pos){
 			}else{
 				left_motor_set_speed((int)output_left);
 			}
+		}else{
+			left_motor_set_speed(0);
 		}
 
 		if(error_left < MIN_STEPS && error_right < MIN_STEPS){
-			state = 1;
+			state = ARRIVED;
 			right_motor_set_speed(0);
 			left_motor_set_speed(0);
 			right_motor_set_pos(0);
@@ -234,6 +250,10 @@ static ir_dir check_irs(void){
 	if(max < MIN_IR_VAL){
 		return none;
 	}else{
+		/*
+		 * We reset the angle pid to avoid drastic mouvements
+		 */
+//		arm_pid_reset_f32(&angle_pid);
 		return max_ir_index;
 	}
 }
@@ -247,23 +267,31 @@ static ir_dir check_irs(void){
  */
 
 static void update_path(float cos_alpha, float sin_alpha){
-	float move_l = 0, move_r = 0;
+	volatile float move_l = 0, move_r = 0;
+	volatile float error_sin = -sin_alpha;
+	volatile float error_cos  = 1 - cos_alpha;
 
-	if((cos_alpha <= (1 - ANGLE_EPSILON) && sin_alpha <= -ANGLE_EPSILON)
-		|| 	(cos_alpha >= (ANGLE_EPSILON - 1) && sin_alpha <= -ANGLE_EPSILON)){
-		move_l = -5;
-		move_r = 5;
-		set_body_led(1);
+	error_sin = arm_pid_f32(&angle_pid, error_sin);
+	error_cos = arm_pid_f32(&angle_pid, error_cos);
 
-	}else if((cos_alpha < (1 - ANGLE_EPSILON) && sin_alpha > ANGLE_EPSILON)
-			|| (cos_alpha > (ANGLE_EPSILON - 1) && sin_alpha > ANGLE_EPSILON)){
-		move_l = 5;
-		move_r = -5;
-		set_body_led(0);
-	}else{
-		move_l = 5;
-		move_r = 5;
-	}
+	move_l = (-error_sin + error_cos + 1)*MIN_STEPS;
+	move_r = (error_sin  + error_cos + 1)*MIN_STEPS;
+//
+//	if((cos_alpha <= (1 - ANGLE_EPSILON) && sin_alpha <= -ANGLE_EPSILON)
+//		|| 	(cos_alpha >= (ANGLE_EPSILON - 1) && sin_alpha <= -ANGLE_EPSILON)){
+//		move_l = -5;
+//		move_r = 5;
+//		set_body_led(1);
+//
+//	}else if((cos_alpha < (1 - ANGLE_EPSILON) && sin_alpha > ANGLE_EPSILON)
+//			|| (cos_alpha > (ANGLE_EPSILON - 1) && sin_alpha > ANGLE_EPSILON)){
+//		move_l = 5;
+//		move_r = -5;
+//		set_body_led(0);
+//	}else{
+//		move_l = 5;
+//		move_r = 5;
+//	}
 	move(move_l, move_r);
 	return;
 }
@@ -275,13 +303,12 @@ static void pathing(void){
 
 	float distance = 0;
 	float cos_alpha = 0, sin_alpha = 0;
-	int ir_max = 0;
 	ir_dir ir = 0;
 
 	distance = distance_to_target(&cos_alpha, &sin_alpha);
 
 	if(distance < MIN_DISTANCE_2_TARGET){
-		move(20,20);
+		move(30,30);
 		current_option = WAIT;
 		pathing_finished();
 		return;
@@ -295,11 +322,11 @@ static void pathing(void){
 				break;
 			case ir_hard_left:
 				set_led(LED7, 1);
-				move(6,4.5);
+				move(7,6);
 				set_led(LED7, 0);
 				break;
 			case ir_soft_left:
-				move(5, 2);
+				move(5, 0);
 				break;
 			case ir_straight_left:
 				move(5,-2);
@@ -308,11 +335,11 @@ static void pathing(void){
 				move(-2,5);
 				break;
 			case ir_soft_right:
-				move(2,5);
+				move(0,5);
 				break;
 			case ir_hard_right:
 				set_led(LED3, 1);
-				move(4.5,6);
+				move(6,7);
 				set_led(LED3, 0);
 				break;
 		}
@@ -384,11 +411,16 @@ void pathing_init(void){
 	proximity_start();
 	calibrate_ir();
 
-	pid.Ki = 0;
-	pid.Kd = 0.00001;
-	pid.Kp = 1.2;
+	steps_pid.Ki = 0;
+	steps_pid.Kd = 0.1;
+	steps_pid.Kp = 10;
 
-	arm_pid_init_f32(&pid, 0);
+	angle_pid.Ki = 5;
+	angle_pid.Kd = 0.1;
+	angle_pid.Kp = 5;
+
+	arm_pid_init_f32(&steps_pid, 0);
+	arm_pid_init_f32(&angle_pid, 0);
 
 	(void) chThdCreateStatic(pathingWorkingArea, sizeof(pathingWorkingArea),
 	                           NORMALPRIO, ThdPathing, NULL);
