@@ -34,10 +34,12 @@
 #define ANGLE_EPSILON			0.1
 #define MIN_DISTANCE_2_TARGET	10
 #define MIN_SPEED				200
-#define MIN_IR_VAL				140
+#define MIN_IR_VAL				130
 #define MIN_STEPS				3
 #define ANGLE_RESOLUTION 		0.0000001
 #define DISPLACEMENT_RESOLUTION 0.0000001
+#define MAX_MOTOR_DISPLACEMENT	10
+#define MIN_WALL_DIST			MIN_IR_VAL + 10
 
 #define PLAYER1_X				(200)		//ptn de parenthese merci pour la nuit blanche
 #define PLAYER1_Y				(500)
@@ -91,6 +93,7 @@ float dist[2] = {0,0};
  */
 static arm_pid_instance_f32 steps_pid;
 static arm_pid_instance_f32 angle_pid;
+static arm_pid_instance_f32 wall_pid;
 
 static pathing_option current_option = WAIT;
 /*
@@ -234,7 +237,7 @@ static void move (float left_pos, float right_pos){
 	}
 }
 
-static ir_dir check_irs(void){
+static ir_dir check_irs(float* ir_max_val){
 	int ir[6] = {get_prox(5),get_prox(6),get_prox(7),
 				 get_prox(0),get_prox(1),get_prox(2)};
 	ir_dir max_ir_index = ir_hard_left;
@@ -250,10 +253,7 @@ static ir_dir check_irs(void){
 	if(max < MIN_IR_VAL){
 		return none;
 	}else{
-		/*
-		 * We reset the angle pid to avoid drastic mouvements
-		 */
-//		arm_pid_reset_f32(&angle_pid);
+		*ir_max_val = max;
 		return max_ir_index;
 	}
 }
@@ -267,6 +267,8 @@ static ir_dir check_irs(void){
  */
 
 static void update_path(float cos_alpha, float sin_alpha){
+	set_led(LED1, 1);
+	arm_pid_reset_f32(&wall_pid);
 	volatile float move_l = 0, move_r = 0;
 	volatile float error_sin = -sin_alpha;
 	volatile float error_cos  = 1 - cos_alpha;
@@ -276,26 +278,34 @@ static void update_path(float cos_alpha, float sin_alpha){
 
 	move_l = (-error_sin + error_cos + 1)*MIN_STEPS;
 	move_r = (error_sin  + error_cos + 1)*MIN_STEPS;
-//
-//	if((cos_alpha <= (1 - ANGLE_EPSILON) && sin_alpha <= -ANGLE_EPSILON)
-//		|| 	(cos_alpha >= (ANGLE_EPSILON - 1) && sin_alpha <= -ANGLE_EPSILON)){
-//		move_l = -5;
-//		move_r = 5;
-//		set_body_led(1);
-//
-//	}else if((cos_alpha < (1 - ANGLE_EPSILON) && sin_alpha > ANGLE_EPSILON)
-//			|| (cos_alpha > (ANGLE_EPSILON - 1) && sin_alpha > ANGLE_EPSILON)){
-//		move_l = 5;
-//		move_r = -5;
-//		set_body_led(0);
-//	}else{
-//		move_l = 5;
-//		move_r = 5;
-//	}
+	if(move_l > MAX_MOTOR_DISPLACEMENT){
+		move_l = MAX_MOTOR_DISPLACEMENT;
+	}
+	if(move_r > MAX_MOTOR_DISPLACEMENT){
+		move_r = MAX_MOTOR_DISPLACEMENT;
+	}
 	move(move_l, move_r);
+	set_led(LED1, 0);
 	return;
 }
 
+static void wall_follow(ir_dir ir,volatile float ir_val){
+	volatile float error = MIN_WALL_DIST - ir_val;
+	volatile float move_l = 0, move_r = 0;
+	error = arm_pid_f32(&wall_pid, error);
+	if(ir == ir_hard_left){
+		set_led(LED7, 1);
+		move_l = MIN_STEPS - error;
+		move_r = MIN_STEPS + error;
+	}else if(ir == ir_hard_right){
+		set_led(LED3, 1);
+		move_l = MIN_STEPS + error;
+		move_r = MIN_STEPS - error;
+	}
+	move(move_l, move_r);
+	set_led(LED7, 0);
+	set_led(LED3, 0);
+}
 
 
 
@@ -303,27 +313,28 @@ static void pathing(void){
 
 	float distance = 0;
 	float cos_alpha = 0, sin_alpha = 0;
+	float ir_max_val = 0;
 	ir_dir ir = 0;
 
 	distance = distance_to_target(&cos_alpha, &sin_alpha);
-
+	ir = check_irs(&ir_max_val);
+	if(ir == ir_hard_left || ir == ir_hard_right){
+		wall_follow(ir, ir_max_val);
+	}
 	if(distance < MIN_DISTANCE_2_TARGET){
 		move(30,30);
 		current_option = WAIT;
 		pathing_finished();
 		return;
 	}else{
-		ir = check_irs();
+		ir = check_irs(&ir_max_val);
 		switch(ir){
 			case none:
-				set_led(LED1, 1);
 				update_path(cos_alpha, sin_alpha);
-				set_led(LED1, 0);
 				break;
 			case ir_hard_left:
-				set_led(LED7, 1);
-				move(7,6);
-				set_led(LED7, 0);
+			case ir_hard_right:
+				wall_follow(ir, ir_max_val);
 				break;
 			case ir_soft_left:
 				move(5, 0);
@@ -337,11 +348,7 @@ static void pathing(void){
 			case ir_soft_right:
 				move(0,5);
 				break;
-			case ir_hard_right:
-				set_led(LED3, 1);
-				move(6,7);
-				set_led(LED3, 0);
-				break;
+
 		}
 	}
 }
@@ -405,7 +412,7 @@ static THD_FUNCTION(ThdPathing, arg) {
 /*
  * Public Functions
  */
-void pathing_init(void){
+void pathing_init(){
 	motors_init();
 
 	proximity_start();
@@ -415,12 +422,17 @@ void pathing_init(void){
 	steps_pid.Kd = 0.1;
 	steps_pid.Kp = 10;
 
-	angle_pid.Ki = 5;
+	angle_pid.Ki = 1;
 	angle_pid.Kd = 0.1;
 	angle_pid.Kp = 5;
 
+	wall_pid.Ki = 0;
+	wall_pid.Kd = 0.001;
+	wall_pid.Kp = 0.01;
+
 	arm_pid_init_f32(&steps_pid, 0);
 	arm_pid_init_f32(&angle_pid, 0);
+	arm_pid_init_f32(&wall_pid, 0);
 
 	(void) chThdCreateStatic(pathingWorkingArea, sizeof(pathingWorkingArea),
 	                           NORMALPRIO, ThdPathing, NULL);

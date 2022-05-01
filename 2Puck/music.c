@@ -241,6 +241,7 @@ void set_recording(uint8_t *data){
 	recording = data;
 }
 
+
 int16_t get_score(void){
 	return score;
 }
