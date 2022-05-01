@@ -39,6 +39,14 @@ int main(void)
     usb_start();
 
     init_music();
+<<<<<<< Updated upstream
+=======
+//    init_game();
+//    pathing_init();
+//    pathing_set(DANCE);
+
+
+>>>>>>> Stashed changes
     while (1) {
 
 
