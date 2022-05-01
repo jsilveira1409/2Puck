@@ -51,10 +51,10 @@ int main(void)
 
 //    init_photo();
 
-//    init_music();
+    init_music();
 //    init_game();
     pathing_init();
-    pathing_set(PATH_TO_PLAYER1);
+    pathing_set(DANCE);
 
 
     while (1) {
