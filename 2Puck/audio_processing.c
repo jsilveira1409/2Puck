@@ -4,27 +4,146 @@
 #include <usbcfg.h>
 #include <chprintf.h>
 #include <motors.h>
-#include <audio/custom_microphone.h>
+#include <audio/microphone.h>
+#include <audio_processing.h>
 #include <communications.h>
 #include <fft.h>
 #include <arm_math.h>
 #include <audio_processing.h>
+#include <leds.h>
 
 
 #define RESOLUTION  			(I2S_AUDIOFREQ_16K/2)/(FFT_SIZE/2)
 #define FREQ_INDEX_OFFSET 		(-2)
 #define NB_SAMPLES				160
 #define RECORDING_SIZE			20
+#define NB_MICS 				2
+#define MAX_VOLUME  			2000
+#define MIN_VOLUME 				1500
+
 
 static BSEMAPHORE_DECL(sem_finished_playing, TRUE);
+static BSEMAPHORE_DECL(sem_note_played, TRUE);
+
 
 static float micLeft_cmplx_input[2 * FFT_SIZE];
 static float micLeft_output[FFT_SIZE];
 static float freq = 0;
 
+static uint16_t mic_volume = 0;
+static int16_t mic_last;
+
+static uint16_t current_index = 0;
 static uint8_t played_note[RECORDING_SIZE];
 static uint16_t discret_freq = 0;
 
+
+/*
+ * Finds the smallest error between the FFT data
+ * and the discrete note frequency in note_frequency[]
+ *
+ *	TODO: implement something that ignores the note when the error is too big,
+ *	could help with resolution
+ *
+ */
+static void check_smallest_error(uint32_t *max_index){
+	float smallest_error = 0, curr_error = 0;
+	freq = (float)RESOLUTION*((float)(*max_index + FREQ_INDEX_OFFSET ));
+
+	smallest_error = abs(freq - (float)note_frequency[0]);
+	for(uint8_t i = 1; i<NB_NOTES; i++){
+		curr_error = abs(freq - (float)note_frequency[i]);
+		if(curr_error < smallest_error){
+			smallest_error = curr_error;
+			discret_freq = note_frequency[i];
+			*max_index = i;
+		}
+	}
+}
+
+/*
+ * TODO :CHECK IF THERE IS A CMSIS FUNCTION FOR THIS
+ */
+static void fundamental_frequency(float* data, uint8_t nb_harmonic){
+	if(nb_harmonic > 1){
+		for(uint8_t harmonic = 1; harmonic <= nb_harmonic;harmonic++ ){
+			for(uint16_t i = 0; i< FFT_SIZE; i++){
+				data[i] += data[i]/(float)harmonic;
+			}
+		}
+	}
+}
+
+uint8_t note_volume(int16_t *data, uint16_t num_samples){
+	static uint8_t state = 0;
+
+	int16_t max_value=INT16_MIN, min_value=INT16_MAX;
+
+	for(uint16_t i=0; i<num_samples; i+=2) {
+		if(data[i + MIC_LEFT] > max_value) {
+			max_value = data[i + MIC_LEFT];
+		}
+		if(data[i + MIC_LEFT] < min_value) {
+			min_value = data[i + MIC_LEFT];
+		}
+	}
+
+	mic_volume = max_value - min_value;
+	mic_last = data[MIC_BUFFER_LEN-(NB_MICS-MIC_LEFT)];
+
+	if(mic_volume > MAX_VOLUME){
+		if(state == 0){
+			state = 1;
+			return 1;
+		}else if(state == 1){
+			return 0;
+		}
+	}else if (mic_volume < MIN_VOLUME){
+		state = 0;
+		return 0;
+	}
+
+	return 0;
+}
+
+/*
+ * Records the played note into the recording array,
+ * once we fill the limit, it signals the mutex to activate the
+ * scoring of the recording in music.c
+ */
+static void record_note(const uint8_t note_index){
+	static uint8_t led = 0;
+	set_led(LED7,led);
+
+	if(led == 1)
+		led = 0;
+	else
+		led = 1;
+
+	played_note[current_index] = note_index;
+	chBSemSignal(&sem_note_played);
+	if(current_index < RECORDING_SIZE){
+		current_index ++;
+	}else{
+		current_index = 0;
+		chBSemSignal(&sem_finished_playing);
+	}
+}
+
+/*
+ * Receives the FFT data, finds the closest discret error and
+ * records it
+ */
+static void frequency_to_note(float* data){
+	float max_freq_mag = 0;
+	uint32_t max_index = 0;
+
+	arm_max_f32(data, (FFT_SIZE/2), &max_freq_mag, &max_index);
+	check_smallest_error(&max_index);
+	max_index = max_index%12;
+//	find_note(max_index);
+	record_note(max_index);
+}
 
 /*
 *	Callback called when the demodulation of the four microphones is done.
@@ -36,15 +155,6 @@ static uint16_t discret_freq = 0;
 *	uint16_t num_samples	Tells how many data we get in total (should always be 640)
 */
 void processAudioDataCmplx(int16_t *data, uint16_t num_samples){
-
-	/*
-	*
-	*	We get 160 samples per mic every 10ms
-	*	So we fill the samples buffers to reach
-	*	1024 samples, then we compute the FFTs.
-	*
-	*/
-
 	static uint16_t nb_samples = 0;
 	static uint8_t register_note = 0;
 	uint8_t status = 0;
@@ -84,51 +194,10 @@ void processAudioDataCmplx(int16_t *data, uint16_t num_samples){
 		nb_samples = 0;
 	}
 }
-
-/*
- * Receives the FFT data, finds the closest discret error and
- * records it
- */
-
-void frequency_to_note(float* data){
-	float max_freq_mag = 0;
-	uint32_t max_index = 0;
-
-	arm_max_f32(data, (FFT_SIZE/2), &max_freq_mag, &max_index);
-	check_smallest_error(&max_index);
-	max_index = max_index%12;
-	find_note(max_index);
-	record_note(max_index);
-}
-
-/*
- * Finds the smallest error between the FFT data
- * and the discrete note frequency in note_frequency[]
- *
- *	TODO: implement something that ignores the note when the error is too big,
- *	could help with resolution
- *
- */
-void check_smallest_error(uint32_t *max_index){
-	float smallest_error = 0, curr_error = 0;
-	freq = (float)RESOLUTION*((float)(*max_index + FREQ_INDEX_OFFSET ));
-
-	smallest_error = abs(freq - (float)note_frequency[0]);
-	for(uint8_t i = 1; i<NB_NOTES; i++){
-		curr_error = abs(freq - (float)note_frequency[i]);
-		if(curr_error < smallest_error){
-			smallest_error = curr_error;
-			discret_freq = note_frequency[i];
-			*max_index = i;
-		}
-	}
-
-}
-
 /*
  * Prints the discrete note
  */
-void find_note (int16_t index){
+ void find_note (int16_t index){
 	switch (index){
 		case 0:
 			chprintf((BaseSequentialStream *)&SD3, "A  ");
@@ -173,45 +242,19 @@ void find_note (int16_t index){
 }
 
 /*
- * Records the played note into the recording array,
- * once we fill the limit, it signals the mutex to activate the
- * scoring of the recording in music.c
+ * Public Functions
  */
-void record_note(const uint8_t note_index){
-	static uint16_t current_index = 0;
-	played_note[current_index] = note_index;
-
-	if(current_index < RECORDING_SIZE){
-		current_index ++;
-	}else{
-		chprintf((BaseSequentialStream *)&SD3, "Recording play back \r \n");
-		for(uint16_t i = 0; i<RECORDING_SIZE; i++){
-			find_note(played_note[i]);
-			current_index = 0;
-		}
-		chBSemSignal(&sem_finished_playing);
-	}
-}
-
-/*
- * CHECK IF THERE IS A CMSIS FUNCTION FOR THIS
- */
-void fundamental_frequency(float* data, uint8_t nb_harmonic){
-	if(nb_harmonic > 1){
-		for(uint8_t harmonic = 1; harmonic <= nb_harmonic;harmonic++ ){
-			for(uint16_t i = 0; i< FFT_SIZE; i++){
-				data[i] += data[i]/(float)harmonic;
-			}
-		}
-	}
-}
 
 uint8_t* get_recording(void){
 	return played_note;
 }
-
+uint8_t get_current_last_note(void){
+	return played_note[current_index];
+}
+void wait_note_played(void){
+	chBSemWait(&sem_note_played);
+}
 
 void wait_finish_playing(void){
 	chBSemWait(&sem_finished_playing);
 }
-

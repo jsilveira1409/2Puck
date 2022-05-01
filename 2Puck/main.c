@@ -10,10 +10,21 @@
 #include <chprintf.h>
 #include <motors.h>
 #include <audio/microphone.h>
+#include <audio/audio_thread.h>
 #include <music.h>
+#include <spi_comm.h>
+
+#include <audio_processing.h>
 #include <fft.h>
 #include <communications.h>
 #include <arm_math.h>
+#include <audio/audio_thread.h>
+
+#include <pathing.h>
+#include <photo.h>
+
+#include <leds.h>
+#include <game.h>
 
 static void serial_start(void)
 {
@@ -27,30 +38,28 @@ static void serial_start(void)
 	sdStart(&SD3, &ser_cfg); // UART3.
 }
 
-
-
 int main(void)
 {
     halInit();
     chSysInit();
     mpu_init();
-
     serial_start();
-    usb_start();
+    dcmi_start();
+    po8030_start();
+    dac_start();
+    spi_comm_start();
+
+//    init_photo();
 
     init_music();
-<<<<<<< Updated upstream
-=======
 //    init_game();
-//    pathing_init();
-//    pathing_set(DANCE);
+    pathing_init();
+    pathing_set(DANCE);
 
 
->>>>>>> Stashed changes
     while (1) {
 
-
-    }
+	}
 }
 
 #define STACK_CHK_GUARD 0xe2dee396

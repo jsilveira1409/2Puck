@@ -1,8 +1,8 @@
-#include "ch.h"
-#include "hal.h"
-#include <main.h>
 
+#include <hal.h>
+#include <main.h>
 #include <communications.h>
+
 
 /*
 *       Sends floats numbers to the computer
@@ -13,7 +13,15 @@ void SendFloatToComputer(BaseSequentialStream* out, float* data, uint16_t size)
 	chSequentialStreamWrite(out, (uint8_t*)&size, sizeof(uint16_t));
 	chSequentialStreamWrite(out, (uint8_t*)data, sizeof(float) * size);
 }
-
+/*
+*       Sends floats numbers to the computer
+*/
+void SendUint8ToComputer(uint8_t* data, uint16_t size)
+{
+	chSequentialStreamWrite((BaseSequentialStream *)&SD3, (uint8_t*)"START", 5);
+	chSequentialStreamWrite((BaseSequentialStream *)&SD3, (uint8_t*)&size, sizeof(uint16_t));
+	chSequentialStreamWrite((BaseSequentialStream *)&SD3, (uint8_t*)data, sizeof(uint8_t)*size);
+}
 /*
 *	Receives int16 values from the computer and fill a float array with complex values.
 *	Puts 0 to the imaginary part. Size is the number of complex numbers.
@@ -90,4 +98,61 @@ uint16_t ReceiveInt16FromComputer(BaseSequentialStream* in, float* data, uint16_
 
 	return temp_size/2;
 
+}
+
+
+uint16_t ReceiveModeFromComputer(BaseSequentialStream* in, uint8_t* data){
+
+	volatile uint8_t c1;
+	volatile uint16_t temp_size = 0;
+
+	uint8_t state = 0;
+	while(state != 5){
+
+        c1 = chSequentialStreamGet(in);
+        switch(state){
+        	case 0:
+        		if(c1 == 'S')
+        			state = 1;
+        		else
+        			state = 0;
+        		break;
+        	case 1:
+        		if(c1 == 'T')
+        			state = 2;
+        		else if(c1 == 'S')
+        			state = 1;
+        		else
+        			state = 0;
+        		break;
+        	case 2:
+        		if(c1 == 'A')
+        			state = 3;
+        		else if(c1 == 'S')
+        			state = 1;
+        		else
+        			state = 0;
+        		break;
+        	case 3:
+        		if(c1 == 'R')
+        			state = 4;
+        		else if(c1 == 'S')
+        			state = 1;
+        		else
+        			state = 0;
+        		break;
+        	case 4:
+        		if(c1 == 'T')
+        			state = 5;
+        		else if(c1 == 'S')
+        			state = 1;
+        		else
+        			state = 0;
+        		break;
+        }
+
+	}
+	c1 = chSequentialStreamGet(in);
+	*data = (uint8_t)c1;
+	return temp_size;
 }

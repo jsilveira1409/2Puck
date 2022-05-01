@@ -7,27 +7,19 @@
 #include <music.h>
 #include <audio/audio_thread.h>
 #include <audio_processing.h>
-#include <audio/custom_microphone.h>
+#include <audio/microphone.h>
+#include <leds.h>
 
-#define NB_SONGS 			7
+#define NB_SONGS 			5
 #define MS_IN_MINUTE		(60*1000)		//milliseconds in a minute, needed for bpm to ms conversion
 #define SIXTEENTH_NOTE		16
 
-
+static BSEMAPHORE_DECL(sem_finished_music, TRUE);
 /*
  * DATA TYPES AND VARIABLES
  */
 
-/*
- * Enum for others functions to choose the song more explicitely,
- * Basically the song index in the songs array
- */
-enum jukebox{come_as_you_are, miss_you, killing_in_the_name_of, sold_the_world, good_times};
-enum chromatic_scale{
-	A1, AS1, B1, C1, CS1, D1, DS1,E1, F1, FS1, G1, GS1,
-	A2, AS2, B2, C2, CS2, D2, DS2,E2, F2, FS2, G2, GS2,
-	A3, AS3, B3, C3, CS3, D3, DS3,E3, F3, FS3, G3, GS3,
-};
+static int16_t score = 0;
 
 static uint8_t *recording;
 
@@ -89,50 +81,15 @@ static uint8_t duration_SOLD_THE_WORLD[17]={
 	15
 };
 
-/*
- * Wish you were here - Pink Floyd
- */
-static uint8_t melody_WISH_YOU_WERE_HERE[17]={
-	A1,	B1,	D1,
-	E1,	G2,	G2,
 
+static uint8_t melody_GOOD_TIMES[27] = {
+	E2, E2, E2, E2,  E2, FS2, G2, A3, B3, CS3, D3, E3, A2,
+	A2, A2, A2, A2, FS3, A2, G3, FS3, A2, E2, B3, E2, FS2, G2
 };
 
-static uint8_t duration_WISH_YOU_WERE_HERE[17]={
-
-};
-
-
-/*
- * Seven Nation Army - Whitesnake
- */
-
-static uint8_t melody_SEVEN_NATION_ARMY[16]={
-	E1, E1, G2,	E1,	D1,
-	C1,	B1,
-	E1, E1, G2,	E1,	D1,
-	C1,	D1, C1, B1,
-
-};
-
-static uint8_t duration_SEVEN_NATION_ARMY[16]={
-	6,	2,	3,	3,	3,
-	8,	8,
-	6,	2,	3,	3,	3,
-	4, 	4, 	4, 	4,
-};
-/*
-* The Next Episode - Dr Dre
- */
-
-static uint8_t melody_NEXT_EPISODE[12]={
-	F2,	AS3, AS3, GS3, AS3,
-	GS3, FS3, GS3, GS3, FS3, F2 ,FS3
-};
-
-static uint8_t duration_NEXT_EPISODE[12]={
-	4, 4, 2, 2, 4,
-	2, 2, 4, 2, 2, 2, 2
+static uint8_t duration_GOOD_TIMES[27] = {
+	2, 	2, 	1,	1,	1,	2,	 2,	  2,  2,  2, 2, 1, 1,
+	2,	2,	1,	1,	1,	1,	2,	2,	2,	1,	1,	1,	1,	1
 };
 
 /*
@@ -140,6 +97,8 @@ static uint8_t duration_NEXT_EPISODE[12]={
  * Contains the melody, the corresponding note duration where 1 = sixteenth note (double crochet)
  * and the melody size
  */
+
+
 struct song{
 	uint8_t * melody_ptr;
 	uint8_t * note_duration_ptr;
@@ -150,8 +109,7 @@ struct song{
 		{melody_MISS_YOU,					duration_MISS_YOU,					50,		18},
 		{melody_KILLING_IN_THE_NAME_OF, 	duration_KILLING_IN_THE_NAME_OF,	50,		20},
 		{melody_SOLD_THE_WORLD, 			duration_SOLD_THE_WORLD,			50,		17},
-		{melody_SEVEN_NATION_ARMY,			duration_SEVEN_NATION_ARMY,			50,		16},
-		{melody_NEXT_EPISODE,				duration_NEXT_EPISODE,				50,		12}
+		{melody_GOOD_TIMES, 				duration_GOOD_TIMES,				30,		27}
 };
 
 
@@ -160,24 +118,20 @@ struct song{
  * Static Functions
  */
 
-<<<<<<< Updated upstream
-=======
 static THD_WORKING_AREA(musicWorkingArea, 128);
 static THD_FUNCTION(music, arg) {
 
 	(void) arg;
 
   while (true) {
-	  play_song(next_episode);
+	  wait_finish_playing();
+	  set_recording(get_recording());
+	  score += check_note_sequence(come_as_you_are);
+	  score += check_note_order(come_as_you_are);
+	  set_led(LED1, 0);
+	  chBSemSignal(&sem_finished_music);
+	  set_led(LED5, 0);
 	  chThdSleepMilliseconds(2000);
-//	  wait_finish_playing();
-//	  set_recording(get_recording());
-//	  score += check_note_sequence(come_as_you_are);
-//	  score += check_note_order(come_as_you_are);
-//	  set_led(LED1, 0);
-//	  chBSemSignal(&sem_finished_music);
-//	  set_led(LED5, 0);
-//	  chThdSleepMilliseconds(2000);
   }
 }
 
@@ -192,14 +146,13 @@ void wait_finish_music(void){
 uint8_t random_song(void){
 	return 2;
 }
->>>>>>> Stashed changes
 
 /*
  * Checking notes time sequence is correct: was note x played when it should
  * be played ?
  */
 
-static int16_t check_note_sequence(uint8_t index){
+int16_t check_note_sequence(uint8_t index){
 	int16_t score = 0;
 	uint16_t starting_index = 0;
 	/*
@@ -231,7 +184,7 @@ static int16_t check_note_sequence(uint8_t index){
  * Checking order of played notes is correct: was note y played after note x, even
  * if there is a wrong note in between?
  */
-static int16_t check_note_order(uint8_t index){
+int16_t check_note_order(uint8_t index){
 	int16_t score = 0;
 
 	for(uint16_t i=0; i< songs[index].melody_size; i++){
@@ -254,32 +207,6 @@ static uint32_t duration_to_ms(uint8_t duration, uint16_t bpm){
  * Threads
  */
 
-static THD_WORKING_AREA(musicWorkingArea, 128);
-static THD_FUNCTION(music, arg) {
-  while (true) {
-	  int16_t score = 0;
-	  wait_finish_playing();
-	  set_recording(get_recording());
-
-	  score += check_note_sequence(come_as_you_are);
-	  score += check_note_order(come_as_you_are);
-
-	  chprintf((BaseSequentialStream *)&SD3, "%d \r \n",score);
-
-//	  chThdSleepMilliseconds(1000);
-//	  play_song(good_times);
-//	  chThdSleepMilliseconds(2000);
-//	  play_song(miss_you);
-//	  chThdSleepMilliseconds(2000);
-//	  play_song(killing_in_the_name_of);
-//	  chThdSleepMilliseconds(2000);
-//	  play_song(sold_the_world);
-//	  chThdSleepMilliseconds(2000);
-
-  }
-}
-
-
 
 /*
  * Public Functions
@@ -287,18 +214,17 @@ static THD_FUNCTION(music, arg) {
 
 void init_music(void){
     mic_start(&processAudioDataCmplx);
-    dac_start();
-	chThdCreateStatic(musicWorkingArea, sizeof(musicWorkingArea),NORMALPRIO, music, NULL);
+	chThdCreateStatic(musicWorkingArea, sizeof(musicWorkingArea),
+			NORMALPRIO+1, music, NULL);
 }
 
 void play_song(uint8_t index){
 	for(uint8_t i = 0; i < songs[index].melody_size; i++){
-		if(note_frequency[songs[index].melody_ptr[i]] == X){		//Silence
-			dac_stop();
-		}else{
-			dac_play(note_frequency[songs[index].melody_ptr[i]]);
-		}
+		dac_play(note_frequency[songs[index].melody_ptr[i]]);
+
 		chThdSleepMilliseconds(duration_to_ms(songs[index].note_duration_ptr[i],songs[index].bpm));
+		dac_stop();
+		chThdSleepMilliseconds(50);
 	}
 }
 
@@ -306,3 +232,7 @@ void set_recording(uint8_t *data){
 	recording = data;
 }
 
+
+int16_t get_score(void){
+	return score;
+}
