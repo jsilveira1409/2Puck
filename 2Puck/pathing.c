@@ -366,7 +366,6 @@ static void dance(void){
 	uint8_t note = 0;
 	wait_note_played();
 	note = get_current_last_note();
-	find_note(note);
 	switch(note){
 		case A1:
 			move(10,15);
