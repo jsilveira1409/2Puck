@@ -13,7 +13,6 @@ typedef enum{
 
 void pathing_init(void);
 void pathing_set(pathing_option option);
-
 void pathing_wait_finish(void);
 
 #endif

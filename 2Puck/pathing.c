@@ -25,6 +25,8 @@
 #include <motors.h>
 #include <arm_math.h>
 #include <leds.h>
+#include "audio_processing.h"
+#include "music.h"
 
 #define WHEEL_DIST 				58		//mm
 #define NSTEP_ONE_TURN			1000	//Nb steps for 1 turn
@@ -33,7 +35,7 @@
 #define RAD2DEG					(360/3.14159)
 #define ANGLE_EPSILON			0.1
 #define MIN_DISTANCE_2_TARGET	10
-#define MIN_SPEED				200
+#define MIN_SPEED				600
 #define MIN_IR_VAL				130
 #define MIN_STEPS				3
 #define ANGLE_RESOLUTION 		0.0000001
@@ -82,7 +84,7 @@ static float orientation[2] = {0,0};
 /*
  * Vector between puck and target point
  */
-float dist[2] = {0,0};
+static float dist[2] = {0,0};
 
 /*
  * PID instances for the PID cmsis lib
@@ -361,10 +363,50 @@ static void move_to_target(int16_t x_coord, int16_t y_coord){
 }
 
 static void dance(void){
-
+	uint8_t note = 0;
+	wait_note_played();
+	note = get_current_last_note();
+	find_note(note);
+	switch(note){
+		case A1:
+			move(10,15);
+			break;
+		case AS1:
+			move(15,4);
+			break;
+		case B1:
+			move(15,3);
+			break;
+		case C1:
+			move(15,2);
+			break;
+		case CS1:
+			move(15,1);
+			break;
+		case D1:
+			move(15,-15);
+			break;
+		case DS1:
+			move(4,10);
+			break;
+		case E1:
+			move(10,5);
+			break;
+		case F1:
+			move(10,10);
+			break;
+		case FS1:
+			move(15,5);
+			break;
+		case G1:
+			move(9,5);
+			break;
+		case GS1:
+			move(2,5);
+			break;
+	};
+	return;
 }
-
-
 
 /*
  * THREADS
@@ -380,7 +422,6 @@ static THD_FUNCTION(ThdPathing, arg) {
 	while (true) {
 		switch (current_option){
 			case WAIT:
-				set_body_led(1);
 				chThdSleepMilliseconds(200);
 				break;
 			case DANCE:
@@ -402,7 +443,7 @@ static THD_FUNCTION(ThdPathing, arg) {
 				set_body_led(0);
 				pathing();
 				break;
-		}
+		};
 
 	}
 }
@@ -435,7 +476,7 @@ void pathing_init(){
 	arm_pid_init_f32(&wall_pid, 0);
 
 	(void) chThdCreateStatic(pathingWorkingArea, sizeof(pathingWorkingArea),
-	                           NORMALPRIO, ThdPathing, NULL);
+	                           NORMALPRIO+2 , ThdPathing, NULL);
 }
 
 void pathing_set(pathing_option option){

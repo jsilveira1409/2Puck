@@ -32,23 +32,11 @@ typedef enum {
  * Public functions
  */
 void processAudioDataCmplx(int16_t *data, uint16_t num_samples);
-void wait_send_to_computer(void);
 uint8_t* get_recording(void);
-
-
-
-/*
-*	Returns the pointer to the BUFFER_NAME_t buffer asked
-*/
-void fundamental_frequency(float* data, uint8_t nb_harmonic);
+uint8_t get_current_last_note(void);
+void wait_note_played(void);
 void wait_finish_playing(void);
-float* get_audio_buffer_ptr(BUFFER_NAME_t name);
-uint8_t* get_recording(void);
-void frequency_to_note(float* data);
 void find_note (int16_t index);
-void check_smallest_error(uint32_t *max_index);
-void record_note(const uint8_t note_index);
-uint8_t note_volume(int16_t *data, uint16_t num_samples);
 
 #endif /* AUDIO_PROCESSING_H */
 
