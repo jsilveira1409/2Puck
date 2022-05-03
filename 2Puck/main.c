@@ -50,15 +50,8 @@ int main(void)
     po8030_start();
     spi_comm_start();
 
-//    init_photo();
 
-//    init_music();
     game_init();
-    pathing_init();
-    pathing_set(WAIT);
-    // play_song(NEXT_EPISODE);
-    // pathing_set(PATH_TO_PLAYER1);
-
 
     while (1) {
 	}

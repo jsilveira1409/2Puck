@@ -29,9 +29,6 @@ void set_recording(uint8_t *data);
 void wait_finish_music(void);
 int16_t get_score(void);
 song_selection get_song(void);
-/*
- * Static functions
- */
-int16_t check_note_order(uint8_t index);
-int16_t check_note_sequence(uint8_t index);
+song_selection random_song(void );
+
 #endif

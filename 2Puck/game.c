@@ -49,6 +49,8 @@ static THD_FUNCTION(game_thd, arg) {
 
 			case START_GAME:
 				music_init();
+				pathing_init();
+				pathing_set(WAIT);
 				song = get_song();
 				SendUint8ToComputer(&song, 1);
 				set_led(LED1, 1);
