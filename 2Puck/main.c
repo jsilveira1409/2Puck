@@ -58,30 +58,31 @@ int main(void)
 //    pathing_init();
 //    pathing_set(DANCE);
 
-    sdio_start();
-    dac_start();
-    spi_comm_start();
-    playSoundFileStart();
+//    sdio_start();
+//    dac_start();
+//    spi_comm_start();
+//    playSoundFileStart();
+//
 
-
-    while(!mountSDCard()){
-    	set_body_led(1);
-    	chThdSleepMilliseconds(200);
-    	set_body_led(0);
-		chThdSleepMilliseconds(200);
-    }
-    set_body_led(1);
-
-    set_body_led(1);
-
+//    while(!mountSDCard()){
+//    	set_body_led(1);
+//    	chThdSleepMilliseconds(200);
+//    	set_body_led(0);
+//		chThdSleepMilliseconds(200);
+//    }
+//    set_body_led(1);
+//
+//    set_body_led(1);
 
     while (1) {
+
     	setSoundFileVolume(50);
     	playSoundFile("nextepisode.wav", SF_FORCE_CHANGE);
 		waitSoundFileHasFinished();
     	set_body_led(1);
 		chThdSleepMilliseconds(200);
 		set_body_led(0);
+    	random_song();
 		chThdSleepMilliseconds(200);
 	}
 }

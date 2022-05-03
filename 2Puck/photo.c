@@ -84,8 +84,6 @@ static THD_FUNCTION(TakePhoto, arg) {
 }
 
 void init_photo(void){
-//	dcmi_start();
-//	po8030_start();
 	chThdCreateStatic(waTakePhoto, sizeof(waTakePhoto), NORMALPRIO+2, TakePhoto, NULL);
 }
 

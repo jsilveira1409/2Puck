@@ -11,11 +11,12 @@
 #include <leds.h>
 #include <audio/play_melody.h>
 
+
 #define NB_SONGS 						6
 #define COME_AS_YOU_ARE_SIZE			15
 #define MISS_YOU_SIZE					18
 #define SOLD_THE_WORLD_SIZE				17
-#define KILLING_IN_THE_NAME_SIZE		20
+#define KILLING_IN_THE_NAME_OF_SIZE		20
 #define SEVEN_NATION_SIZE				16
 #define NEXT_EPISODE_SIZE				12
 
@@ -42,7 +43,7 @@ static uint8_t melody_MISS_YOU [MISS_YOU_SIZE] = {
 /*
  * Killing in the Name of - RATM
  */
-static uint8_t melody_KILLING_IN_THE_NAME_OF [KILLING_IN_THE_NAME_SIZE] = {
+static uint8_t melody_KILLING_IN_THE_NAME_OF [KILLING_IN_THE_NAME_OF_SIZE] = {
 	E1,	C2,	D2, F2, FS2, D2, E1, FS1, G1, FS1,
 	E1,	C2,	D2, F2, FS2, D2, E1, FS1, G1, FS1
 };
@@ -157,15 +158,17 @@ static THD_WORKING_AREA(musicWorkingArea, 128);
 static THD_FUNCTION(music_thd, arg) {
 
 	(void) arg;
+
 	while (true) {
-		wait_finish_playing();
-		set_recording(get_recording());
-		score += check_note_sequence(COME_AS_YOU_ARE);
-		score += check_note_order(COME_AS_YOU_ARE);
-		set_led(LED1, 0);
-		chBSemSignal(&sem_finished_music);
-		set_led(LED5, 0);
-		chThdSleepMilliseconds(2000);
+
+//		wait_finish_playing();
+//		set_recording(get_recording());
+//		score += check_note_sequence(COME_AS_YOU_ARE);
+//		score += check_note_order(COME_AS_YOU_ARE);
+//		set_led(LED1, 0);
+//		chBSemSignal(&sem_finished_music);
+//		set_led(LED5, 0);
+		chThdSleepMilliseconds(1000);
 	}
 }
 
@@ -184,7 +187,7 @@ void play_song(jukebox index){
 
 }
 
-void stop_song(){
+void stop_song(void){
 
 }
 
@@ -200,6 +203,7 @@ int16_t get_score(void){
 void wait_finish_music(void){
 	chBSemWait(&sem_finished_music);
 }
+
 
 uint8_t random_song(void){
 	return 2;
