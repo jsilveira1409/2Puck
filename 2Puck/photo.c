@@ -13,16 +13,17 @@
 #include <photo.h>
 
 
-#define X_start					20
+#define X_start					50
 #define	Y_start					0
-#define PHOTO_WIDTH				600
+#define PHOTO_WIDTH				340
 #define PHOTO_HEIGHT			2
 #define	BYTES_PER_PIXEL			2
 #define IMAGE_BUFFER_SIZE		(PHOTO_WIDTH*PHOTO_HEIGHT)	//Size in uint16
-#define	MAX_LINES_2_SEND		550
+#define	MAX_LINES_2_SEND		200
 
 //semaphore
 static BSEMAPHORE_DECL(line_ready_sem, TRUE);
+static BSEMAPHORE_DECL(photo_finished_sem, TRUE);
 
 //Threads
 static THD_WORKING_AREA(waTakePhoto, 256);
@@ -30,7 +31,7 @@ static THD_FUNCTION(TakePhoto, arg) {
 
     chRegSetThreadName(__FUNCTION__);
     (void)arg;
-    static uint16_t line_cnt = 1;
+    static uint16_t line_cnt = 0;
     static uint8_t send = 1;
 
 
@@ -46,7 +47,8 @@ static THD_FUNCTION(TakePhoto, arg) {
 		if(led == 1) led = 0;
 		else led = 1;
 
-    	po8030_advanced_config(FORMAT_RGB565, X_start, (Y_start + line_cnt), PHOTO_WIDTH, PHOTO_HEIGHT, SUBSAMPLING_X1, SUBSAMPLING_X1);
+    	po8030_advanced_config(FORMAT_RGB565, X_start, (Y_start + line_cnt), PHOTO_WIDTH, PHOTO_HEIGHT,
+    			SUBSAMPLING_X4, SUBSAMPLING_X1);
     	dcmi_prepare();
 
 
@@ -61,8 +63,9 @@ static THD_FUNCTION(TakePhoto, arg) {
 		if(line_cnt <= MAX_LINES_2_SEND){
 			/*
 			 * the library gets 2 lines at once
+			 * we subsample manually by 4
 			 */
-			line_cnt += 2;
+			line_cnt += 4;
 		}else{
 			/*
 			 * Finished sending the picture
@@ -75,7 +78,9 @@ static THD_FUNCTION(TakePhoto, arg) {
 			 * As each pixel has 2 bytes of color, total width becomes 2* PHOTO_WIDTH for the data we need to send
 			 */
 			SendUint8ToComputer(img_buff_ptr, (2*PHOTO_WIDTH));
-			SendUint8ToComputer((img_buff_ptr+ 2*PHOTO_WIDTH), (2*PHOTO_WIDTH));
+			SendUint8ToComputer((img_buff_ptr + 2*PHOTO_WIDTH), (2*PHOTO_WIDTH));
+		}else{
+			chBSemSignal(&photo_finished_sem);
 		}
 
 		//signals an image has been captured
@@ -83,7 +88,10 @@ static THD_FUNCTION(TakePhoto, arg) {
     }
 }
 
-void init_photo(void){
-	chThdCreateStatic(waTakePhoto, sizeof(waTakePhoto), NORMALPRIO+2, TakePhoto, NULL);
+void photo_init(void){
+	chThdCreateStatic(waTakePhoto, sizeof(waTakePhoto), NORMALPRIO, TakePhoto, NULL);
 }
 
+void photo_wait_finish(void){
+	chBSemWait(&photo_finished_sem);
+}

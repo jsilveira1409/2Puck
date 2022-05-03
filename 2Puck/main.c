@@ -66,6 +66,7 @@ int main(void)
 
     game_init();
 
+
     while (1) {
 	}
 }

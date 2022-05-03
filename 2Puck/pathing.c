@@ -43,7 +43,7 @@
 #define MAX_MOTOR_DISPLACEMENT	10
 #define MIN_WALL_DIST			MIN_IR_VAL + 10
 
-#define PLAYER1_X				(200)		//ptn de parenthese merci pour la nuit blanche
+#define PLAYER1_X				(100)		//ptn de parenthese merci pour la nuit blanche
 #define PLAYER1_Y				(500)
 #define PLAYER2_X				(-150)
 #define PLAYER2_Y				(300)

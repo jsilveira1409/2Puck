@@ -42,6 +42,9 @@ static THD_FUNCTION(game_thd, arg) {
 			case IDLE:
 				message = chSequentialStreamGet(&SD3);
 				if (message == 'w'){
+					photo_init();
+					photo_wait_finish();
+					set_body_led(1);
 					state++;
 				}
 				break;
@@ -59,7 +62,7 @@ static THD_FUNCTION(game_thd, arg) {
 				score2 = get_score();
 				SendUint8ToComputer(&score2, 1);
 				music_stop();
-				chThdSleepMilliseconds(10000);
+				chThdSleepMilliseconds(2000);
 				state++;
 				break;
 
@@ -67,11 +70,13 @@ static THD_FUNCTION(game_thd, arg) {
 				play_song(NEXT_EPISODE);
 				pathing_set((score1 >= score2) ? PATH_TO_PLAYER1 : PATH_TO_PLAYER2);
 				pathing_wait_finish();
+
 				state++;
 				break;
 
 			case SEND_PHOTO:
-				init_photo();
+				photo_init();
+				photo_wait_finish();
 				state++;
 				break;
 

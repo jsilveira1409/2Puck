@@ -8,11 +8,13 @@ import serial
 from Function import*
 #import yagmail
 
-x_subsampling = 2
-y_subsampling = 2
-width = 600
-height = 550
+x_subsampling = 4
+y_subsampling = 4
+width = 340
+height = 200
 
+width = width/x_subsampling
+height = height/y_subsampling
 
 size = width * height
 
@@ -43,16 +45,18 @@ class serial_thread(Thread):
         
         winner = 0
         option = input("Enter option: \n")   
+        
         if(option == 'n'):
             self.port.write(b'w')
-            self.send_start_game()
-            chosen_song = self.rec_chose_song()
-            print(chosen_song)
-            self.send_player1_play() 
-            score1 = self.rec_score1()
-            self.send_player2_play()              
-            score2 = self.rec_score2()    
-            #self.rec_picture()
+            self.rec_picture()
+            #self.send_start_game()
+            #chosen_song = self.rec_chose_song()
+            #print(chosen_song)
+            #self.send_player1_play() 
+            #score1 = self.rec_score1()
+            #self.send_player2_play()              
+            #score2 = self.rec_score2()    
+            
             
             print("chosen song",chosen_song)
             print("score 1",score1)
@@ -117,6 +121,7 @@ class serial_thread(Thread):
         while (line < height):
             if(readUint8Serial(self.port, data)):
                 line = line + 1
+                print(y_subsampling*line)
         print('done')
         im = []
         for x in data:            

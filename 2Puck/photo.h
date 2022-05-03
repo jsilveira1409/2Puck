@@ -1,6 +1,6 @@
 #ifndef 	PHOTO_H
 #define 	PHOTO_H
 
-void init_photo(void);
-
+void photo_init(void);
+void photo_wait_finish(void);
 #endif
