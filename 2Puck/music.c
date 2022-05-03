@@ -9,28 +9,24 @@
 #include <audio_processing.h>
 #include <audio/microphone.h>
 #include <leds.h>
+#include <sdio.h>
+#include <fat.h>
+#include <audio/play_sound_file.h>
 
-#define NB_SONGS 			5
-#define MS_IN_MINUTE		(60*1000)		//milliseconds in a minute, needed for bpm to ms conversion
-#define SIXTEENTH_NOTE		16
+
+#define NB_SONGS 						6
+#define COME_AS_YOU_ARE_SIZE			15
+#define MISS_YOU_SIZE					18
+#define SOLD_THE_WORLD_SIZE				17
+#define KILLING_IN_THE_NAME_OF_SIZE		20
+#define SEVEN_NATION_SIZE				16
+#define NEXT_EPISODE_SIZE				12
 
 static BSEMAPHORE_DECL(sem_finished_music, TRUE);
-/*
- * DATA TYPES AND VARIABLES
- */
-
 static int16_t score = 0;
-/*
- * Enum for others functions to choose the song more explicitely,
- * Basically the song index in the songs array
- */
-enum chromatic_scale{
-	A1, AS1, B1, C1, CS1, D1, DS1,E1, F1, FS1, G1, GS1,
-	A2, AS2, B2, C2, CS2, D2, DS2,E2, F2, FS2, G2, GS2,
-	A3, AS3, B3, C3, CS3, D3, DS3,E3, F3, FS3, G3, GS3,
-};
-
 static uint8_t *recording;
+
+static thread_t* musicThd = NULL;
 
 /*
  * The duration unity (1) corresponds to a siteenth note
@@ -41,87 +37,75 @@ static uint8_t *recording;
 /*
  * Come As you are - Nirvana
  */
-static uint8_t melody_COME_AS_YOU_ARE[15] = {
+static uint8_t melody_COME_AS_YOU_ARE [COME_AS_YOU_ARE_SIZE] = {
 	E1,	E1,	F1,	FS1, A2, FS1, A2, FS1, FS1, F1, E1, B2,	E1, E1, B2
-};
-
-static uint8_t duration_COME_AS_YOU_ARE[15] = {
-	2, 	2, 	2, 	4, 	2, 	2, 	2, 	2,	2, 	2, 	2, 	2, 	2, 	2, 	2
 };
 
 /*
  * Miss You - Rolling Stones
  */
-static uint8_t melody_MISS_YOU[18]={
+static uint8_t melody_MISS_YOU [MISS_YOU_SIZE] = {
 	D1,	E1, G2,	A2, E1, D1,	E1,
 	D1,	E1, G2,	A2, E1, D1,	E1,	D1,	E1,	A2,	E1
-};
-
-static uint8_t duration_MISS_YOU[18]={
-	2,	2, 	2, 	2, 	1,	1, 	6, 	2,	2, 	2, 	2,	1, 	1, 	6,	2,	2,	2,	10
 };
 
 /*
  * Killing in the Name of - RATM
  */
-static uint8_t melody_KILLING_IN_THE_NAME_OF[20]={
+static uint8_t melody_KILLING_IN_THE_NAME_OF [KILLING_IN_THE_NAME_OF_SIZE] = {
 	E1,	C2,	D2, F2, FS2, D2, E1, FS1, G1, FS1,
 	E1,	C2,	D2, F2, FS2, D2, E1, FS1, G1, FS1
-};
-
-static uint8_t duration_KILLING_IN_THE_NAME_OF[20]={
-	4,	2, 	2, 	2, 	2,	2, 	4, 	4,	4, 	4,
-	4,	2, 	2, 	2, 	2,	2, 	4, 	4,	4, 	4
 };
 
 /*
  * The Man who sold the world - David Bowie
  */
-
-static uint8_t melody_SOLD_THE_WORLD[17]={
+static uint8_t melody_SOLD_THE_WORLD [SOLD_THE_WORLD_SIZE] = {
 	G2, G2, G2, F2, G2, GS2, G2, F2,
 	G2, G2, G2, F2, G2, GS2, G2, F2,
 	G2
 };
 
-static uint8_t duration_SOLD_THE_WORLD[17]={
-	2,	2, 	2, 	4, 	1,	1, 	2, 	2,
-	2,	2, 	2, 	4, 	1,	1, 	2, 	2,
-	15
+/*
+ * Seven Nation Army - Whitesnake
+ */
+static uint8_t melody_SEVEN_NATION_ARMY [SEVEN_NATION_SIZE] = {
+	E1, E1, G2,	E1,	D1,
+	C1,	B1,
+	E1, E1, G2,	E1,	D1,
+	C1,	D1, C1, B1,
 };
 
-
-static uint8_t melody_GOOD_TIMES[27] = {
-	E2, E2, E2, E2,  E2, FS2, G2, A3, B3, CS3, D3, E3, A2,
-	A2, A2, A2, A2, FS3, A2, G3, FS3, A2, E2, B3, E2, FS2, G2
+/*
+* The Next Episode - Dr Dre
+ */
+static uint8_t melody_NEXT_EPISODE [NEXT_EPISODE_SIZE] = {
+	F3, AS4,
+	AS4,GS4,AS4,
+	GS4,FS4,GS4,
+	GS4, FS4,F3, FS4
 };
 
-static uint8_t duration_GOOD_TIMES[27] = {
-	2, 	2, 	1,	1,	1,	2,	 2,	  2,  2,  2, 2, 1, 1,
-	2,	2,	1,	1,	1,	1,	2,	2,	2,	1,	1,	1,	1,	1
-};
 
 /*
  * Song data type
  * Contains the melody, the corresponding note duration where 1 = sixteenth note (double crochet)
  * and the melody size
  */
-
-
 struct song{
 	uint8_t * melody_ptr;
-	uint8_t * note_duration_ptr;
-	uint16_t bpm;
 	uint16_t melody_size;
+	char* file_name;
 }songs[NB_SONGS] = {
-		{melody_COME_AS_YOU_ARE,			duration_COME_AS_YOU_ARE,			50, 	15},
-		{melody_MISS_YOU,					duration_MISS_YOU,					50,		18},
-		{melody_KILLING_IN_THE_NAME_OF, 	duration_KILLING_IN_THE_NAME_OF,	50,		20},
-		{melody_SOLD_THE_WORLD, 			duration_SOLD_THE_WORLD,			50,		17},
-		{melody_GOOD_TIMES, 				duration_GOOD_TIMES,				30,		27}
+		{melody_COME_AS_YOU_ARE,			COME_AS_YOU_ARE_SIZE,			"asyouare.wav"},
+		{melody_MISS_YOU,					MISS_YOU_SIZE		,			"missyou.wav"},
+		{melody_KILLING_IN_THE_NAME_OF, 	KILLING_IN_THE_NAME_OF_SIZE,	"killingin.wav"},
+		{melody_SOLD_THE_WORLD, 			SOLD_THE_WORLD_SIZE,			"soldtheworld.wav"},
+		{melody_SEVEN_NATION_ARMY,			SEVEN_NATION_SIZE,				"sevennation.wav"},
+		{melody_NEXT_EPISODE,				NEXT_EPISODE_SIZE,				"nextepisode.wav"}
 };
 
-
+song_selection chosen_song = 0;
 
 /*
  * Static Functions
@@ -132,16 +116,19 @@ static THD_FUNCTION(music, arg) {
 
 	(void) arg;
 
-  while (true) {
-	  wait_finish_playing();
-	  set_recording(get_recording());
-	  score += check_note_sequence(come_as_you_are);
-	  score += check_note_order(come_as_you_are);
-	  set_led(LED1, 0);
-	  chBSemSignal(&sem_finished_music);
-	  set_led(LED5, 0);
-	  chThdSleepMilliseconds(2000);
-  }
+	chosen_song = random_song();
+
+	while (!chThdShouldTerminateX()) {
+		wait_finish_playing();
+		set_recording(get_recording());
+		score += check_note_sequence(chosen_song);
+		score += check_note_order(chosen_song);
+		set_led(LED1, 0);
+		chBSemSignal(&sem_finished_music);
+		set_led(LED5, 0);
+		chThdSleepMilliseconds(2000);
+	}
+	chThdExit(0);
 }
 
 /*
@@ -153,15 +140,14 @@ void wait_finish_music(void){
 }
 
 uint8_t random_song(void){
-	return 2;
+	return COME_AS_YOU_ARE;
 }
 
 /*
  * Checking notes time sequence is correct: was note x played when it should
  * be played ?
  */
-
-int16_t check_note_sequence(uint8_t index){
+static int16_t check_note_sequence(uint8_t index){
 	int16_t score = 0;
 	uint16_t starting_index = 0;
 	/*
@@ -193,7 +179,7 @@ int16_t check_note_sequence(uint8_t index){
  * Checking order of played notes is correct: was note y played after note x, even
  * if there is a wrong note in between?
  */
-int16_t check_note_order(uint8_t index){
+static int16_t check_note_order(uint8_t index){
 	int16_t score = 0;
 
 	for(uint16_t i=0; i< songs[index].melody_size; i++){
@@ -206,36 +192,73 @@ int16_t check_note_order(uint8_t index){
 	}
 	return score;
 }
-
-
-static uint32_t duration_to_ms(uint8_t duration, uint16_t bpm){
-	return ( (MS_IN_MINUTE*duration)/( bpm * SIXTEENTH_NOTE) );
-}
-
 /*
- * Threads
+ * THREADS
  */
+
+static THD_WORKING_AREA(musicWorkingArea, 128);
+static THD_FUNCTION(music_thd, arg) {
+
+	(void) arg;
+
+	while (true) {
+
+		wait_finish_playing();
+		set_recording(get_recording());
+		score += check_note_sequence(COME_AS_YOU_ARE);
+		score += check_note_order(COME_AS_YOU_ARE);
+		set_led(LED1, 0);
+		chBSemSignal(&sem_finished_music);
+		set_led(LED5, 0);
+		chThdSleepMilliseconds(1000);
+	}
+}
 
 
 /*
  * Public Functions
  */
 
-void init_music(void){
+void music_init(void){
     mic_start(&processAudioDataCmplx);
-	chThdCreateStatic(musicWorkingArea, sizeof(musicWorkingArea),
-			NORMALPRIO+1, music, NULL);
+	musicThd = chThdCreateStatic(musicWorkingArea, sizeof(musicWorkingArea),
+			NORMALPRIO, music, NULL);
 }
 
-void play_song(uint8_t index){
-	for(uint8_t i = 0; i < songs[index].melody_size; i++){
-		dac_play(note_frequency[songs[index].melody_ptr[i]]);
+// void init_music(void){
+// //    mic_start(&processAudioDataCmplx);
+//     playSoundFileStart();
+//     sdio_start();
+//     dac_start();
 
-		chThdSleepMilliseconds(duration_to_ms(songs[index].note_duration_ptr[i],songs[index].bpm));
-		dac_stop();
-		chThdSleepMilliseconds(50);
-	}
+//     while(!mountSDCard()){
+// 		set_body_led(1);
+// 		chThdSleepMilliseconds(200);
+// 		set_body_led(0);
+// 		chThdSleepMilliseconds(200);
+// 	}
+
+// //	chThdCreateStatic(musicWorkingArea, sizeof(musicWorkingArea),
+// //			NORMALPRIO, music_thd, NULL);
+// }
+
+void music_stop(void){
+	// TODO: Stop TIM9
+//	mp45dt02Shutdown();
+	chThdTerminate(musicThd);
 }
+
+void play_song(jukebox index){
+	setSoundFileVolume(30);
+	playSoundFile(songs[index].file_name, SF_FORCE_CHANGE);
+//	waitSoundFileHasFinished();
+
+}
+
+void stop_song(void){
+	stopCurrentSoundFile();
+}
+
 
 void set_recording(uint8_t *data){
 	recording = data;
@@ -243,4 +266,12 @@ void set_recording(uint8_t *data){
 
 int16_t get_score(void){
 	return score;
+}
+
+song_selection get_song(void){
+	return chosen_song;
+}
+
+void wait_finish_music(void){
+	chBSemWait(&sem_finished_music);
 }

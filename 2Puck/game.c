@@ -2,35 +2,27 @@
  * game.c
  *
  *  Created on: 29 Apr 2022
- *      Author: karl
+ *  Authors: Karl Khalil
+ *  		 Joaquim Silveira
  */
 
 #include <ch.h>
+#include <hal.h>
 #include <leds.h>
 #include <audio_processing.h>
 #include <photo.h>
 #include "communications.h"
 #include "music.h"
+#include "pathing.h"
 
 
-/*
- * Messages received and sent to and from the PC
- */
-enum{
-	// Received messages
-	none,
-	start_game,
-	player1_play,
-	player2_play,
-
-	// Sent messages
-	chosen_song,
-	player1_finish,
-	player2_finish,
-	send_winner,
-	send_photo,
-	finished
-}message;
+typedef enum {
+	IDLE,
+	START_GAME,
+	GOTO_WINNER,
+	SEND_PHOTO,
+	FINISHED
+} GAME_STATE;
 
 static THD_WORKING_AREA(gameWA, 128);
 
@@ -38,52 +30,67 @@ static THD_FUNCTION(game_thd, arg) {
 
 	(void) arg;
 
-	uint8_t msg = none;
+	GAME_STATE state = IDLE;
 	uint8_t score1 = 0;
 	uint8_t score2 = 0;
+	uint8_t message = 0;
+	uint8_t song = 0;
 
-	while (msg != player2_finish) {
-		if(msg == none || msg == chosen_song || msg  == player1_finish){
-			ReceiveModeFromComputer((BaseSequentialStream *) &SD3, &msg);
-			set_body_led(1);
-			chThdSleepMilliseconds(100);
-			set_body_led(0);
-			chThdSleepMilliseconds(100);
+	while(true) {
 
-		}else if(msg == start_game){
-			uint8_t song = random_song();
-			SendUint8ToComputer(&song, 1);
-			msg = chosen_song;
-			set_led(LED1, 1);
+		switch(state){
+			case IDLE:
+				message = chSequentialStreamGet(&SD3);
+				if (message == 'w'){
+					set_body_led(1);
+					state++;
+				}
+				break;
 
-		}else if(msg == player1_play){
-			/*
-			 * Start player 1 recording, compute score and send
-			 */
-			init_music();
-			wait_finish_music();
-			score1 = get_score();
-			SendUint8ToComputer(&score1, 1);
-			msg = player1_finish;
-			set_led(LED5,1);
+			case START_GAME:
+				music_init();
+				song = get_song();
+				SendUint8ToComputer(&song, 1);
+				set_led(LED1, 1);
 
-		}else if (msg == player2_play){
-			/*
-			 * Start player 2 recording, compute score and send
-			 */
-			wait_finish_music();
-			score2 = get_score();
-			SendUint8ToComputer(&score2, 1);
-			msg = player2_finish;
+//				pathing_set(DANCE);
+				wait_finish_music();
+				pathing_set(WAIT);
+				score1 = get_score();
+				SendUint8ToComputer(&score1, 1);
+				set_led(LED5,1);
+
+//				pathing_set(DANCE);
+				wait_finish_music();
+				pathing_set(WAIT);
+				score2 = get_score();
+				SendUint8ToComputer(&score2, 1);
+				music_stop();
+				state++;
+				break;
+
+			case GOTO_WINNER:
+				set_body_led(0);
+				pathing_set((score1 >= score2) ? PATH_TO_PLAYER1 : PATH_TO_PLAYER2);
+				pathing_wait_finish();
+				state++;
+				break;
+
+			case SEND_PHOTO:
+				set_body_led(0);
+				init_photo();
+				state++;
+				break;
+
+			case FINISHED:
+				state = IDLE;
+				break;
 		}
-
-		chThdSleepMilliseconds(200);
+		chThdSleepMilliseconds(300);
 	}
-	chThdSleepMilliseconds(2000);
-	init_photo();
 }
 
-void init_game(void){
-	chThdCreateStatic(gameWA, sizeof(gameWA), NORMALPRIO, game_thd, NULL);
+void game_init(void){
+	chThdCreateStatic(gameWA, sizeof(gameWA), NORMALPRIO+1, game_thd, NULL);
 }
 

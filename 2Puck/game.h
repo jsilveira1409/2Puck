@@ -9,7 +9,7 @@
 #define GAME_H_
 
 
-void init_game(void);
+void game_init(void);
 
 
 #endif /* GAME_H_ */
