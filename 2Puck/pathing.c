@@ -35,7 +35,7 @@
 #define RAD2DEG					(360/3.14159)
 #define ANGLE_EPSILON			0.1
 #define MIN_DISTANCE_2_TARGET	10
-#define MIN_SPEED				600
+#define MIN_SPEED				250
 #define MIN_IR_VAL				130
 #define MIN_STEPS				3
 #define ANGLE_RESOLUTION 		0.0000001
@@ -366,43 +366,45 @@ static void dance(void){
 	uint8_t note = 0;
 	wait_note_played();
 	note = get_current_last_note();
-	find_note(note);
 	switch(note){
 		case A1:
-			move(10,15);
+			move(10,45);
 			break;
 		case AS1:
-			move(15,4);
+			move(40,-20);
 			break;
 		case B1:
-			move(15,3);
+			move(10,-20);
 			break;
 		case C1:
-			move(15,2);
+			move(17,-60);
 			break;
 		case CS1:
-			move(15,1);
+			move(15,15);
 			break;
 		case D1:
-			move(15,-15);
+			move(20,-20);
 			break;
 		case DS1:
-			move(4,10);
+			move(-20,-20);
 			break;
 		case E1:
-			move(10,5);
+			move(30,-1);
 			break;
 		case F1:
-			move(10,10);
+			move(-7,2);
 			break;
 		case FS1:
-			move(15,5);
+			move(8,-32);
 			break;
 		case G1:
 			move(9,5);
 			break;
 		case GS1:
-			move(2,5);
+			move(2,12);
+			break;
+		default:
+			move(10,15);
 			break;
 	};
 	return;
@@ -444,7 +446,6 @@ static THD_FUNCTION(ThdPathing, arg) {
 				pathing();
 				break;
 		};
-
 	}
 }
 

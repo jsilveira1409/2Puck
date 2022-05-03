@@ -25,6 +25,8 @@
 
 #include <leds.h>
 #include <game.h>
+#include <fat.h>
+#include <sdio.h>
 
 static void serial_start(void)
 {
@@ -46,7 +48,6 @@ int main(void)
     serial_start();
     dcmi_start();
     po8030_start();
-    dac_start();
     spi_comm_start();
 
 //    init_photo();
@@ -55,10 +56,11 @@ int main(void)
     game_init();
     pathing_init();
     pathing_set(WAIT);
+    // play_song(NEXT_EPISODE);
+    // pathing_set(PATH_TO_PLAYER1);
 
 
     while (1) {
-
 	}
 }
 

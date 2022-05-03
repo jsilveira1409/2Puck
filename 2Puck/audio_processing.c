@@ -12,31 +12,81 @@
 #include <audio_processing.h>
 #include <leds.h>
 
+/*Uncomment to print the notes recorded*/
+//#define DEBUGGING
 
 #define RESOLUTION  			(I2S_AUDIOFREQ_16K/2)/(FFT_SIZE/2)
 #define FREQ_INDEX_OFFSET 		(-2)
 #define NB_SAMPLES				160
 #define RECORDING_SIZE			20
 #define NB_MICS 				2
-#define MAX_VOLUME  			2000
-#define MIN_VOLUME 				1500
+#define MAX_VOLUME  			4000
+#define MIN_VOLUME 				3500
 
 
 static BSEMAPHORE_DECL(sem_finished_playing, TRUE);
+/*
+ * Probably need a mutex here, and put pathing with a higger priority,
+ * so microphone inherits pathing's priority once it is dancing,
+ * in which it waits for the note to be played
+ */
 static BSEMAPHORE_DECL(sem_note_played, TRUE);
-
 
 static float micLeft_cmplx_input[2 * FFT_SIZE];
 static float micLeft_output[FFT_SIZE];
 static float freq = 0;
 
-static uint16_t mic_volume = 0;
-static int16_t mic_last;
-
-static uint16_t current_index = 0;
 static uint8_t played_note[RECORDING_SIZE];
+static uint16_t current_index = 0;
 static uint16_t discret_freq = 0;
 
+
+/*
+ * Prints the discrete note, used for debugging
+ */
+ static void find_note (int16_t index){
+	switch (index){
+		case 0:
+			chprintf((BaseSequentialStream *)&SD3, "A  ");
+			break;
+		case 1:
+			chprintf((BaseSequentialStream *)&SD3, "A# ");
+			break;
+		case 2:
+			chprintf((BaseSequentialStream *)&SD3, "B ");
+			break;
+		case 3:
+			chprintf((BaseSequentialStream *)&SD3, "C ");
+			break;
+		case 4:
+			chprintf((BaseSequentialStream *)&SD3, "C# ");
+			break;
+		case 5:
+			chprintf((BaseSequentialStream *)&SD3, "D ");
+			break;
+		case 6:
+			chprintf((BaseSequentialStream *)&SD3, "D# ");
+			break;
+		case 7:
+			chprintf((BaseSequentialStream *)&SD3, "E ");
+			break;
+		case 8:
+			chprintf((BaseSequentialStream *)&SD3, "F ");
+			break;
+		case 9:
+			chprintf((BaseSequentialStream *)&SD3, "F# ");
+			break;
+		case 10:
+			chprintf((BaseSequentialStream *)&SD3, "G ");
+			break;
+		case 11:
+			chprintf((BaseSequentialStream *)&SD3, "G# ");
+			break;
+		case 12:
+			chprintf((BaseSequentialStream *)&SD3, "none  \r ");
+			break;
+	}
+}
 
 /*
  * Finds the smallest error between the FFT data
@@ -76,8 +126,9 @@ static void fundamental_frequency(float* data, uint8_t nb_harmonic){
 
 uint8_t note_volume(int16_t *data, uint16_t num_samples){
 	static uint8_t state = 0;
+	static uint16_t mic_volume = 0;
 
-	int16_t max_value=INT16_MIN, min_value=INT16_MAX;
+	int16_t max_value = INT16_MIN, min_value = INT16_MAX;
 
 	for(uint16_t i=0; i<num_samples; i+=2) {
 		if(data[i + MIC_LEFT] > max_value) {
@@ -89,7 +140,6 @@ uint8_t note_volume(int16_t *data, uint16_t num_samples){
 	}
 
 	mic_volume = max_value - min_value;
-	mic_last = data[MIC_BUFFER_LEN-(NB_MICS-MIC_LEFT)];
 
 	if(mic_volume > MAX_VOLUME){
 		if(state == 0){
@@ -121,6 +171,9 @@ static void record_note(const uint8_t note_index){
 		led = 1;
 
 	played_note[current_index] = note_index;
+	/*
+	 * Signals pathing.c that it can dance once
+	 */
 	chBSemSignal(&sem_note_played);
 	if(current_index < RECORDING_SIZE){
 		current_index ++;
@@ -141,7 +194,9 @@ static void frequency_to_note(float* data){
 	arm_max_f32(data, (FFT_SIZE/2), &max_freq_mag, &max_index);
 	check_smallest_error(&max_index);
 	max_index = max_index%12;
-//	find_note(max_index);
+#ifdef DEBUGGING
+	find_note(max_index);
+#endif
 	record_note(max_index);
 }
 
@@ -194,52 +249,7 @@ void processAudioDataCmplx(int16_t *data, uint16_t num_samples){
 		nb_samples = 0;
 	}
 }
-/*
- * Prints the discrete note
- */
- void find_note (int16_t index){
-	switch (index){
-		case 0:
-			chprintf((BaseSequentialStream *)&SD3, "A  ");
-			break;
-		case 1:
-			chprintf((BaseSequentialStream *)&SD3, "A# ");
-			break;
-		case 2:
-			chprintf((BaseSequentialStream *)&SD3, "B ");
-			break;
-		case 3:
-			chprintf((BaseSequentialStream *)&SD3, "C ");
-			break;
-		case 4:
-			chprintf((BaseSequentialStream *)&SD3, "C# ");
-			break;
-		case 5:
-			chprintf((BaseSequentialStream *)&SD3, "D ");
-			break;
-		case 6:
-			chprintf((BaseSequentialStream *)&SD3, "D# ");
-			break;
-		case 7:
-			chprintf((BaseSequentialStream *)&SD3, "E ");
-			break;
-		case 8:
-			chprintf((BaseSequentialStream *)&SD3, "F ");
-			break;
-		case 9:
-			chprintf((BaseSequentialStream *)&SD3, "F# ");
-			break;
-		case 10:
-			chprintf((BaseSequentialStream *)&SD3, "G ");
-			break;
-		case 11:
-			chprintf((BaseSequentialStream *)&SD3, "G# ");
-			break;
-		case 12:
-			chprintf((BaseSequentialStream *)&SD3, "none  \r ");
-			break;
-	}
-}
+
 
 /*
  * Public Functions
@@ -254,7 +264,6 @@ uint8_t get_current_last_note(void){
 void wait_note_played(void){
 	chBSemWait(&sem_note_played);
 }
-
 void wait_finish_playing(void){
 	chBSemWait(&sem_finished_playing);
 }

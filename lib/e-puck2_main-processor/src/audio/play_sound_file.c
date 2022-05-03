@@ -100,7 +100,7 @@ static void end_cb(DACDriver *dacp, const dacsample_t *buffer, size_t n) {
  */
 uint8_t playWAVFile(char *pathToFile){
     FIL file;   /* file object */
-    FRESULT err;
+    volatile FRESULT err;
 
     UINT bytesRead = 0;
     uint8_t first_time = 1;
@@ -214,7 +214,7 @@ static THD_FUNCTION(PlaySoundFileThd, arg) {
 void playSoundFileStart(void){
 
     //creates the thread
-    chThdCreateStatic(waPlaySoundFileThd, sizeof(waPlaySoundFileThd), NORMALPRIO, PlaySoundFileThd, NULL);
+    chThdCreateStatic(waPlaySoundFileThd, sizeof(waPlaySoundFileThd), NORMALPRIO+1, PlaySoundFileThd, NULL);
 }
 
 void playSoundFile(char* pathToFile, playSoundFileOption_t option){
