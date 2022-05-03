@@ -9,7 +9,8 @@
 #include <audio_processing.h>
 #include <audio/microphone.h>
 #include <leds.h>
-//#include <audio/play_melody.h>
+#include <sdio.h>
+#include <fat.h>
 #include <audio/play_sound_file.h>
 
 
@@ -179,7 +180,7 @@ static THD_FUNCTION(music_thd, arg) {
  */
 
 void init_music(void){
-    mic_start(&processAudioDataCmplx);
+//    mic_start(&processAudioDataCmplx);
     playSoundFileStart();
     sdio_start();
     dac_start();
@@ -191,12 +192,12 @@ void init_music(void){
 		chThdSleepMilliseconds(200);
 	}
 
-	chThdCreateStatic(musicWorkingArea, sizeof(musicWorkingArea),
-			NORMALPRIO, music_thd, NULL);
+//	chThdCreateStatic(musicWorkingArea, sizeof(musicWorkingArea),
+//			NORMALPRIO, music_thd, NULL);
 }
 
 void play_song(jukebox index){
-	setSoundFileVolume(50);
+	setSoundFileVolume(30);
 	playSoundFile(songs[index].file_name, SF_FORCE_CHANGE);
 //	waitSoundFileHasFinished();
 

@@ -19,7 +19,6 @@
 #include <communications.h>
 #include <arm_math.h>
 #include <audio/audio_thread.h>
-#include <audio/play_sound_file.h>
 
 #include <pathing.h>
 #include <photo.h>
@@ -55,17 +54,12 @@ int main(void)
 
     init_music();
 //    init_game();
-//    pathing_init();
+    pathing_init();
+    play_song(NEXT_EPISODE);
+    pathing_set(PATH_TO_PLAYER1);
 
-
-
-//    set_body_led(1);
-//
-//    set_body_led(1);
 
     while (1) {
-    	play_song(SEVEN_NATION);
-    	waitSoundFileHasFinished();
 	}
 }
 

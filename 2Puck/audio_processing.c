@@ -20,8 +20,8 @@
 #define NB_SAMPLES				160
 #define RECORDING_SIZE			20
 #define NB_MICS 				2
-#define MAX_VOLUME  			2000
-#define MIN_VOLUME 				1500
+#define MAX_VOLUME  			4000
+#define MIN_VOLUME 				3500
 
 
 static BSEMAPHORE_DECL(sem_finished_playing, TRUE);
