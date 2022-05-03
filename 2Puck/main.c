@@ -51,10 +51,10 @@ int main(void)
 
 //    init_photo();
 
-    init_music();
-//    init_game();
+//    init_music();
+    game_init();
     pathing_init();
-    pathing_set(DANCE);
+    pathing_set(WAIT);
 
 
     while (1) {

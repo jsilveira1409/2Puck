@@ -476,7 +476,7 @@ void pathing_init(){
 	arm_pid_init_f32(&wall_pid, 0);
 
 	(void) chThdCreateStatic(pathingWorkingArea, sizeof(pathingWorkingArea),
-	                           NORMALPRIO+2 , ThdPathing, NULL);
+	                           NORMALPRIO, ThdPathing, NULL);
 }
 
 void pathing_set(pathing_option option){

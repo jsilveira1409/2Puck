@@ -13,11 +13,13 @@
 #include <photo.h>
 #include "communications.h"
 #include "music.h"
+#include "pathing.h"
 
 
 typedef enum {
 	IDLE,
 	START_GAME,
+	GOTO_WINNER,
 	SEND_PHOTO,
 	FINISHED
 } GAME_STATE;
@@ -35,6 +37,7 @@ static THD_FUNCTION(game_thd, arg) {
 	uint8_t song = 0;
 
 	while(true) {
+
 		switch(state){
 			case IDLE:
 				message = chSequentialStreamGet(&SD3);
@@ -45,23 +48,36 @@ static THD_FUNCTION(game_thd, arg) {
 				break;
 
 			case START_GAME:
-				init_music();
+				music_init();
 				song = get_song();
-				chSequentialStreamWrite(&SD3, &song, 1);
+				SendUint8ToComputer(&song, 1);
 				set_led(LED1, 1);
 
+//				pathing_set(DANCE);
 				wait_finish_music();
+				pathing_set(WAIT);
 				score1 = get_score();
 				SendUint8ToComputer(&score1, 1);
 				set_led(LED5,1);
 
+//				pathing_set(DANCE);
 				wait_finish_music();
+				pathing_set(WAIT);
 				score2 = get_score();
 				SendUint8ToComputer(&score2, 1);
+				music_stop();
+				state++;
+				break;
+
+			case GOTO_WINNER:
+				set_body_led(0);
+				pathing_set((score1 >= score2) ? PATH_TO_PLAYER1 : PATH_TO_PLAYER2);
+				pathing_wait_finish();
 				state++;
 				break;
 
 			case SEND_PHOTO:
+				set_body_led(0);
 				init_photo();
 				state++;
 				break;
@@ -70,7 +86,7 @@ static THD_FUNCTION(game_thd, arg) {
 				state = IDLE;
 				break;
 		}
-		chThdSleepMilliseconds(200);
+		chThdSleepMilliseconds(300);
 	}
 }
 

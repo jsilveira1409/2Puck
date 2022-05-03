@@ -23,6 +23,8 @@ static int16_t score = 0;
 
 static uint8_t *recording;
 
+static thread_t* musicThd = NULL;
+
 /*
  * The duration unity (1) corresponds to a siteenth note
  * Ex: for bpm = 120 	-> 1 sixteenth = 125ms = 1
@@ -125,7 +127,7 @@ static THD_FUNCTION(music, arg) {
 
 	chosen_song = random_song();
 
-	while (true) {
+	while (!chThdShouldTerminateX()) {
 		wait_finish_playing();
 		set_recording(get_recording());
 		score += check_note_sequence(chosen_song);
@@ -135,6 +137,7 @@ static THD_FUNCTION(music, arg) {
 		set_led(LED5, 0);
 		chThdSleepMilliseconds(2000);
 	}
+	chThdExit(0);
 }
 
 /*
@@ -214,10 +217,16 @@ static uint32_t duration_to_ms(uint8_t duration, uint16_t bpm){
  * Public Functions
  */
 
-void init_music(void){
+void music_init(void){
     mic_start(&processAudioDataCmplx);
-	chThdCreateStatic(musicWorkingArea, sizeof(musicWorkingArea),
-			NORMALPRIO+1, music, NULL);
+	musicThd = chThdCreateStatic(musicWorkingArea, sizeof(musicWorkingArea),
+			NORMALPRIO, music, NULL);
+}
+
+void music_stop(void){
+	// TODO: Stop TIM9
+//	mp45dt02Shutdown();
+	chThdTerminate(musicThd);
 }
 
 void play_song(uint8_t index){

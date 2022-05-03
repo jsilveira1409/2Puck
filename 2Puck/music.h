@@ -22,7 +22,8 @@ typedef enum {
 /*
  * Public Functions
  */
-void init_music(void);
+void music_init(void);
+void music_stop(void);
 void play_song(uint8_t index);
 void set_recording(uint8_t *data);
 uint8_t random_song(void);
