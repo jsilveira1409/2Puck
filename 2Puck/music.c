@@ -190,17 +190,9 @@ static THD_FUNCTION(music, arg) {
  * Public Functions
  */
 void music_init(void){
-	mic_start(&processAudioDataCmplx);
-	playSoundFileStart();
-	sdio_start();
-	dac_start();
-	while(!mountSDCard()){
-		set_body_led(1);
-		chThdSleepMilliseconds(200);
-		set_body_led(0);
-		chThdSleepMilliseconds(200);
-	}
 
+	chosen_song = random_song();
+	mic_start(&processAudioDataCmplx);
     musicThd = chThdCreateStatic(musicWorkingArea, sizeof(musicWorkingArea),
 			NORMALPRIO, music, NULL);
 }
@@ -239,7 +231,7 @@ void wait_finish_music(void){
 }
 
 uint8_t random_song(void){
-	return COME_AS_YOU_ARE;
+	return NEXT_EPISODE;
 }
 
 

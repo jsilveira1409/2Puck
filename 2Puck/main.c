@@ -49,7 +49,20 @@ int main(void)
     dcmi_start();
     po8030_start();
     spi_comm_start();
+	playSoundFileStart();
+	sdio_start();
+	dac_start();
 
+	/*
+	 * SD card init does not like being inside music_init
+	 * it segfaults
+	 */
+	while(!mountSDCard()){
+		set_body_led(1);
+		chThdSleepMilliseconds(200);
+		set_body_led(0);
+		chThdSleepMilliseconds(200);
+	}
 
     game_init();
 

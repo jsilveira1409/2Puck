@@ -6,7 +6,7 @@ from tkinter import N 		# Used for Big-Endian messages
 from PIL import Image  		# Used for the pictures of the camera
 import serial
 from Function import*
-import yagmail
+#import yagmail
 
 x_subsampling = 2
 y_subsampling = 2
@@ -32,10 +32,11 @@ class serial_thread(Thread):
         print('Connecting to port {}'.format(port))
 
         try:
-            self.port = serial.Serial(port, timeout=None)
+            self.port = serial.Serial(port, timeout=10, baudrate=115200)
         except:
             print('Cannot connect to the e-puck2')
             sys.exit(0)
+        
     #function called after the init
     def run(self):      
         chosen_song = 0
@@ -43,13 +44,15 @@ class serial_thread(Thread):
         winner = 0
         option = input("Enter option: \n")   
         if(option == 'n'):
+            self.port.write(b'w')
             self.send_start_game()
             chosen_song = self.rec_chose_song()
+            print(chosen_song)
             self.send_player1_play() 
             score1 = self.rec_score1()
             self.send_player2_play()              
             score2 = self.rec_score2()    
-            self.rec_picture()
+            #self.rec_picture()
             
             print("chosen song",chosen_song)
             print("score 1",score1)
@@ -122,7 +125,7 @@ class serial_thread(Thread):
         img = bytes(im)
         image = Image.frombuffer("RGB", (width, height), img, "raw",  "BGR;16", 0, 1)
         image.save('capture.png')
-        send_mail()
+        #send_mail()
 
     def stop(self):
         if(self.port.isOpen()):
@@ -143,6 +146,7 @@ def send_mail():
         attachments=filename,
     )
             
-reader_thd = serial_thread('/dev/cu.usbmodemEPUCK3')
+#reader_thd = serial_thread('/dev/cu.usbmodemEPUCK3')
+reader_thd = serial_thread('com12')
 reader_thd.start()
 
