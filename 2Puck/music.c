@@ -9,7 +9,8 @@
 #include <audio_processing.h>
 #include <audio/microphone.h>
 #include <leds.h>
-#include <audio/play_melody.h>
+//#include <audio/play_melody.h>
+#include <audio/play_sound_file.h>
 
 
 #define NB_SONGS 						6
@@ -88,7 +89,7 @@ struct song{
 	uint16_t melody_size;
 	char* file_name;
 }songs[NB_SONGS] = {
-		{melody_COME_AS_YOU_ARE,			COME_AS_YOU_ARE_SIZE,			"comeasyouare.wav"},
+		{melody_COME_AS_YOU_ARE,			COME_AS_YOU_ARE_SIZE,			"asyouare.wav"},
 		{melody_MISS_YOU,					MISS_YOU_SIZE		,			"missyou.wav"},
 		{melody_KILLING_IN_THE_NAME_OF, 	KILLING_IN_THE_NAME_OF_SIZE,	"killingin.wav"},
 		{melody_SOLD_THE_WORLD, 			SOLD_THE_WORLD_SIZE,			"soldtheworld.wav"},
@@ -161,13 +162,13 @@ static THD_FUNCTION(music_thd, arg) {
 
 	while (true) {
 
-//		wait_finish_playing();
-//		set_recording(get_recording());
-//		score += check_note_sequence(COME_AS_YOU_ARE);
-//		score += check_note_order(COME_AS_YOU_ARE);
-//		set_led(LED1, 0);
-//		chBSemSignal(&sem_finished_music);
-//		set_led(LED5, 0);
+		wait_finish_playing();
+		set_recording(get_recording());
+		score += check_note_sequence(COME_AS_YOU_ARE);
+		score += check_note_order(COME_AS_YOU_ARE);
+		set_led(LED1, 0);
+		chBSemSignal(&sem_finished_music);
+		set_led(LED5, 0);
 		chThdSleepMilliseconds(1000);
 	}
 }
@@ -179,16 +180,30 @@ static THD_FUNCTION(music_thd, arg) {
 
 void init_music(void){
     mic_start(&processAudioDataCmplx);
+    playSoundFileStart();
+    sdio_start();
+    dac_start();
+
+    while(!mountSDCard()){
+		set_body_led(1);
+		chThdSleepMilliseconds(200);
+		set_body_led(0);
+		chThdSleepMilliseconds(200);
+	}
+
 	chThdCreateStatic(musicWorkingArea, sizeof(musicWorkingArea),
 			NORMALPRIO, music_thd, NULL);
 }
 
 void play_song(jukebox index){
+	setSoundFileVolume(50);
+	playSoundFile(songs[index].file_name, SF_FORCE_CHANGE);
+//	waitSoundFileHasFinished();
 
 }
 
 void stop_song(void){
-
+	stopCurrentSoundFile();
 }
 
 
