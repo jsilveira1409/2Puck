@@ -203,7 +203,7 @@ void music_stop(void){
 }
 
 void play_song(song_selection index){
-	setSoundFileVolume(30);
+	setSoundFileVolume(20);
 	playSoundFile(songs[index].file_name, SF_FORCE_CHANGE);
 //	waitSoundFileHasFinished();  --> blocks the motors, logical
 

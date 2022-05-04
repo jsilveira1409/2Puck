@@ -20,7 +20,7 @@
 #define NB_SAMPLES				160
 #define RECORDING_SIZE			2
 #define NB_MICS 				2
-#define MAX_VOLUME  			4000
+#define MAX_VOLUME  			2000
 #define MIN_VOLUME 				1500
 
 
