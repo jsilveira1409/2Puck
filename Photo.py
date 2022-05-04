@@ -8,13 +8,13 @@ import serial
 from Function import*
 #import yagmail
 
-x_subsampling = 4
-y_subsampling = 4
+x_subsampling = 1
+y_subsampling = 1
 width = 340
 height = 200
 
-width = width/x_subsampling
-height = height/y_subsampling
+#width = int(width/x_subsampling)
+#height = int(height/y_subsampling)
 
 size = width * height
 
@@ -121,7 +121,7 @@ class serial_thread(Thread):
         while (line < height):
             if(readUint8Serial(self.port, data)):
                 line = line + 1
-                print(y_subsampling*line)
+                print(line)
         print('done')
         im = []
         for x in data:            

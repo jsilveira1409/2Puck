@@ -16,7 +16,7 @@
 #define X_start					50
 #define	Y_start					0
 #define PHOTO_WIDTH				340
-#define PHOTO_HEIGHT			2
+#define PHOTO_HEIGHT			4
 #define	BYTES_PER_PIXEL			2
 #define IMAGE_BUFFER_SIZE		(PHOTO_WIDTH*PHOTO_HEIGHT)	//Size in uint16
 #define	MAX_LINES_2_SEND		200
@@ -48,7 +48,7 @@ static THD_FUNCTION(TakePhoto, arg) {
 		else led = 1;
 
     	po8030_advanced_config(FORMAT_RGB565, X_start, (Y_start + line_cnt), PHOTO_WIDTH, PHOTO_HEIGHT,
-    			SUBSAMPLING_X4, SUBSAMPLING_X1);
+    			SUBSAMPLING_X1, SUBSAMPLING_X1);
     	dcmi_prepare();
 
 
@@ -63,9 +63,9 @@ static THD_FUNCTION(TakePhoto, arg) {
 		if(line_cnt <= MAX_LINES_2_SEND){
 			/*
 			 * the library gets 2 lines at once
-			 * we subsample manually by 4
+			 *
 			 */
-			line_cnt += 4;
+			line_cnt += PHOTO_HEIGHT;
 		}else{
 			/*
 			 * Finished sending the picture
@@ -77,8 +77,10 @@ static THD_FUNCTION(TakePhoto, arg) {
 			/*
 			 * As each pixel has 2 bytes of color, total width becomes 2* PHOTO_WIDTH for the data we need to send
 			 */
-			SendUint8ToComputer(img_buff_ptr, (2*PHOTO_WIDTH));
-			SendUint8ToComputer((img_buff_ptr + 2*PHOTO_WIDTH), (2*PHOTO_WIDTH));
+			for(uint8_t i=0; i<PHOTO_HEIGHT;i++){
+				SendUint8ToComputer((img_buff_ptr + (2*i*PHOTO_WIDTH)), (2*PHOTO_WIDTH));
+//				SendUint8ToComputer((img_buff_ptr + 2*PHOTO_WIDTH), (2*PHOTO_WIDTH));
+			}
 		}else{
 			chBSemSignal(&photo_finished_sem);
 		}
