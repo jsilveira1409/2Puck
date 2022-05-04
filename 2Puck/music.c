@@ -105,43 +105,12 @@ struct song{
 		{melody_NEXT_EPISODE,				NEXT_EPISODE_SIZE,				"nextepisode.wav"}
 };
 
-song_selection chosen_song = 0;
+static song_selection chosen_song = 0;
 
 /*
  * Static Functions
  */
 
-static THD_WORKING_AREA(musicWorkingArea, 128);
-static THD_FUNCTION(music, arg) {
-
-	(void) arg;
-
-	chosen_song = random_song();
-
-	while (!chThdShouldTerminateX()) {
-		wait_finish_playing();
-		set_recording(get_recording());
-		score += check_note_sequence(chosen_song);
-		score += check_note_order(chosen_song);
-		set_led(LED1, 0);
-		chBSemSignal(&sem_finished_music);
-		set_led(LED5, 0);
-		chThdSleepMilliseconds(2000);
-	}
-	chThdExit(0);
-}
-
-/*
- * FUNCTIONS
- */
-
-void wait_finish_music(void){
-	chBSemWait(&sem_finished_music);
-}
-
-uint8_t random_song(void){
-	return COME_AS_YOU_ARE;
-}
 
 /*
  * Checking notes time sequence is correct: was note x played when it should
@@ -197,50 +166,36 @@ static int16_t check_note_order(uint8_t index){
  */
 
 static THD_WORKING_AREA(musicWorkingArea, 128);
-static THD_FUNCTION(music_thd, arg) {
+static THD_FUNCTION(music, arg) {
 
 	(void) arg;
 
-	while (true) {
+	chosen_song = random_song();
 
+	while (!chThdShouldTerminateX()) {
 		wait_finish_playing();
 		set_recording(get_recording());
-		score += check_note_sequence(COME_AS_YOU_ARE);
-		score += check_note_order(COME_AS_YOU_ARE);
+		score += check_note_sequence(chosen_song);
+		score += check_note_order(chosen_song);
 		set_led(LED1, 0);
 		chBSemSignal(&sem_finished_music);
 		set_led(LED5, 0);
-		chThdSleepMilliseconds(1000);
+		chThdSleepMilliseconds(2000);
 	}
+	chThdExit(0);
 }
 
 
 /*
  * Public Functions
  */
-
 void music_init(void){
-    mic_start(&processAudioDataCmplx);
-	musicThd = chThdCreateStatic(musicWorkingArea, sizeof(musicWorkingArea),
+
+	chosen_song = random_song();
+	mic_start(&processAudioDataCmplx);
+    musicThd = chThdCreateStatic(musicWorkingArea, sizeof(musicWorkingArea),
 			NORMALPRIO, music, NULL);
 }
-
-// void init_music(void){
-// //    mic_start(&processAudioDataCmplx);
-//     playSoundFileStart();
-//     sdio_start();
-//     dac_start();
-
-//     while(!mountSDCard()){
-// 		set_body_led(1);
-// 		chThdSleepMilliseconds(200);
-// 		set_body_led(0);
-// 		chThdSleepMilliseconds(200);
-// 	}
-
-// //	chThdCreateStatic(musicWorkingArea, sizeof(musicWorkingArea),
-// //			NORMALPRIO, music_thd, NULL);
-// }
 
 void music_stop(void){
 	// TODO: Stop TIM9
@@ -248,17 +203,16 @@ void music_stop(void){
 	chThdTerminate(musicThd);
 }
 
-void play_song(jukebox index){
+void play_song(song_selection index){
 	setSoundFileVolume(30);
 	playSoundFile(songs[index].file_name, SF_FORCE_CHANGE);
-//	waitSoundFileHasFinished();
+//	waitSoundFileHasFinished();  --> blocks the motors, logical
 
 }
 
 void stop_song(void){
 	stopCurrentSoundFile();
 }
-
 
 void set_recording(uint8_t *data){
 	recording = data;
@@ -275,3 +229,9 @@ song_selection get_song(void){
 void wait_finish_music(void){
 	chBSemWait(&sem_finished_music);
 }
+
+uint8_t random_song(void){
+	return NEXT_EPISODE;
+}
+
+

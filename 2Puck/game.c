@@ -42,42 +42,35 @@ static THD_FUNCTION(game_thd, arg) {
 			case IDLE:
 				message = chSequentialStreamGet(&SD3);
 				if (message == 'w'){
-					set_body_led(1);
 					state++;
 				}
 				break;
 
 			case START_GAME:
 				music_init();
+				pathing_init();
 				song = get_song();
 				SendUint8ToComputer(&song, 1);
-				set_led(LED1, 1);
-
-//				pathing_set(DANCE);
 				wait_finish_music();
-				pathing_set(WAIT);
 				score1 = get_score();
 				SendUint8ToComputer(&score1, 1);
-				set_led(LED5,1);
-
-//				pathing_set(DANCE);
+				chThdSleepMilliseconds(2000);
 				wait_finish_music();
-				pathing_set(WAIT);
 				score2 = get_score();
 				SendUint8ToComputer(&score2, 1);
 				music_stop();
+				chThdSleepMilliseconds(10000);
 				state++;
 				break;
 
 			case GOTO_WINNER:
-				set_body_led(0);
+				play_song(NEXT_EPISODE);
 				pathing_set((score1 >= score2) ? PATH_TO_PLAYER1 : PATH_TO_PLAYER2);
 				pathing_wait_finish();
 				state++;
 				break;
 
 			case SEND_PHOTO:
-				set_body_led(0);
 				init_photo();
 				state++;
 				break;

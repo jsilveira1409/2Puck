@@ -18,10 +18,10 @@
 #define RESOLUTION  			(I2S_AUDIOFREQ_16K/2)/(FFT_SIZE/2)
 #define FREQ_INDEX_OFFSET 		(-2)
 #define NB_SAMPLES				160
-#define RECORDING_SIZE			20
+#define RECORDING_SIZE			2
 #define NB_MICS 				2
 #define MAX_VOLUME  			4000
-#define MIN_VOLUME 				3500
+#define MIN_VOLUME 				1500
 
 
 static BSEMAPHORE_DECL(sem_finished_playing, TRUE);
