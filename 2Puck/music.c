@@ -12,7 +12,7 @@
 #include <sdio.h>
 #include <fat.h>
 #include <audio/play_sound_file.h>
-
+#include <rng.h>
 
 #define NB_SONGS 						6
 #define COME_AS_YOU_ARE_SIZE			15
@@ -232,8 +232,12 @@ void wait_finish_music(void){
 uint8_t random_song(void){
 	/*
 	 * TODO implement the RNG
+	 *
 	 */
-	return NEXT_EPISODE;
+	rng_init();
+	chosen_song = (rng_get() % NB_SONGS);
+	rng_stop();
+	return chosen_song;
 }
 
 

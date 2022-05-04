@@ -45,7 +45,6 @@ class serial_thread(Thread):
         option = input("Enter option: \n")   
         if(option == 'n'):
             self.port.write(b'w')
-            self.rec_picture()
             self.send_start_game()
             chosen_song = self.rec_chose_song()
             print("chosen song",chosen_song)
