@@ -45,15 +45,14 @@ class serial_thread(Thread):
         if(option == 'n'):
             self.send_start_game()
             chosen_song = self.rec_chose_song()
+            print("chosen song",chosen_song)
             self.send_player1_play() 
             score1 = self.rec_score1()
-            self.send_player2_play()              
-            score2 = self.rec_score2()    
-            self.rec_picture()
-            
-            print("chosen song",chosen_song)
             print("score 1",score1)
-            print("score 2",score2)
+            self.send_player2_play()              
+            score2 = self.rec_score2()
+            print("score 2",score2)    
+            self.rec_picture()
             self.stop()
 
             
@@ -61,9 +60,7 @@ class serial_thread(Thread):
                                
     def send_start_game(self):
         print("Start Game")
-        self.port.write(b'START')     
-        self.port.write(struct.pack('B',1)) 
-        self.port.flush()      
+        self.port.write(b'w')
 
     def send_player1_play(self):
         print("Player 1 play")
@@ -80,7 +77,6 @@ class serial_thread(Thread):
     def rec_score1(self):
         data = []
         s1 = 0
-        print("Score 1")
         readUint8Serial(self.port, data)
         s1 = data [0][0]
         return s1
@@ -88,14 +84,12 @@ class serial_thread(Thread):
     def rec_score2(self):
         data = []
         s2 = 0
-        print("Score 2")
         readUint8Serial(self.port, data)
         s2 = data [0][0]
         return s2
 
     def rec_chose_song(self):
         data = []
-        print("Chosen Song")
         readUint8Serial(self.port, data)
         song = data [0][0]
         return song
