@@ -19,7 +19,7 @@
 #include <arm_math.h>
 #include <audio/audio_thread.h>
 #include <audio/play_sound_file.h>
-
+#include <sdio.h>
 #include <leds.h>
 #include <game.h>
 #include <fat.h>
@@ -61,13 +61,9 @@ int main(void)
 		chThdSleepMilliseconds(200);
 	}
     game_init();
-<<<<<<< HEAD
 
-
-    while (1) {
-=======
 	while (1) {
->>>>>>> dev
+
 	}
 }
 

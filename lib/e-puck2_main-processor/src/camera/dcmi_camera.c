@@ -243,3 +243,11 @@ msg_t dcmi_capture_stop(void) {
 
 /**************************END PUBLIC FUNCTIONS***********************************/
 
+/*
+ * CUSTOM Functions
+ *
+ */
+void free_buffers(){
+	free(image_buff1);
+	free(image_buff2);
+}

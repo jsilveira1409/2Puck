@@ -13,26 +13,21 @@
 
 #include <photo.h>
 
-
+static thread_t *ThdPtrPhoto = NULL;
 #define X_start					50
 #define	Y_start					0
-<<<<<<< HEAD
-#define PHOTO_WIDTH				340
+#define PHOTO_WIDTH				250
 #define PHOTO_HEIGHT			4
-=======
-#define PHOTO_WIDTH				450
-#define PHOTO_HEIGHT			2
->>>>>>> dev
 #define	BYTES_PER_PIXEL			2
 #define IMAGE_BUFFER_SIZE		(PHOTO_WIDTH*PHOTO_HEIGHT)	//Size in uint16
-#define	MAX_LINES_2_SEND		200
+#define	MAX_LINES_2_SEND		350
 
 //semaphore
 static BSEMAPHORE_DECL(line_ready_sem, TRUE);
 static BSEMAPHORE_DECL(photo_finished_sem, TRUE);
 
 //Threads
-static THD_WORKING_AREA(waTakePhoto, 512);
+static THD_WORKING_AREA(waPhoto, 512);
 static THD_FUNCTION(ThdPhoto, arg) {
 
     chRegSetThreadName(__FUNCTION__);
@@ -46,20 +41,15 @@ static THD_FUNCTION(ThdPhoto, arg) {
 
 
     while(!chThdShouldTerminateX()){
-    	uint8_t *img_buff_ptr;
-<<<<<<< HEAD
-
     	static uint8_t led = 0;
-		set_led(LED3,led);
-		if(led == 1) led = 0;
-		else led = 1;
+    	set_led(LED1, led);
+    	if(led == 0)led = 1;
+    	else led = 0;
+    	uint8_t *img_buff_ptr;
 
     	po8030_advanced_config(FORMAT_RGB565, X_start, (Y_start + line_cnt), PHOTO_WIDTH, PHOTO_HEIGHT,
     			SUBSAMPLING_X1, SUBSAMPLING_X1);
-=======
-    	po8030_advanced_config(FORMAT_RGB565, X_start, (Y_start + line_cnt),
-    				PHOTO_WIDTH, PHOTO_HEIGHT, SUBSAMPLING_X1, SUBSAMPLING_X1);
->>>>>>> dev
+
     	dcmi_prepare();
 
     	//starts a capture
@@ -86,17 +76,11 @@ static THD_FUNCTION(ThdPhoto, arg) {
 			/*
 			 * As each pixel has 2 bytes of color, total width becomes 2* PHOTO_WIDTH for the data we need to send
 			 */
-<<<<<<< HEAD
 			for(uint8_t i=0; i<PHOTO_HEIGHT;i++){
 				SendUint8ToComputer((img_buff_ptr + (2*i*PHOTO_WIDTH)), (2*PHOTO_WIDTH));
-//				SendUint8ToComputer((img_buff_ptr + 2*PHOTO_WIDTH), (2*PHOTO_WIDTH));
 			}
 		}else{
 			chBSemSignal(&photo_finished_sem);
-=======
-			SendUint8ToComputer(img_buff_ptr, (2*PHOTO_WIDTH));
-			SendUint8ToComputer((img_buff_ptr + 2*PHOTO_WIDTH), (2*PHOTO_WIDTH));
->>>>>>> dev
 		}
 
 		//signals an image has been captured
@@ -105,26 +89,16 @@ static THD_FUNCTION(ThdPhoto, arg) {
     chThdExit(0);
 }
 
-<<<<<<< HEAD
 void photo_init(void){
-	chThdCreateStatic(waTakePhoto, sizeof(waTakePhoto), NORMALPRIO, TakePhoto, NULL);
+	ThdPtrPhoto = chThdCreateStatic(waPhoto, sizeof(waPhoto), NORMALPRIO+2, ThdPhoto, NULL);
+}
+
+void photo_stop(void){
+	chThdTerminate(ThdPtrPhoto);
+	dcmi_capture_stop();
+	free_buffers();
 }
 
 void photo_wait_finish(void){
-=======
-void init_photo(void){
-	chThdCreateStatic(waTakePhoto, sizeof(waTakePhoto), NORMALPRIO + 2, ThdPhoto, NULL);
-}
-
-void stop_photo(void){
-	chThdTerminate(&ThdPhoto);
-	dcmi_capture_stop();
-	free(dcmi_get_first_buffer_ptr);
-	free(dcmi_get_second_buffer_ptr);
-
-}
-
-void wait_photo_finish(void){
->>>>>>> dev
 	chBSemWait(&photo_finished_sem);
 }

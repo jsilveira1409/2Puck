@@ -8,18 +8,8 @@ import serial
 from Function import*
 #import yagmail
 
-<<<<<<< HEAD
-x_subsampling = 1
-y_subsampling = 1
-width = 340
-=======
-
-width = 450
->>>>>>> dev
-height = 200
-
-#width = int(width/x_subsampling)
-#height = int(height/y_subsampling)
+width = 250
+height = 350
 
 size = width * height
 
@@ -53,26 +43,13 @@ class serial_thread(Thread):
         option = input("Enter option: \n")   
         
         if(option == 'n'):
-            self.port.write(b'w')
-<<<<<<< HEAD
-            self.rec_picture()
-            #self.send_start_game()
-            #chosen_song = self.rec_chose_song()
-            #print(chosen_song)
-            #self.send_player1_play() 
-            #score1 = self.rec_score1()
-            #self.send_player2_play()              
-            #score2 = self.rec_score2()    
-            
-            
+            self.port.write(b'w')         
             print("chosen song",chosen_song)
-=======
             self.send_start_game()
             chosen_song = self.rec_chose_song()
             print("chosen song",chosen_song)
             self.send_player1_play() 
             score1 = self.rec_score1()
->>>>>>> dev
             print("score 1",score1)
             self.send_player2_play()              
             score2 = self.rec_score2()
@@ -133,7 +110,8 @@ class serial_thread(Thread):
         while (line < height):
             if(readUint8Serial(self.port, data)):
                 line = line + 1
-                print(line)
+                if (line%50 == 0):
+                    print(line)
         print('done')
         im = []
         for x in data:            
@@ -164,6 +142,6 @@ def send_mail():
     )
             
 #reader_thd = serial_thread('/dev/cu.usbmodemEPUCK3')
-reader_thd = serial_thread('com12')
+reader_thd = serial_thread('com8')
 reader_thd.start()
 

@@ -230,10 +230,6 @@ void wait_finish_music(void){
 }
 
 uint8_t random_song(void){
-	/*
-	 * TODO implement the RNG
-	 *
-	 */
 	rng_init();
 	chosen_song = (rng_get() % NB_SONGS);
 	rng_stop();

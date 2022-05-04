@@ -142,4 +142,9 @@ void dcmi_capture_start(void);
 msg_t dcmi_capture_stop(void);
 
 
+/*
+ * To free the allocated memory of this library, in case we don't want to use the camera
+ * anymore
+ */
+void free_buffers(void );
 #endif /* DCMI_CAMERA_H */

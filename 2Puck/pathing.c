@@ -50,6 +50,10 @@
 #define CENTER_X				10
 #define CENTER_Y				10
 
+/*
+ * Thread pointer, so we can terminate it later
+ */
+static thread_t *ThdPtrPathing = NULL;
 static BSEMAPHORE_DECL(sem_finished_pathing, TRUE);
 
 enum {X_AXIS, Y_AXIS};
@@ -476,12 +480,12 @@ void pathing_init(){
 	arm_pid_init_f32(&angle_pid, 0);
 	arm_pid_init_f32(&wall_pid, 0);
 
-	(void) chThdCreateStatic(pathingWorkingArea, sizeof(pathingWorkingArea),
+	ThdPtrPathing = chThdCreateStatic(pathingWorkingArea, sizeof(pathingWorkingArea),
 	                           NORMALPRIO, ThdPathing, NULL);
 }
 
 void pathing_stop(){
-	chThdTerminate(ThdPathing);
+	chThdTerminate(ThdPtrPathing);
 }
 void pathing_set(pathing_option option){
 	current_option = option;
