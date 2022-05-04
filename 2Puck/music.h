@@ -25,6 +25,7 @@ typedef enum {
 void music_init(void);
 void music_stop(void);
 void play_song(uint8_t index);
+void stop_song(void);
 void set_recording(uint8_t *data);
 void wait_finish_music(void);
 int16_t get_score(void);

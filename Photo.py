@@ -8,10 +8,9 @@ import serial
 from Function import*
 #import yagmail
 
-x_subsampling = 2
-y_subsampling = 2
-width = 600
-height = 550
+
+width = 450
+height = 200
 
 
 size = width * height
@@ -32,7 +31,8 @@ class serial_thread(Thread):
         print('Connecting to port {}'.format(port))
 
         try:
-            self.port = serial.Serial(port, timeout=10, baudrate=115200)
+            #self.port = serial.Serial(port, timeout=None, baudrate=115200)
+            self.port = serial.Serial(port, timeout=None)
         except:
             print('Cannot connect to the e-puck2')
             sys.exit(0)
@@ -45,6 +45,7 @@ class serial_thread(Thread):
         option = input("Enter option: \n")   
         if(option == 'n'):
             self.port.write(b'w')
+            self.rec_picture()
             self.send_start_game()
             chosen_song = self.rec_chose_song()
             print("chosen song",chosen_song)
@@ -110,6 +111,7 @@ class serial_thread(Thread):
         while (line < height):
             if(readUint8Serial(self.port, data)):
                 line = line + 1
+                print(line)
         print('done')
         im = []
         for x in data:            

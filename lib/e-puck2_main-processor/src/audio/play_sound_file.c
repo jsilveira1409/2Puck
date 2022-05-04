@@ -214,7 +214,8 @@ static THD_FUNCTION(PlaySoundFileThd, arg) {
 void playSoundFileStart(void){
 
     //creates the thread
-    chThdCreateStatic(waPlaySoundFileThd, sizeof(waPlaySoundFileThd), NORMALPRIO+1, PlaySoundFileThd, NULL);
+chThdCreateStatic(waPlaySoundFileThd, sizeof(waPlaySoundFileThd), NORMALPRIO+1, PlaySoundFileThd, NULL);
+
 }
 
 void playSoundFile(char* pathToFile, playSoundFileOption_t option){

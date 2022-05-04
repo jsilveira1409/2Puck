@@ -190,7 +190,6 @@ static THD_FUNCTION(music, arg) {
  * Public Functions
  */
 void music_init(void){
-
 	chosen_song = random_song();
 	mic_start(&processAudioDataCmplx);
     musicThd = chThdCreateStatic(musicWorkingArea, sizeof(musicWorkingArea),
@@ -199,7 +198,7 @@ void music_init(void){
 
 void music_stop(void){
 	// TODO: Stop TIM9
-//	mp45dt02Shutdown();
+	mp45dt02Shutdown();
 	chThdTerminate(musicThd);
 }
 
@@ -231,6 +230,9 @@ void wait_finish_music(void){
 }
 
 uint8_t random_song(void){
+	/*
+	 * TODO implement the RNG
+	 */
 	return NEXT_EPISODE;
 }
 

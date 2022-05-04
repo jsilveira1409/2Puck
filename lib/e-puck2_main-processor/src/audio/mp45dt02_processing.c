@@ -436,7 +436,7 @@ void mp45dt02Shutdown(void)
 
     chThdTerminate(DataProcessingThd);
     chSemReset(&DataProcessingSem, 0);
-    chThdWait(DataProcessingThd);
+//    chThdWait(DataProcessingThd);
     DataProcessingThd = NULL;
 }
 

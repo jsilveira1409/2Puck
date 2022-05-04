@@ -19,9 +19,7 @@
 #include <communications.h>
 #include <arm_math.h>
 #include <audio/audio_thread.h>
-
-#include <pathing.h>
-#include <photo.h>
+#include <audio/play_sound_file.h>
 
 #include <leds.h>
 #include <game.h>
@@ -31,7 +29,7 @@
 static void serial_start(void)
 {
 	static SerialConfig ser_cfg = {
-	    115200,
+		115200,
 	    0,
 	    0,
 	    0,
@@ -49,9 +47,10 @@ int main(void)
     dcmi_start();
     po8030_start();
     spi_comm_start();
-	playSoundFileStart();
 	sdio_start();
 	dac_start();
+	playSoundFileStart();
+
 
 	/*
 	 * SD card init does not like being inside music_init
@@ -65,8 +64,7 @@ int main(void)
 	}
 
     game_init();
-
-    while (1) {
+	while (1) {
 	}
 }
 

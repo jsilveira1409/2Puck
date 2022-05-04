@@ -7,30 +7,32 @@
 #include <camera/po8030.h>
 #include <inttypes.h>
 #include <leds.h>
+#include <photo.h>
 
 #include "communications.h"
 
 #include <photo.h>
 
 
-#define X_start					20
+#define X_start					50
 #define	Y_start					0
-#define PHOTO_WIDTH				600
+#define PHOTO_WIDTH				450
 #define PHOTO_HEIGHT			2
 #define	BYTES_PER_PIXEL			2
 #define IMAGE_BUFFER_SIZE		(PHOTO_WIDTH*PHOTO_HEIGHT)	//Size in uint16
-#define	MAX_LINES_2_SEND		550
+#define	MAX_LINES_2_SEND		200
 
 //semaphore
 static BSEMAPHORE_DECL(line_ready_sem, TRUE);
+static BSEMAPHORE_DECL(photo_finished_sem, TRUE);
 
 //Threads
-static THD_WORKING_AREA(waTakePhoto, 256);
-static THD_FUNCTION(TakePhoto, arg) {
+static THD_WORKING_AREA(waTakePhoto, 512);
+static THD_FUNCTION(ThdPhoto, arg) {
 
     chRegSetThreadName(__FUNCTION__);
     (void)arg;
-    static uint16_t line_cnt = 1;
+    static uint16_t line_cnt = 0;
     static uint8_t send = 1;
 
 
@@ -38,21 +40,13 @@ static THD_FUNCTION(TakePhoto, arg) {
 	dcmi_set_capture_mode(CAPTURE_ONE_SHOT);
 
 
-    while(1){
+    while(!chThdShouldTerminateX()){
     	uint8_t *img_buff_ptr;
-
-    	static uint8_t led = 0;
-		set_led(LED3,led);
-		if(led == 1) led = 0;
-		else led = 1;
-
-    	po8030_advanced_config(FORMAT_RGB565, X_start, (Y_start + line_cnt), PHOTO_WIDTH, PHOTO_HEIGHT, SUBSAMPLING_X1, SUBSAMPLING_X1);
+    	po8030_advanced_config(FORMAT_RGB565, X_start, (Y_start + line_cnt),
+    				PHOTO_WIDTH, PHOTO_HEIGHT, SUBSAMPLING_X1, SUBSAMPLING_X1);
     	dcmi_prepare();
 
-
-
-        //starts a capture
-
+    	//starts a capture
 		dcmi_capture_start();
 		//waits for the capture to be done
 		wait_image_ready();
@@ -68,6 +62,7 @@ static THD_FUNCTION(TakePhoto, arg) {
 			 * Finished sending the picture
 			 */
 			send = 0;
+			chBSemSignal(&photo_finished_sem);
 		}
 		if(send == 1){
 			img_buff_ptr = dcmi_get_last_image_ptr();
@@ -75,15 +70,27 @@ static THD_FUNCTION(TakePhoto, arg) {
 			 * As each pixel has 2 bytes of color, total width becomes 2* PHOTO_WIDTH for the data we need to send
 			 */
 			SendUint8ToComputer(img_buff_ptr, (2*PHOTO_WIDTH));
-			SendUint8ToComputer((img_buff_ptr+ 2*PHOTO_WIDTH), (2*PHOTO_WIDTH));
+			SendUint8ToComputer((img_buff_ptr + 2*PHOTO_WIDTH), (2*PHOTO_WIDTH));
 		}
 
 		//signals an image has been captured
 		chBSemSignal(&line_ready_sem);
     }
+    chThdExit(0);
 }
 
 void init_photo(void){
-	chThdCreateStatic(waTakePhoto, sizeof(waTakePhoto), NORMALPRIO+2, TakePhoto, NULL);
+	chThdCreateStatic(waTakePhoto, sizeof(waTakePhoto), NORMALPRIO + 2, ThdPhoto, NULL);
 }
 
+void stop_photo(void){
+	chThdTerminate(&ThdPhoto);
+	dcmi_capture_stop();
+	free(dcmi_get_first_buffer_ptr);
+	free(dcmi_get_second_buffer_ptr);
+
+}
+
+void wait_photo_finish(void){
+	chBSemWait(&photo_finished_sem);
+}
