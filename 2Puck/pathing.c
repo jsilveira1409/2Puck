@@ -424,10 +424,10 @@ static THD_FUNCTION(ThdPathing, arg) {
 
 	update_orientation(1,0);
 
-	while (true) {
+	while (!chThdShouldTerminateX()) {
 		switch (current_option){
 			case WAIT:
-				chThdSleepMilliseconds(200);
+				chThdSleepMilliseconds(1000);
 				break;
 			case DANCE:
 				dance();
@@ -446,6 +446,7 @@ static THD_FUNCTION(ThdPathing, arg) {
 				break;
 		};
 	}
+	chThdExit(0);
 }
 
 
@@ -479,6 +480,9 @@ void pathing_init(){
 	                           NORMALPRIO, ThdPathing, NULL);
 }
 
+void pathing_stop(){
+	chThdTerminate(ThdPathing);
+}
 void pathing_set(pathing_option option){
 	current_option = option;
 }

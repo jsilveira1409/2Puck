@@ -12,7 +12,7 @@
 #include <sdio.h>
 #include <fat.h>
 #include <audio/play_sound_file.h>
-
+#include <rng.h>
 
 #define NB_SONGS 						6
 #define COME_AS_YOU_ARE_SIZE			15
@@ -190,7 +190,6 @@ static THD_FUNCTION(music, arg) {
  * Public Functions
  */
 void music_init(void){
-
 	chosen_song = random_song();
 	mic_start(&processAudioDataCmplx);
     musicThd = chThdCreateStatic(musicWorkingArea, sizeof(musicWorkingArea),
@@ -199,7 +198,7 @@ void music_init(void){
 
 void music_stop(void){
 	// TODO: Stop TIM9
-//	mp45dt02Shutdown();
+	mp45dt02Shutdown();
 	chThdTerminate(musicThd);
 }
 
@@ -231,7 +230,14 @@ void wait_finish_music(void){
 }
 
 uint8_t random_song(void){
-	return NEXT_EPISODE;
+	/*
+	 * TODO implement the RNG
+	 *
+	 */
+	rng_init();
+	chosen_song = (rng_get() % NB_SONGS);
+	rng_stop();
+	return chosen_song;
 }
 
 

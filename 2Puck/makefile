@@ -16,7 +16,8 @@ CSRC += main.c \
 		music.c \
 		pathing.c \
 		photo.c \
-		game.c
+		game.c \
+		rng.c
 		
 #Header folders to include
 INCDIR += 

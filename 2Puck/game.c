@@ -6,6 +6,8 @@
  *  		 Joaquim Silveira
  */
 
+//Comment this line to not play the songs
+//#define PLAY_SONGS
 #include <ch.h>
 #include <hal.h>
 #include <leds.h>
@@ -67,10 +69,19 @@ static THD_FUNCTION(game_thd, arg) {
 				break;
 
 			case GOTO_WINNER:
+#ifdef	PLAY_SONGS
 				play_song(NEXT_EPISODE);
+#endif
 				pathing_set((score1 >= score2) ? PATH_TO_PLAYER1 : PATH_TO_PLAYER2);
 				pathing_wait_finish();
+<<<<<<< HEAD
 
+=======
+				pathing_stop();
+#ifdef PLAY_SONGS
+				stop_song();
+#endif
+>>>>>>> dev
 				state++;
 				break;
 
@@ -84,7 +95,7 @@ static THD_FUNCTION(game_thd, arg) {
 				state = IDLE;
 				break;
 		}
-		chThdSleepMilliseconds(300);
+//		chThdSleepMilliseconds(300);
 	}
 }
 
