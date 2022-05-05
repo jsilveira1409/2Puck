@@ -12,8 +12,9 @@
 #include <audio_processing.h>
 
 /*Uncomment to print the notes recorded*/
-//#define DEBUGGING
+#define DEBUGGING
 
+#define MAX_ACCEPTABLE_ERROR	8
 #define RESOLUTION  			(I2S_AUDIOFREQ_16K/2)/(FFT_SIZE/2)
 #define FREQ_INDEX_OFFSET 		(-2)
 #define NB_SAMPLES				160
@@ -104,8 +105,10 @@ static void check_smallest_error(uint32_t *max_index){
 		curr_error = abs(freq - (float)note_frequency[i]);
 		if(curr_error < smallest_error){
 			smallest_error = curr_error;
-			discret_freq = note_frequency[i];
-			*max_index = i;
+			if(smallest_error < MAX_ACCEPTABLE_ERROR){
+				discret_freq = note_frequency[i];
+				*max_index = i;
+			}
 		}
 	}
 }
@@ -234,7 +237,7 @@ void processAudioDataCmplx(int16_t *data, uint16_t num_samples){
 		if(register_note == 1){
 			doCmplxFFT_optimized(FFT_SIZE, micLeft_cmplx_input);
 			arm_cmplx_mag_f32(micLeft_cmplx_input, micLeft_output, FFT_SIZE);
-			fundamental_frequency(micLeft_output, 4);
+			fundamental_frequency(micLeft_output, 3);
 			frequency_to_note(micLeft_output);
 			register_note = 0;
 		}

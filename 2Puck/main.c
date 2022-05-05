@@ -65,8 +65,8 @@ int main(void)
 		chThdSleepMilliseconds(200);
 	}
 
-//	lightshow_init();
-    game_init();
+	music_init();
+//    game_init();
 
 	while (1) {
 
