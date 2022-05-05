@@ -1,5 +1,16 @@
 import struct
 
+#Song Dictionnary
+songs = [
+    "Come as you are - Nirvana",
+    "Miss you Rolling Stones",
+    "The Man Who Sold the World - Nirvana",
+    "Seven nation army - Whitesnakes",
+    "Next Episode - Dr Dre",
+]
+
+
+
 def readSyncMsg(port):
     state = 0
     while(state != 5):

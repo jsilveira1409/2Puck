@@ -67,7 +67,7 @@ static THD_FUNCTION(bodyled_thd, arg) {
 
 void lightshow_init(void){
 //	chThdCreateStatic(lightshowWA, sizeof(lightshowWA), NORMALPRIO, lightshow_thd, NULL);
-	chThdCreateStatic(redledsWA, sizeof(redledsWA), NORMALPRIO, redleds_thd, NULL);
+//	chThdCreateStatic(redledsWA, sizeof(redledsWA), NORMALPRIO, redleds_thd, NULL);
 	chThdCreateStatic(bodyledWA, sizeof(bodyledWA), NORMALPRIO, bodyled_thd, NULL);
 }
 

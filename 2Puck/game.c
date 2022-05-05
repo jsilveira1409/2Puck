@@ -57,12 +57,18 @@ static THD_FUNCTION(game_thd, arg) {
 				wait_finish_music();
 				score1 = get_score();
 				SendUint8ToComputer(&score1, 1);
+				set_body_led(1);
+				set_led(LED1, 1);
 				chThdSleepMilliseconds(2000);
+				set_led(LED1, 0);
+				set_body_led(0);
 				wait_finish_music();
 				score2 = get_score();
 				SendUint8ToComputer(&score2, 1);
 				music_stop();
+				set_body_led(1);
 				chThdSleepMilliseconds(2000);
+				set_body_led(0);
 				state++;
 				break;
 

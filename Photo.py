@@ -16,6 +16,7 @@ size = width * height
 score1 = 0
 score2 = 0
 
+
 #thread used to control the communication part
 class serial_thread(Thread):
 
@@ -44,10 +45,10 @@ class serial_thread(Thread):
         
         if(option == 'n'):
             self.port.write(b'w')         
-            print("chosen song",chosen_song)
             self.send_start_game()
             chosen_song = self.rec_chose_song()
-            print("chosen song",chosen_song)
+            time.sleep(1)
+            print(chosen_song, songs[chosen_song])
             self.send_player1_play() 
             score1 = self.rec_score1()
             print("score 1",score1)
@@ -142,6 +143,6 @@ def send_mail():
     )
             
 #reader_thd = serial_thread('/dev/cu.usbmodemEPUCK3')
-reader_thd = serial_thread('com8')
+reader_thd = serial_thread('com3')
 reader_thd.start()
 

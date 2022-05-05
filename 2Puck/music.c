@@ -41,7 +41,8 @@ static uint8_t melody_COME_AS_YOU_ARE [COME_AS_YOU_ARE_SIZE] = {
  */
 static uint8_t melody_MISS_YOU [MISS_YOU_SIZE] = {
 	D1,	E1, G2,	A2, E1, D1,	E1,
-	D1,	E1, G2,	A2, E1, D1,	E1,	D1,	E1,	A2,	E1
+	D1,	E1, G2,	A2, E1, D1,	E1,
+	D1,	E1,	A2,	E1
 };
 
 /*
@@ -167,11 +168,11 @@ static float calculate_score(song_selection song_index){
 	volatile float percentage = 0;
 
 	total_score = check_note_sequence(song_index) + check_note_order(song_index);
-	percentage = 100*((float)total_score/(float)(songs[song_index].melody_size*2));
-	if(percentage < 0){
-		percentage = 0;
-	}
-	return percentage;
+//	percentage = 100*((float)total_score/(float)(songs[song_index].melody_size*2));
+//	if(percentage < 0){
+//		percentage = 0;
+//	}
+	return total_score;
 }
 /*
  * THREADS
@@ -189,7 +190,6 @@ static THD_FUNCTION(music, arg) {
 		score = 0;
 		wait_finish_playing();
 		set_recording(get_recording());
-//		set_recording(data);
 		score = calculate_score(chosen_song);
 		chBSemSignal(&sem_finished_music);
 		chThdSleepMilliseconds(500);
@@ -234,7 +234,10 @@ int16_t get_score(void){
 }
 
 song_selection get_song(void){
-	return 5;
+	rng_init();
+	uint32_t random_val = (rng_get() % NB_SONGS);
+	rng_stop();
+	return random_val;
 }
 
 void wait_finish_music(void){

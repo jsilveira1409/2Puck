@@ -18,7 +18,6 @@
 #include "hal.h"
 #include <main.h>
 #include <usbcfg.h>
-#include <chprintf.h>
 
 #include <pathing.h>
 #include <sensors/proximity.h>
