@@ -8,7 +8,6 @@
 #include <audio/audio_thread.h>
 #include <audio_processing.h>
 #include <audio/microphone.h>
-#include <leds.h>
 #include <sdio.h>
 #include <fat.h>
 #include <audio/play_sound_file.h>

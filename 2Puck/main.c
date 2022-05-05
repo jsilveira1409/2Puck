@@ -20,9 +20,11 @@
 #include <audio/audio_thread.h>
 #include <audio/play_sound_file.h>
 #include <sdio.h>
-#include <leds.h>
 #include <game.h>
 #include <fat.h>
+#include <leds.h>
+
+#include <lightshow.h>
 
 static void serial_start(void)
 {
@@ -36,6 +38,8 @@ static void serial_start(void)
 	sdStart(&SD3, &ser_cfg); // UART3.
 }
 
+
+
 int main(void)
 {
     halInit();
@@ -44,7 +48,7 @@ int main(void)
     serial_start();
     dcmi_start();
     po8030_start();
-    spi_comm_start();
+
 	sdio_start();
 	dac_start();
 	playSoundFileStart();
@@ -60,6 +64,8 @@ int main(void)
 		set_body_led(0);
 		chThdSleepMilliseconds(200);
 	}
+
+//	lightshow_init();
     game_init();
 
 	while (1) {
