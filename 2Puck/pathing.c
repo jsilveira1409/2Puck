@@ -24,7 +24,6 @@
 #include <sensors/proximity.h>
 #include <motors.h>
 #include <arm_math.h>
-#include <leds.h>
 #include "audio_processing.h"
 #include "music.h"
 
@@ -273,7 +272,6 @@ static ir_dir check_irs(float* ir_max_val){
  */
 
 static void update_path(float cos_alpha, float sin_alpha){
-	set_led(LED1, 1);
 	arm_pid_reset_f32(&wall_pid);
 	volatile float move_l = 0, move_r = 0;
 	volatile float error_sin = -sin_alpha;
@@ -291,7 +289,6 @@ static void update_path(float cos_alpha, float sin_alpha){
 		move_r = MAX_MOTOR_DISPLACEMENT;
 	}
 	move(move_l, move_r);
-	set_led(LED1, 0);
 	return;
 }
 
@@ -300,17 +297,14 @@ static void wall_follow(ir_dir ir,volatile float ir_val){
 	volatile float move_l = 0, move_r = 0;
 	error = arm_pid_f32(&wall_pid, error);
 	if(ir == ir_hard_left){
-		set_led(LED7, 1);
 		move_l = MIN_STEPS - error;
 		move_r = MIN_STEPS + error;
 	}else if(ir == ir_hard_right){
-		set_led(LED3, 1);
 		move_l = MIN_STEPS + error;
 		move_r = MIN_STEPS - error;
 	}
 	move(move_l, move_r);
-	set_led(LED7, 0);
-	set_led(LED3, 0);
+
 }
 
 

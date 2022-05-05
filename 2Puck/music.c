@@ -8,7 +8,6 @@
 #include <audio/audio_thread.h>
 #include <audio_processing.h>
 #include <audio/microphone.h>
-#include <leds.h>
 #include <sdio.h>
 #include <fat.h>
 #include <audio/play_sound_file.h>
@@ -177,9 +176,7 @@ static THD_FUNCTION(music, arg) {
 		set_recording(get_recording());
 		score += check_note_sequence(chosen_song);
 		score += check_note_order(chosen_song);
-		set_led(LED1, 0);
 		chBSemSignal(&sem_finished_music);
-		set_led(LED5, 0);
 		chThdSleepMilliseconds(2000);
 	}
 	chThdExit(0);

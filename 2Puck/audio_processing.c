@@ -10,7 +10,6 @@
 #include <fft.h>
 #include <arm_math.h>
 #include <audio_processing.h>
-#include <leds.h>
 
 /*Uncomment to print the notes recorded*/
 //#define DEBUGGING
@@ -162,19 +161,12 @@ uint8_t note_volume(int16_t *data, uint16_t num_samples){
  * scoring of the recording in music.c
  */
 static void record_note(const uint8_t note_index){
-	static uint8_t led = 0;
-	set_led(LED7,led);
-
-	if(led == 1)
-		led = 0;
-	else
-		led = 1;
-
-	played_note[current_index] = note_index;
+		played_note[current_index] = note_index;
 	/*
 	 * Signals pathing.c that it can dance once
 	 */
 	chBSemSignal(&sem_note_played);
+
 	if(current_index < RECORDING_SIZE){
 		current_index ++;
 	}else{
@@ -254,7 +246,6 @@ void processAudioDataCmplx(int16_t *data, uint16_t num_samples){
 /*
  * Public Functions
  */
-
 uint8_t* get_recording(void){
 	return played_note;
 }

@@ -7,7 +7,7 @@
  */
 
 //Comment this line to not play the songs
-#define PLAY_SONGS
+//#define PLAY_SONGS
 #include <ch.h>
 #include <hal.h>
 #include <leds.h>
@@ -51,6 +51,7 @@ static THD_FUNCTION(game_thd, arg) {
 			case START_GAME:
 				music_init();
 				pathing_init();
+				lightshow_init();
 				song = get_song();
 				SendUint8ToComputer(&song, 1);
 				wait_finish_music();
@@ -82,6 +83,7 @@ static THD_FUNCTION(game_thd, arg) {
 				photo_init();
 				photo_wait_finish();
 				photo_stop();
+				chThdSleepMilliseconds(10000);
 				state++;
 				break;
 

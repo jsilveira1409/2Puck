@@ -6,7 +6,6 @@
 #include <main.h>
 #include <camera/po8030.h>
 #include <inttypes.h>
-#include <leds.h>
 #include <photo.h>
 
 #include "communications.h"
@@ -41,10 +40,6 @@ static THD_FUNCTION(ThdPhoto, arg) {
 
 
     while(!chThdShouldTerminateX()){
-    	static uint8_t led = 0;
-    	set_led(LED1, led);
-    	if(led == 0)led = 1;
-    	else led = 0;
     	uint8_t *img_buff_ptr;
 
     	po8030_advanced_config(FORMAT_RGB565, X_start, (Y_start + line_cnt), PHOTO_WIDTH, PHOTO_HEIGHT,
