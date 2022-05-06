@@ -7,7 +7,7 @@
  */
 
 //Comment this line to not play the songs
-//#define PLAY_SONGS
+#define PLAY_SONGS
 #include <ch.h>
 #include <hal.h>
 #include <leds.h>
@@ -16,6 +16,7 @@
 #include "communications.h"
 #include "music.h"
 #include "pathing.h"
+#include "lightshow.h"
 
 
 typedef enum {
@@ -76,6 +77,7 @@ static THD_FUNCTION(game_thd, arg) {
 #ifdef	PLAY_SONGS
 				play_song(NEXT_EPISODE);
 #endif
+				chThdSleepMilliseconds(5000);
 				pathing_set((score1 >= score2) ? PATH_TO_PLAYER1 : PATH_TO_PLAYER2);
 				pathing_wait_finish();
 				pathing_stop();

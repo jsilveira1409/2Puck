@@ -15,11 +15,10 @@
 
 #define DEBUG_SCORING_ALGO
 
-#define NB_SONGS 						6
+#define NB_SONGS 						5
 #define COME_AS_YOU_ARE_SIZE			15
 #define MISS_YOU_SIZE					18
 #define SOLD_THE_WORLD_SIZE				17
-#define KILLING_IN_THE_NAME_OF_SIZE		20
 #define SEVEN_NATION_SIZE				16
 #define NEXT_EPISODE_SIZE				12
 
@@ -43,14 +42,6 @@ static uint8_t melody_MISS_YOU [MISS_YOU_SIZE] = {
 	D1,	E1, G2,	A2, E1, D1,	E1,
 	D1,	E1, G2,	A2, E1, D1,	E1,
 	D1,	E1,	A2,	E1
-};
-
-/*
- * Killing in the Name of - RATM
- */
-static uint8_t melody_KILLING_IN_THE_NAME_OF [KILLING_IN_THE_NAME_OF_SIZE] = {
-	E1,	C2,	D2, F2, FS2, D2, E1, FS1, G1, FS1,
-	E1,	C2,	D2, F2, FS2, D2, E1, FS1, G1, FS1
 };
 
 /*
@@ -91,7 +82,6 @@ struct song{
 }songs[NB_SONGS] = {
 		{melody_COME_AS_YOU_ARE,			COME_AS_YOU_ARE_SIZE,			"asyouare.wav"},
 		{melody_MISS_YOU,					MISS_YOU_SIZE		,			"missyou.wav"},
-		{melody_KILLING_IN_THE_NAME_OF, 	KILLING_IN_THE_NAME_OF_SIZE,	"killingin.wav"},
 		{melody_SOLD_THE_WORLD, 			SOLD_THE_WORLD_SIZE,			"soldtheworld.wav"},
 		{melody_SEVEN_NATION_ARMY,			SEVEN_NATION_SIZE,				"sevennation.wav"},
 		{melody_NEXT_EPISODE,				NEXT_EPISODE_SIZE,				"nextepisode.wav"}
@@ -117,9 +107,9 @@ static void shift_to_correct_note(song_selection song_index, uint32_t starting_i
  * be played ?
  */
 static int16_t check_note_sequence(song_selection song_index){
-	volatile int16_t points = 0;
-	volatile uint16_t correct_index = 0;
-	volatile uint16_t note_index = 0;
+	int16_t points = 0;
+	uint16_t correct_index = 0;
+	uint16_t note_index = 0;
 	/*
 	 * First we find the first correct note on the recording,
 	 * which will be our starting index for the melody-recording
@@ -165,13 +155,8 @@ static int16_t check_note_order(song_selection song_index){
 
 static float calculate_score(song_selection song_index){
 	volatile float total_score = 0;
-	volatile float percentage = 0;
 
 	total_score = check_note_sequence(song_index) + check_note_order(song_index);
-//	percentage = 100*((float)total_score/(float)(songs[song_index].melody_size*2));
-//	if(percentage < 0){
-//		percentage = 0;
-//	}
 	return total_score;
 }
 /*
@@ -182,9 +167,6 @@ static THD_WORKING_AREA(musicWorkingArea, 128);
 static THD_FUNCTION(music, arg) {
 
 	(void) arg;
-
-	chosen_song = random_song();
-	volatile uint8_t data [15] = {E1,	E1,	F1,	FS1, A2, FS1, A2, FS1, FS1, F1, E1, B2,	E1, E1, B2};
 
 	while (!chThdShouldTerminateX()) {
 		score = 0;
@@ -202,7 +184,7 @@ static THD_FUNCTION(music, arg) {
  * Public Functions
  */
 void music_init(void){
-	chosen_song = random_song();
+	chosen_song = get_song();
 	mic_start(&processAudioDataCmplx);
     musicThd = chThdCreateStatic(musicWorkingArea, sizeof(musicWorkingArea),
 			NORMALPRIO, music, NULL);
@@ -215,7 +197,7 @@ void music_stop(void){
 }
 
 void play_song(song_selection index){
-	setSoundFileVolume(20);
+	setSoundFileVolume(50);
 	playSoundFile(songs[index].file_name, SF_FORCE_CHANGE);
 //	waitSoundFileHasFinished();  --> blocks the motors, logical
 
@@ -244,11 +226,5 @@ void wait_finish_music(void){
 	chBSemWait(&sem_finished_music);
 }
 
-uint8_t random_song(void){
-	rng_init();
-	chosen_song = (rng_get() % NB_SONGS);
-	rng_stop();
-	return chosen_song;
-}
 
 

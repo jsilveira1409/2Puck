@@ -68,6 +68,7 @@ int main(void)
 //	lightshow_init();
     game_init();
 
+
 	while (1) {
 
 	}
