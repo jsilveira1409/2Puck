@@ -361,52 +361,6 @@ static void move_to_target(int16_t x_coord, int16_t y_coord){
 }
 
 static void dance(void){
-	uint8_t note = 0;
-//	wait_note_played();
-	note = get_current_last_note();
-	move(40,40);
-
-//	switch(note){
-//		case A1:
-//			move(10,45);
-//			break;
-//		case AS1:
-//			move(40,-20);
-//			break;
-//		case B1:
-//			move(10,-20);
-//			break;
-//		case C1:
-//			move(17,-60);
-//			break;
-//		case CS1:
-//			move(15,15);
-//			break;
-//		case D1:
-//			move(20,-20);
-//			break;
-//		case DS1:
-//			move(-20,-20);
-//			break;
-//		case E1:
-//			move(30,-1);
-//			break;
-//		case F1:
-//			move(-7,2);
-//			break;
-//		case FS1:
-//			move(8,-32);
-//			break;
-//		case G1:
-//			move(9,5);
-//			break;
-//		case GS1:
-//			move(2,12);
-//			break;
-//		default:
-//			move(10,15);
-//			break;
-//	};
 	return;
 }
 

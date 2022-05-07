@@ -17,7 +17,7 @@
 #define RESOLUTION  			(I2S_AUDIOFREQ_16K/2)/(FFT_SIZE/2)
 #define FREQ_INDEX_OFFSET 		(-2)
 #define NB_SAMPLES				160
-#define RECORDING_SIZE			20
+#define RECORDING_SIZE			2
 #define NB_MICS 				2
 #define MAX_VOLUME  			1200
 #define MIN_VOLUME 				1000
@@ -43,6 +43,7 @@ static uint16_t discret_freq = 0;
 /*
  * Prints the discrete note, used for debugging
  */
+#ifdef	DEBUGGING
  static void find_note (int16_t index){
 	switch (index){
 		case 0:
@@ -86,6 +87,7 @@ static uint16_t discret_freq = 0;
 			break;
 	}
 }
+#endif
 
 /*
  * Finds the smallest error between the FFT data
