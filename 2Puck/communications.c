@@ -29,8 +29,8 @@ void SendUint8ToComputer(uint8_t* data, uint16_t size)
 */
 uint16_t ReceiveInt16FromComputer(BaseSequentialStream* in, float* data, uint16_t size){
 
-	volatile uint8_t c1, c2;
-	volatile uint16_t temp_size = 0;
+	 uint8_t c1, c2;
+	 uint16_t temp_size = 0;
 	uint16_t i=0;
 
 	uint8_t state = 0;
@@ -103,8 +103,8 @@ uint16_t ReceiveInt16FromComputer(BaseSequentialStream* in, float* data, uint16_
 
 uint16_t ReceiveModeFromComputer(BaseSequentialStream* in, uint8_t* data){
 
-	volatile uint8_t c1;
-	volatile uint16_t temp_size = 0;
+	 uint8_t c1;
+	 uint16_t temp_size = 0;
 
 	uint8_t state = 0;
 	while(state != 5){

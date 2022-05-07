@@ -117,9 +117,9 @@ static void shift_to_correct_note(song_selection song_index, uint32_t starting_i
  * be played ?
  */
 static int16_t check_note_sequence(song_selection song_index){
-	volatile int16_t points = 0;
-	volatile uint16_t correct_index = 0;
-	volatile uint16_t note_index = 0;
+	 int16_t points = 0;
+	 uint16_t correct_index = 0;
+	 uint16_t note_index = 0;
 	/*
 	 * First we find the first correct note on the recording,
 	 * which will be our starting index for the melody-recording
@@ -146,8 +146,8 @@ static int16_t check_note_sequence(song_selection song_index){
  * if there is a wrong note in between?
  */
 static int16_t check_note_order(song_selection song_index){
-	volatile int16_t points = 0;
-	volatile uint16_t shift = 0;
+	 int16_t points = 0;
+	 uint16_t shift = 0;
 
 	for(uint16_t i = 0; i < songs[song_index].melody_size; i++){
 		for(uint16_t j = i+shift; j < songs[song_index].melody_size; j++){
@@ -164,8 +164,8 @@ static int16_t check_note_order(song_selection song_index){
 }
 
 static float calculate_score(song_selection song_index){
-	volatile float total_score = 0;
-	volatile float percentage = 0;
+	 float total_score = 0;
+	 float percentage = 0;
 
 	total_score = check_note_sequence(song_index) + check_note_order(song_index);
 //	percentage = 100*((float)total_score/(float)(songs[song_index].melody_size*2));
@@ -184,7 +184,7 @@ static THD_FUNCTION(music, arg) {
 	(void) arg;
 
 	chosen_song = random_song();
-	volatile uint8_t data [15] = {E1,	E1,	F1,	FS1, A2, FS1, A2, FS1, FS1, F1, E1, B2,	E1, E1, B2};
+	 uint8_t data [15] = {E1,	E1,	F1,	FS1, A2, FS1, A2, FS1, FS1, F1, E1, B2,	E1, E1, B2};
 
 	while (!chThdShouldTerminateX()) {
 		score = 0;

@@ -100,7 +100,7 @@ static void end_cb(DACDriver *dacp, const dacsample_t *buffer, size_t n) {
  */
 uint8_t playWAVFile(char *pathToFile){
     FIL file;   /* file object */
-    volatile FRESULT err;
+    FRESULT err;
 
     UINT bytesRead = 0;
     uint8_t first_time = 1;

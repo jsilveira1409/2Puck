@@ -187,8 +187,8 @@ static void move (float left_pos, float right_pos){
 	float right_steps = right_pos * NSTEP_ONE_TURN / (WHEEL_PERIMETER);
 	float left_steps = left_pos * NSTEP_ONE_TURN / (WHEEL_PERIMETER);
 
-	volatile float output_right = 0;
-	volatile float output_left = 0;
+	 float output_right = 0;
+	 float output_left = 0;
 
 	float error_right = 0;
 	float error_left  = 0;
@@ -272,9 +272,9 @@ static ir_dir check_irs(float* ir_max_val){
 
 static void update_path(float cos_alpha, float sin_alpha){
 	arm_pid_reset_f32(&wall_pid);
-	volatile float move_l = 0, move_r = 0;
-	volatile float error_sin = -sin_alpha;
-	volatile float error_cos  = 1 - cos_alpha;
+	 float move_l = 0, move_r = 0;
+	 float error_sin = -sin_alpha;
+	 float error_cos  = 1 - cos_alpha;
 
 	error_sin = arm_pid_f32(&angle_pid, error_sin);
 	error_cos = arm_pid_f32(&angle_pid, error_cos);
@@ -291,9 +291,9 @@ static void update_path(float cos_alpha, float sin_alpha){
 	return;
 }
 
-static void wall_follow(ir_dir ir,volatile float ir_val){
-	volatile float error = MIN_WALL_DIST - ir_val;
-	volatile float move_l = 0, move_r = 0;
+static void wall_follow(ir_dir ir, float ir_val){
+	 float error = MIN_WALL_DIST - ir_val;
+	 float move_l = 0, move_r = 0;
 	error = arm_pid_f32(&wall_pid, error);
 	if(ir == ir_hard_left){
 		move_l = MIN_STEPS - error;
