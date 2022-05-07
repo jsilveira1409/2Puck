@@ -206,6 +206,7 @@ void music_init(void){
 	mic_start(&processAudioDataCmplx);
     musicThd = chThdCreateStatic(musicWorkingArea, sizeof(musicWorkingArea),
 			NORMALPRIO, music, NULL);
+    dac_start();
 }
 
 void music_stop(void){

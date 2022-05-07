@@ -1,30 +1,14 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-
-#include "ch.h"
-#include "hal.h"
-#include "memory_protection.h"
-#include <usbcfg.h>
-#include <main.h>
-#include <chprintf.h>
-#include <motors.h>
-#include <audio/microphone.h>
-#include <audio/audio_thread.h>
-#include <music.h>
-#include <spi_comm.h>
-#include <audio_processing.h>
-#include <fft.h>
-#include <communications.h>
-#include <arm_math.h>
-#include <audio/audio_thread.h>
+#include <ch.h>
+#include <hal.h>
+#include <memory_protection.h>
 #include <audio/play_sound_file.h>
 #include <sdio.h>
-#include <game.h>
 #include <fat.h>
 #include <leds.h>
+#include "main.h"
+#include "game.h"
+#include "lightshow.h"
 
-#include <lightshow.h>
 
 static void serial_start(void)
 {
@@ -46,11 +30,8 @@ int main(void)
     chSysInit();
     mpu_init();
     serial_start();
-    dcmi_start();
-    po8030_start();
 
 	sdio_start();
-	dac_start();
 	playSoundFileStart();
 
 
@@ -69,7 +50,8 @@ int main(void)
     game_init();
 
 	while (1) {
-
+		;
+		//TODO: EXIT() ?
 	}
 }
 
