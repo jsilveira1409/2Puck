@@ -91,7 +91,7 @@ void photo_init(void){
 void photo_stop(void){
 	chThdTerminate(ThdPtrPhoto);
 	dcmi_capture_stop();
-	free_buffers();
+	dcmi_free_buffers();
 }
 
 void photo_wait_finish(void){
