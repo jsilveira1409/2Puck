@@ -155,7 +155,6 @@ static int16_t check_note_order(song_selection song_index){
 
 static float calculate_score(song_selection song_index){
 	 float total_score = 0;
-	 float percentage = 0;
 
 	total_score = check_note_sequence(song_index) + check_note_order(song_index);
 	return total_score;
@@ -169,8 +168,7 @@ static THD_FUNCTION(music, arg) {
 
 	(void) arg;
 
-	chosen_song = random_song();
-	 uint8_t data [15] = {E1,	E1,	F1,	FS1, A2, FS1, A2, FS1, FS1, F1, E1, B2,	E1, E1, B2};
+	chosen_song = get_song();
 
 	while (!chThdShouldTerminateX()) {
 		score = 0;
