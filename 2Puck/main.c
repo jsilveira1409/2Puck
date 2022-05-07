@@ -8,32 +8,19 @@
 #include "main.h"
 #include "game.h"
 #include "lightshow.h"
-
-
-static void serial_start(void)
-{
-	static SerialConfig ser_cfg = {
-		115200,
-	    0,
-	    0,
-	    0,
-	};
-
-	sdStart(&SD3, &ser_cfg); // UART3.
-}
-
-
+#include "console.h"
 
 int main(void)
 {
     halInit();
     chSysInit();
     mpu_init();
-    serial_start();
 
 	sdio_start();
 	playSoundFileStart();
 
+
+	console_init();
 
 	/*
 	 * SD card init does not like being inside music_init
