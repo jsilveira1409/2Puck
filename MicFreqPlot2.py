@@ -1,6 +1,16 @@
+
 import matplotlib.pyplot as plt
 from matplotlib.ticker import EngFormatter
 import numpy as np
+from matplotlib import rc
+import time
+
+rc('text', usetex = True)
+rc("axes", labelsize = 30)
+rc("xtick", labelsize = 30)
+rc("ytick", labelsize = 30)
+rc("axes", titlesize = 30)
+rc("legend", fontsize = 30)
 
 # I2S side
 
@@ -30,66 +40,45 @@ OutputBufferSize = FFT_SIZE
 # Here we calculate both the necessary time to fill the InputBuffer that will be used for the FFT and 
 # the resolution of the resulting FFT, which is in Hz/index
 plt.figure(figsize=(9, 3))
-plot_name = ['FFT_SIZE 1024','FFT_SIZE 2048','FFT_SIZE 4096']
+plot_name = [r"$\textrm{FFT\_SIZE 1024}$",r"$\textrm{FFT\_SIZE 2048}$",r"$\textrm{FFT\_SIZE 4096}$"]
+
 
 y = 0
 name = 0
 
-fig, plot = plt.subplots(2, 3, figsize =(8,8))
 
-fig.suptitle("Frequency resolution as a function of the Time to fill the FFT buffer ")
-
-for x in FFT_SIZE:
-    TimeToFill = x /BitSamplesRate * 1000        #time in ms
-    Resolution = (MicSamplingFreq/2)/(x/2)       #we divide the FFT by 2 because real and negative indexes are symmetrical
-    plot[0, y].plot(TimeToFill,Resolution)
-    plot[0, y].set_title(plot_name[name])
-    
-    plot[1, y].plot(MicSamplingFreq, Resolution)
-    
-    y +=1
-    name +=1
-
-plt.subplots_adjust(left=0.1,
-                    bottom=0.1, 
-                    right=0.9,
-                    top=0.9, 
-                    wspace=0.6, 
-                    hspace=0.4)
+fig, plot = plt.subplots(figsize=(12,8))
+fig1, plot1 = plt.subplots(figsize=(12, 8))
 
 formatter0 = EngFormatter()
 
-plot[0,0].set(ylabel='Resolution [Hz/index]',xlabel = 'Time to fill the buffer [ms]')
-plot[0,0].xaxis.set_major_formatter(formatter0)
-# plot[0,0].yaxis.set_major_formatter(formatter0)
-plot[0,1].set(xlabel='Time to fill the buffer [ms]')
-plot[0,0].xaxis.set_major_formatter(formatter0)
-# plot[0,0].yaxis.set_major_formatter(formatter0)
-plot[0,2].set(xlabel='Time to fill the buffer [ms]')
-plot[0,0].xaxis.set_major_formatter(formatter0)
-# plot[0,0].yaxis.set_major_formatter(formatter0)
+plot1.xaxis.set_major_formatter(formatter0)
+for x in FFT_SIZE:
+    TimeToFill = x /BitSamplesRate * 1000        #time in ms
+    Resolution = (MicSamplingFreq/2)/(x/2)       #we divide the FFT by 2 because real and negative indexes are symmetrical
+    plot.plot(TimeToFill,Resolution, c='blue', linewidth =5)
+    plot1.plot(MicSamplingFreq/1000, Resolution, label = plot_name[name],linewidth =5)
+    name +=1
 
-plot[1,1].set_title("Frequency resolution as a function of the sampling frequency")
-plot[1,0].set(ylabel='Resolution [Hz/index]',xlabel = 'Sampling Frequency [Hz]')
-plot[1,0].xaxis.set_major_formatter(formatter0)
-# plot[1,0].yaxis.set_major_formatter(formatter0)
-plot[1,1].set(xlabel = 'Sampling Frequency [Hz]')
-plot[1,1].xaxis.set_major_formatter(formatter0)
-# plot[1,1].yaxis.set_major_formatter(formatter0)
-plot[1,2].set(xlabel = 'Sampling Frequency [Hz]')
-plot[1,2].xaxis.set_major_formatter(formatter0)
-# plot[1,2].yaxis.set_major_formatter(formatter0)
+fig.subplots_adjust(left=0.13,
+                    bottom=0.2, 
+                    right=0.95,
+                    top=0.95)
 
+fig1.subplots_adjust(left=0.13,
+                    bottom=0.2, 
+                    right=0.95,
+                    top=0.95)
 
-
-for pl in plot:
-    for p in pl:
-        p.grid()
-
-
-plt.savefig("FFTgraph.png")
+plot.set(ylabel=r"$\textrm{Résolution [Hz/index]}$",xlabel = r"$\textrm{Temps de remplissage [ms]}$")
+plot.xaxis.set_major_formatter(formatter0)
+plot1.set(ylabel=r"$\textrm{Résolution [Hz/index]}$",xlabel = r"$\textrm{Fréquence d'échantillonage [kHz]}$")
 
 
 
+plot1.grid()
+plot.grid()
+plot1.legend()
 
-
+fig.savefig('histogram.png')
+fig1.savefig('histog2ram.png')

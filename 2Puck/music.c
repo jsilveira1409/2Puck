@@ -39,9 +39,9 @@ static uint8_t melody_COME_AS_YOU_ARE [COME_AS_YOU_ARE_SIZE] = {
  * Miss You - Rolling Stones
  */
 static uint8_t melody_MISS_YOU [MISS_YOU_SIZE] = {
-	D1,	E1, G2,	A2, E1, D1,	E1,
-	D1,	E1, G2,	A2, E1, D1,	E1,
-	D1,	E1,	A2,	E1
+	D1,	E1, A2,	G2, E1, D1,	E1,
+	D1,	E1, A2,	G2, E1, D1,	E1,
+	D1,	E1,	G2,	E1
 };
 
 /*
@@ -93,70 +93,26 @@ static song_selection_t chosen_song = 0;
  * Static Functions
  */
 
-static void shift_to_correct_note(song_selection_t song_index, uint32_t starting_index, uint16_t *next_correct_index){
-	for(uint16_t i=starting_index; i<songs[song_index].melody_size; i++){
-		if(((songs[song_index].melody_ptr[i])%12) == recording[i]){
-			*next_correct_index = i;
-			break;
-		}
-	}
-}
-
-/*
- * Checking notes time sequence is correct: was note x played when it should
- * be played ?
- */
-static int16_t check_note_sequence(song_selection_t song_index){
-	int16_t points = 0;
-	uint16_t correct_index = 0;
-	uint16_t note_index = 0;
-	/*
-	 * First we find the first correct note on the recording,
-	 * which will be our starting index for the melody-recording
-	 * comparison
-	 */
-	shift_to_correct_note(song_index, note_index, &correct_index);
-	/*
-	 * Here we compare the melody and the recording
-	 */
-	for(uint16_t i=correct_index; i< (correct_index + songs[song_index].melody_size); i++){
-		if((recording[i]%12) == (((uint8_t)songs[song_index].melody_ptr[note_index]) % 12)){
-			points ++;
-			note_index ++;
-		}else{
-			points --;
-		}
-	}
-	return points;
-}
-
-
 /*
  * Checking order of played notes is correct: was note y played after note x, even
  * if there is a wrong note in between?
  */
-static int16_t check_note_order(song_selection_t song_index){
+static float check_note_order(song_selection_t song_index){
 	 int16_t points = 0;
-	 uint16_t shift = 0;
 
-	for(uint16_t i = 0; i < songs[song_index].melody_size; i++){
-		for(uint16_t j = i+shift; j < songs[song_index].melody_size; j++){
-			if((songs[song_index].melody_ptr[i]%12) == (recording[j]%12)){
-				points ++;
-				break;
-			}else{
-				shift ++;
-				points --;
-			}
+	for(uint16_t i = 0; i <= (songs[song_index].melody_size-1); i++){
+		if((songs[song_index].melody_ptr[i]%12) == (recording[i]%12)){
+			points += 2;
+		}else{
+			points -= 1;
 		}
 	}
 	return points;
 }
 
 static float calculate_score(song_selection_t song_index){
-	 float total_score = 0;
-
-	total_score = check_note_sequence(song_index) + check_note_order(song_index);
+	float total_score = 0;
+	total_score = check_note_order(song_index)/((float)2*songs[song_index].melody_size);
 	return total_score;
 }
 /*
@@ -167,14 +123,13 @@ static THD_WORKING_AREA(musicWorkingArea, 128);
 static THD_FUNCTION(music, arg) {
 
 	(void) arg;
-
 	while (!chThdShouldTerminateX()) {
 		score = 0;
 		wait_finish_playing();
 		set_recording(get_recording());
 		score = calculate_score(chosen_song);
-		chBSemSignal(&sem_finished_music);
-		chThdSleepMilliseconds(500);
+		chprintf((BaseSequentialStream *)&SD3, "%f \r \n", score);
+//		chBSemSignal(&sem_finished_music);
 	}
 	chThdExit(MSG_OK);
 }
@@ -184,7 +139,8 @@ static THD_FUNCTION(music, arg) {
  * Public Functions
  */
 song_selection_t music_init(void){
-	chosen_song = choose_random_song();
+//	chosen_song = choose_random_song();
+	chosen_song = MISS_YOU;
 	mic_start(&processAudioDataCmplx);
     musicThd = chThdCreateStatic(musicWorkingArea, sizeof(musicWorkingArea),
 			NORMALPRIO, music, NULL);

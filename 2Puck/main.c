@@ -47,7 +47,8 @@ int main(void)
 	}
 
 //	lightshow_init();
-    game_init();
+//    game_init();
+	music_init();
 
 
 	while (1) {
