@@ -159,11 +159,11 @@ uint8_t note_volume(int16_t *data, uint16_t num_samples){
 
 /*
  * Records the played note into the recording array,
- * once we fill the limit, it signals the mutex to activate the
+ * once we fill the limit, it signals the semaphore to activate the
  * scoring of the recording in music.c
  */
 static void record_note(const uint8_t note_index){
-		played_note[current_index] = note_index;
+	played_note[current_index] = note_index;
 	/*
 	 * Signals pathing.c that it can dance once
 	 */
@@ -178,7 +178,7 @@ static void record_note(const uint8_t note_index){
 }
 
 /*
- * Receives the FFT data, finds the closest discret error and
+ * Receives the FFT data, finds the closest discrete error and
  * records it
  */
 static void frequency_to_note(float* data){
@@ -228,6 +228,7 @@ void processAudioDataCmplx(int16_t *data, uint16_t num_samples){
 	if(status == 1 && register_note == 0){
 		register_note = 1;
 	}
+
 	/*
 	 * Once we have enough samples, and we know that one of the samples
 	 * has a higher volume, we do a FFT and discretize it with frequency_to_note

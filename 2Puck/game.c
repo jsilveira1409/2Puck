@@ -7,7 +7,7 @@
  */
 
 //Comment this line to not play the songs
-#define PLAY_SONGS
+//#define PLAY_SONGS
 #include <ch.h>
 #include <hal.h>
 #include <leds.h>
