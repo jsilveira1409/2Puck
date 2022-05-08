@@ -43,7 +43,7 @@ class serial_thread(Thread):
         winner = 0
         option = input("Enter option: \n")   
         
-        if(option == 'n'):
+        if(option == 'w'):
             self.port.write(b'w')         
             self.send_start_game()
             chosen_song = self.rec_chose_song()
@@ -57,9 +57,6 @@ class serial_thread(Thread):
             print("score 2",score2)    
             self.rec_picture()
             self.stop()
-
-            
-
                                
     def send_start_game(self):
         print("Start Game")
@@ -121,28 +118,31 @@ class serial_thread(Thread):
         img = bytes(im)
         image = Image.frombuffer("RGB", (width, height), img, "raw",  "BGR;16", 0, 1)
         image.save('capture.png')
-        #send_mail()
+        #self.send_mail()
 
     def stop(self):
         if(self.port.isOpen()):
             self.port.close()
         print('Goodbye')
 
-def send_mail():
-    yagmail.register('2puckshakour@gmail.com', 'HsmTD2k@15Sr')
-    receiver = "joaquim.silveira@epfl.ch"
-    body = "Dear Prof. Mondada,\n\n Please find attached the Winner of the amazing music competition. \n\n Kind regards,\n 2Puck"
-    filename = "capture.png"
+    def send_mail():
+        yagmail.register('2puckshakour@gmail.com', 'HsmTD2k@15Sr')
+        receiver = "joaquim.silveira@epfl.ch"
+        body = "Dear Prof. Mondada,\n\n \
+                Please find attached the Winner of the amazing music competition. \n\n \
+                Kind regards,\n \
+                2Puck"
+        filename = "capture.png"
 
-    yag = yagmail.SMTP("2puckshakour@gmail.com")
-    yag.send(
-        to=receiver,
-        subject="2Puck Competition",
-        contents=body, 
-        attachments=filename,
-    )
-            
-#reader_thd = serial_thread('/dev/cu.usbmodemEPUCK3')
-reader_thd = serial_thread('com3')
-reader_thd.start()
+        yag = yagmail.SMTP("2puckshakour@gmail.com")
+        yag.send(
+            to=receiver,
+            subject="2Puck Competition",
+            contents=body, 
+            attachments=filename,
+        )
 
+if __name__ == '__main__':
+    reader_thd = serial_thread('/dev/cu.usbmodemEPUCK3')
+    # reader_thd = serial_thread('com3')
+    reader_thd.start()

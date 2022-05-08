@@ -5,9 +5,6 @@
  *  Authors: Karl Khalil
  *  		 Joaquim Silveira
  */
-
-//Comment this line to not play the songs
-#define PLAY_SONGS
 #include <ch.h>
 #include <hal.h>
 #include <leds.h>
@@ -17,7 +14,10 @@
 #include "music.h"
 #include "pathing.h"
 #include "lightshow.h"
+#include "console.h"
 
+//Comment this line to not play the songs
+//#define PLAY_SONGS
 
 typedef enum {
 	IDLE,
@@ -43,6 +43,7 @@ static THD_FUNCTION(game_thd, arg) {
 
 		switch(state){
 			case IDLE:
+				console_send_string("Send w to start the Games");
 				message = chSequentialStreamGet(&SD3);
 				if (message == 'w'){
 					state++;
@@ -50,19 +51,23 @@ static THD_FUNCTION(game_thd, arg) {
 				break;
 
 			case START_GAME:
+				console_send_string("Game started");
 				music_init();
 				pathing_init();
 				lightshow_init();
 				song = get_song();
-				SendUint8ToComputer(&song, 1);
+//				console_send_int(song); // TODO: get_song() returns a strings
+
 				wait_finish_music();
 				score1 = get_score();
 				SendUint8ToComputer(&score1, 1);
 				set_body_led(1);
 				set_led(LED1, 1);
+
 				chThdSleepMilliseconds(2000);
 				set_led(LED1, 0);
 				set_body_led(0);
+
 				wait_finish_music();
 				score2 = get_score();
 				SendUint8ToComputer(&score2, 1);
@@ -70,6 +75,7 @@ static THD_FUNCTION(game_thd, arg) {
 				set_body_led(1);
 				chThdSleepMilliseconds(2000);
 				set_body_led(0);
+
 				state++;
 				break;
 

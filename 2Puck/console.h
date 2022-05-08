@@ -11,7 +11,8 @@
 
 void console_init(void);
 msg_t console_stop(void);
-msg_t console_send(msg_t msg);
+msg_t console_send_string(char* msg);
+msg_t console_send_number(int msg);
 
 
 #endif /* CONSOLE_H_ */

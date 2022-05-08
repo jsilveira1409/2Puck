@@ -9,6 +9,7 @@
 #include <ch.h>
 #include <hal.h>
 #include <chprintf.h>
+#include <stdio.h>
 #include "console.h"
 
 static thread_t* console;
@@ -73,11 +74,24 @@ msg_t console_stop(void){
 }
 
 /**
- * @brief  Wrapper that uses ChibiOS messages to send to serial.
+ * @brief  Wrapper that uses ChibiOS messages to send a string to serial.
  *
  * @param[in] msg	Message to send to console.
  * @return 			Console Server return message.
  */
-msg_t console_send(msg_t msg){
-	return chMsgSend(console, msg);
+msg_t console_send_string(char* msg){
+	return chMsgSend(console, (msg_t)msg);
 }
+
+/**
+ * @brief  Wrapper that uses ChibiOS messages to send a number to serial.
+ *
+ * @param[in] msg	Number to send to console.
+ * @return 			Console Server return message.
+ */
+msg_t console_send_int(int msg){
+	char* msg_formatted;
+	sprintf(msg_formatted,'%d',msg);
+	return chMsgSend(console, (msg_t)msg_formatted);
+}
+
