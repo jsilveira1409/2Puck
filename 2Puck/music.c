@@ -87,13 +87,13 @@ struct song{
 		{melody_NEXT_EPISODE,				NEXT_EPISODE_SIZE,				"nextepisode.wav"}
 };
 
-static song_selection chosen_song = 0;
+static song_selection_t chosen_song = 0;
 
 /*
  * Static Functions
  */
 
-static void shift_to_correct_note(song_selection song_index, uint32_t starting_index, uint16_t *next_correct_index){
+static void shift_to_correct_note(song_selection_t song_index, uint32_t starting_index, uint16_t *next_correct_index){
 	for(uint16_t i=starting_index; i<songs[song_index].melody_size; i++){
 		if(((songs[song_index].melody_ptr[i])%12) == recording[i]){
 			*next_correct_index = i;
@@ -106,7 +106,7 @@ static void shift_to_correct_note(song_selection song_index, uint32_t starting_i
  * Checking notes time sequence is correct: was note x played when it should
  * be played ?
  */
-static int16_t check_note_sequence(song_selection song_index){
+static int16_t check_note_sequence(song_selection_t song_index){
 	int16_t points = 0;
 	uint16_t correct_index = 0;
 	uint16_t note_index = 0;
@@ -135,7 +135,7 @@ static int16_t check_note_sequence(song_selection song_index){
  * Checking order of played notes is correct: was note y played after note x, even
  * if there is a wrong note in between?
  */
-static int16_t check_note_order(song_selection song_index){
+static int16_t check_note_order(song_selection_t song_index){
 	 int16_t points = 0;
 	 uint16_t shift = 0;
 
@@ -153,7 +153,7 @@ static int16_t check_note_order(song_selection song_index){
 	return points;
 }
 
-static float calculate_score(song_selection song_index){
+static float calculate_score(song_selection_t song_index){
 	 float total_score = 0;
 
 	total_score = check_note_sequence(song_index) + check_note_order(song_index);
@@ -168,8 +168,6 @@ static THD_FUNCTION(music, arg) {
 
 	(void) arg;
 
-	chosen_song = get_song();
-
 	while (!chThdShouldTerminateX()) {
 		score = 0;
 		wait_finish_playing();
@@ -178,19 +176,20 @@ static THD_FUNCTION(music, arg) {
 		chBSemSignal(&sem_finished_music);
 		chThdSleepMilliseconds(500);
 	}
-	chThdExit(0);
+	chThdExit(MSG_OK);
 }
 
 
 /*
  * Public Functions
  */
-void music_init(void){
-	chosen_song = get_song();
+song_selection_t music_init(void){
+	chosen_song = choose_random_song();
 	mic_start(&processAudioDataCmplx);
     musicThd = chThdCreateStatic(musicWorkingArea, sizeof(musicWorkingArea),
 			NORMALPRIO, music, NULL);
     dac_start();
+    return chosen_song;
 }
 
 void music_stop(void){
@@ -199,7 +198,7 @@ void music_stop(void){
 	chThdTerminate(musicThd);
 }
 
-void play_song(song_selection index){
+void play_song(song_selection_t index){
 	setSoundFileVolume(50);
 	playSoundFile(songs[index].file_name, SF_FORCE_CHANGE);
 //	waitSoundFileHasFinished();  --> blocks the motors, logical
@@ -218,7 +217,7 @@ int16_t get_score(void){
 	return score;
 }
 
-song_selection get_song(void){
+song_selection_t choose_random_song(void){
 	rng_init();
 	uint32_t random_val = (rng_get() % NB_SONGS);
 	rng_stop();

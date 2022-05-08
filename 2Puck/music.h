@@ -7,7 +7,7 @@ typedef enum {
 	SOLD_THE_WORLD,
 	SEVEN_NATION,
 	NEXT_EPISODE
-}song_selection;
+}song_selection_t;
 
 typedef enum {
 	A1, AS1, B1, C1, CS1, D1, DS1,E1, F1, FS1, G1, GS1,
@@ -21,13 +21,13 @@ typedef enum {
 /*
  * Public Functions
  */
-void music_init(void);
+song_selection_t music_init(void);
 void music_stop(void);
 void play_song(uint8_t index);
 void stop_song(void);
 void set_recording(uint8_t *data);
 void wait_finish_music(void);
 int16_t get_score(void);
-song_selection get_song(void);
+song_selection_t choose_random_song(void);
 
 #endif
