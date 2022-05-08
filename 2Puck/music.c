@@ -21,6 +21,8 @@
 #define SOLD_THE_WORLD_SIZE				17
 #define SEVEN_NATION_SIZE				16
 #define NEXT_EPISODE_SIZE				12
+#define POSITIVE_POINTS					2
+#define NEGATIVE_POINTS					(-1)
 
 static BSEMAPHORE_DECL(sem_finished_music, TRUE);
 static float score = 0;
@@ -102,9 +104,9 @@ static float check_note_order(song_selection_t song_index){
 
 	for(uint16_t i = 0; i <= (songs[song_index].melody_size-1); i++){
 		if((songs[song_index].melody_ptr[i]%12) == (recording[i]%12)){
-			points += 2;
+			points += POSITIVE_POINTS;
 		}else{
-			points -= 1;
+			points -= NEGATIVE_POINTS;
 		}
 	}
 	return points;
@@ -112,7 +114,8 @@ static float check_note_order(song_selection_t song_index){
 
 static float calculate_score(song_selection_t song_index){
 	float total_score = 0;
-	total_score = check_note_order(song_index)/((float)2*songs[song_index].melody_size);
+	total_score = check_note_order(song_index)
+			/ ((float)POSITIVE_POINTS*songs[song_index].melody_size);
 	return total_score;
 }
 /*
@@ -128,8 +131,7 @@ static THD_FUNCTION(music, arg) {
 		wait_finish_playing();
 		set_recording(get_recording());
 		score = calculate_score(chosen_song);
-		chprintf((BaseSequentialStream *)&SD3, "%f \r \n", score);
-//		chBSemSignal(&sem_finished_music);
+		chBSemSignal(&sem_finished_music);
 	}
 	chThdExit(MSG_OK);
 }
