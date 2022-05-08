@@ -13,14 +13,17 @@
 
 /*Uncomment to print the notes recorded*/
 #define DEBUGGING
-#define MAX_ACCEPTABLE_ERROR	10
+#define MAX_ACCEPTABLE_ERROR	8
 #define RESOLUTION  			(I2S_AUDIOFREQ_16K/2)/(FFT_SIZE/2)
 #define FREQ_INDEX_OFFSET 		(-2)
 #define NB_SAMPLES				160
 #define RECORDING_SIZE			18
 #define NB_MICS 				2
-#define MAX_VOLUME  			1000
+#define MAX_VOLUME  			900
 #define MIN_VOLUME 				500
+#define OVERLAP_FACTOR	  		2	//25%
+#define OVERLAP_BUFFER_SIZE		(2*FFT_SIZE/OVERLAP_FACTOR)
+#define OVERLAP_INDEX 			(2*FFT_SIZE*(OVERLAP_FACTOR - 1)/OVERLAP_FACTOR)
 
 
 static BSEMAPHORE_DECL(sem_finished_playing, TRUE);
@@ -33,6 +36,11 @@ static BSEMAPHORE_DECL(sem_note_played, TRUE);
 
 static float micLeft_cmplx_input[2 * FFT_SIZE];
 static float micLeft_output[FFT_SIZE];
+/*
+ * The last samples are taken from one FFT bin and put into the start of the next one,
+ * to avoid cutting a note detection into two
+ */
+static float overlapping_samples[OVERLAP_BUFFER_SIZE];
 static float freq = 0;
 
 static uint8_t played_note[RECORDING_SIZE];
@@ -208,14 +216,24 @@ static void frequency_to_note(float* data){
 void processAudioDataCmplx(int16_t *data, uint16_t num_samples){
 	static uint16_t nb_samples = 0;
 	static uint8_t register_note = 0;
+	static uint16_t nb_overlap_samples = 0;
+
 	uint8_t status = 0;
 	/*
 	 * Fills the input buffer with the received samples
 	 */
 	for(uint16_t i = 0 ; i < num_samples ; i+=4){
 		micLeft_cmplx_input[nb_samples] = (float)data[i + MIC_LEFT];
+		if(nb_samples >= OVERLAP_INDEX){
+			overlapping_samples[nb_overlap_samples] =(float)data[i + MIC_LEFT];
+			nb_overlap_samples++;
+		}
 		nb_samples++;
 		micLeft_cmplx_input[nb_samples] = 0;
+		if(nb_samples >= OVERLAP_INDEX){
+			overlapping_samples[nb_overlap_samples] = 0;
+			nb_overlap_samples++;
+		}
 		nb_samples++;
 		if(nb_samples >= (2 * FFT_SIZE)){
 			break;
@@ -243,7 +261,9 @@ void processAudioDataCmplx(int16_t *data, uint16_t num_samples){
 			frequency_to_note(micLeft_output);
 			register_note = 0;
 		}
-		nb_samples = 0;
+		nb_samples = OVERLAP_BUFFER_SIZE;
+		nb_overlap_samples = 0;
+		arm_copy_f32(overlapping_samples,micLeft_cmplx_input, OVERLAP_BUFFER_SIZE);
 	}
 }
 

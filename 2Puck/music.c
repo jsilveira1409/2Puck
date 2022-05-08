@@ -139,8 +139,7 @@ static THD_FUNCTION(music, arg) {
  * Public Functions
  */
 song_selection_t music_init(void){
-//	chosen_song = choose_random_song();
-	chosen_song = MISS_YOU;
+	chosen_song = choose_random_song();
 	mic_start(&processAudioDataCmplx);
     musicThd = chThdCreateStatic(musicWorkingArea, sizeof(musicWorkingArea),
 			NORMALPRIO, music, NULL);
@@ -157,8 +156,6 @@ void music_stop(void){
 void play_song(song_selection_t index){
 	setSoundFileVolume(50);
 	playSoundFile(songs[index].file_name, SF_FORCE_CHANGE);
-//	waitSoundFileHasFinished();  --> blocks the motors, logical
-
 }
 
 void stop_song(void){
