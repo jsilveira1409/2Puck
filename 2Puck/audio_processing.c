@@ -112,8 +112,10 @@ static void check_smallest_error(uint32_t *max_index){
 	smallest_error = abs(freq - (float)note_frequency[0]);
 	for(uint8_t i = 1; i<NB_NOTES; i++){
 		curr_error = abs(freq - (float)note_frequency[i]);
+
 		if(curr_error < smallest_error){
 			smallest_error = curr_error;
+
 			if(smallest_error < MAX_ACCEPTABLE_ERROR){
 				discret_freq = note_frequency[i];
 				*max_index = i;
@@ -197,7 +199,9 @@ static void frequency_to_note(float* data){
 
 	arm_max_f32(data, (FFT_SIZE/2), &max_freq_mag, &max_index);
 	check_smallest_error(&max_index);
+
 	max_index = max_index%12;
+
 #ifdef DEBUGGING
 	find_note(max_index);
 #endif
@@ -263,7 +267,7 @@ void processAudioDataCmplx(int16_t *data, uint16_t num_samples){
 		}
 		nb_samples = OVERLAP_BUFFER_SIZE;
 		nb_overlap_samples = 0;
-		arm_copy_f32(overlapping_samples,micLeft_cmplx_input, OVERLAP_BUFFER_SIZE);
+		arm_copy_f32(overlapping_samples, micLeft_cmplx_input, OVERLAP_BUFFER_SIZE);
 	}
 }
 

@@ -13,7 +13,7 @@
 #include <audio/play_sound_file.h>
 #include <rng.h>
 
-#define DEBUG_SCORING_ALGO
+#define SCORE_DEBUGGING
 
 #define NB_SONGS 						5
 #define COME_AS_YOU_ARE_SIZE			15
@@ -101,7 +101,7 @@ static float check_note_order(song_selection_t song_index){
 	 int16_t points = 0;
 
 	for(uint16_t i = 0; i <= (songs[song_index].melody_size-1); i++){
-		if((songs[song_index].melody_ptr[i]) == (recording[i] % CHROMATIC_SIZE)){
+		if((songs[song_index].melody_ptr[i]) == recording[i]){
 			points += POSITIVE_POINTS;
 		}else{
 			points -= NEGATIVE_POINTS;
@@ -129,12 +129,17 @@ static THD_FUNCTION(music, arg) {
 	(void) arg;
 	while (!chThdShouldTerminateX()) {
 		score = 0;
-		chprintf((BaseSequentialStream *)&SD3, "chosen song : %d \r \n", chosen_song);
+
 		wait_finish_playing();
 		set_recording(get_recording());
+#ifdef	SCORE_DEBUGGING
+		score = calculate_score(MISS_YOU);
+		chprintf((BaseSequentialStream *)&SD3, "%f \r \n", score);
+#elif
 		score = calculate_score(chosen_song);
-		chprintf((BaseSequentialStream *)&SD3, "%f \r", score);
+#endif
 		chBSemSignal(&sem_finished_music);
+		chThdSleepMilliseconds(500);
 	}
 	chThdExit(MSG_OK);
 }
