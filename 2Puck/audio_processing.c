@@ -38,19 +38,17 @@ static float micLeft_output[FFT_SIZE];
  * TODO :CHECK IF THERE IS A CMSIS FUNCTION FOR THIS
  */
 static float fundamental_frequency(float* data, uint8_t nb_harmonic){
-	float freq = 0;
 	if(nb_harmonic > 1){
 		for(uint8_t harmonic = 1; harmonic <= nb_harmonic;harmonic++ ){
 			for(uint16_t i = 0; i< FFT_SIZE; i++){
 				data[i] += data[i]/(float)harmonic;
 			}
 		}
-
-		float max_freq_mag = 0;
-		uint32_t max_index = 0;
-		arm_max_f32(data, (FFT_SIZE/2), &max_freq_mag, &max_index);
-		freq = (float)RESOLUTION*((float)(max_index + FREQ_INDEX_OFFSET ));
 	}
+	float max_freq_mag = 0;
+	uint32_t max_index = 0;
+	arm_max_f32(data, (FFT_SIZE/2), &max_freq_mag, &max_index);
+	float freq = (float)RESOLUTION*((float)(max_index + FREQ_INDEX_OFFSET ));
 	return freq;
 }
 
