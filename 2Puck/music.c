@@ -116,6 +116,9 @@ static float calculate_score(song_selection_t song_index){
 	float total_score = 0;
 	total_score = check_note_order(song_index)
 			/ ((float)POSITIVE_POINTS*songs[song_index].melody_size);
+	if(total_score <0){
+		total_score = 0;
+	}
 	return total_score;
 }
 /*
@@ -128,9 +131,11 @@ static THD_FUNCTION(music, arg) {
 	(void) arg;
 	while (!chThdShouldTerminateX()) {
 		score = 0;
+		chprintf((BaseSequentialStream *)&SD3, "chosen song : %d \r \n", chosen_song);
 		wait_finish_playing();
 		set_recording(get_recording());
 		score = calculate_score(chosen_song);
+		chprintf((BaseSequentialStream *)&SD3, "%f \r", score);
 		chBSemSignal(&sem_finished_music);
 	}
 	chThdExit(MSG_OK);
