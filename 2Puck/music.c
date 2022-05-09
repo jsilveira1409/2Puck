@@ -260,8 +260,6 @@ static THD_FUNCTION(music, arg) {
 
 	(void) arg;
 
-	uint8_t note_current_index = 0;
-
 	while(!chThdShouldTerminateX()) {
 		score = 0;
 
