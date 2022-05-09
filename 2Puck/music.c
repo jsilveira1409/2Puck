@@ -104,8 +104,7 @@ const song songs[] = {
 /*
  * Static Functions
  */
-
-static void print_note (int16_t index){
+static void print_note(int16_t index){
 	switch (index){
 		case 0:
 			chprintf((BaseSequentialStream *)&SD3, "A  ");

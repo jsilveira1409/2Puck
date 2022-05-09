@@ -18,7 +18,6 @@
 #define RESOLUTION  			(I2S_AUDIOFREQ_16K/2)/(FFT_SIZE/2)
 #define FREQ_INDEX_OFFSET 		(-2)
 #define NB_SAMPLES				160
-#define NB_MICS 				2
 #define MAX_VOLUME  			1200
 #define MIN_VOLUME 				1000
 
