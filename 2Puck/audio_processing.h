@@ -19,8 +19,6 @@ static const uint16_t note_frequency[NB_NOTES] = {
 void wait_note_played(void);
 void wait_finish_playing(void);
 void processAudioDataCmplx(int16_t *data, uint16_t num_samples);
-uint8_t* get_recording(void);
-uint8_t get_current_last_note(void);
 
 #endif /* AUDIO_PROCESSING_H */
 
