@@ -30,15 +30,6 @@ static void blink_body(uint32_t time_to_sleep){
 /*
  * Threads
  */
-static THD_WORKING_AREA(lightshowWA, 128);
-static THD_FUNCTION(lightshow_thd, arg) {
-	clear_leds();
-	(void) arg;
-	while(1){
-
-	}
-}
-
 static THD_WORKING_AREA(redledsWA, 64);
 static THD_FUNCTION(redleds_thd, arg) {
 	clear_leds();
@@ -66,8 +57,7 @@ static THD_FUNCTION(bodyled_thd, arg) {
  */
 
 void lightshow_init(void){
-//	chThdCreateStatic(lightshowWA, sizeof(lightshowWA), NORMALPRIO, lightshow_thd, NULL);
-//	chThdCreateStatic(redledsWA, sizeof(redledsWA), NORMALPRIO, redleds_thd, NULL);
+	chThdCreateStatic(redledsWA, sizeof(redledsWA), NORMALPRIO, redleds_thd, NULL);
 	chThdCreateStatic(bodyledWA, sizeof(bodyledWA), NORMALPRIO, bodyled_thd, NULL);
 }
 

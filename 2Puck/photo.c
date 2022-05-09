@@ -34,6 +34,8 @@ static THD_FUNCTION(ThdPhoto, arg) {
     static uint16_t line_cnt = 0;
     static uint8_t send = 1;
 
+    dcmi_start();
+    po8030_start();
 
 	dcmi_enable_double_buffering();
 	dcmi_set_capture_mode(CAPTURE_ONE_SHOT);
@@ -91,7 +93,8 @@ void photo_init(void){
 void photo_stop(void){
 	chThdTerminate(ThdPtrPhoto);
 	dcmi_capture_stop();
-	free_buffers();
+	dcmi_free_buffers();
+	//TODO: p08030_stop();
 }
 
 void photo_wait_finish(void){

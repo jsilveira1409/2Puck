@@ -16,6 +16,7 @@
 #include "communications.h"
 #include "music.h"
 #include "pathing.h"
+#include "lightshow.h"
 
 
 typedef enum {
@@ -36,7 +37,7 @@ static THD_FUNCTION(game_thd, arg) {
 	uint8_t score1 = 0;
 	uint8_t score2 = 0;
 	uint8_t message = 0;
-	uint8_t song = 0;
+	song_selection_t song = 0;
 
 	while(true) {
 
@@ -49,19 +50,21 @@ static THD_FUNCTION(game_thd, arg) {
 				break;
 
 			case START_GAME:
-				music_init();
+				song = music_init();
 				pathing_init();
 				lightshow_init();
-				song = get_song();
 				SendUint8ToComputer(&song, 1);
+
 				wait_finish_music();
 				score1 = get_score();
 				SendUint8ToComputer(&score1, 1);
 				set_body_led(1);
 				set_led(LED1, 1);
+
 				chThdSleepMilliseconds(2000);
 				set_led(LED1, 0);
 				set_body_led(0);
+
 				wait_finish_music();
 				score2 = get_score();
 				SendUint8ToComputer(&score2, 1);
@@ -69,6 +72,7 @@ static THD_FUNCTION(game_thd, arg) {
 				set_body_led(1);
 				chThdSleepMilliseconds(2000);
 				set_body_led(0);
+
 				state++;
 				break;
 
@@ -76,6 +80,7 @@ static THD_FUNCTION(game_thd, arg) {
 #ifdef	PLAY_SONGS
 				play_song(NEXT_EPISODE);
 #endif
+				chThdSleepMilliseconds(5000);
 				pathing_set((score1 >= score2) ? PATH_TO_PLAYER1 : PATH_TO_PLAYER2);
 				pathing_wait_finish();
 				pathing_stop();
