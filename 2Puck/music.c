@@ -21,7 +21,7 @@
 #define SOLD_THE_WORLD_SIZE				17
 #define SEVEN_NATION_SIZE				16
 #define NEXT_EPISODE_SIZE				12
-#define POSITIVE_POINTS					2
+#define POSITIVE_POINTS					3
 #define NEGATIVE_POINTS					(-1)
 
 static BSEMAPHORE_DECL(sem_finished_music, TRUE);
@@ -34,42 +34,40 @@ static thread_t* musicThd = NULL;
  * Come As you are - Nirvana
  */
 static uint8_t melody_COME_AS_YOU_ARE [COME_AS_YOU_ARE_SIZE] = {
-	E1,	E1,	F1,	FS1, A2, FS1, A2, FS1, FS1, F1, E1, B2,	E1, E1, B2
+	E,	E,	F,	FS, A, FS, A, FS, FS, F, E, B,	E, E, B
 };
 
 /*
  * Miss You - Rolling Stones
  */
 static uint8_t melody_MISS_YOU [MISS_YOU_SIZE] = {
-	D1,	E1, A2,	G2, E1, D1,	E1,
-	D1,	E1, A2,	G2, E1, D1,	E1,
-	D1,	E1,	G2,	E1
+	D,	E, A,	G, E, D,	E,
+	D,	E, A,	G, E, D,	E,
+	D,	E, G,	E
 };
 
 /*
  * The Man who sold the world - David Bowie
  */
 static uint8_t melody_SOLD_THE_WORLD [SOLD_THE_WORLD_SIZE] = {
-	G2, G2, G2, F2, G2, GS2, G2, F2,
-	G2, G2, G2, F2, G2, GS2, G2, F2,
-	G2
+	G, G, G, F, G, GS, G, F,
+	G, G, G, F, G, GS, G, F,
+	G
 };
 
 /*
  * Seven Nation Army - Whitesnake
  */
 static uint8_t melody_SEVEN_NATION_ARMY [SEVEN_NATION_SIZE] = {
-	E1, E1, G2,	E1,	D1,
-	C1,	B1,
-	E1, E1, G2,	E1,	D1,
-	C1,	D1, C1, B1,
+	E, E, G, E,	D, C, B,
+	E, E, G, E,	D, C, D, C, B,
 };
 
 /*
 * The Next Episode - Dr Dre
  */
 static uint8_t melody_NEXT_EPISODE [NEXT_EPISODE_SIZE] = {
-	F3, AS4, AS4,GS4,AS4,GS4,FS4,GS4,GS4, FS4,F3, FS4
+	F, AS, AS,GS,AS,GS,FS,GS,GS, FS,F, FS
 };
 
 /*
@@ -103,7 +101,7 @@ static float check_note_order(song_selection_t song_index){
 	 int16_t points = 0;
 
 	for(uint16_t i = 0; i <= (songs[song_index].melody_size-1); i++){
-		if((songs[song_index].melody_ptr[i]%12) == (recording[i]%12)){
+		if((songs[song_index].melody_ptr[i]) == (recording[i] % CHROMATIC_SIZE)){
 			points += POSITIVE_POINTS;
 		}else{
 			points -= NEGATIVE_POINTS;
@@ -116,7 +114,7 @@ static float calculate_score(song_selection_t song_index){
 	float total_score = 0;
 	total_score = check_note_order(song_index)
 			/ ((float)POSITIVE_POINTS*songs[song_index].melody_size);
-	if(total_score <0){
+	if(total_score < 0){
 		total_score = 0;
 	}
 	return total_score;
@@ -140,7 +138,6 @@ static THD_FUNCTION(music, arg) {
 	}
 	chThdExit(MSG_OK);
 }
-
 
 /*
  * Public Functions
