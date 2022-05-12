@@ -49,7 +49,7 @@ static THD_FUNCTION(game_thd, arg) {
 	GAME_STATE state = IDLE;
 	uint8_t message = 0;
 	song_selection_t song = 0;
-	uint8_t recording_size = 5;
+	uint8_t recording_size = 20;
 	uint8_t num_players = 2;
 	uint8_t score[num_players]; //TODO: SHOULD BE A FLOAT
 

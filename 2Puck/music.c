@@ -101,49 +101,49 @@ const song songs[] = {
 /*
  * Static Functions
  */
-//static void print_note(int16_t index){
-//	switch (index){
-//		case 0:
-//			chprintf((BaseSequentialStream *)&SD3, "A  ");
-//			break;
-//		case 1:
-//			chprintf((BaseSequentialStream *)&SD3, "A# ");
-//			break;
-//		case 2:
-//			chprintf((BaseSequentialStream *)&SD3, "B ");
-//			break;
-//		case 3:
-//			chprintf((BaseSequentialStream *)&SD3, "C ");
-//			break;
-//		case 4:
-//			chprintf((BaseSequentialStream *)&SD3, "C# ");
-//			break;
-//		case 5:
-//			chprintf((BaseSequentialStream *)&SD3, "D ");
-//			break;
-//		case 6:
-//			chprintf((BaseSequentialStream *)&SD3, "D# ");
-//			break;
-//		case 7:
-//			chprintf((BaseSequentialStream *)&SD3, "E ");
-//			break;
-//		case 8:
-//			chprintf((BaseSequentialStream *)&SD3, "F ");
-//			break;
-//		case 9:
-//			chprintf((BaseSequentialStream *)&SD3, "F# ");
-//			break;
-//		case 10:
-//			chprintf((BaseSequentialStream *)&SD3, "G ");
-//			break;
-//		case 11:
-//			chprintf((BaseSequentialStream *)&SD3, "G# ");
-//			break;
-//		case 12:
-//			chprintf((BaseSequentialStream *)&SD3, "none  \r ");
-//			break;
-//	}
-//}
+static void print_note(int16_t index){
+	switch (index){
+		case 0:
+			chprintf((BaseSequentialStream *)&SD3, "A  ");
+			break;
+		case 1:
+			chprintf((BaseSequentialStream *)&SD3, "A# ");
+			break;
+		case 2:
+			chprintf((BaseSequentialStream *)&SD3, "B ");
+			break;
+		case 3:
+			chprintf((BaseSequentialStream *)&SD3, "C ");
+			break;
+		case 4:
+			chprintf((BaseSequentialStream *)&SD3, "C# ");
+			break;
+		case 5:
+			chprintf((BaseSequentialStream *)&SD3, "D ");
+			break;
+		case 6:
+			chprintf((BaseSequentialStream *)&SD3, "D# ");
+			break;
+		case 7:
+			chprintf((BaseSequentialStream *)&SD3, "E ");
+			break;
+		case 8:
+			chprintf((BaseSequentialStream *)&SD3, "F ");
+			break;
+		case 9:
+			chprintf((BaseSequentialStream *)&SD3, "F# ");
+			break;
+		case 10:
+			chprintf((BaseSequentialStream *)&SD3, "G ");
+			break;
+		case 11:
+			chprintf((BaseSequentialStream *)&SD3, "G# ");
+			break;
+		case 12:
+			chprintf((BaseSequentialStream *)&SD3, "none  \r ");
+			break;
+	}
+}
 
 /*
  * Checking notes time sequence is correct: was note x played when it should
@@ -221,7 +221,7 @@ static THD_FUNCTION(music, arg) {
 		chSysLock();
 		recording_size = chThdSuspendS(&musicThdRef);
 		chSysUnlock();
-		recording_size=5;
+		recording_size=18;
 		score = 0;
 
 		for(uint8_t i=0; i<recording_size; i++){
@@ -229,7 +229,7 @@ static THD_FUNCTION(music, arg) {
 			float freq = get_frequency();
 			note_t note = freq_to_note(freq);
 			played_notes[i] = note;
-//			print_note(note);
+			print_note(note);
 			set_led(LED3,0);
 			chThdSleepMilliseconds(200);
 		}
@@ -246,7 +246,8 @@ static THD_FUNCTION(music, arg) {
  * Public Functions
  */
 song_selection_t music_init(void){
-	chosen_song = choose_random_song();
+//	chosen_song = choose_random_song();
+	chosen_song = MISS_YOU;
 	mic_start(&processAudioDataCmplx);
     musicThd = chThdCreateStatic(musicWorkingArea, sizeof(musicWorkingArea),
 			NORMALPRIO, music, NULL);
