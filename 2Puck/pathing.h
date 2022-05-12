@@ -4,13 +4,14 @@
 typedef enum{
 	PATH_TO_PLAYER1,
 	PATH_TO_PLAYER2,
-	RECENTER,
-	WAIT,
+	PATH_RECENTER,
+	PATHING_WAIT,
 	PATHING,
+	PATHING_FINISHED
 }pathing_option_t;
 
 
-void pathing_init(void);
+void pathing_init(pathing_option_t option);
 void pathing_stop(void);
 void pathing_set(pathing_option_t option);
 void pathing_wait_finish(void);

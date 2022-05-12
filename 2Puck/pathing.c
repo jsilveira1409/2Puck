@@ -61,17 +61,8 @@ typedef enum {
 		IR_SOFT_RIGHT,
 		IR_HARD_RIGHT,
 		NONE
-}ir_dir;
+}ir_dir_t;
 
-/*
- * PID instances for the PID cmsis lib
- *  steps_pid is used for the move functions, to soften the
- * steps advancement
- *  angle_pid is used for the pathing functions, to improve
- * the angle closing between dist and orientation
- *  wall_pid is used for the wall following function, to keep
- *  steady the distance with the wall
- */
 static arm_pid_instance_f32 steps_pid;
 static arm_pid_instance_f32 angle_pid;
 static arm_pid_instance_f32 wall_pid;
@@ -79,21 +70,10 @@ static arm_pid_instance_f32 wall_pid;
 static float target[2] = {0,0};			// Target position for the end of the pathing
 static float position[2] = {0,0};    	// Current position of the puck, center of axis of the wheels
 static float orientation[2] = {0,1}; 	// Orientation of the forward vector of the puck (same direction as the TOF)
-static pathing_option_t current_option = WAIT;
 
 
 /*
  * Static Functions
- */
-static void pathing_finished(void){
-	chBSemSignal(&sem_finished_pathing);
-}
-/*
- * Basically a polar to cartesian transform, we consider it to be unitary
- * as we don't care for the magnitude (for now). The orientation is of course
- * a 2D vector centered in puck and pointing towards the camera/TOF direction
- * if both pos are equal, the angle should not be updated
- * if both are opposite, it's turning on itself, so position shouldn't be updated
  */
 
 static void register_path(float left_pos,  float right_pos){
@@ -120,10 +100,11 @@ static void register_path(float left_pos,  float right_pos){
 
 static float distance_to_target(float* dist){
 	float distance_mag = 0;
-	float mag = 0;
+
 	arm_sub_f32(target, position, dist, 2);
 	arm_cmplx_mag_f32(dist, &distance_mag,1);
-	return mag;
+
+	return distance_mag;
 }
 
 /*
@@ -137,8 +118,8 @@ static void move(float left_pos, float right_pos){
 
 	register_path(left_pos, right_pos);
 
-	float right_steps = right_pos * NSTEP_ONE_TURN / (WHEEL_PERIMETER);
-	float left_steps = left_pos * NSTEP_ONE_TURN / (WHEEL_PERIMETER);
+	float right_steps = right_pos * NSTEP_ONE_TURN / WHEEL_PERIMETER;
+	float left_steps = left_pos * NSTEP_ONE_TURN / WHEEL_PERIMETER;
 
 	float output_right = 0, error_right = 0;
 	float output_left = 0, 	error_left = 0;
@@ -191,13 +172,13 @@ static void move(float left_pos, float right_pos){
 	}
 }
 
-static ir_dir check_ir_dir(float* ir_max_val){
+static ir_dir_t check_ir_dir(float* ir_max_val){
 	int ir[6] = {get_prox(5),get_prox(6),get_prox(7),
 				 get_prox(0),get_prox(1),get_prox(2)};
-	ir_dir max_ir_index = IR_HARD_LEFT;
+	ir_dir_t max_ir_index = IR_HARD_LEFT;
 	int max = ir[IR_HARD_LEFT];
 
-	for(ir_dir i = IR_SOFT_LEFT; i <= IR_HARD_RIGHT; i++){
+	for(ir_dir_t i = IR_SOFT_LEFT; i <= IR_HARD_RIGHT; i++){
 		if(ir[i] > max){
 			max = ir[i];
 			max_ir_index = i;
@@ -220,10 +201,10 @@ static ir_dir check_ir_dir(float* ir_max_val){
  * more or less equal to one
  */
 
-static void update_path(float* dist){
+static void update_path(float* dist, float distance_mag){
 	float move_l = 0, move_r = 0;
 	float cos_alpha = 0, sin_alpha = 0;
-	float orientation_mag = 0, distance_mag = 0, mag = 0;
+	float orientation_mag = 0, mag = 0;
 
 	/* temporary vector to do the vector product with a scalar product, by inverting and adding a sign */
 
@@ -232,11 +213,11 @@ static void update_path(float* dist){
 	arm_pid_reset_f32(&wall_pid);
 	arm_dot_prod_f32(orientation, dist, 2, &cos_alpha);
 	arm_dot_prod_f32(tmp_vector, dist, 2, &sin_alpha);
-	arm_cmplx_mag_f32(orientation, &orientation_mag,1);
+	arm_cmplx_mag_f32(orientation, &orientation_mag, 1);
 
-	mag = orientation_mag*distance_mag;
-	sin_alpha = (sin_alpha)/mag;
-	cos_alpha = (cos_alpha)/mag;
+	mag = orientation_mag * distance_mag;
+	sin_alpha = sin_alpha / mag;
+	cos_alpha = cos_alpha / mag;
 
 	float error_sin = 0 - sin_alpha;
 	float error_cos = 1 - cos_alpha;
@@ -244,26 +225,22 @@ static void update_path(float* dist){
 	error_sin = arm_pid_f32(&angle_pid, error_sin);
 	error_cos = arm_pid_f32(&angle_pid, error_cos);
 
-	move_l = (-error_sin + error_cos + 1)*MIN_STEPS;
-	move_r = (error_sin  + error_cos + 1)*MIN_STEPS;
+	move_l = (-error_sin + error_cos + 1) * MIN_STEPS;
+	move_r = (error_sin  + error_cos + 1) * MIN_STEPS;
 
 	if(move_l > MAX_MOTOR_DISPLACEMENT){
 		move_l = MAX_MOTOR_DISPLACEMENT;
-	}else if(move_l < -MAX_MOTOR_DISPLACEMENT){
-		move_l = -MAX_MOTOR_DISPLACEMENT;
 	}
 
 	if(move_r > MAX_MOTOR_DISPLACEMENT){
 		move_r = MAX_MOTOR_DISPLACEMENT;
-	}else if(move_r < -MAX_MOTOR_DISPLACEMENT){
-		move_r = -MAX_MOTOR_DISPLACEMENT;
 	}
 
 	move(move_l, move_r);
 	return;
 }
 
-static void wall_follow(ir_dir ir, float ir_val){
+static void wall_follow(ir_dir_t ir, float ir_val){
 	//TODO: implement conversion between ir value and distance
 	float error = MIN_WALL_DIST - ir_val;
 	float move_l = 0, move_r = 0;
@@ -280,25 +257,22 @@ static void wall_follow(ir_dir ir, float ir_val){
 
 static pathing_option_t pathing(void){
 	float dist[2] = {0,0};					// Vector between puck and target point
-
-	ir_dir ir = NONE;
-	pathing_option_t option = PATHING;
-	float distance = 0;
+	float distance_mag = 0;
 	float ir_max_val = 0;
 
-	distance = distance_to_target(dist);
+	ir_dir_t ir = NONE;
+	pathing_option_t option = PATHING;
+
+	distance_mag = distance_to_target(dist);
 	ir = check_ir_dir(&ir_max_val);
 
-	if(distance < MIN_DISTANCE_2_TARGET){
+	if(distance_mag < MIN_DISTANCE_2_TARGET){
 		move(30,30);
-		option = WAIT;
-		pathing_finished();
-		//TODO:send msg to game that it's pathing is done
+		option = PATHING_FINISHED;
 	}else{
-		ir = check_ir_dir(&ir_max_val);
 		switch(ir){
 			case NONE:
-				update_path(dist);
+				update_path(dist, distance_mag);
 				break;
 			case IR_HARD_LEFT:
 			case IR_HARD_RIGHT:
@@ -333,13 +307,19 @@ static pathing_option_t set_target(int16_t x_coord, int16_t y_coord){
 static THD_WORKING_AREA(pathingWorkingArea, 256);
 
 static THD_FUNCTION(ThdPathing, arg) {
-	(void) arg;
+
+//	pathing_option_t current_option = *((pathing_option_t*)arg);
+	pathing_option_t current_option = PATH_TO_PLAYER1;
 
 	while (!chThdShouldTerminateX()) {
 		switch (current_option){
-			case WAIT:
+			case PATHING_WAIT:
 				chThdSleepMilliseconds(1000);
+//				current_option = pathing_wait_option();
 				//TODO:should wait for a msg from game here
+				break;
+			case PATHING_FINISHED:
+				pathing_stop();
 				break;
 			case PATH_TO_PLAYER1:
 				current_option = set_target(PLAYER1_X,PLAYER1_Y);
@@ -347,7 +327,7 @@ static THD_FUNCTION(ThdPathing, arg) {
 			case PATH_TO_PLAYER2:
 				current_option = set_target(PLAYER2_X,PLAYER2_Y);
 				break;
-			case RECENTER:
+			case PATH_RECENTER:
 				current_option = set_target(CENTER_X, CENTER_Y);
 				break;
 			case PATHING:
@@ -355,17 +335,19 @@ static THD_FUNCTION(ThdPathing, arg) {
 				break;
 		};
 	}
-	chThdExit(0);
+	chThdExit(MSG_OK);
 }
 
 /*
  * Public Functions
  */
-void pathing_init(){
+void pathing_init(pathing_option_t option){
 	motors_init();
-
+	chThdSleepMilliseconds(100);
 	proximity_start();
+	chThdSleepMilliseconds(100);
 	calibrate_ir();
+	chThdSleepMilliseconds(100);
 
 	steps_pid.Ki = 0;
 	steps_pid.Kd = 0.1;
@@ -384,15 +366,15 @@ void pathing_init(){
 	arm_pid_init_f32(&wall_pid, 0);
 
 	ThdPtrPathing = chThdCreateStatic(pathingWorkingArea, sizeof(pathingWorkingArea),
-	                           NORMALPRIO, ThdPathing, NULL);
+	                           NORMALPRIO, ThdPathing, (void*)&option);
 }
+
+/*
+ * Public Functions
+ */
 
 void pathing_stop(){
 	chThdTerminate(ThdPtrPathing);
-}
-
-void pathing_set(pathing_option_t option){
-	current_option = option;
 }
 
 void pathing_wait_finish(void){
