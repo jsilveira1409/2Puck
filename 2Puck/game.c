@@ -40,11 +40,12 @@ static float get_score(void){
 	return freq;
 }
 
-static THD_WORKING_AREA(gameWA, 128);
+static THD_WORKING_AREA(gameWA, 512);
 
 static THD_FUNCTION(game_thd, arg) {
 
 	(void) arg;
+	chRegSetThreadName(__FUNCTION__);
 
 	GAME_STATE state = IDLE;
 	uint8_t message = 0;
@@ -64,10 +65,22 @@ static THD_FUNCTION(game_thd, arg) {
 
 			case START_GAME:
 				song = music_init();
-				chThdSleepMilliseconds(400);
+				chThdSleepMilliseconds(600);
 //				pathing_init();
 //				lightshow_init();
-				SendUint8ToComputer(&song, 1);
+//				SendUint8ToComputer(&song, 1);
+
+			    ////////////THREAD NAMES//////////////
+				thread_t* thread = chRegFirstThread();
+				chprintf((BaseSequentialStream *)&SD3, "\n");
+				uint8_t i = 0;
+				while(thread != NULL){
+					char* name = chRegGetThreadNameX(thread);
+					chprintf((BaseSequentialStream *)&SD3, "thread %d: %s \n",i,name);
+					thread = chRegNextThread(thread);
+					i++;
+				}
+				////////////////////////////////
 
 				for(uint8_t i=0; i<num_players; i++){
 					set_led(LED5, 1);

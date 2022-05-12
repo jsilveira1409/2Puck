@@ -256,6 +256,7 @@ static THD_WORKING_AREA(musicWorkingArea, 256);
 static THD_FUNCTION(music, arg) {
 
 	(void) arg;
+	chRegSetThreadName(__FUNCTION__);
 
 	uint8_t recording_size = 50;
 	float score = 0;
