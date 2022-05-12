@@ -12,7 +12,7 @@
 #include "music.h"
 #include "game.h"
 
-static float score = 0;
+static int8_t score = 0;
 static thread_t* musicThd = NULL;
 static thread_reference_t musicThdRef = NULL;
 static song_selection_t chosen_song = 0;
@@ -165,6 +165,11 @@ static int16_t check_note_sequence(song_selection_t song_index){
 static float calculate_score(void){
 	float total_score = 0;
 	total_score = 100*check_note_sequence(chosen_song)/(float)songs[chosen_song].melody_size;
+	if(total_score > 100){
+		total_score = 100;
+	}else if(total_score < -100){
+		total_score = -100;
+	}
 	return total_score;
 }
 
@@ -214,15 +219,13 @@ static THD_FUNCTION(music, arg) {
 	(void) arg;
 
 	uint8_t recording_size = 0;
-	float score = 0;
 
 	while(!chThdShouldTerminateX()) {
 		//this thread is waiting until it receives a message
 		chSysLock();
 		recording_size = chThdSuspendS(&musicThdRef);
 		chSysUnlock();
-		recording_size=18;
-		score = 0;
+		float score = 0;
 
 		for(uint8_t i=0; i<recording_size; i++){
 			set_led(LED3, 1);
@@ -235,6 +238,7 @@ static THD_FUNCTION(music, arg) {
 		}
 
 		score = calculate_score();
+		chprintf((BaseSequentialStream *)&SD3, "score :%d \r \n", score);
 		game_send_score(score);
 		chThdSleepMilliseconds(500);
 	}

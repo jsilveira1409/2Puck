@@ -88,7 +88,7 @@ static THD_FUNCTION(game_thd, arg) {
 				play_song(NEXT_EPISODE);
 #endif
 				chThdSleepMilliseconds(5000);
-				pathing_set((score[0] >= score[1]) ? PATH_TO_PLAYER1 : PATH_TO_PLAYER2);
+				pathing_init((score[0] >= score[1]) ? PATH_TO_PLAYER1 : PATH_TO_PLAYER2);
 				pathing_wait_finish();
 				pathing_stop();
 #ifdef PLAY_SONGS

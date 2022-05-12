@@ -48,8 +48,7 @@ int main(void)
 //	}
 //
 ////	lightshow_init();
-//    game_init();
-    pathing_init(PATH_TO_PLAYER1);
+    game_init();
 
 	while (1) {
 		;
