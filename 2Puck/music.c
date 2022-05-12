@@ -257,15 +257,14 @@ static THD_FUNCTION(music, arg) {
 
 	(void) arg;
 
-	uint8_t recording_size = 0;
+	uint8_t recording_size = 50;
 	float score = 0;
 
 	while(!chThdShouldTerminateX()) {
 		//this thread is waiting until it receives a message
-		chSysLock();
-		recording_size = chThdSuspendS(&musicThdRef);
-		chSysUnlock();
-		recording_size=5;
+//		chSysLock();
+//		recording_size = chThdSuspendS(&musicThdRef);
+//		chSysUnlock();
 		score = 0;
 
 		for(uint8_t i=0; i<recording_size; i++){

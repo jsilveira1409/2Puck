@@ -49,7 +49,7 @@ static THD_FUNCTION(game_thd, arg) {
 	GAME_STATE state = IDLE;
 	uint8_t message = 0;
 	song_selection_t song = 0;
-	uint8_t recording_size = 5;
+	uint8_t recording_size = 50;
 	uint8_t num_players = 2;
 	uint8_t score[num_players]; //TODO: SHOULD BE A FLOAT
 
@@ -71,7 +71,7 @@ static THD_FUNCTION(game_thd, arg) {
 
 				for(uint8_t i=0; i<num_players; i++){
 					set_led(LED5, 1);
-					music_listen(recording_size);
+//					music_listen(recording_size);
 					score[i] = get_score();
 					SendUint8ToComputer(&score[i], 1);
 					chThdSleepMilliseconds(1000);
