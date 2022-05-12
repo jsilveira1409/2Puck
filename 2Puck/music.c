@@ -265,7 +265,6 @@ static THD_FUNCTION(music, arg) {
 		chSysLock();
 		recording_size = chThdSuspendS(&musicThdRef);
 		chSysUnlock();
-		recording_size=5;
 		score = 0;
 
 		for(uint8_t i=0; i<recording_size; i++){
