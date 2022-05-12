@@ -48,36 +48,38 @@ static THD_FUNCTION(game_thd, arg) {
 	(void) arg;
 
 	GAME_STATE state = IDLE;
-	uint8_t message = 0;
 	song_selection_t song = 0;
-	uint8_t recording_size = 5;
+	uint8_t recording_size = 20;
 	uint8_t num_players = 2;
 	uint8_t score[num_players]; //TODO: SHOULD BE A FLOAT
 
 	while(true) {
 		switch(state){
 			case IDLE:
-				console_send_string("Send w to start the Games");
-				message = chSequentialStreamGet(&SD3);
-				if (message == 'w'){
+				;
+				char c = console_get_char("Send w to start the Game");
+				if (c == 'w'){
 					state++;
 				}
 				break;
 
 			case START_GAME:
+				console_send_string("Game Started");
 				song = music_init();
+				char* music_name = music_song_name(song);
+				console_send_string(music_name);
 				chThdSleepMilliseconds(400);
-//				pathing_init();
 //				lightshow_init();
-				SendUint8ToComputer(&song, 1);
 
 				for(uint8_t i=0; i<num_players; i++){
+					console_send_string("Player Started");
 					set_led(LED5, 1);
 					music_listen(recording_size);
 					score[i] = get_score();
-					SendUint8ToComputer(&score[i], 1);
+//					SendUint8ToComputer(&score[i], 1);
 					chThdSleepMilliseconds(1000);
 					set_led(LED1, 1);
+					console_send_string("Player finished");
 				}
 
 				music_stop();
@@ -86,6 +88,8 @@ static THD_FUNCTION(game_thd, arg) {
 				break;
 
 			case GOTO_WINNER:
+				pathing_init();
+				console_send_string("Going to Winner");
 #ifdef	PLAY_SONGS
 				play_song(NEXT_EPISODE);
 #endif
@@ -100,6 +104,7 @@ static THD_FUNCTION(game_thd, arg) {
 				break;
 
 			case SEND_PHOTO:
+				console_send_string("Taking Photo");
 				photo_init();
 				photo_wait_finish();
 				photo_stop();

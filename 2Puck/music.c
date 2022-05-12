@@ -28,14 +28,22 @@ typedef enum {
 // TODO: CHECK IF NECESSARY AS GLOBAL
 static note_t played_notes[50];
 
-static const uint16_t note_freq[] =
-{
+static const uint16_t note_freq[] = {
 	[A1]=55, [AS1]=58, [B1]=62, [C1]=65,  [CS1]=69,  [D1]=73,  [DS1]=77,  [E1]=82,  [F1]=87,  [FS1]=92,  [G1]=98,  [GS1]=104,
 	[A2]=110,[AS2]=116,[B2]=124,[C2]=131, [CS2]=138, [D2]=146, [DS2]=155, [E2]=165, [F2]=175, [FS2]=185, [G2]=196, [GS2]=208,
 	[A3]=220,[AS3]=233,[B3]=247,[C3]=262, [CS3]=277, [D3]=294, [DS3]=311, [E3]=330, [F3]=349, [FS3]=370, [G3]=392, [GS3]=415,
 	[A4]=440,[AS4]=466,[B4]=494,[C4]=523, [CS4]=554, [D4]=587, [DS4]=622, [E4]=659, [F4]=698, [FS4]=740, [G4]=784, [GS4]=831,
 	[A5]=880,[AS5]=932,[B5]=988,[C5]=1047,[CS5]=1108,[D5]=1174,[DS5]=1244,[E5]=1318,[F5]=1396,[FS5]=1480,[G5]=1568,[GS5]=1662,
 };
+
+static const char* song_name[] = {
+		[COME_AS_YOU_ARE]	= "Come as you are ~Nirvana",
+		[MISS_YOU]		  	= "Miss you ~Rolling Stones",
+		[SOLD_THE_WORLD]  	= "The Man Who Sold the World ~Nirvana",
+		[SEVEN_NATION] 	  	= "Seven Nation Army ~White Snakes",
+		[NEXT_EPISODE]		= "The Next Episode ~Dr Dre",
+};
+
 
 /*
  * Come As you are - Nirvana
@@ -320,11 +328,17 @@ void stop_song(void){
 
 song_selection_t choose_random_song(void){
 	rng_init();
-	uint32_t random_val = (rng_get() % sizeof(songs));
+	uint32_t random = rng_get();
+	uint32_t songs_size = sizeof(songs)/sizeof(song);
+	uint32_t song_nb = (random % songs_size);
 	rng_stop();
-	return random_val;
+	return song_nb;
 }
 
 msg_t music_send_freq(float freq){
 	return chMsgSend(musicThd, (msg_t)freq);
+}
+
+char* music_song_name(song_selection_t song){
+	return song_name[song];
 }

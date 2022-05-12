@@ -9,7 +9,6 @@
 #include <ch.h>
 #include <hal.h>
 #include <chprintf.h>
-#include <stdio.h>
 #include "console.h"
 
 static thread_t* console;
@@ -19,7 +18,7 @@ static thread_t* console;
  * @param[in] arg	Stream where message must be printed.
  *
  */
-static THD_WORKING_AREA(waConsoleServerThread, 512);
+static THD_WORKING_AREA(waConsoleServerThread, 1024);
 
 static THD_FUNCTION(ConsoleServerThread, arg) {
   BaseSequentialStream *stream = (BaseSequentialStream *)arg;
@@ -83,15 +82,8 @@ msg_t console_send_string(char* msg){
 	return chMsgSend(console, (msg_t)msg);
 }
 
-/**
- * @brief  Wrapper that uses ChibiOS messages to send a number to serial.
- *
- * @param[in] msg	Number to send to console.
- * @return 			Console Server return message.
- */
-msg_t console_send_int(int msg){
-	char* msg_formatted;
-	sprintf(msg_formatted,'%d',msg);
-	return chMsgSend(console, (msg_t)msg_formatted);
-}
+char console_get_char(char* input_msg){
+	console_send_string(input_msg);
+	return chSequentialStreamGet(&SD3);
 
+}
