@@ -5,19 +5,22 @@
  *  Authors: Karl Khalil
  *  		 Joaquim Silveira
  */
+
+//Comment this line to not play the songs
+//#define PLAY_SONGS
 #include <ch.h>
 #include <hal.h>
 #include <leds.h>
 #include <audio_processing.h>
 #include <photo.h>
+#include <chprintf.h>
 #include "communications.h"
 #include "music.h"
 #include "pathing.h"
 #include "lightshow.h"
 #include "console.h"
 
-//Comment this line to not play the songs
-//#define PLAY_SONGS
+static thread_t* gameThd = NULL;
 
 typedef enum {
 	IDLE,
@@ -27,6 +30,17 @@ typedef enum {
 	FINISHED
 } GAME_STATE;
 
+static float get_score(void){
+	/* Waiting for a queued message then retrieving it.*/
+	thread_t *tp = chMsgWait();
+	float freq = (float)chMsgGet(tp);
+
+	/* Sending back an acknowledge.*/
+	chMsgRelease(tp, MSG_OK);
+
+	return freq;
+}
+
 static THD_WORKING_AREA(gameWA, 128);
 
 static THD_FUNCTION(game_thd, arg) {
@@ -34,13 +48,13 @@ static THD_FUNCTION(game_thd, arg) {
 	(void) arg;
 
 	GAME_STATE state = IDLE;
-	uint8_t score1 = 0;
-	uint8_t score2 = 0;
 	uint8_t message = 0;
-	uint8_t song = 0;
+	song_selection_t song = 0;
+	uint8_t recording_size = 5;
+	uint8_t num_players = 2;
+	uint8_t score[num_players]; //TODO: SHOULD BE A FLOAT
 
 	while(true) {
-
 		switch(state){
 			case IDLE:
 				console_send_string("Send w to start the Games");
@@ -51,31 +65,23 @@ static THD_FUNCTION(game_thd, arg) {
 				break;
 
 			case START_GAME:
-				console_send_string("Game started");
-				music_init();
-				pathing_init();
-				lightshow_init();
-				song = get_song();
-//				console_send_int(song); // TODO: get_song() returns a strings
+				song = music_init();
+				chThdSleepMilliseconds(400);
+//				pathing_init();
+//				lightshow_init();
+				SendUint8ToComputer(&song, 1);
 
-				wait_finish_music();
-				score1 = get_score();
-				SendUint8ToComputer(&score1, 1);
-				set_body_led(1);
-				set_led(LED1, 1);
+				for(uint8_t i=0; i<num_players; i++){
+					set_led(LED5, 1);
+					music_listen(recording_size);
+					score[i] = get_score();
+					SendUint8ToComputer(&score[i], 1);
+					chThdSleepMilliseconds(1000);
+					set_led(LED1, 1);
+				}
 
-				chThdSleepMilliseconds(2000);
-				set_led(LED1, 0);
-				set_body_led(0);
-
-				wait_finish_music();
-				score2 = get_score();
-				SendUint8ToComputer(&score2, 1);
 				music_stop();
 				set_body_led(1);
-				chThdSleepMilliseconds(2000);
-				set_body_led(0);
-
 				state++;
 				break;
 
@@ -84,7 +90,7 @@ static THD_FUNCTION(game_thd, arg) {
 				play_song(NEXT_EPISODE);
 #endif
 				chThdSleepMilliseconds(5000);
-				pathing_set((score1 >= score2) ? PATH_TO_PLAYER1 : PATH_TO_PLAYER2);
+				pathing_set((score[0] >= score[1]) ? PATH_TO_PLAYER1 : PATH_TO_PLAYER2);
 				pathing_wait_finish();
 				pathing_stop();
 #ifdef PLAY_SONGS
@@ -111,6 +117,9 @@ static THD_FUNCTION(game_thd, arg) {
 }
 
 void game_init(void){
-	chThdCreateStatic(gameWA, sizeof(gameWA), NORMALPRIO+1, game_thd, NULL);
+	gameThd = chThdCreateStatic(gameWA, sizeof(gameWA), NORMALPRIO+1, game_thd, NULL);
 }
 
+msg_t game_send_score(float score){
+	return chMsgSend(gameThd, (msg_t)score);
+}
