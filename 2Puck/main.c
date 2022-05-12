@@ -24,7 +24,6 @@ static void serial_start(void)
 }
 
 
-
 int main(void)
 {
     halInit();
@@ -48,10 +47,7 @@ int main(void)
 //	}
 //
 ////	lightshow_init();
-//    game_init();
-
-    music_init();
-
+    game_init();
 
 	while (1) {
 		;

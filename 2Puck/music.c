@@ -8,16 +8,13 @@
 #include <audio/microphone.h>
 #include <audio/play_sound_file.h>
 #include "rng.h"
+#include <leds.h>
 #include "music.h"
-
-#define DEBUG_SCORING_ALGO
-
-#define RECORDING_SIZE	3
-
-static BSEMAPHORE_DECL(sem_finished_music, TRUE);
+#include "game.h"
 
 static float score = 0;
 static thread_t* musicThd = NULL;
+static thread_reference_t musicThdRef = NULL;
 static song_selection_t chosen_song = 0;
 
 typedef enum {
@@ -29,7 +26,7 @@ typedef enum {
 }note_t;
 
 // TODO: CHECK IF NECESSARY AS GLOBAL
-static note_t played_notes[RECORDING_SIZE];
+static note_t played_notes[50];
 
 static const uint16_t note_freq[] =
 {
@@ -104,49 +101,49 @@ const song songs[] = {
 /*
  * Static Functions
  */
-static void print_note(int16_t index){
-	switch (index){
-		case 0:
-			chprintf((BaseSequentialStream *)&SD3, "A  ");
-			break;
-		case 1:
-			chprintf((BaseSequentialStream *)&SD3, "A# ");
-			break;
-		case 2:
-			chprintf((BaseSequentialStream *)&SD3, "B ");
-			break;
-		case 3:
-			chprintf((BaseSequentialStream *)&SD3, "C ");
-			break;
-		case 4:
-			chprintf((BaseSequentialStream *)&SD3, "C# ");
-			break;
-		case 5:
-			chprintf((BaseSequentialStream *)&SD3, "D ");
-			break;
-		case 6:
-			chprintf((BaseSequentialStream *)&SD3, "D# ");
-			break;
-		case 7:
-			chprintf((BaseSequentialStream *)&SD3, "E ");
-			break;
-		case 8:
-			chprintf((BaseSequentialStream *)&SD3, "F ");
-			break;
-		case 9:
-			chprintf((BaseSequentialStream *)&SD3, "F# ");
-			break;
-		case 10:
-			chprintf((BaseSequentialStream *)&SD3, "G ");
-			break;
-		case 11:
-			chprintf((BaseSequentialStream *)&SD3, "G# ");
-			break;
-		case 12:
-			chprintf((BaseSequentialStream *)&SD3, "none  \r ");
-			break;
-	}
-}
+//static void print_note(int16_t index){
+//	switch (index){
+//		case 0:
+//			chprintf((BaseSequentialStream *)&SD3, "A  ");
+//			break;
+//		case 1:
+//			chprintf((BaseSequentialStream *)&SD3, "A# ");
+//			break;
+//		case 2:
+//			chprintf((BaseSequentialStream *)&SD3, "B ");
+//			break;
+//		case 3:
+//			chprintf((BaseSequentialStream *)&SD3, "C ");
+//			break;
+//		case 4:
+//			chprintf((BaseSequentialStream *)&SD3, "C# ");
+//			break;
+//		case 5:
+//			chprintf((BaseSequentialStream *)&SD3, "D ");
+//			break;
+//		case 6:
+//			chprintf((BaseSequentialStream *)&SD3, "D# ");
+//			break;
+//		case 7:
+//			chprintf((BaseSequentialStream *)&SD3, "E ");
+//			break;
+//		case 8:
+//			chprintf((BaseSequentialStream *)&SD3, "F ");
+//			break;
+//		case 9:
+//			chprintf((BaseSequentialStream *)&SD3, "F# ");
+//			break;
+//		case 10:
+//			chprintf((BaseSequentialStream *)&SD3, "G ");
+//			break;
+//		case 11:
+//			chprintf((BaseSequentialStream *)&SD3, "G# ");
+//			break;
+//		case 12:
+//			chprintf((BaseSequentialStream *)&SD3, "none  \r ");
+//			break;
+//	}
+//}
 
 static void shift_to_correct_note(song_selection_t song_index, uint32_t starting_index, uint16_t *next_correct_index){
 	for(uint16_t i=starting_index; i<songs[song_index].melody_size; i++){
@@ -255,25 +252,34 @@ static note_t freq_to_note(float freq){
  * THREADS
  */
 
-static THD_WORKING_AREA(musicWorkingArea, 128);
+static THD_WORKING_AREA(musicWorkingArea, 256);
 static THD_FUNCTION(music, arg) {
 
 	(void) arg;
 
-	uint8_t note_current_index = 0;
+	uint8_t recording_size = 0;
+	float score = 0;
 
 	while(!chThdShouldTerminateX()) {
+		//this thread is waiting until it receives a message
+		chSysLock();
+		recording_size = chThdSuspendS(&musicThdRef);
+		chSysUnlock();
+		recording_size=5;
 		score = 0;
 
-		for(uint8_t i=0; i<RECORDING_SIZE; i++){
+		for(uint8_t i=0; i<recording_size; i++){
+			set_led(LED3, 1);
 			float freq = get_frequency();
 			note_t note = freq_to_note(freq);
 			played_notes[i] = note;
-			print_note(note);
+//			print_note(note);
+			set_led(LED3,0);
+			chThdSleepMilliseconds(200);
 		}
 
 		score = calculate_score();
-		chBSemSignal(&sem_finished_music);
+		game_send_score(score);
 		chThdSleepMilliseconds(500);
 	}
 	chThdExit(MSG_OK);
@@ -298,6 +304,10 @@ void music_stop(void){
 	chThdTerminate(musicThd);
 }
 
+void music_listen(uint8_t recording_size){
+	 chThdResume(&musicThdRef, (msg_t)recording_size);
+}
+
 void play_song(song_selection_t index){
 	setSoundFileVolume(50);
 	playSoundFile(songs[index].file_name, SF_FORCE_CHANGE);
@@ -309,19 +319,11 @@ void stop_song(void){
 	stopCurrentSoundFile();
 }
 
-int16_t get_score(void){
-	return score;
-}
-
 song_selection_t choose_random_song(void){
 	rng_init();
 	uint32_t random_val = (rng_get() % sizeof(songs));
 	rng_stop();
 	return random_val;
-}
-
-void wait_finish_music(void){
-	chBSemWait(&sem_finished_music);
 }
 
 msg_t music_send_freq(float freq){
