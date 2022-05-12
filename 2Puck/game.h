@@ -10,6 +10,7 @@
 
 
 void game_init(void);
+msg_t game_send_score(float score);
 
 
 #endif /* GAME_H_ */

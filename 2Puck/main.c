@@ -8,6 +8,7 @@
 #include "main.h"
 #include "game.h"
 #include "lightshow.h"
+#include "music.h"
 
 
 static void serial_start(void)
@@ -23,7 +24,6 @@ static void serial_start(void)
 }
 
 
-
 int main(void)
 {
     halInit();
@@ -31,24 +31,23 @@ int main(void)
     mpu_init();
     serial_start();
 
-	sdio_start();
-	playSoundFileStart();
-
-
-	/*
-	 * SD card init does not like being inside music_init
-	 * it segfaults
-	 */
-	while(!mountSDCard()){
-		set_body_led(1);
-		chThdSleepMilliseconds(200);
-		set_body_led(0);
-		chThdSleepMilliseconds(200);
-	}
-
-//	lightshow_init();
+//	sdio_start();
+//	playSoundFileStart();
+//
+//
+//	/*
+//	 * SD card init does not like being inside music_init
+//	 * it segfaults
+//	 */
+//	while(!mountSDCard()){
+//		set_body_led(1);
+//		chThdSleepMilliseconds(200);
+//		set_body_led(0);
+//		chThdSleepMilliseconds(200);
+//	}
+//
+////	lightshow_init();
     game_init();
-
 
 	while (1) {
 		;

@@ -10,22 +10,21 @@
 #include <fft.h>
 #include <arm_math.h>
 #include <audio_processing.h>
+#include "music.h"
 
-/*Uncomment to print the notes recorded*/
+/* Uncomment to print the notes recorded */
 //#define DEBUGGING
 
 #define RESOLUTION  			(I2S_AUDIOFREQ_16K/2)/(FFT_SIZE/2)
 #define FREQ_INDEX_OFFSET 		(-2)
 #define NB_SAMPLES				160
-#define RECORDING_SIZE			2
-#define NB_MICS 				2
 #define MAX_VOLUME  			1200
 #define MIN_VOLUME 				1000
 
 
 static BSEMAPHORE_DECL(sem_finished_playing, TRUE);
 /*
- * Probably need a mutex here, and put pathing with a higger priority,
+ * TODO: Probably need a mutex here, and put pathing with a higger priority,
  * so microphone inherits pathing's priority once it is dancing,
  * in which it waits for the note to be played
  */
@@ -33,89 +32,11 @@ static BSEMAPHORE_DECL(sem_note_played, TRUE);
 
 static float micLeft_cmplx_input[2 * FFT_SIZE];
 static float micLeft_output[FFT_SIZE];
-static float freq = 0;
-
-static uint8_t played_note[RECORDING_SIZE];
-static uint16_t current_index = 0;
-static uint16_t discret_freq = 0;
-
-
-/*
- * Prints the discrete note, used for debugging
- */
-#ifdef	DEBUGGING
- static void find_note (int16_t index){
-	switch (index){
-		case 0:
-			chprintf((BaseSequentialStream *)&SD3, "A  ");
-			break;
-		case 1:
-			chprintf((BaseSequentialStream *)&SD3, "A# ");
-			break;
-		case 2:
-			chprintf((BaseSequentialStream *)&SD3, "B ");
-			break;
-		case 3:
-			chprintf((BaseSequentialStream *)&SD3, "C ");
-			break;
-		case 4:
-			chprintf((BaseSequentialStream *)&SD3, "C# ");
-			break;
-		case 5:
-			chprintf((BaseSequentialStream *)&SD3, "D ");
-			break;
-		case 6:
-			chprintf((BaseSequentialStream *)&SD3, "D# ");
-			break;
-		case 7:
-			chprintf((BaseSequentialStream *)&SD3, "E ");
-			break;
-		case 8:
-			chprintf((BaseSequentialStream *)&SD3, "F ");
-			break;
-		case 9:
-			chprintf((BaseSequentialStream *)&SD3, "F# ");
-			break;
-		case 10:
-			chprintf((BaseSequentialStream *)&SD3, "G ");
-			break;
-		case 11:
-			chprintf((BaseSequentialStream *)&SD3, "G# ");
-			break;
-		case 12:
-			chprintf((BaseSequentialStream *)&SD3, "none  \r ");
-			break;
-	}
-}
-#endif
-
-/*
- * Finds the smallest error between the FFT data
- * and the discrete note frequency in note_frequency[]
- *
- *	TODO: implement something that ignores the note when the error is too big,
- *	could help with resolution
- *
- */
-static void check_smallest_error(uint32_t *max_index){
-	float smallest_error = 0, curr_error = 0;
-	freq = (float)RESOLUTION*((float)(*max_index + FREQ_INDEX_OFFSET ));
-
-	smallest_error = abs(freq - (float)note_frequency[0]);
-	for(uint8_t i = 1; i<NB_NOTES; i++){
-		curr_error = abs(freq - (float)note_frequency[i]);
-		if(curr_error < smallest_error){
-			smallest_error = curr_error;
-			discret_freq = note_frequency[i];
-			*max_index = i;
-		}
-	}
-}
 
 /*
  * TODO :CHECK IF THERE IS A CMSIS FUNCTION FOR THIS
  */
-static void fundamental_frequency(float* data, uint8_t nb_harmonic){
+static float fundamental_frequency(float* data, uint8_t nb_harmonic){
 	if(nb_harmonic > 1){
 		for(uint8_t harmonic = 1; harmonic <= nb_harmonic;harmonic++ ){
 			for(uint16_t i = 0; i< FFT_SIZE; i++){
@@ -123,6 +44,11 @@ static void fundamental_frequency(float* data, uint8_t nb_harmonic){
 			}
 		}
 	}
+	float max_freq_mag = 0;
+	uint32_t max_index = 0;
+	arm_max_f32(data, (FFT_SIZE/2), &max_freq_mag, &max_index);
+	float freq = (float)RESOLUTION*((float)(max_index + FREQ_INDEX_OFFSET ));
+	return freq;
 }
 
 uint8_t note_volume(int16_t *data, uint16_t num_samples){
@@ -149,49 +75,12 @@ uint8_t note_volume(int16_t *data, uint16_t num_samples){
 		}else if(state == 1){
 			return 0;
 		}
-	}else if (mic_volume < MIN_VOLUME){
+	}else if(mic_volume < MIN_VOLUME){
 		state = 0;
 		return 0;
 	}
 
 	return 0;
-}
-
-/*
- * Records the played note into the recording array,
- * once we fill the limit, it signals the semaphore to activate the
- * scoring of the recording in music.c
- */
-static void record_note(const uint8_t note_index){
-	played_note[current_index] = note_index;
-	/*
-	 * Signals pathing.c that it can dance once
-	 */
-	chBSemSignal(&sem_note_played);
-
-	if(current_index < RECORDING_SIZE){
-		current_index ++;
-	}else{
-		current_index = 0;
-		chBSemSignal(&sem_finished_playing);
-	}
-}
-
-/*
- * Receives the FFT data, finds the closest discrete error and
- * records it
- */
-static void frequency_to_note(float* data){
-	float max_freq_mag = 0;
-	uint32_t max_index = 0;
-
-	arm_max_f32(data, (FFT_SIZE/2), &max_freq_mag, &max_index);
-	check_smallest_error(&max_index);
-	max_index = max_index%12;
-#ifdef DEBUGGING
-	find_note(max_index);
-#endif
-	record_note(max_index);
 }
 
 /*
@@ -237,8 +126,9 @@ void processAudioDataCmplx(int16_t *data, uint16_t num_samples){
 		if(register_note == 1){
 			doCmplxFFT_optimized(FFT_SIZE, micLeft_cmplx_input);
 			arm_cmplx_mag_f32(micLeft_cmplx_input, micLeft_output, FFT_SIZE);
-			fundamental_frequency(micLeft_output, 4);
-			frequency_to_note(micLeft_output);
+			float freq = fundamental_frequency(micLeft_output, 4);
+			music_send_freq(freq);
+
 			register_note = 0;
 		}
 		nb_samples = 0;
@@ -249,12 +139,7 @@ void processAudioDataCmplx(int16_t *data, uint16_t num_samples){
 /*
  * Public Functions
  */
-uint8_t* get_recording(void){
-	return played_note;
-}
-uint8_t get_current_last_note(void){
-	return played_note[current_index];
-}
+
 void wait_note_played(void){
 	chBSemWait(&sem_note_played);
 }
