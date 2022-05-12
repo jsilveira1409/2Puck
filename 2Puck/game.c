@@ -33,12 +33,12 @@ typedef enum {
 static float get_score(void){
 	/* Waiting for a queued message then retrieving it.*/
 	thread_t *tp = chMsgWait();
-	float freq = (float)chMsgGet(tp);
+	float score = (float)chMsgGet(tp);
 
 	/* Sending back an acknowledge.*/
 	chMsgRelease(tp, MSG_OK);
 
-	return freq;
+	return score;
 }
 
 static THD_WORKING_AREA(gameWA, 128);
