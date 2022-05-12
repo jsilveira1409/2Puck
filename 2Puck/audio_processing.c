@@ -37,14 +37,12 @@ static BSEMAPHORE_DECL(sem_finished_playing, TRUE);
 static BSEMAPHORE_DECL(sem_note_played, TRUE);
 
 
-static float fundamental_frequency(float* data, uint8_t nb_harmonic){
-	float decimated_data[FFT_SIZE/2];
-	set_body_led(1);
-	for(uint16_t i = 0; i < (FFT_SIZE/2); i++){
-		decimated_data[i] = data[2*i];
-	}
-	set_body_led(0);
-	set_led(LED1, 1);
+static float fundamental_frequency(float* data){
+
+//	float decimated_data[FFT_SIZE/2];
+//	for(uint16_t i = 0; i < (FFT_SIZE/2); i++){
+//		decimated_data[i] = data[2*i];
+//	}
 //	arm_mult_f32(data,decimated_data,data, FFT_SIZE/2);
 
 	float max_freq_mag = 0;
@@ -99,13 +97,12 @@ void processAudioDataCmplx(int16_t *data, uint16_t num_samples){
 	static uint16_t nb_samples = 0;
 	static uint8_t register_note = 0;
 	static uint16_t nb_overlap_samples = 0;
+
 	static float micLeft_cmplx_input[2 * FFT_SIZE];
 	static float micLeft_output[FFT_SIZE];
 	static float overlapping_samples[OVERLAP_BUFFER_SIZE];
 
-
 	uint8_t status = 0;
-
 
 	for(uint16_t i = 0 ; i < num_samples ; i+=4){
 		micLeft_cmplx_input[nb_samples] = (float)data[i + MIC_LEFT];
@@ -142,9 +139,8 @@ void processAudioDataCmplx(int16_t *data, uint16_t num_samples){
 		if(register_note == 1){
 			doCmplxFFT_optimized(FFT_SIZE, micLeft_cmplx_input);
 			arm_cmplx_mag_f32(micLeft_cmplx_input, micLeft_output, FFT_SIZE);
-			float freq = fundamental_frequency(micLeft_output, 4);
+			float freq = fundamental_frequency(micLeft_output);
 			music_send_freq(freq);
-
 			register_note = 0;
 		}
 		nb_samples = OVERLAP_BUFFER_SIZE;

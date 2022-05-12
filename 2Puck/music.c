@@ -164,8 +164,7 @@ static int16_t check_note_sequence(song_selection_t song_index){
 
 static float calculate_score(void){
 	float total_score = 0;
-
-	total_score = check_note_sequence(chosen_song);
+	total_score = 100*check_note_sequence(chosen_song)/(float)songs[chosen_song].melody_size;
 	return total_score;
 }
 
