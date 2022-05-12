@@ -7,7 +7,7 @@ import time
 
 rc('text', usetex = True)
 rc("axes", labelsize = 30)
-rc("xtick", labelsize = 30)
+rc("xtick", labelsizxe = 30)
 rc("ytick", labelsize = 30)
 rc("axes", titlesize = 30)
 rc("legend", fontsize = 30)

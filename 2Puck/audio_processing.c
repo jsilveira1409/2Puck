@@ -11,6 +11,7 @@
 #include <arm_math.h>
 #include <audio_processing.h>
 #include "music.h"
+#include <leds.h>
 
 /*Uncomment to print the notes recorded*/
 #define DEBUGGING
@@ -24,35 +25,28 @@
 #define OVERLAP_BUFFER_SIZE		(2*FFT_SIZE/OVERLAP_FACTOR)
 #define OVERLAP_INDEX 			(2*FFT_SIZE*(OVERLAP_FACTOR - 1)/OVERLAP_FACTOR)
 
+/* FIR-Decimation constants*/
+#define DECIMATION_FACTOR		2
+#define NUM_TAPS				29
+#define BLOCK_SIZE				32
+#define STATE_ARRAY_SIZE		(BLOCK_SIZE + NUM_TAPS - 1)
+#define NUM_BLOCKS				(FFT_SIZE/64)
+
 
 static BSEMAPHORE_DECL(sem_finished_playing, TRUE);
-/*
- * TODO: Probably need a mutex here, and put pathing with a higger priority,
- * so microphone inherits pathing's priority once it is dancing,
- * in which it waits for the note to be played
- */
 static BSEMAPHORE_DECL(sem_note_played, TRUE);
 
-static float micLeft_cmplx_input[2 * FFT_SIZE];
-static float micLeft_output[FFT_SIZE];
 
-/*
- * The last samples are taken from one FFT bin and put into the start of the next one,
- * to avoid cutting a note detection into two
- */
-static float overlapping_samples[OVERLAP_BUFFER_SIZE];
-
-/*
- * TODO :CHECK IF THERE IS A CMSIS FUNCTION FOR THIS
- */
 static float fundamental_frequency(float* data, uint8_t nb_harmonic){
-	if(nb_harmonic > 1){
-		for(uint8_t harmonic = 1; harmonic <= nb_harmonic;harmonic++ ){
-			for(uint16_t i = 0; i< FFT_SIZE; i++){
-				data[i] += data[i]/(float)harmonic;
-			}
-		}
+	float decimated_data[FFT_SIZE/2];
+	set_body_led(1);
+	for(uint16_t i = 0; i < (FFT_SIZE/2); i++){
+		decimated_data[i] = data[2*i];
 	}
+	set_body_led(0);
+	set_led(LED1, 1);
+//	arm_mult_f32(data,decimated_data,data, FFT_SIZE/2);
+
 	float max_freq_mag = 0;
 	uint32_t max_index = 0;
 	arm_max_f32(data, (FFT_SIZE/2), &max_freq_mag, &max_index);
@@ -105,11 +99,14 @@ void processAudioDataCmplx(int16_t *data, uint16_t num_samples){
 	static uint16_t nb_samples = 0;
 	static uint8_t register_note = 0;
 	static uint16_t nb_overlap_samples = 0;
+	static float micLeft_cmplx_input[2 * FFT_SIZE];
+	static float micLeft_output[FFT_SIZE];
+	static float overlapping_samples[OVERLAP_BUFFER_SIZE];
+
 
 	uint8_t status = 0;
-	/*
-	 * Fills the input buffer with the received samples
-	 */
+
+
 	for(uint16_t i = 0 ; i < num_samples ; i+=4){
 		micLeft_cmplx_input[nb_samples] = (float)data[i + MIC_LEFT];
 		if(nb_samples >= OVERLAP_INDEX){

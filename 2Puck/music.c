@@ -145,61 +145,18 @@ const song songs[] = {
 //	}
 //}
 
-static void shift_to_correct_note(song_selection_t song_index, uint32_t starting_index, uint16_t *next_correct_index){
-	for(uint16_t i=starting_index; i<songs[song_index].melody_size; i++){
-		if(((songs[song_index].melody_ptr[i])%12) == played_notes[i]){
-			*next_correct_index = i;
-			break;
-		}
-	}
-}
-
 /*
  * Checking notes time sequence is correct: was note x played when it should
  * be played ?
  */
 static int16_t check_note_sequence(song_selection_t song_index){
 	int16_t points = 0;
-	uint16_t correct_index = 0;
-	uint16_t note_index = 0;
-	/*
-	 * First we find the first correct note on the recording,
-	 * which will be our starting index for the melody-recording
-	 * comparison
-	 */
-	shift_to_correct_note(song_index, note_index, &correct_index);
-	/*
-	 * Here we compare the melody and the recording
-	 */
-	for(uint16_t i=correct_index; i< (correct_index + songs[song_index].melody_size); i++){
-		if((played_notes[i]%12) == (((uint8_t)songs[song_index].melody_ptr[note_index]) % 12)){
+
+	for(uint16_t i=0; i< songs[song_index].melody_size; i++){
+		if((played_notes[i]%12) == (((uint8_t)songs[song_index].melody_ptr[i]) % 12)){
 			points ++;
-			note_index++;
 		}else{
 			points--;
-		}
-	}
-	return points;
-}
-
-
-/*
- * Checking order of played notes is correct: was note y played after note x, even
- * if there is a wrong note in between?
- */
-static int16_t check_note_order(song_selection_t song_index){
-	 int16_t points = 0;
-	 uint16_t shift = 0;
-
-	for(uint16_t i = 0; i < songs[song_index].melody_size; i++){
-		for(uint16_t j = i+shift; j < songs[song_index].melody_size; j++){
-			if((songs[song_index].melody_ptr[i]%12) == (played_notes[j]%12)){
-				points++;
-				break;
-			}else{
-				shift++;
-				points--;
-			}
 		}
 	}
 	return points;
@@ -208,7 +165,7 @@ static int16_t check_note_order(song_selection_t song_index){
 static float calculate_score(void){
 	float total_score = 0;
 
-	total_score = check_note_sequence(chosen_song) + check_note_order(chosen_song);
+	total_score = check_note_sequence(chosen_song);
 	return total_score;
 }
 
