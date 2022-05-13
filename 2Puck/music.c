@@ -12,6 +12,8 @@
 #include "music.h"
 #include "game.h"
 
+#define POSITIVE_POINTS 4
+#define NEGATIVE_POINTS	1
 static int8_t score = 0;
 static thread_t* musicThd = NULL;
 static thread_reference_t musicThdRef = NULL;
@@ -154,17 +156,18 @@ static int16_t check_note_sequence(song_selection_t song_index){
 
 	for(uint16_t i=0; i< songs[song_index].melody_size; i++){
 		if((played_notes[i]%12) == (((uint8_t)songs[song_index].melody_ptr[i]) % 12)){
-			points ++;
+			points += POSITIVE_POINTS;
 		}else{
-			points--;
+			points -= NEGATIVE_POINTS;
 		}
 	}
 	return points;
 }
 
-static float calculate_score(void){
-	float total_score = 0;
-	total_score = 100*check_note_sequence(chosen_song)/(float)songs[chosen_song].melody_size;
+static int16_t calculate_score(void){
+	int16_t total_score = 0;
+	total_score = (int16_t)(100*(float)check_note_sequence(chosen_song) /
+			(POSITIVE_POINTS * (float)songs[chosen_song].melody_size));
 	if(total_score > 100){
 		total_score = 100;
 	}else if(total_score < -100){
@@ -225,7 +228,7 @@ static THD_FUNCTION(music, arg) {
 		chSysLock();
 		recording_size = chThdSuspendS(&musicThdRef);
 		chSysUnlock();
-		float score = 0;
+		int16_t score = 0;
 
 		for(uint8_t i=0; i<recording_size; i++){
 			set_led(LED3, 1);

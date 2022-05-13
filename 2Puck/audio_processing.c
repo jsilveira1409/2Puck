@@ -18,8 +18,8 @@
 #define RESOLUTION  			(I2S_AUDIOFREQ_16K/2)/(FFT_SIZE/2)
 #define FREQ_INDEX_OFFSET 		(-2)
 #define NB_SAMPLES				160
-#define MAX_VOLUME  			1200
-#define MIN_VOLUME 				1000
+#define MAX_VOLUME  			2000
+#define MIN_VOLUME 				1500
 #define OVERLAP_FACTOR	  		(2)	//50%
 #define OVERLAP_BUFFER_SIZE		(2*FFT_SIZE/OVERLAP_FACTOR)
 #define OVERLAP_INDEX 			(2*FFT_SIZE*(OVERLAP_FACTOR - 1)/OVERLAP_FACTOR)
@@ -32,11 +32,11 @@ static BSEMAPHORE_DECL(sem_note_played, TRUE);
 
 static float fundamental_frequency(float* data){
 
-	float decimated_data[FFT_SIZE/2];
-	for(uint16_t i = 0; i < (FFT_SIZE/2); i++){
-		decimated_data[i] = data[2*i];
-	}
-	arm_mult_f32(data,decimated_data,data, FFT_SIZE/2);
+//	float decimated_data[FFT_SIZE/2];
+//	for(uint16_t i = 0; i < (FFT_SIZE/2); i++){
+//		decimated_data[i] = data[2*i];
+//	}
+//	arm_mult_f32(data,decimated_data,data, FFT_SIZE/2);
 
 	float max_freq_mag = 0;
 	uint32_t max_index = 0;

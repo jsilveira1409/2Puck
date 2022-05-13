@@ -51,7 +51,7 @@ static THD_FUNCTION(game_thd, arg) {
 	song_selection_t song = 0;
 	uint8_t recording_size = 20;
 	uint8_t num_players = 2;
-	uint8_t score[num_players]; //TODO: SHOULD BE A FLOAT
+	int8_t score[num_players]; //TODO: SHOULD BE A FLOAT
 
 	while(true) {
 		switch(state){
