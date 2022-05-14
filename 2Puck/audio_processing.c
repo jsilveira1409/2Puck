@@ -6,7 +6,6 @@
 #include <motors.h>
 #include <audio/microphone.h>
 #include <audio_processing.h>
-#include <communications.h>
 #include <fft.h>
 #include <arm_math.h>
 #include <audio_processing.h>
@@ -17,8 +16,8 @@
 #define RESOLUTION  			(I2S_AUDIOFREQ_16K/2)/(FFT_SIZE/2)
 #define FREQ_INDEX_OFFSET 		(-2)
 #define NB_SAMPLES				160
-#define MAX_VOLUME  			1300
-#define MIN_VOLUME 				800
+#define MAX_VOLUME  			1200
+#define MIN_VOLUME 				500
 #define OVERLAP_FACTOR	  		(2)	//50%
 #define OVERLAP_BUFFER_SIZE		(2*FFT_SIZE/OVERLAP_FACTOR)
 #define OVERLAP_INDEX 			(2*FFT_SIZE*(OVERLAP_FACTOR - 1)/OVERLAP_FACTOR)

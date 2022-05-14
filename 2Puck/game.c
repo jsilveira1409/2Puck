@@ -14,7 +14,6 @@
 #include <audio_processing.h>
 #include <photo.h>
 #include <chprintf.h>
-#include "communications.h"
 #include "music.h"
 #include "pathing.h"
 #include "lightshow.h"
@@ -69,7 +68,6 @@ static THD_FUNCTION(game_thd, arg) {
 				const char* music_name = music_song_name(song);
 				console_send_string("The song chosen is");
 				console_send_string(music_name);
-				chThdSleepMilliseconds(1000);
 //				lightshow_init();
 
 				for(uint8_t i=0; i<num_players; i++){
@@ -93,10 +91,8 @@ static THD_FUNCTION(game_thd, arg) {
 #ifdef	PLAY_SONGS
 				play_song(NEXT_EPISODE);
 #endif
-				chThdSleepMilliseconds(5000);
 				pathing_init((score[0] >= score[1]) ? PATH_TO_PLAYER1 : PATH_TO_PLAYER2);
 				pathing_wait_finish();
-				pathing_stop();
 #ifdef PLAY_SONGS
 				stop_song();
 #endif
@@ -108,11 +104,12 @@ static THD_FUNCTION(game_thd, arg) {
 				photo_init();
 				photo_wait_finish();
 				photo_stop();
-				chThdSleepMilliseconds(10000);
+				console_send_string("Photo taken");
 				state++;
 				break;
 
 			case FINISHED:
+				console_send_string("Game finished");
 				state = IDLE;
 				set_body_led(1);
 				break;
