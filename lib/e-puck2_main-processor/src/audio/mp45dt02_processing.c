@@ -134,7 +134,8 @@ static int16_t *PCM_buffer_ptr_curr = PCM_buffer1;
 static int16_t *PCM_buffer_ptr_last = PCM_buffer2;
 
 static thread_t *DataProcessingThd;
-static THD_WORKING_AREA(DataProcessingThdWA, 1024);
+static THD_WORKING_AREA(DataProcessingThdWA, 2048);
+//JOJO static THD_WORKING_AREA(DataProcessingThdWA, 1024);
 static semaphore_t DataProcessingSem;
 
 static I2SConfig mp45dt02I2SConfig;

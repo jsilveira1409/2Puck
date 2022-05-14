@@ -40,7 +40,7 @@
 #define MAX_MOTOR_DISPLACEMENT	10
 #define MIN_WALL_DIST			MIN_IR_VAL + 10
 
-#define PLAYER1_X				(100)		//ptn de parenthese merci pour la nuit blanche
+#define PLAYER1_X				(100)
 #define PLAYER1_Y				(500)
 #define PLAYER2_X				(-150)
 #define PLAYER2_Y				(300)
@@ -76,6 +76,14 @@ static float orientation[2] = {0,1}; 	// Orientation of the forward vector of th
  * Static Functions
  */
 
+/*
+ * @brief registers path by calculating beta and the ePucks displacement
+ * as a function of left_pos and right_pos. It then updates the position
+ * and orientation arrays.
+ * @param [in] float left_pos : distance to advance the left wheel, in mm.
+ * @param [in] float right_pos : distance to advance the left wheel, in mm.
+ */
+
 static void register_path(float left_pos,  float right_pos){
 	static float beta = 0;  //angle entre l'axe y et le forward vector du ePuck
 	float displacement = 0;	//Center of mass displacement
@@ -98,6 +106,15 @@ static void register_path(float left_pos,  float right_pos){
 	}
 }
 
+/*
+ *@brief calculates the distances from the center of the
+ *ePuck to the target by substracting the target array to the
+ *position array, and calculating the result's magnitude
+ *@param [in/out] float* dist : result of the substraction of
+ *arrays
+ *@return float
+ */
+
 static float distance_to_target(float* dist){
 	float distance_mag = 0;
 
@@ -108,7 +125,11 @@ static float distance_to_target(float* dist){
 }
 
 /*
- * Implements the PID for the motors, parameters in mm
+ * @brief implements the PID for the motors, controlling
+ * their speed depending on the error between the target number
+ * of steps and the current one, parameters in mm.
+ * @param [in] float left_pos : distance to advance the left wheel, in mm.
+ * @param [in] float right_pos : distance to advance the right wheel, in mm.
  */
 static void move(float left_pos, float right_pos){
 	motor_state_t state = MOVING;
@@ -171,6 +192,14 @@ static void move(float left_pos, float right_pos){
 		}
 	}
 }
+/*
+ * @brief verifies which IR sensor returns the highest value,
+ * with which we can deduce the obstacle's direction. If this value
+ * is smaller than MIN_IR_VAL, the robot ignores it
+ * @param [in/out] float* ir_max_val : highest value between the IR
+ * sensors
+ * @return ir_dir_t
+ */
 
 static ir_dir_t check_ir_dir(float* ir_max_val){
 	int ir[6] = {get_prox(5),get_prox(6),get_prox(7),
@@ -195,12 +224,15 @@ static ir_dir_t check_ir_dir(float* ir_max_val){
 
 
 /*
- * We don't calculate the angle, as it implies calculating
- * acos and asin, which are not given by the dsp or the fpu. Therefore, we
- * try to close the angle by turning little by little until cos alpha is
- * more or less equal to one
+ * @brief updates the pathing variables of the robot. Calculates the cos_alpha
+ * and sin_alpha, which then are used to determine to which direction it should
+ * turn. We don't calculate the angle, as it implies calculating acos and asin,
+ * which are not given by the dsp or the fpu.
+ * @param [in/out] float* dist : array containing the distance vector, from the
+ * robot to the target.
+ * @param [in] float distance_mag : magnitude of dist vector
+ *
  */
-
 static void update_path(float* dist, float distance_mag){
 	float move_l = 0, move_r = 0;
 	float cos_alpha = 0, sin_alpha = 0;
@@ -240,6 +272,15 @@ static void update_path(float* dist, float distance_mag){
 	return;
 }
 
+/*
+ * @brief wall following function, implements a PID that keeps the robot at a certain
+ * distance from the wall, using the left or the right IR sensor
+ * @param [in] ir_dir_t ir : direction of the IR sensor closest to the wall, either
+ * IR_HARD_LEFT or IR_HARD_RIGHT
+ * @param [in] float ir_val : value of the IR sensor, which is used to compute the
+ * PID's error
+ *
+ */
 static void wall_follow(ir_dir_t ir, float ir_val){
 	//TODO: implement conversion between ir value and distance
 	float error = MIN_WALL_DIST - ir_val;
@@ -255,6 +296,13 @@ static void wall_follow(ir_dir_t ir, float ir_val){
 	move(move_l, move_r);
 }
 
+/*
+ * @brief pathing function that guides the robot from where it currently
+ * is to the target. It checks the IR sensors and the distance to the target
+ * to, respectively, either avoid the obstacle or stop s(whenever the distance
+ * is smaller than MIN_DISTANCE_2_TARGET).
+ * @return pathing_option_t
+ */
 static pathing_option_t pathing(void){
 	float dist[2] = {0,0};					// Vector between puck and target point
 	float distance_mag = 0;
@@ -295,6 +343,13 @@ static pathing_option_t pathing(void){
 	return option;
 }
 
+/*
+ * @brief sets the target array values to the ones passed to
+ * the function.
+ * @param[in] int16_t x_coord : x coordinate of the target
+ * @param[in] int16_t y_coord : y coordinate of the target
+ * @return pathing_option_t
+ */
 static pathing_option_t set_target(int16_t x_coord, int16_t y_coord){
 	target[X_AXIS] = x_coord;
 	target[Y_AXIS] = y_coord;
@@ -308,14 +363,13 @@ static THD_WORKING_AREA(pathingWorkingArea, 256);
 
 static THD_FUNCTION(ThdPathing, arg) {
 
-//	pathing_option_t current_option = *((pathing_option_t*)arg);
-	pathing_option_t current_option = PATH_TO_PLAYER1;
+	pathing_option_t current_option = *((pathing_option_t*)arg);
+//	pathing_option_t current_option = PATH_TO_PLAYER1;
 
 	while (!chThdShouldTerminateX()) {
 		switch (current_option){
 			case PATHING_WAIT:
-				chThdSleepMilliseconds(1000);
-//				current_option = pathing_wait_option();
+				chThdSleepMilliseconds(2000);
 				//TODO:should wait for a msg from game here
 				break;
 			case PATHING_FINISHED:
@@ -340,6 +394,12 @@ static THD_FUNCTION(ThdPathing, arg) {
 
 /*
  * Public Functions
+ */
+
+/*
+ * @brief Initializes the pathing thread and all the required
+ * subsystems. ALso initialiyes the three PIDs and their values
+ * @param[in] pathing_option_t option :
  */
 void pathing_init(pathing_option_t option){
 	motors_init();
@@ -373,10 +433,16 @@ void pathing_init(pathing_option_t option){
  * Public Functions
  */
 
+/*
+ * @brief terminates the pathing thread
+ */
 void pathing_stop(){
 	chThdTerminate(ThdPtrPathing);
 }
 
+/*
+ * @brief
+ */
 void pathing_wait_finish(void){
 	chBSemWait(&sem_finished_pathing);
 }

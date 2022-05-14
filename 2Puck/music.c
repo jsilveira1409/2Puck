@@ -14,7 +14,7 @@
 
 #define POSITIVE_POINTS 		4
 #define NEGATIVE_POINTS			1
-#define MAX_ACCEPTABLE_FREQ_ERROR	10
+#define MAX_ACCEPTABLE_FREQ_ERROR	7
 
 static thread_t* musicThd = NULL;
 static thread_reference_t musicThdRef = NULL;
@@ -105,62 +105,11 @@ const song songs[] = {
 /*
  * Static Functions
  */
-
-/*
- * @brief prints the note according to the index given
- * @param[in] (int16_t) index: index of the note in the chromatic scale,
- * starting with A (La)
- * @return void
- */
-static void print_note(int16_t index){
-	switch (index){
-		case 0:
-			chprintf((BaseSequentialStream *)&SD3, "A  ");
-			break;
-		case 1:
-			chprintf((BaseSequentialStream *)&SD3, "A# ");
-			break;
-		case 2:
-			chprintf((BaseSequentialStream *)&SD3, "B ");
-			break;
-		case 3:
-			chprintf((BaseSequentialStream *)&SD3, "C ");
-			break;
-		case 4:
-			chprintf((BaseSequentialStream *)&SD3, "C# ");
-			break;
-		case 5:
-			chprintf((BaseSequentialStream *)&SD3, "D ");
-			break;
-		case 6:
-			chprintf((BaseSequentialStream *)&SD3, "D# ");
-			break;
-		case 7:
-			chprintf((BaseSequentialStream *)&SD3, "E ");
-			break;
-		case 8:
-			chprintf((BaseSequentialStream *)&SD3, "F ");
-			break;
-		case 9:
-			chprintf((BaseSequentialStream *)&SD3, "F# ");
-			break;
-		case 10:
-			chprintf((BaseSequentialStream *)&SD3, "G ");
-			break;
-		case 11:
-			chprintf((BaseSequentialStream *)&SD3, "G# ");
-			break;
-		case 12:
-			chprintf((BaseSequentialStream *)&SD3, "none  \r ");
-			break;
-	}
-}
-
 /*
  * @brief checks notes time sequence is correct: was note x played when it should
  * be played ?
- * @param[in] (song_selectrion_t) song_index: index of the song in the songs array
- * @return (int16_t): total score of the recording
+ * @param[in] song_selectrion_t song_index: index of the song in the songs array
+ * @return int16_t: total score of the recording
  */
 static int16_t check_note_sequence(song_selection_t song_index){
 	int16_t points = 0;
@@ -178,7 +127,7 @@ static int16_t check_note_sequence(song_selection_t song_index){
 /*
  * @brief calculates the score percentage, from -100% to 100%, of the
  * recording compared to the song's melody
- * @return (int16_t) : score percentage
+ * @return int16_t : score percentage
  */
 static int16_t calculate_score(void){
 	int16_t total_score = 0;
@@ -212,10 +161,8 @@ static float get_frequency(void){
 /*
  * @brief Finds the smallest error between the FFT data
  * and the discrete note frequency in note_frequency[]
- * @param[in] (float) freq: frequency of the note
- * @return (note_t) chromatic scale note
- *	TODO: implement something that ignores the note when the error is too big,
- *	could help with resolution
+ * @param[in] float freq: frequency of the note
+ * @return note_t chromatic scale note
  *
  */
 
@@ -239,7 +186,7 @@ static note_t freq_to_note(float freq){
  * THREADS
  */
 
-static THD_WORKING_AREA(musicWorkingArea, 256);
+static THD_WORKING_AREA(musicWorkingArea, 512);
 static THD_FUNCTION(music, arg) {
 
 	(void) arg;
@@ -259,12 +206,10 @@ static THD_FUNCTION(music, arg) {
 			note_t note = freq_to_note(freq);
 			if(note != NONE){
 				played_notes[i] = note;
-				print_note(note);
 				set_led(LED3,0);
 			}else{
 				i--;
 			}
-//			chThdSleepMilliseconds(200);
 		}
 
 		score = calculate_score();
@@ -289,9 +234,12 @@ static THD_FUNCTION(music, arg) {
 song_selection_t music_init(void){
 //	chosen_song = choose_random_song();
 	chosen_song = MISS_YOU;
-	mic_start(&processAudioDataCmplx);
+
     musicThd = chThdCreateStatic(musicWorkingArea, sizeof(musicWorkingArea),
 			NORMALPRIO, music, NULL);
+    chThdSleepMilliseconds(200);
+    mic_start(&processAudioDataCmplx);
+    chThdSleepMilliseconds(200);
     dac_start();
     return chosen_song;
 }
@@ -308,8 +256,7 @@ void music_stop(void){
 
 /*
  * @brief
- *
- * @param[in] (uint8_t) recording_size:
+ * @param[in] uint8_t recording_size:
  */
 void music_listen(uint8_t recording_size){
 	 chThdResume(&musicThdRef, (msg_t)recording_size);
@@ -317,8 +264,7 @@ void music_listen(uint8_t recording_size){
 
 /*
  *@brief sends the name of the file to play to the play_sound_file.h lib
- *
- *@param[in] (song_selection_t) index: index of the song in songs to play
+ *@param[in] song_selection_t index: index of the song in songs to play
  */
 void play_song(song_selection_t index){
 	setSoundFileVolume(50);
@@ -339,7 +285,7 @@ void stop_song(void){
  * @brief chooses a random song using the rng.h lib and
  * modulating by the number of songs
  *
- * @return (song_selection_t) index of the random song
+ * @return song_selection_t index of the random song
  */
 song_selection_t choose_random_song(void){
 	rng_init();
