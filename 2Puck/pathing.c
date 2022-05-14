@@ -40,7 +40,7 @@
 #define MAX_MOTOR_DISPLACEMENT	10
 #define MIN_WALL_DIST			MIN_IR_VAL + 10
 
-#define PLAYER1_X				(100)		//ptn de parenthese merci pour la nuit blanche
+#define PLAYER1_X				(100)
 #define PLAYER1_Y				(500)
 #define PLAYER2_X				(-150)
 #define PLAYER2_Y				(300)
@@ -310,8 +310,7 @@ static THD_FUNCTION(ThdPathing, arg) {
 
 	(void)arg;
 
-//	pathing_option_t current_option = *((pathing_option_t*)arg);
-	pathing_option_t current_option = PATH_TO_PLAYER1;
+	pathing_option_t current_option = (pathing_option_t)arg;
 
 	while (!chThdShouldTerminateX()) {
 		switch (current_option){
@@ -321,6 +320,7 @@ static THD_FUNCTION(ThdPathing, arg) {
 				//TODO:should wait for a msg from game here
 				break;
 			case PATHING_FINISHED:
+				chBSemSignal(&sem_finished_pathing);
 				pathing_stop();
 				break;
 			case PATH_TO_PLAYER1:
@@ -368,7 +368,7 @@ void pathing_init(pathing_option_t option){
 	arm_pid_init_f32(&wall_pid, 0);
 
 	ThdPtrPathing = chThdCreateStatic(pathingWorkingArea, sizeof(pathingWorkingArea),
-	                           NORMALPRIO, ThdPathing, (void*)&option);
+	                           NORMALPRIO, ThdPathing, (void*)option);
 }
 
 /*
