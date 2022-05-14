@@ -14,22 +14,28 @@
 #include <leds.h>
 
 
-#define MAX_ACCEPTABLE_ERROR	8
 #define RESOLUTION  			(I2S_AUDIOFREQ_16K/2)/(FFT_SIZE/2)
 #define FREQ_INDEX_OFFSET 		(-2)
 #define NB_SAMPLES				160
-#define MAX_VOLUME  			2000
-#define MIN_VOLUME 				1500
+#define MAX_VOLUME  			1300
+#define MIN_VOLUME 				800
 #define OVERLAP_FACTOR	  		(2)	//50%
 #define OVERLAP_BUFFER_SIZE		(2*FFT_SIZE/OVERLAP_FACTOR)
 #define OVERLAP_INDEX 			(2*FFT_SIZE*(OVERLAP_FACTOR - 1)/OVERLAP_FACTOR)
 
- static BSEMAPHORE_DECL(sem_finished_playing, TRUE);
+static BSEMAPHORE_DECL(sem_finished_playing, TRUE);
 static BSEMAPHORE_DECL(sem_note_played, TRUE);
 
 
 
-
+/*
+ * @brief applies the harmonic product spectrum and finds the maximum value and
+ * index of the given data
+ *
+ * @param[in/out] FFT data of the microphone
+ *
+ * @return fundamental frequency of the note played
+ */
 static float fundamental_frequency(float* data){
 
 //	float decimated_data[FFT_SIZE/2];
@@ -44,6 +50,18 @@ static float fundamental_frequency(float* data){
 	float freq = (float)RESOLUTION*((float)(max_index + FREQ_INDEX_OFFSET ));
 	return freq;
 }
+
+/*
+ * @brief measures the volume of the microphone's data and
+ * applies a schmitt trigger to it, and returns true if there is a
+ * rising edge
+ *
+ * @param[in/out] int16_t* data time-domaine microphone data
+ *
+ * @param[in] int16_t num_samples number of samples in data to analyze
+ *
+ * @return whether there is a rising edge or not
+ */
 
 bool note_volume(int16_t *data, uint16_t num_samples){
 	static uint8_t state = 0;
@@ -77,13 +95,15 @@ bool note_volume(int16_t *data, uint16_t num_samples){
 }
 
 /*
-*	Callback called when the demodulation of the four microphones is done.
-*	We get 160 samples per mic every 10ms (16kHz)
+*	@brief Callback called when the demodulation of	the four microphones is done. We get 160 samples
+*	per mic every 10ms (16kHz)
 *
-*	params :
-*	int16_t *data			Buffer containing 4 times 160 samples. the samples are sorted by micro
-*							so we have [micRight1, micLeft1, micBack1, micFront1, micRight2, etc...]
-*	uint16_t num_samples	Tells how many data we get in total (should always be 640)
+*	@param[in/out] (int16_t) *data: Buffer containing 4 times 160 samples.
+*	the samples are sorted by micro	so we have [micRight1, micLeft1, micBack1, micFront1, micRight2, etc...]
+*
+*	@param[in] (uint16_t) num_samples: Tells how many data we get in total (should always be 640)
+*
+*	@return void
 */
 void processAudioDataCmplx(int16_t *data, uint16_t num_samples){
 	static uint16_t nb_samples = 0;
@@ -150,10 +170,3 @@ void processAudioDataCmplx(int16_t *data, uint16_t num_samples){
 /*
  * Public Functions
  */
-
-void wait_note_played(void){
-	chBSemWait(&sem_note_played);
-}
-void wait_finish_playing(void){
-	chBSemWait(&sem_finished_playing);
-}

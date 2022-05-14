@@ -51,7 +51,7 @@ static THD_FUNCTION(game_thd, arg) {
 	song_selection_t song = 0;
 	uint8_t recording_size = 20;
 	uint8_t num_players = 2;
-	int8_t score[num_players]; //TODO: SHOULD BE A FLOAT
+	int16_t score[num_players]; //TODO: SHOULD BE A FLOAT
 
 	while(true) {
 		switch(state){
@@ -73,8 +73,8 @@ static THD_FUNCTION(game_thd, arg) {
 					set_led(LED5, 1);
 					music_listen(recording_size);
 					score[i] = get_score();
-					SendUint8ToComputer(&score[i], 1);
-					chThdSleepMilliseconds(1000);
+					SendUint8ToComputer(score[i], 1);
+					chThdSleepMilliseconds(4000);
 					set_led(LED1, 1);
 				}
 

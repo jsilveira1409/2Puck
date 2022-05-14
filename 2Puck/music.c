@@ -12,9 +12,11 @@
 #include "music.h"
 #include "game.h"
 
-#define POSITIVE_POINTS 4
-#define NEGATIVE_POINTS	1
-static int8_t score = 0;
+#define POSITIVE_POINTS 		4
+#define NEGATIVE_POINTS			1
+#define MAX_ACCEPTABLE_ERROR	8
+
+//static int8_t score = 0;
 static thread_t* musicThd = NULL;
 static thread_reference_t musicThdRef = NULL;
 static song_selection_t chosen_song = 0;
@@ -25,6 +27,7 @@ typedef enum {
 	A3,   AS3, B3, C3, CS3, D3, DS3,E3, F3, FS3, G3, GS3,
 	A4,   AS4, B4, C4, CS4, D4, DS4,E4, F4, FS4, G4, GS4,
 	A5,   AS5, B5, C5, CS5, D5, DS5,E5, F5, FS5, G5, GS5,
+	NONE
 }note_t;
 
 // TODO: CHECK IF NECESSARY AS GLOBAL
@@ -103,6 +106,13 @@ const song songs[] = {
 /*
  * Static Functions
  */
+
+/*
+ * @brief prints the note according to the index given
+ * @param[in] (int16_t) index: index of the note in the chromatic scale,
+ * starting with A (La)
+ * @return void
+ */
 static void print_note(int16_t index){
 	switch (index){
 		case 0:
@@ -148,8 +158,10 @@ static void print_note(int16_t index){
 }
 
 /*
- * Checking notes time sequence is correct: was note x played when it should
+ * @brief checks notes time sequence is correct: was note x played when it should
  * be played ?
+ * @param[in] (song_selectrion_t) song_index: index of the song in the songs array
+ * @return (int16_t): total score of the recording
  */
 static int16_t check_note_sequence(song_selection_t song_index){
 	int16_t points = 0;
@@ -164,6 +176,11 @@ static int16_t check_note_sequence(song_selection_t song_index){
 	return points;
 }
 
+/*
+ * @brief calculates the score percentage, from -100% to 100%, of the
+ * recording compared to the song's melody
+ * @return (int16_t) : score percentage
+ */
 static int16_t calculate_score(void){
 	int16_t total_score = 0;
 	total_score = (int16_t)(100*(float)check_note_sequence(chosen_song) /
@@ -175,6 +192,12 @@ static int16_t calculate_score(void){
 	}
 	return total_score;
 }
+
+/*
+ * @brief waits for the message from audio_processing.c with the given
+ * frequency of the fundamental note played
+ * @return float frequency
+ */
 
 static float get_frequency(void){
 	/* Waiting for a queued message then retrieving it.*/
@@ -188,20 +211,21 @@ static float get_frequency(void){
 }
 
 /*
- * Finds the smallest error between the FFT data
+ * @brief Finds the smallest error between the FFT data
  * and the discrete note frequency in note_frequency[]
- *
+ * @param[in] (float) freq: frequency of the note
+ * @return (note_t) chromatic scale note
  *	TODO: implement something that ignores the note when the error is too big,
  *	could help with resolution
  *
  */
-static note_t freq_to_note(float freq){
-	float smallest_error = 0;
-	float curr_error     = 0;
-	note_t note = 0;
 
-	smallest_error = abs(freq - (float)note_freq[0]);
-	for(uint8_t i = 1; i<NB_NOTES; i++){
+static note_t freq_to_note(float freq){
+	float smallest_error = MAX_ACCEPTABLE_ERROR;
+	float curr_error     = 0;
+	note_t note = NONE;
+
+	for(uint8_t i = 0; i < NB_NOTES; i++){
 		curr_error = abs(freq - (float)note_freq[i]);
 		if(curr_error < smallest_error){
 			smallest_error = curr_error;
@@ -234,10 +258,14 @@ static THD_FUNCTION(music, arg) {
 			set_led(LED3, 1);
 			float freq = get_frequency();
 			note_t note = freq_to_note(freq);
-			played_notes[i] = note;
-			print_note(note);
-			set_led(LED3,0);
-			chThdSleepMilliseconds(200);
+			if(note != NONE){
+				played_notes[i] = note;
+				print_note(note);
+				set_led(LED3,0);
+			}else{
+				i--;
+			}
+//			chThdSleepMilliseconds(200);
 		}
 
 		score = calculate_score();
@@ -252,6 +280,13 @@ static THD_FUNCTION(music, arg) {
 /*
  * Public Functions
  */
+
+/*
+ * @brief initializes the microphone thread, with the callback function
+ * from audio_processing, initializes the music thread and the DAC for
+ * the buzzer. Also, chooses the random song.
+ * @return (song_selection_t) random song
+ */
 song_selection_t music_init(void){
 //	chosen_song = choose_random_song();
 	chosen_song = MISS_YOU;
@@ -262,16 +297,30 @@ song_selection_t music_init(void){
     return chosen_song;
 }
 
+/*
+ * @brief stop the microphone and the music thread
+ */
+
 void music_stop(void){
 	//TODO: Stop TIM9
 	mp45dt02Shutdown();
 	chThdTerminate(musicThd);
 }
 
+/*
+ * @brief
+ *
+ * @param[in] (uint8_t) recording_size:
+ */
 void music_listen(uint8_t recording_size){
 	 chThdResume(&musicThdRef, (msg_t)recording_size);
 }
 
+/*
+ *@brief sends the name of the file to play to the play_sound_file.h lib
+ *
+ *@param[in] (song_selection_t) index: index of the song in songs to play
+ */
 void play_song(song_selection_t index){
 	setSoundFileVolume(50);
 	playSoundFile(songs[index].file_name, SF_FORCE_CHANGE);
@@ -279,10 +328,20 @@ void play_song(song_selection_t index){
 
 }
 
+/*
+ * @brief stops the current song, played with the buzzer, started
+ * with play_song()
+ */
 void stop_song(void){
 	stopCurrentSoundFile();
 }
 
+/*
+ * @brief chooses a random song using the rng.h lib and
+ * modulating by the number of songs
+ *
+ * @return (song_selection_t) index of the random song
+ */
 song_selection_t choose_random_song(void){
 	rng_init();
 	uint32_t random_val = (rng_get() % sizeof(songs));
