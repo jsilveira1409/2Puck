@@ -134,20 +134,6 @@ static note_t played_notes[50];
  * @param[in] (song_selectrion_t) song_index: index of the song in the songs array
  * @return (int16_t): total score of the recording
  */
-static void shift_to_correct_note(song_selection_t song_index, uint32_t starting_index, uint16_t *next_correct_index){
-	for(uint16_t i=starting_index; i<songs[song_index].melody_size; i++){
-		if(((songs[song_index].melody_ptr[i])%12) == played_notes[i]){
-			*next_correct_index = i;
-			break;
-	}
-}
-
-/*
- * @brief checks notes time sequence is correct: was note x played when it should
- * be played ?
- * @param[in] (song_selectrion_t) song_index: index of the song in the songs array
- * @return (int16_t): total score of the recording
- */
 static int16_t check_note_sequence(song_selection_t song_index){
 	int16_t points = 0;
 
@@ -211,7 +197,7 @@ static note_t freq_to_note(float freq){
 	note_t note = NONE;
 
 	for(uint8_t i = 0; i < NB_NOTES; i++){
-		curr_error = abs(freq - (float)note_freq[i]);
+		curr_error = abs(freq - (float)notes[i].freq);
 		if(curr_error < smallest_error){
 			smallest_error = curr_error;
 			//uint16_t discret_freq = note_freq[i];
@@ -254,7 +240,6 @@ static THD_FUNCTION(music, arg) {
 		}
 
 		score = calculate_score();
-		chprintf((BaseSequentialStream *)&SD3, "score :%d \r \n", score);
 		game_send_score(score);
 		chThdSleepMilliseconds(500);
 	}
