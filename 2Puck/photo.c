@@ -7,10 +7,7 @@
 #include <camera/po8030.h>
 #include <inttypes.h>
 #include <photo.h>
-
-#include "communications.h"
-
-#include <photo.h>
+#include "console.h"
 
 static thread_t *ThdPtrPhoto = NULL;
 #define X_start					50
