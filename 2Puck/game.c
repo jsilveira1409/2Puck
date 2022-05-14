@@ -49,9 +49,9 @@ static THD_FUNCTION(game_thd, arg) {
 	GAME_STATE state = IDLE;
 	uint8_t message = 0;
 	song_selection_t song = 0;
-	uint8_t recording_size = 5;
+	uint8_t recording_size = 20;
 	uint8_t num_players = 2;
-	uint8_t score[num_players]; //TODO: SHOULD BE A FLOAT
+	int16_t score[num_players];
 
 	while(true) {
 		switch(state){
@@ -74,7 +74,7 @@ static THD_FUNCTION(game_thd, arg) {
 					music_listen(recording_size);
 					score[i] = get_score();
 					SendUint8ToComputer(&score[i], 1);
-					chThdSleepMilliseconds(1000);
+					chThdSleepMilliseconds(4000);
 					set_led(LED1, 1);
 				}
 
@@ -88,7 +88,7 @@ static THD_FUNCTION(game_thd, arg) {
 				play_song(NEXT_EPISODE);
 #endif
 				chThdSleepMilliseconds(5000);
-				pathing_set((score[0] >= score[1]) ? PATH_TO_PLAYER1 : PATH_TO_PLAYER2);
+				pathing_init((score[0] >= score[1]) ? PATH_TO_PLAYER1 : PATH_TO_PLAYER2);
 				pathing_wait_finish();
 				pathing_stop();
 #ifdef PLAY_SONGS

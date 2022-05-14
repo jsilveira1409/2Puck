@@ -9,6 +9,7 @@
 #include "game.h"
 #include "lightshow.h"
 #include "music.h"
+#include "pathing.h"
 
 
 static void serial_start(void)

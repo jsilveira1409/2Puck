@@ -5,7 +5,7 @@ import struct
 from tkinter import N 		# Used for Big-Endian messages
 from PIL import Image  		# Used for the pictures of the camera
 import serial
-from Function import*
+from Python.Function import*
 #import yagmail
 
 width = 250
