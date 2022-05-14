@@ -90,6 +90,7 @@ msg_t console_send_int(int num, char* msg){
 }
 
 char console_get_char(char* input_msg){
+	console_send_string("Input");
 	console_send_string(input_msg);
 	return chSequentialStreamGet(&SD3);
 
