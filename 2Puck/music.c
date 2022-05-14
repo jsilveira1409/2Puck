@@ -14,9 +14,8 @@
 
 #define POSITIVE_POINTS 		4
 #define NEGATIVE_POINTS			1
-#define MAX_ACCEPTABLE_ERROR	8
+#define MAX_ACCEPTABLE_FREQ_ERROR	10
 
-//static int8_t score = 0;
 static thread_t* musicThd = NULL;
 static thread_reference_t musicThdRef = NULL;
 static song_selection_t chosen_song = 0;
@@ -221,7 +220,7 @@ static float get_frequency(void){
  */
 
 static note_t freq_to_note(float freq){
-	float smallest_error = MAX_ACCEPTABLE_ERROR;
+	float smallest_error = MAX_ACCEPTABLE_FREQ_ERROR;
 	float curr_error     = 0;
 	note_t note = NONE;
 
