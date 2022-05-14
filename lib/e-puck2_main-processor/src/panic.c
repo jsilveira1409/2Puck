@@ -12,7 +12,6 @@ void panic_handler(const char *reason)
 	palClearPad(GPIOD, GPIOD_LED_FRONT);
 	palClearPad(GPIOB, GPIOB_LED_BODY);
 	
-	//ptn tue moi
     while (true) {
 
     }
