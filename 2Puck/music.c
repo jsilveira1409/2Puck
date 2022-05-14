@@ -11,10 +11,7 @@
 #include <leds.h>
 #include "music.h"
 #include "game.h"
-
-static thread_t* musicThd = NULL;
-static thread_reference_t musicThdRef = NULL;
-static song_selection_t chosen_song = 0;
+#include "console.h"
 
 typedef enum {
 	A1=0, AS1, B1, C1, CS1, D1, DS1,E1, F1, FS1, G1, GS1,
@@ -24,15 +21,26 @@ typedef enum {
 	A5,   AS5, B5, C5, CS5, D5, DS5,E5, F5, FS5, G5, GS5,
 }note_t;
 
-// TODO: CHECK IF NECESSARY AS GLOBAL
-static note_t played_notes[50];
+typedef struct{
+	char* name;
+	uint16_t freq;
+}note_struct_t;
 
-static const uint16_t note_freq[] = {
-	[A1]=55, [AS1]=58, [B1]=62, [C1]=65,  [CS1]=69,  [D1]=73,  [DS1]=77,  [E1]=82,  [F1]=87,  [FS1]=92,  [G1]=98,  [GS1]=104,
-	[A2]=110,[AS2]=116,[B2]=124,[C2]=131, [CS2]=138, [D2]=146, [DS2]=155, [E2]=165, [F2]=175, [FS2]=185, [G2]=196, [GS2]=208,
-	[A3]=220,[AS3]=233,[B3]=247,[C3]=262, [CS3]=277, [D3]=294, [DS3]=311, [E3]=330, [F3]=349, [FS3]=370, [G3]=392, [GS3]=415,
-	[A4]=440,[AS4]=466,[B4]=494,[C4]=523, [CS4]=554, [D4]=587, [DS4]=622, [E4]=659, [F4]=698, [FS4]=740, [G4]=784, [GS4]=831,
-	[A5]=880,[AS5]=932,[B5]=988,[C5]=1047,[CS5]=1108,[D5]=1174,[DS5]=1244,[E5]=1318,[F5]=1396,[FS5]=1480,[G5]=1568,[GS5]=1662,
+note_struct_t notes[] = {
+		{"A1",55}, {"AS1",58}, {"B1",62}, {"C1",65},  {"CS1",69},  {"D1",73},
+		{"DS1",77},  {"E1",82},  {"F1",87},  {"FS1",92},  {"G1",98},  {"GS1",104},
+
+		{"A2",110},{"AS2",116},{"B2",124},{"C2",131}, {"CS2",138}, {"D2",146},
+		{"DS2",155}, {"E2",165}, {"F2",175}, {"FS2",185}, {"G2",196}, {"GS2",208},
+
+		{"A3",220},{"AS3",233},{"B3",247},{"C3",262}, {"CS3",277}, {"D3",294},
+		{"DS3",311}, {"E3",330}, {"F3",349}, {"FS3",370}, {"G3",392}, {"GS3",415},
+
+		{"A4",440},{"AS4",466},{"B4",494},{"C4",523}, {"CS4",554}, {"D4",587},
+		{"DS4",622}, {"E4",659}, {"F4",698}, {"FS4",740}, {"G4",784}, {"GS4",831},
+
+		{"A5",880},{"AS5",932},{"B5",988},{"C5",1047},{"CS5",1108},{"D5",1174},
+		{"DS5",1244},{"E5",1318},{"F5",1396},{"FS5",1480},{"G5",1568},{"GS5",1662},
 };
 
 static const char* song_name[] = {
@@ -105,52 +113,15 @@ const song songs[] = {
 		{melody_NEXT_EPISODE,		sizeof(melody_NEXT_EPISODE),		"nextepisode.wav"}
 };
 
+static thread_t* musicThd = NULL;
+static thread_reference_t musicThdRef = NULL;
+static song_selection_t chosen_song = 0;
+// TODO: CHECK IF NECESSARY AS GLOBAL
+static note_t played_notes[50];
+
 /*
  * Static Functions
  */
-//static void print_note(int16_t index){
-//	switch (index){
-//		case 0:
-//			chprintf((BaseSequentialStream *)&SD3, "A  ");
-//			break;
-//		case 1:
-//			chprintf((BaseSequentialStream *)&SD3, "A# ");
-//			break;
-//		case 2:
-//			chprintf((BaseSequentialStream *)&SD3, "B ");
-//			break;
-//		case 3:
-//			chprintf((BaseSequentialStream *)&SD3, "C ");
-//			break;
-//		case 4:
-//			chprintf((BaseSequentialStream *)&SD3, "C# ");
-//			break;
-//		case 5:
-//			chprintf((BaseSequentialStream *)&SD3, "D ");
-//			break;
-//		case 6:
-//			chprintf((BaseSequentialStream *)&SD3, "D# ");
-//			break;
-//		case 7:
-//			chprintf((BaseSequentialStream *)&SD3, "E ");
-//			break;
-//		case 8:
-//			chprintf((BaseSequentialStream *)&SD3, "F ");
-//			break;
-//		case 9:
-//			chprintf((BaseSequentialStream *)&SD3, "F# ");
-//			break;
-//		case 10:
-//			chprintf((BaseSequentialStream *)&SD3, "G ");
-//			break;
-//		case 11:
-//			chprintf((BaseSequentialStream *)&SD3, "G# ");
-//			break;
-//		case 12:
-//			chprintf((BaseSequentialStream *)&SD3, "none  \r ");
-//			break;
-//	}
-//}
 
 static void shift_to_correct_note(song_selection_t song_index, uint32_t starting_index, uint16_t *next_correct_index){
 	for(uint16_t i=starting_index; i<songs[song_index].melody_size; i++){
@@ -243,9 +214,9 @@ static note_t freq_to_note(float freq){
 	float curr_error     = 0;
 	note_t note = 0;
 
-	smallest_error = abs(freq - (float)note_freq[0]);
+	smallest_error = abs(freq - (float)notes[0].freq);
 	for(uint8_t i = 1; i<NB_NOTES; i++){
-		curr_error = abs(freq - (float)note_freq[i]);
+		curr_error = abs(freq - (float)notes[i].freq);
 		if(curr_error < smallest_error){
 			smallest_error = curr_error;
 			//uint16_t discret_freq = note_freq[i];
@@ -279,9 +250,8 @@ static THD_FUNCTION(music, arg) {
 			float freq = get_frequency();
 			note_t note = freq_to_note(freq);
 			played_notes[i] = note;
-//			print_note(note);
+			console_send_string(notes[note].name);
 			set_led(LED3,0);
-			chThdSleepMilliseconds(200);
 		}
 
 		score = calculate_score();
