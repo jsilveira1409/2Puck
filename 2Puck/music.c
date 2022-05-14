@@ -234,7 +234,7 @@ static note_t freq_to_note(float freq){
 			note = i;
 		}
 	}
-	return (note%12);
+	return note;
 }
 
 /*
