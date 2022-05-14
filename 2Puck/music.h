@@ -22,6 +22,6 @@ void wait_finish_music(void);
 //int16_t get_score(void);
 song_selection_t choose_random_song(void);
 msg_t music_send_freq(float freq);
-char* music_song_name(song_selection_t song);
+const char* music_song_name(song_selection_t song);
 
 #endif

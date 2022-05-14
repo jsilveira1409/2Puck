@@ -12,7 +12,6 @@
 #include "music.h"
 #include "game.h"
 
-static float score = 0;
 static thread_t* musicThd = NULL;
 static thread_reference_t musicThdRef = NULL;
 static song_selection_t chosen_song = 0;
@@ -339,6 +338,6 @@ msg_t music_send_freq(float freq){
 	return chMsgSend(musicThd, (msg_t)freq);
 }
 
-char* music_song_name(song_selection_t song){
+const char* music_song_name(song_selection_t song){
 	return song_name[song];
 }
