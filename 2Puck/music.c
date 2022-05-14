@@ -258,8 +258,7 @@ static THD_FUNCTION(music, arg) {
  * @return (song_selection_t) random song
  */
 song_selection_t music_init(void){
-//	chosen_song = choose_random_song();
-	chosen_song = MISS_YOU;
+	chosen_song = choose_random_song();
 	mic_start(&processAudioDataCmplx);
     musicThd = chThdCreateStatic(musicWorkingArea, sizeof(musicWorkingArea),
 			NORMALPRIO, music, NULL);
@@ -292,10 +291,14 @@ void music_listen(uint8_t recording_size){
  *@param[in] (song_selection_t) index: index of the song in songs to play
  */
 void play_song(song_selection_t index){
+	sdio_start();
+	playSoundFileStart();
+	if(!mountSDCard()){
+		console_send_string("SD Card not Mounted");
+		return;
+	}
 	setSoundFileVolume(50);
 	playSoundFile(songs[index].file_name, SF_FORCE_CHANGE);
-//	waitSoundFileHasFinished();  --> blocks the motors, logical
-
 }
 
 /*

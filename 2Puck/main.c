@@ -19,27 +19,11 @@ int main(void)
     chSysInit();
     mpu_init();
 
-//	sdio_start();
-//	playSoundFileStart();
-//
-//
-//	/*
-//	 * SD card init does not like being inside music_init
-//	 * it segfaults
-//	 */
-//	while(!mountSDCard()){
-//		set_body_led(1);
-//		chThdSleepMilliseconds(200);
-//		set_body_led(0);
-//		chThdSleepMilliseconds(200);
-//	}
-//
     console_init();
     game_init();
 
 	while (1) {
 		;
-		//TODO: EXIT() ?
 	}
 }
 
