@@ -67,11 +67,13 @@ static THD_FUNCTION(game_thd, arg) {
 				console_send_string("Game Started");
 				song = music_init();
 				const char* music_name = music_song_name(song);
+				console_send_string("The song chosen is");
 				console_send_string(music_name);
 				chThdSleepMilliseconds(1000);
 //				lightshow_init();
 
 				for(uint8_t i=0; i<num_players; i++){
+					chThdSleepMilliseconds(4000);
 					console_send_string("Player Start");
 					set_led(LED5, 1);
 					music_listen(recording_size);
@@ -80,16 +82,13 @@ static THD_FUNCTION(game_thd, arg) {
 					console_send_int(score[i],"Your score is");
 					console_send_string("Player finished");
 					set_led(LED1, 1);
-					chThdSleepMilliseconds(4000);
 				}
-
-				music_stop();
 				set_body_led(1);
+				music_stop();
 				state++;
 				break;
 
 			case GOTO_WINNER:
-				pathing_init();
 				console_send_string("Going to Winner");
 #ifdef	PLAY_SONGS
 				play_song(NEXT_EPISODE);
