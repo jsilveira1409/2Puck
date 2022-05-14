@@ -13,10 +13,6 @@ height = 350
 
 size = width * height
 
-score1 = 0
-score2 = 0
-
-
 #thread used to control the communication part
 class serial_thread(Thread):
 
@@ -37,69 +33,10 @@ class serial_thread(Thread):
             sys.exit(0)
         
     #function called after the init
-    def run(self):      
-        chosen_song = 0
-        
-        winner = 0
-        option = input("Enter option: \n")   
-        
-        if(option == 'w'):
-            self.port.write(b'w')         
-            self.send_start_game()
-            chosen_song = self.rec_chose_song()
-            time.sleep(1)
-            print(chosen_song, songs[chosen_song])
-            self.send_player1_play() 
-            score1 = self.rec_score1()
-            print("score 1",score1)
-            self.send_player2_play()              
-            score2 = self.rec_score2()
-            print("score 2",score2)    
-            self.rec_picture()
-            self.stop()
-                               
-    def send_start_game(self):
-        print("Start Game")
-        self.port.write(b'w')
-
-    def send_player1_play(self):
-        print("Player 1 play")
-        self.port.write(b'START')
-        self.port.write(struct.pack('B',2))
-        self.port.flush()
-    
-    def send_player2_play(self):
-        print("Player 2 play")
-        self.port.write(b'START')
-        self.port.write(struct.pack('B',3))
-        self.port.flush()
-
-    def rec_score1(self):
-        data = []
-        s1 = 0
-        readUint8Serial(self.port, data)
-        s1 = data [0][0]
-        return s1
-
-    def rec_score2(self):
-        data = []
-        s2 = 0
-        readUint8Serial(self.port, data)
-        s2 = data [0][0]
-        return s2
-
-    def rec_chose_song(self):
-        data = []
-        readUint8Serial(self.port, data)
-        song = data [0][0]
-        return song
-    
-    def rec_winner(self):
-        data = []
-        print("Winner")
-        readUint8Serial(self.port, data)
-        winner = data[0][0]
-        return winner
+    def run(self):  
+        self.rec_picture()  
+        self.send_mail()  
+        self.stop()
 
     def rec_picture(self):
         print('Taking Photo...')
@@ -118,7 +55,6 @@ class serial_thread(Thread):
         img = bytes(im)
         image = Image.frombuffer("RGB", (width, height), img, "raw",  "BGR;16", 0, 1)
         image.save('capture.png')
-        #self.send_mail()
 
     def stop(self):
         if(self.port.isOpen()):
