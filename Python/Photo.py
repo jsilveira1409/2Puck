@@ -5,8 +5,8 @@ import struct
 from tkinter import N 		# Used for Big-Endian messages
 from PIL import Image  		# Used for the pictures of the camera
 import serial
-from Python.Function import*
-#import yagmail
+import yagmail
+from Function import *
 
 width = 250
 height = 350
@@ -39,7 +39,6 @@ class serial_thread(Thread):
         self.stop()
 
     def rec_picture(self):
-        print('Taking Photo...')
         data = []
         line = 0
         while (line < height):
@@ -62,6 +61,7 @@ class serial_thread(Thread):
         print('Goodbye')
 
     def send_mail():
+        print("Sending Email")
         yagmail.register('2puckshakour@gmail.com', 'HsmTD2k@15Sr')
         receiver = "joaquim.silveira@epfl.ch"
         body = "Dear Prof. Mondada,\n\n \
@@ -77,8 +77,10 @@ class serial_thread(Thread):
             contents=body, 
             attachments=filename,
         )
+        print("Email sent")
 
 if __name__ == '__main__':
-    reader_thd = serial_thread('/dev/cu.usbmodemEPUCK3')
+    # reader_thd = serial_thread('/dev/cu.usbmodemEPUCK3')
+    reader_thd = serial_thread('/dev/cu.e-puck2_04076-UART')
     # reader_thd = serial_thread('com3')
     reader_thd.start()
