@@ -18,7 +18,8 @@ CSRC += main.c \
 		photo.c \
 		game.c \
 		rng.c \
-		lightshow.c
+		lightshow.c \
+		console.c
 		
 #Header folders to include
 INCDIR += 
