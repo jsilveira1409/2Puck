@@ -41,7 +41,7 @@ static float get_score(void){
 	return score;
 }
 
-static THD_WORKING_AREA(gameWA, 128);
+static THD_WORKING_AREA(gameWA, 512);
 
 static THD_FUNCTION(game_thd, arg) {
 
@@ -66,20 +66,21 @@ static THD_FUNCTION(game_thd, arg) {
 			case START_GAME:
 				console_send_string("Game Started");
 				song = music_init();
-				char* music_name = music_song_name(song);
+				const char* music_name = music_song_name(song);
 				console_send_string(music_name);
-				chThdSleepMilliseconds(400);
+				chThdSleepMilliseconds(1000);
 //				lightshow_init();
 
 				for(uint8_t i=0; i<num_players; i++){
-					console_send_string("Player Started");
+					console_send_string("Player Start");
 					set_led(LED5, 1);
 					music_listen(recording_size);
 					score[i] = get_score();
-//					SendUint8ToComputer(&score[i], 1);
-					chThdSleepMilliseconds(1000);
-					set_led(LED1, 1);
+					console_send_string("Calculating Score...");
+					console_send_int(score[i],"Your score is");
 					console_send_string("Player finished");
+					set_led(LED1, 1);
+					chThdSleepMilliseconds(4000);
 				}
 
 				music_stop();

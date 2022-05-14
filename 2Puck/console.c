@@ -9,6 +9,7 @@
 #include <ch.h>
 #include <hal.h>
 #include <chprintf.h>
+#include <stdio.h>
 #include "console.h"
 
 static thread_t* console;
@@ -78,8 +79,14 @@ msg_t console_stop(void){
  * @param[in] msg	Message to send to console.
  * @return 			Console Server return message.
  */
-msg_t console_send_string(char* msg){
+msg_t console_send_string(const char* msg){
 	return chMsgSend(console, (msg_t)msg);
+}
+
+msg_t console_send_int(int num, char* msg){
+	char buffer[20];
+	sprintf(buffer,"%s %d",msg,num);
+	return chMsgSend(console, (msg_t)buffer);
 }
 
 char console_get_char(char* input_msg){
