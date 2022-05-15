@@ -7,15 +7,18 @@
 #include <audio_processing.h>
 #include <audio/microphone.h>
 #include <audio/play_sound_file.h>
-#include "rng.h"
 #include <leds.h>
 #include "music.h"
+#include "rng.h"
 #include "game.h"
 #include "console.h"
 
 #define POSITIVE_POINTS 		4
 #define NEGATIVE_POINTS			1
 #define MAX_ACCEPTABLE_FREQ_ERROR	7
+
+static thread_t* musicThd = NULL;
+static thread_reference_t musicThdRef = NULL;
 
 typedef enum {
 	A1=0, AS1, B1, C1, CS1, D1, DS1,E1, F1, FS1, G1, GS1,
@@ -118,24 +121,20 @@ const song songs[] = {
 		{melody_NEXT_EPISODE,		sizeof(melody_NEXT_EPISODE),		"nextepisode.wav"}
 };
 
-static thread_t* musicThd = NULL;
-static thread_reference_t musicThdRef = NULL;
-// TODO: CHECK IF NECESSARY AS GLOBAL
-static note_t played_notes[50];
-
 /*
  * Static Functions
  */
 
 /*
- * @brief checks notes time sequence is correct: was note x played when it should
- * be played ?
+ * @brief	Checks notes time sequence is correct: was note x played when it should
+ * 			be played ?
  *
- * @param[in]	chosen_song index of the song in the songs array
+ * @param[in]	played_notes	Array of final played_notes by a player
+ * @param[in]	chosen_song 	Index of the song in the songs array
  *
- * @return		total score of the recording
+ * @return		Total score of the recording
  */
-static int16_t check_note_sequence(song_selection_t chosen_song){
+static int16_t check_note_sequence(note_t* played_notes, song_selection_t chosen_song){
 	int16_t points = 0;
 
 	for(uint16_t i=0; i< songs[chosen_song].melody_size; i++){
@@ -149,13 +148,17 @@ static int16_t check_note_sequence(song_selection_t chosen_song){
 }
 
 /*
- * @brief calculates the score percentage, from -100% to 100%, of the
+ * @brief	Calculates the score percentage, from -100% to 100%, of the
  * recording compared to the song's melody
- * @return int16_t : score percentage
+ *
+ * @param[in]	played_notes	Array of final played_notes by a player
+ * @param[in]	chosen_song 	Index of the song in the songs array
+ *
+ * @return		Score percentage
  */
-static int16_t calculate_score(song_selection_t chosen_song){
+static int16_t calculate_score(note_t* played_notes, song_selection_t chosen_song){
 	int16_t total_score = 0;
-	total_score = (int16_t)(100*(float)check_note_sequence(chosen_song) /
+	total_score = (int16_t)(100*(float)check_note_sequence(played_notes, chosen_song) /
 			(POSITIVE_POINTS * (float)songs[chosen_song].melody_size));
 	if(total_score > 100){
 		total_score = 100;
@@ -168,7 +171,8 @@ static int16_t calculate_score(song_selection_t chosen_song){
 /*
  * @brief waits for the message from audio_processing.c with the given
  * frequency of the fundamental note played
- * @return float frequency
+ *
+ * @return	Frequency played
  */
 
 static float get_frequency(void){
@@ -185,6 +189,7 @@ static float get_frequency(void){
 /*
  * @brief Finds the smallest error between the FFT data
  * and the discrete note frequency in note_frequency[]
+ *
  * @param[in] float freq: frequency of the note
  * @return note_t chromatic scale note
  *
@@ -223,6 +228,7 @@ static THD_FUNCTION(music, arg) {
 		recording_size = chThdSuspendS(&musicThdRef);
 		chSysUnlock();
 		int16_t score = 0;
+		note_t played_notes[recording_size];
 
 		for(uint8_t i=0; i<recording_size; i++){
 			set_led(LED3, 1);
@@ -237,7 +243,7 @@ static THD_FUNCTION(music, arg) {
 			}
 		}
 
-		score = calculate_score(chosen_song);
+		score = calculate_score(played_notes, chosen_song);
 		game_send_score(score);
 		chThdSleepMilliseconds(500);
 	}
