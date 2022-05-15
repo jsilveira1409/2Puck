@@ -1,3 +1,14 @@
+/*
+ * @file 		main.c
+ * @brief		Program's main function
+ * @author		Karl Khalil
+ * @author		Joaquim Silveira
+ * @version		1.0
+ * @date 		18 Apr 2022
+ * @copyright	GNU Public License
+ *
+ */
+
 #include <ch.h>
 #include <hal.h>
 #include <memory_protection.h>

@@ -32,7 +32,7 @@
 #define PLAYER2_X				(-150)
 #define PLAYER2_Y				(700)
 
-static thread_t *ThdPtrPathing = NULL;
+static thread_t *ptrPathingThd = NULL;
 static BSEMAPHORE_DECL(sem_finished_pathing, TRUE);
 
 enum {X_AXIS, Y_AXIS};
@@ -337,9 +337,9 @@ static void set_target(int16_t x_coord, int16_t y_coord){
 /*
  * Threads
  */
-static THD_WORKING_AREA(pathingWA, 256);
+static THD_WORKING_AREA(waPathing, 256);
 
-static THD_FUNCTION(pathing_thd, arg) {
+static THD_FUNCTION(pathingThd, arg) {
 
 	(void)arg;
 
@@ -396,15 +396,15 @@ void pathing_init(pathing_option_t option){
 	arm_pid_init_f32(&steps_pid, 0);
 	arm_pid_init_f32(&angle_pid, 0);
 
-	ThdPtrPathing = chThdCreateStatic(pathingWA, sizeof(pathingWA),
-	                           NORMALPRIO, pathing_thd, (void*)option);
+	ptrPathingThd = chThdCreateStatic(waPathing, sizeof(waPathing),
+	                           NORMALPRIO, pathingThd, (void*)option);
 }
 
 /*
  * @brief Terminates the pathing thread.
  */
 void pathing_stop(){
-	chThdTerminate(ThdPtrPathing);
+	chThdTerminate(ptrPathingThd);
 }
 
 /*

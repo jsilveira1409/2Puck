@@ -32,7 +32,7 @@
 static MUTEX_DECL(music_play_lock);
 
 // thread references
-static thread_t* musicThd = NULL;
+static thread_t* ptrMusicThd = NULL;
 static thread_reference_t musicThdRef = NULL;
 
 typedef enum {
@@ -255,8 +255,8 @@ static song_selection_t choose_random_song(void){
  * THREADS
  */
 
-static THD_WORKING_AREA(musicWorkingArea, 512);
-static THD_FUNCTION(music, arg) {
+static THD_WORKING_AREA(waMusicThd, 512);
+static THD_FUNCTION(musicThd, arg) {
 
 	(void)arg;
 
@@ -315,8 +315,8 @@ static THD_FUNCTION(music, arg) {
  */
 void music_init(void){
 	mic_start(&processAudioDataCmplx);
-    musicThd = chThdCreateStatic(musicWorkingArea, sizeof(musicWorkingArea),
-			NORMALPRIO, music, NULL);
+    ptrMusicThd = chThdCreateStatic(waMusicThd, sizeof(waMusicThd),
+			NORMALPRIO, musicThd, NULL);
 //    lightshow_init();
 }
 
@@ -325,9 +325,8 @@ void music_init(void){
  */
 
 void music_stop(void){
-	//TODO: Stop TIM9
 	mp45dt02Shutdown();
-	chThdTerminate(musicThd);
+	chThdTerminate(ptrMusicThd);
 }
 
 /*
@@ -386,5 +385,5 @@ void stop_song(void){
 }
 
 msg_t music_send_freq(float freq){
-	return chMsgSend(musicThd, (msg_t)freq);
+	return chMsgSend(ptrMusicThd, (msg_t)freq);
 }

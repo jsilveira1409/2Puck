@@ -8,6 +8,7 @@
  * @copyright	GNU Public License
  *
  */
+
 #ifndef LIGHTSHOW_H
 #define	LIGHTSHOW_H
 

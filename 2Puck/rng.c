@@ -14,11 +14,6 @@
 #include "ch.h"
 #include "hal.h"
 
-
-/*
- * Public Functions
- */
-
 /*
  * @brief	 Initializes the RNG's clock and peripheral.
  */

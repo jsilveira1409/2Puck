@@ -1,5 +1,5 @@
 /*
- * @file 		pathing.c
+ * @file 		photo.c
  * @brief		Photo capture library
  * @author		Joaquim Silveira
  * @version		1.0
@@ -16,7 +16,7 @@
 #include "photo.h"
 #include "console.h"
 
-static thread_t *ThdPtrPhoto = NULL;
+static thread_t *ptrPhotoThd = NULL;
 #define X_start					50
 #define	Y_start					0
 #define PHOTO_WIDTH				250
@@ -28,9 +28,9 @@ static BSEMAPHORE_DECL(line_ready_sem, TRUE);
 static BSEMAPHORE_DECL(photo_finished_sem, TRUE);
 
 //Thread
-static THD_WORKING_AREA(photoWA, 512);
+static THD_WORKING_AREA(waPhotoThd, 512);
 
-static THD_FUNCTION(photo_thd, arg) {
+static THD_FUNCTION(photoThd, arg) {
 
     chRegSetThreadName(__FUNCTION__);
     (void)arg;
@@ -89,15 +89,15 @@ static THD_FUNCTION(photo_thd, arg) {
  * @brief 	Initializes the photo thread.
  */
 void photo_init(void){
-	ThdPtrPhoto = chThdCreateStatic(photoWA, sizeof(photoWA),
-			NORMALPRIO+2, photo_thd, NULL);
+	ptrPhotoThd = chThdCreateStatic(waPhotoThd, sizeof(waPhotoThd),
+			NORMALPRIO+2, photoThd, NULL);
 }
 
 /*
  * @brief	Stops the photo thread and frees the buffers used.
  */
 void photo_stop(void){
-	chThdTerminate(ThdPtrPhoto);
+	chThdTerminate(ptrPhotoThd);
 	dcmi_capture_stop();
 	dcmi_free_buffers();
 	//TODO: p08030_stop();

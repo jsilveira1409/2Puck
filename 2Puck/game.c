@@ -7,6 +7,7 @@
  * @copyright	GNU Public License
  *
  */
+
 #include <ch.h>
 #include <hal.h>
 #include <leds.h>
@@ -19,7 +20,7 @@
 #include "console.h"
 
 // thread references
-static thread_t* gameThd = NULL;
+static thread_t* ptrGameThd = NULL;
 
 typedef enum {
 	IDLE,
@@ -40,9 +41,9 @@ static float get_score(void){
 	return score;
 }
 
-static THD_WORKING_AREA(gameWA, 512);
+static THD_WORKING_AREA(waGameThd, 512);
 
-static THD_FUNCTION(game_thd, arg) {
+static THD_FUNCTION(gameThd, arg) {
 
 	(void) arg;
 
@@ -109,9 +110,9 @@ static THD_FUNCTION(game_thd, arg) {
 }
 
 void game_init(void){
-	gameThd = chThdCreateStatic(gameWA, sizeof(gameWA), NORMALPRIO+1, game_thd, NULL);
+	ptrGameThd = chThdCreateStatic(waGameThd, sizeof(waGameThd), NORMALPRIO+1, gameThd, NULL);
 }
 
 msg_t game_send_score(float score){
-	return chMsgSend(gameThd, (msg_t)score);
+	return chMsgSend(ptrGameThd, (msg_t)score);
 }

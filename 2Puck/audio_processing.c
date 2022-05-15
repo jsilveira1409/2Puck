@@ -10,8 +10,8 @@
  */
 
 #include <audio/microphone.h>
-#include <fft.h>
 #include <arm_math.h>
+#include <arm_const_structs.h>
 #include "music.h"
 #include "audio_processing.h"
 
@@ -24,6 +24,28 @@
 #define OVERLAP_INDEX 			(2*FFT_SIZE*(OVERLAP_FACTOR - 1)/OVERLAP_FACTOR)
 #define NB_HARMONICS			2
 #define FFT_SIZE 				4096
+
+/*
+ * @brief 		FFT function calls
+ * @details		Wrapper to call a very optimized fft function provided by ARM
+ * 				which uses a lot of tricks to optimize the computations
+ *
+ * @param[in] size 					size of the complex buffer
+ * @param[in,out] complex_buffer	complex buffer containing the time-domain data
+ * 									on which the FFT is applied.
+*/
+static void doCmplxFFT_optimized(uint16_t size, float* complex_buffer){
+	/*
+	 * Audio signal is real so it does not make sense to calculate cfft, we'll try rfft
+	*/
+	  if(size == 1024)
+		arm_cfft_f32(&arm_cfft_sR_f32_len1024, complex_buffer, 0, 1);
+	  else if (size == 2048)
+		arm_cfft_f32(&arm_cfft_sR_f32_len2048, complex_buffer, 0, 1);
+	  else if (size == 4096)
+		arm_cfft_f32(&arm_cfft_sR_f32_len4096, complex_buffer, 0, 1);
+
+}
 
 /*
  * @brief		Find fundamental frequency of played note

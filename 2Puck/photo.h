@@ -1,5 +1,5 @@
 /*
- * @file 		pathing.h
+ * @file 		photo.h
  * @brief		Photo capture library
  * @author		Joaquim Silveira
  * @version		1.0

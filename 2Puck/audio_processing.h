@@ -1,5 +1,5 @@
 /*
- * @file 		audio_processing.c
+ * @file 		audio_processing.h
  * @brief		Microphone sample processing library.
  * @author		Karl Khalil
  * @author		Joaquim Silveira
