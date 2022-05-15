@@ -46,7 +46,7 @@ static THD_FUNCTION(game_thd, arg) {
 
 	GAME_STATE state = IDLE;
 	song_selection_t song = 0;
-	uint8_t recording_size = 20;
+	uint8_t recording_size = 18;
 	uint8_t num_players = 2;
 	int16_t score[num_players];
 

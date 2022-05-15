@@ -21,7 +21,7 @@
 #define OVERLAP_FACTOR	  		(2)	//50%
 #define OVERLAP_BUFFER_SIZE		(2*FFT_SIZE/OVERLAP_FACTOR)
 #define OVERLAP_INDEX 			(2*FFT_SIZE*(OVERLAP_FACTOR - 1)/OVERLAP_FACTOR)
-
+#define NB_HARMONICS			2
 static BSEMAPHORE_DECL(sem_finished_playing, TRUE);
 static BSEMAPHORE_DECL(sem_note_played, TRUE);
 
@@ -36,12 +36,13 @@ static BSEMAPHORE_DECL(sem_note_played, TRUE);
  * @return fundamental frequency of the note played
  */
 static float fundamental_frequency(float* data){
-
-//	float decimated_data[FFT_SIZE/2];
-//	for(uint16_t i = 0; i < (FFT_SIZE/2); i++){
-//		decimated_data[i] = data[2*i];
-//	}
-//	arm_mult_f32(data,decimated_data,data, FFT_SIZE/2);
+	for(uint8_t i = 2; i < NB_HARMONICS; i+=2){
+		float decimated_data[FFT_SIZE/i];
+		for(uint16_t j = 0; j < (FFT_SIZE/i); j++){
+			decimated_data[j] = data[i*j];
+		}
+		arm_mult_f32(data,decimated_data,data, FFT_SIZE/i);
+	}
 
 	float max_freq_mag = 0;
 	uint32_t max_index = 0;
@@ -63,7 +64,7 @@ static float fundamental_frequency(float* data){
  */
 
 bool note_volume(int16_t *data, uint16_t num_samples){
-	static uint8_t state = 0;
+	static bool state = false;
 	static uint16_t mic_volume = 0;
 
 	int16_t max_value = INT16_MIN, min_value = INT16_MAX;
@@ -97,10 +98,10 @@ bool note_volume(int16_t *data, uint16_t num_samples){
 *	@brief Callback called when the demodulation of	the four microphones is done. We get 160 samples
 *	per mic every 10ms (16kHz)
 *
-*	@param[in/out] (int16_t) *data: Buffer containing 4 times 160 samples.
+*	@param[in/out] int16_t *data: Buffer containing 4 times 160 samples.
 *	the samples are sorted by micro	so we have [micRight1, micLeft1, micBack1, micFront1, micRight2, etc...]
 *
-*	@param[in] (uint16_t) num_samples: Tells how many data we get in total (should always be 640)
+*	@param[in] uint16_t num_samples: Tells how many data we get in total (should always be 640)
 *
 *	@return void
 */

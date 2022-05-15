@@ -15,7 +15,7 @@
 
 #define POSITIVE_POINTS 		4
 #define NEGATIVE_POINTS			1
-#define MAX_ACCEPTABLE_FREQ_ERROR	10
+#define MAX_ACCEPTABLE_FREQ_ERROR	7
 
 typedef enum {
 	A1=0, AS1, B1, C1, CS1, D1, DS1,E1, F1, FS1, G1, GS1,
@@ -127,12 +127,11 @@ static note_t played_notes[50];
 /*
  * Static Functions
  */
-
 /*
  * @brief checks notes time sequence is correct: was note x played when it should
  * be played ?
- * @param[in] (song_selectrion_t) song_index: index of the song in the songs array
- * @return (int16_t): total score of the recording
+ * @param[in] song_selectrion_t song_index: index of the song in the songs array
+ * @return int16_t: total score of the recording
  */
 static int16_t check_note_sequence(song_selection_t song_index){
 	int16_t points = 0;
@@ -150,7 +149,7 @@ static int16_t check_note_sequence(song_selection_t song_index){
 /*
  * @brief calculates the score percentage, from -100% to 100%, of the
  * recording compared to the song's melody
- * @return (int16_t) : score percentage
+ * @return int16_t : score percentage
  */
 static int16_t calculate_score(void){
 	int16_t total_score = 0;
@@ -184,10 +183,8 @@ static float get_frequency(void){
 /*
  * @brief Finds the smallest error between the FFT data
  * and the discrete note frequency in note_frequency[]
- * @param[in] (float) freq: frequency of the note
- * @return (note_t) chromatic scale note
- *	TODO: implement something that ignores the note when the error is too big,
- *	could help with resolution
+ * @param[in] float freq: frequency of the note
+ * @return note_t chromatic scale note
  *
  */
 
@@ -211,7 +208,7 @@ static note_t freq_to_note(float freq){
  * THREADS
  */
 
-static THD_WORKING_AREA(musicWorkingArea, 256);
+static THD_WORKING_AREA(musicWorkingArea, 512);
 static THD_FUNCTION(music, arg) {
 
 	(void) arg;
@@ -236,7 +233,6 @@ static THD_FUNCTION(music, arg) {
 			}else{
 				i--;
 			}
-//			chThdSleepMilliseconds(200);
 		}
 
 		score = calculate_score();
@@ -278,8 +274,7 @@ void music_stop(void){
 
 /*
  * @brief
- *
- * @param[in] (uint8_t) recording_size:
+ * @param[in] uint8_t recording_size:
  */
 void music_listen(uint8_t recording_size){
 	 chThdResume(&musicThdRef, (msg_t)recording_size);
@@ -287,8 +282,7 @@ void music_listen(uint8_t recording_size){
 
 /*
  *@brief sends the name of the file to play to the play_sound_file.h lib
- *
- *@param[in] (song_selection_t) index: index of the song in songs to play
+ *@param[in] song_selection_t index: index of the song in songs to play
  */
 void play_song(song_selection_t index){
 	dac_start();
@@ -319,7 +313,7 @@ void stop_song(void){
  * @brief chooses a random song using the rng.h lib and
  * modulating by the number of songs
  *
- * @return (song_selection_t) index of the random song
+ * @return song_selection_t index of the random song
  */
 song_selection_t choose_random_song(void){
 	rng_init();
