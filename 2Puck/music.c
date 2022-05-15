@@ -7,15 +7,22 @@
 #include <audio_processing.h>
 #include <audio/microphone.h>
 #include <audio/play_sound_file.h>
-#include "rng.h"
 #include <leds.h>
 #include "music.h"
+#include "rng.h"
 #include "game.h"
 #include "console.h"
 
 #define POSITIVE_POINTS 		4
 #define NEGATIVE_POINTS			1
 #define MAX_ACCEPTABLE_FREQ_ERROR	7
+
+//conditional variable
+static MUTEX_DECL(music_play_lock);
+
+// thread references
+static thread_t* musicThd = NULL;
+static thread_reference_t musicThdRef = NULL;
 
 typedef enum {
 	A1=0, AS1, B1, C1, CS1, D1, DS1,E1, F1, FS1, G1, GS1,
@@ -31,7 +38,7 @@ typedef struct{
 	uint16_t freq;
 }note_struct_t;
 
-note_struct_t notes[] = {
+static const note_struct_t notes[] = {
 		{"A1",55}, {"AS1",58}, {"B1",62}, {"C1",65},  {"CS1",69},  {"D1",73},
 		{"DS1",77},  {"E1",82},  {"F1",87},  {"FS1",92},  {"G1",98},  {"GS1",104},
 
@@ -48,14 +55,14 @@ note_struct_t notes[] = {
 		{"DS5",1244},{"E5",1318},{"F5",1396},{"FS5",1480},{"G5",1568},{"GS5",1662},
 };
 
-static const char* song_name[] = {
-		[COME_AS_YOU_ARE]	= "Come as you are ~Nirvana",
-		[MISS_YOU]		  	= "Miss you ~Rolling Stones",
-		[SOLD_THE_WORLD]  	= "The Man Who Sold the World ~Nirvana",
-		[SEVEN_NATION] 	  	= "Seven Nation Army ~White Snakes",
-		[NEXT_EPISODE]		= "The Next Episode ~Dr Dre",
-};
-
+typedef enum {
+	COME_AS_YOU_ARE=0,
+	MISS_YOU,
+	SOLD_THE_WORLD,
+	SEVEN_NATION,
+	NEXT_EPISODE,
+	NOT_CHOSEN
+}song_selection_t;
 
 /*
  * Come As you are - Nirvana
@@ -93,7 +100,7 @@ static const note_t melody_SEVEN_NATION_ARMY[] = {
 };
 
 /*
-* The Next Episode - Dr Dre
+ * The Next Episode - Dr Dre
  */
 static const note_t melody_NEXT_EPISODE[] = {
 	F3, AS4, AS4, GS4, AS4, GS4, FS4, GS4, GS4, FS4, F3, FS4
@@ -105,39 +112,49 @@ static const note_t melody_NEXT_EPISODE[] = {
  * and the melody size
  */
 typedef struct{
+	char* name;
 	const uint8_t* melody_ptr;
 	const uint16_t melody_size;
 	char* file_name;
 }song;
 
 const song songs[] = {
-		{melody_COME_AS_YOU_ARE,	sizeof(melody_COME_AS_YOU_ARE),		"asyouare.wav"},
-		{melody_MISS_YOU,			sizeof(melody_MISS_YOU)		,		"missyou.wav"},
-		{melody_SOLD_THE_WORLD, 	sizeof(melody_SOLD_THE_WORLD),		"soldtheworld.wav"},
-		{melody_SEVEN_NATION_ARMY,	sizeof(melody_SEVEN_NATION_ARMY),	"sevennation.wav"},
-		{melody_NEXT_EPISODE,		sizeof(melody_NEXT_EPISODE),		"nextepisode.wav"}
+		{"Come as you are ~Nirvana", 			melody_COME_AS_YOU_ARE,
+				sizeof(melody_COME_AS_YOU_ARE),		"asyouare.wav"},
+
+		{"Miss you ~Rolling Stones", 			melody_MISS_YOU,
+				sizeof(melody_MISS_YOU)		,		"missyou.wav"},
+
+		{"The Man Who Sold the World ~Nirvana", melody_SOLD_THE_WORLD,
+				sizeof(melody_SOLD_THE_WORLD),		"soldtheworld.wav"},
+
+		{ "Seven Nation Army ~White Snakes", 	melody_SEVEN_NATION_ARMY,
+				sizeof(melody_SEVEN_NATION_ARMY),	"sevennation.wav"},
+
+		{"The Next Episode ~Dr Dre", 			melody_NEXT_EPISODE,
+				sizeof(melody_NEXT_EPISODE),		"nextepisode.wav"}
 };
 
-static thread_t* musicThd = NULL;
-static thread_reference_t musicThdRef = NULL;
-static song_selection_t chosen_song = 0;
-// TODO: CHECK IF NECESSARY AS GLOBAL
-static note_t played_notes[50];
+song_selection_t chosen_song = NOT_CHOSEN;
 
 /*
  * Static Functions
  */
+
 /*
- * @brief checks notes time sequence is correct: was note x played when it should
- * be played ?
- * @param[in] song_selectrion_t song_index: index of the song in the songs array
- * @return int16_t: total score of the recording
+ * @brief	Checks notes time sequence is correct: was note x played when it should
+ * 			be played ?
+ *
+ * @param[in]	played_notes	Array of final played_notes by a player
+ * @param[in]	chosen_song 	Index of the song in the songs array
+ *
+ * @return		Total score of the recording
  */
-static int16_t check_note_sequence(song_selection_t song_index){
+static int16_t check_note_sequence(note_t* played_notes){
 	int16_t points = 0;
 
-	for(uint16_t i=0; i< songs[song_index].melody_size; i++){
-		if((played_notes[i]%12) == (((uint8_t)songs[song_index].melody_ptr[i]) % 12)){
+	for(uint16_t i=0; i< songs[chosen_song].melody_size; i++){
+		if((played_notes[i]%12) == (((uint8_t)songs[chosen_song].melody_ptr[i]) % 12)){
 			points += POSITIVE_POINTS;
 		}else{
 			points -= NEGATIVE_POINTS;
@@ -147,13 +164,17 @@ static int16_t check_note_sequence(song_selection_t song_index){
 }
 
 /*
- * @brief calculates the score percentage, from -100% to 100%, of the
+ * @brief	Calculates the score percentage, from -100% to 100%, of the
  * recording compared to the song's melody
- * @return int16_t : score percentage
+ *
+ * @param[in]	played_notes	Array of final played_notes by a player
+ * @param[in]	chosen_song 	Index of the song in the songs array
+ *
+ * @return		Score percentage
  */
-static int16_t calculate_score(void){
+static int16_t calculate_score(note_t* played_notes){
 	int16_t total_score = 0;
-	total_score = (int16_t)(100*(float)check_note_sequence(chosen_song) /
+	total_score = (int16_t)(100*(float)check_note_sequence(played_notes) /
 			(POSITIVE_POINTS * (float)songs[chosen_song].melody_size));
 	if(total_score > 100){
 		total_score = 100;
@@ -166,7 +187,8 @@ static int16_t calculate_score(void){
 /*
  * @brief waits for the message from audio_processing.c with the given
  * frequency of the fundamental note played
- * @return float frequency
+ *
+ * @return	Frequency played
  */
 
 static float get_frequency(void){
@@ -183,6 +205,7 @@ static float get_frequency(void){
 /*
  * @brief Finds the smallest error between the FFT data
  * and the discrete note frequency in note_frequency[]
+ *
  * @param[in] float freq: frequency of the note
  * @return note_t chromatic scale note
  *
@@ -192,8 +215,9 @@ static note_t freq_to_note(float freq){
 	float smallest_error = MAX_ACCEPTABLE_FREQ_ERROR;
 	float curr_error     = 0;
 	note_t note = NONE;
+	uint8_t notes_size = sizeof(notes)/sizeof(note_struct_t);
 
-	for(uint8_t i = 0; i < NB_NOTES; i++){
+	for(uint8_t i = 0; i < notes_size; i++){
 		curr_error = abs(freq - (float)notes[i].freq);
 		if(curr_error < smallest_error){
 			smallest_error = curr_error;
@@ -205,22 +229,48 @@ static note_t freq_to_note(float freq){
 }
 
 /*
+ * @brief chooses a random song using the rng.h lib and
+ * modulating by the number of songs
+ *
+ * @return song_selection_t index of the random song
+ */
+static song_selection_t choose_random_song(void){
+	rng_init();
+	uint32_t random = rng_get();
+	uint32_t songs_size = sizeof(songs)/sizeof(song);
+	uint32_t song_nb = (random % songs_size);
+	rng_stop();
+	return song_nb;
+}
+
+/*
  * THREADS
  */
 
 static THD_WORKING_AREA(musicWorkingArea, 512);
 static THD_FUNCTION(music, arg) {
 
-	(void) arg;
+	(void)arg;
 
-	uint8_t recording_size = 0;
+	chMtxLock(&music_play_lock);
+
+	chosen_song = choose_random_song();
+	console_send_string("The song chosen is");
+	console_send_string(songs[chosen_song].name);
+
+	uint16_t recording_size = songs[chosen_song].melody_size;
 
 	while(!chThdShouldTerminateX()) {
 		//this thread is waiting until it receives a message
 		chSysLock();
-		recording_size = chThdSuspendS(&musicThdRef);
+		chThdSuspendS(&musicThdRef);
 		chSysUnlock();
+
 		int16_t score = 0;
+
+		note_t played_notes[recording_size];
+
+		chMtxUnlock(&music_play_lock);
 
 		for(uint8_t i=0; i<recording_size; i++){
 			set_led(LED3, 1);
@@ -235,7 +285,9 @@ static THD_FUNCTION(music, arg) {
 			}
 		}
 
-		score = calculate_score();
+		chMtxLock(&music_play_lock);
+
+		score = calculate_score(played_notes);
 		game_send_score(score);
 		chThdSleepMilliseconds(500);
 	}
@@ -253,13 +305,11 @@ static THD_FUNCTION(music, arg) {
  * the buzzer. Also, chooses the random song.
  * @return (song_selection_t) random song
  */
-song_selection_t music_init(void){
-	chosen_song = choose_random_song();
+void music_init(void){
 	mic_start(&processAudioDataCmplx);
     musicThd = chThdCreateStatic(musicWorkingArea, sizeof(musicWorkingArea),
 			NORMALPRIO, music, NULL);
 //    lightshow_init();
-    return chosen_song;
 }
 
 /*
@@ -276,15 +326,33 @@ void music_stop(void){
  * @brief
  * @param[in] uint8_t recording_size:
  */
-void music_listen(uint8_t recording_size){
-	 chThdResume(&musicThdRef, (msg_t)recording_size);
+void music_listen(void){
+	 chThdResume(&musicThdRef, (msg_t)MSG_OK);
+}
+
+/**
+ * @brief   Check if music is playing.
+ *
+ * @return              The operation status.
+ * @retval true         if music is playing
+ * @retval false        if music is not playing.
+ *
+ * @api
+ */
+bool music_is_playing(void){
+	if(chMtxTryLock(&music_play_lock)){
+		chMtxUnlock(&music_play_lock);
+		return true;
+	}else{
+		return false;
+	}
 }
 
 /*
  *@brief sends the name of the file to play to the play_sound_file.h lib
  *@param[in] song_selection_t index: index of the song in songs to play
  */
-void play_song(song_selection_t index){
+void play_song(void){
 	dac_start();
 	chThdSleepMilliseconds(50);
 	sdio_start();
@@ -297,7 +365,7 @@ void play_song(song_selection_t index){
 	}
 	chThdSleepMilliseconds(100);
 	setSoundFileVolume(50);
-	playSoundFile(songs[index].file_name, SF_FORCE_CHANGE);
+	playSoundFile(songs[chosen_song].file_name, SF_FORCE_CHANGE);
 }
 
 /*
@@ -309,25 +377,6 @@ void stop_song(void){
 	dac_stop();
 }
 
-/*
- * @brief chooses a random song using the rng.h lib and
- * modulating by the number of songs
- *
- * @return song_selection_t index of the random song
- */
-song_selection_t choose_random_song(void){
-	rng_init();
-	uint32_t random = rng_get();
-	uint32_t songs_size = sizeof(songs)/sizeof(song);
-	uint32_t song_nb = (random % songs_size);
-	rng_stop();
-	return song_nb;
-}
-
 msg_t music_send_freq(float freq){
 	return chMsgSend(musicThd, (msg_t)freq);
-}
-
-const char* music_song_name(song_selection_t song){
-	return song_name[song];
 }
