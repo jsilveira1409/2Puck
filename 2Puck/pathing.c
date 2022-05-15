@@ -10,40 +10,39 @@
  * 	center of
  * 	puck
  *
- * 	ALL POSITION VALUES ARE IN mm
+ * 	All position values are in mm
  */
 
 
-#include "ch.h"
-#include "hal.h"
+#include <ch.h>
+#include <hal.h>
 #include <main.h>
 #include <usbcfg.h>
-
-#include <pathing.h>
 #include <sensors/proximity.h>
 #include <motors.h>
 #include <arm_math.h>
+#include "pathing.h"
 #include "audio_processing.h"
 #include "music.h"
 
-#define WHEEL_DIST 				58		//mm
-#define NSTEP_ONE_TURN			1000	//Nb steps for 1 turn
-#define WHEEL_PERIMETER			130		//in mm
+#define WHEEL_DIST 				58
+#define NSTEP_ONE_TURN			1000
+#define WHEEL_PERIMETER			130
 #define NB_OF_PHASES			4
 #define RAD2DEG					(360/3.14159)
-#define ANGLE_EPSILON			0.1
+#define ANGLE_EPSILON			0.2
 
-#define MIN_DISTANCE_2_TARGET	10
+#define MIN_DISTANCE_2_TARGET   20
 #define MIN_SPEED				300
 #define MIN_IR_VAL				130
 #define MIN_STEPS				3
-#define MAX_MOTOR_DISPLACEMENT	10
+#define MAX_MOTOR_DISPLACEMENT	15
 #define MIN_WALL_DIST			MIN_IR_VAL + 10
 
-#define PLAYER1_X				(100)
-#define PLAYER1_Y				(500)
+#define PLAYER1_X				(150)
+#define PLAYER1_Y				(700)
 #define PLAYER2_X				(-150)
-#define PLAYER2_Y				(300)
+#define PLAYER2_Y				(700)
 #define CENTER_X				0
 #define CENTER_Y				0
 
@@ -69,7 +68,7 @@ static arm_pid_instance_f32 wall_pid;
 
 static float target[2] = {0,0};			// Target position for the end of the pathing
 static float position[2] = {0,0};    	// Current position of the puck, center of axis of the wheels
-static float orientation[2] = {0,1}; 	// Orientation of the forward vector of the puck (same direction as the TOF)
+static float orientation[2] = {0,1}; 	// Forward vector of the puck (same direction as the TOF)
 
 
 /*
@@ -77,16 +76,19 @@ static float orientation[2] = {0,1}; 	// Orientation of the forward vector of th
  */
 
 /*
- * @brief registers path by calculating beta and the ePucks displacement
- * as a function of left_pos and right_pos. It then updates the position
- * and orientation arrays.
- * @param [in] float left_pos : distance to advance the left wheel, in mm.
- * @param [in] float right_pos : distance to advance the left wheel, in mm.
+ * @brief Registers path by calculating beta and the displacement
+ * @details Calculates the angle beta, between the y axis and the forward
+ * vector of the ePuck (same direction as the TOF), and the displacement of
+ * the center of rotation as a function of left_pos and right_pos. It then
+ * updates the position and orientation arrays.
+ *
+ * @param [in] left_pos : distance to advance the left wheel, in mm.
+ * @param [in] right_pos : distance to advance the left wheel, in mm.
  */
 
 static void register_path(float left_pos,  float right_pos){
-	static float beta = 0;  //angle entre l'axe y et le forward vector du ePuck
-	float displacement = 0;	//Center of mass displacement
+	static float beta = 0;
+	float displacement = 0;
 	float sin_beta, cos_beta;
 
 	displacement = (left_pos + right_pos)/(float)2;
@@ -107,12 +109,12 @@ static void register_path(float left_pos,  float right_pos){
 }
 
 /*
- *@brief calculates the distances from the center of the
+ *@brief Calculates the distances array and magnitude
+ *@details Calculates the distance from the center of the
  *ePuck to the target by substracting the target array to the
  *position array, and calculating the result's magnitude
- *@param [in/out] float* dist : result of the substraction of
- *arrays
- *@return float
+ *@param [in,out] dist : dist array, result of the substraction of the arrays
+ *@return magnitude of the dist array
  */
 
 static float distance_to_target(float* dist){
@@ -125,11 +127,12 @@ static float distance_to_target(float* dist){
 }
 
 /*
- * @brief implements the PID for the motors, controlling
- * their speed depending on the error between the target number
- * of steps and the current one, parameters in mm.
- * @param [in] float left_pos : distance to advance the left wheel, in mm.
- * @param [in] float right_pos : distance to advance the right wheel, in mm.
+ * @brief Implements the PID for the motors speed
+ * @details The PID controls the motor's speed depending
+ * on the error between the target number of steps and
+ * the current one, parameters in mm.
+ * @param [in] left_pos : distance to advance the left wheel, in mm.
+ * @param [in] right_pos : distance to advance the right wheel, in mm.
  */
 static void move(float left_pos, float right_pos){
 	motor_state_t state = MOVING;
@@ -193,12 +196,13 @@ static void move(float left_pos, float right_pos){
 	}
 }
 /*
- * @brief verifies which IR sensor returns the highest value,
+ * @brief Verifies which IR sensor returns the highest value.
+ * @details Verifies which IR sensor returns the highest value
  * with which we can deduce the obstacle's direction. If this value
- * is smaller than MIN_IR_VAL, the robot ignores it
- * @param [in/out] float* ir_max_val : highest value between the IR
- * sensors
- * @return ir_dir_t
+ * is smaller than MIN_IR_VAL, the robot ignores it.
+ * @param [in,out] ir_max_val : highest value between the IR sensors
+ * @return direction of the object, returns NONE if there are no
+ * close object
  */
 
 static ir_dir_t check_ir_dir(float* ir_max_val){
@@ -224,13 +228,14 @@ static ir_dir_t check_ir_dir(float* ir_max_val){
 
 
 /*
- * @brief updates the pathing variables of the robot. Calculates the cos_alpha
- * and sin_alpha, which then are used to determine to which direction it should
- * turn. We don't calculate the angle, as it implies calculating acos and asin,
+ * @brief Updates the pathing variables of the ePuck.
+ * @details Calculates the cos_alpha and sin_alpha, which then are
+ * used to determine to which direction it should turn. We don't
+ * calculate the angle, as it implies calculating acos and asin,
  * which are not given by the dsp or the fpu.
- * @param [in/out] float* dist : array containing the distance vector, from the
+ * @param [in,out] dist : array containing the distance vector, from the
  * robot to the target.
- * @param [in] float distance_mag : magnitude of dist vector
+ * @param [in] distance_mag : magnitude of dist vector
  *
  */
 static void update_path(float* dist, float distance_mag){
@@ -239,7 +244,6 @@ static void update_path(float* dist, float distance_mag){
 	float orientation_mag = 0, mag = 0;
 
 	/* temporary vector to do the vector product with a scalar product, by inverting and adding a sign */
-
 	float tmp_vector[2] = {(orientation[Y_AXIS]), (-orientation[X_AXIS])};
 
 	arm_pid_reset_f32(&wall_pid);
@@ -251,7 +255,7 @@ static void update_path(float* dist, float distance_mag){
 	sin_alpha = sin_alpha / mag;
 	cos_alpha = cos_alpha / mag;
 
-	float error_sin = 0 - sin_alpha;
+	float error_sin = - sin_alpha;
 	float error_cos = 1 - cos_alpha;
 
 	error_sin = arm_pid_f32(&angle_pid, error_sin);
@@ -262,10 +266,14 @@ static void update_path(float* dist, float distance_mag){
 
 	if(move_l > MAX_MOTOR_DISPLACEMENT){
 		move_l = MAX_MOTOR_DISPLACEMENT;
+	}else if (move_l < -MAX_MOTOR_DISPLACEMENT){
+		move_l = -MAX_MOTOR_DISPLACEMENT;
 	}
 
 	if(move_r > MAX_MOTOR_DISPLACEMENT){
 		move_r = MAX_MOTOR_DISPLACEMENT;
+	}else if (move_r < -MAX_MOTOR_DISPLACEMENT){
+		move_r = -MAX_MOTOR_DISPLACEMENT;
 	}
 
 	move(move_l, move_r);
@@ -273,16 +281,16 @@ static void update_path(float* dist, float distance_mag){
 }
 
 /*
- * @brief wall following function, implements a PID that keeps the robot at a certain
- * distance from the wall, using the left or the right IR sensor
- * @param [in] ir_dir_t ir : direction of the IR sensor closest to the wall, either
- * IR_HARD_LEFT or IR_HARD_RIGHT
- * @param [in] float ir_val : value of the IR sensor, which is used to compute the
- * PID's error
+ * @brief Wall following function.
+ * @details Implements a PID that keeps the robot at a certain
+ * distance from the wall, using the left or the right IR sensor.
+ * @param [in] ir : direction of the IR sensor closest to the wall,
+ * either IR_HARD_LEFT or IR_HARD_RIGHT
+ * @param [in] ir_val : value of the IR sensor, which is used to compute
+ * the PID's error
  *
  */
 static void wall_follow(ir_dir_t ir, float ir_val){
-	//TODO: implement conversion between ir value and distance
 	float error = MIN_WALL_DIST - ir_val;
 	float move_l = 0, move_r = 0;
 	error = arm_pid_f32(&wall_pid, error);
@@ -297,11 +305,12 @@ static void wall_follow(ir_dir_t ir, float ir_val){
 }
 
 /*
- * @brief pathing function that guides the robot from where it currently
+ * @brief Moves the ePuck towards the target and avoids obstacles on the way.
+ * @details Pathing function that guides the robot from where it currently
  * is to the target. It checks the IR sensors and the distance to the target
  * to, respectively, either avoid the obstacle or stop s(whenever the distance
  * is smaller than MIN_DISTANCE_2_TARGET).
- * @return pathing_option_t
+ * @return returns if it is already on the target or needs to keep pathign.
  */
 static pathing_option_t pathing(void){
 	float dist[2] = {0,0};					// Vector between puck and target point
@@ -323,8 +332,11 @@ static pathing_option_t pathing(void){
 				update_path(dist, distance_mag);
 				break;
 			case IR_HARD_LEFT:
+				move(5, 4);
+				break;
 			case IR_HARD_RIGHT:
-				wall_follow(ir, ir_max_val);
+				move(4, 5);
+//				wall_follow(ir, ir_max_val);
 				break;
 			case IR_SOFT_LEFT:
 				move(5, 0);
@@ -346,8 +358,8 @@ static pathing_option_t pathing(void){
 /*
  * @brief sets the target array values to the ones passed to
  * the function.
- * @param[in] int16_t x_coord : x coordinate of the target
- * @param[in] int16_t y_coord : y coordinate of the target
+ * @param[in] x_coord : x coordinate of the target
+ * @param[in] y_coord : y coordinate of the target
  * @return pathing_option_t
  */
 static pathing_option_t set_target(int16_t x_coord, int16_t y_coord){
@@ -369,10 +381,7 @@ static THD_FUNCTION(ThdPathing, arg) {
 
 	while (!chThdShouldTerminateX()) {
 		switch (current_option){
-			case PATHING_WAIT:
-				chThdSleepMilliseconds(2000);
-				//TODO:should wait for a msg from game here
-				break;
+
 			case PATHING_FINISHED:
 				chBSemSignal(&sem_finished_pathing);
 				pathing_stop();
@@ -400,8 +409,8 @@ static THD_FUNCTION(ThdPathing, arg) {
 
 /*
  * @brief Initializes the pathing thread and all the required
- * subsystems. ALso initialiyes the three PIDs and their values
- * @param[in] pathing_option_t option :
+ * subsystems. Also initializes the three PIDs and their values
+ * @param[in] option :
  */
 void pathing_init(pathing_option_t option){
 	motors_init();

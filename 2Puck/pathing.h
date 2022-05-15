@@ -5,7 +5,6 @@ typedef enum{
 	PATH_TO_PLAYER1,
 	PATH_TO_PLAYER2,
 	PATH_RECENTER,
-	PATHING_WAIT,
 	PATHING,
 	PATHING_FINISHED
 }pathing_option_t;
