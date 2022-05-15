@@ -1,3 +1,9 @@
+/*
+ * music.c
+ *
+ *  Created on: 12 Apr 2022
+ *      Author: Joaquim Silveira
+ */
 #include <ch.h>
 #include <hal.h>
 #include <sdio.h>

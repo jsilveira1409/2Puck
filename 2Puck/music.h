@@ -1,3 +1,10 @@
+/*
+ * music.h
+ *
+ *  Created on: 12 Apr 2022
+ *      Authors: Joaquim Silveira, Karl Khalil
+ */
+
 #ifndef MUSIC_H
 #define MUSIC_H
 
