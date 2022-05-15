@@ -364,7 +364,6 @@ static THD_WORKING_AREA(pathingWorkingArea, 256);
 static THD_FUNCTION(ThdPathing, arg) {
 
 	pathing_option_t current_option = *((pathing_option_t*)arg);
-//	pathing_option_t current_option = PATH_TO_PLAYER1;
 
 	while (!chThdShouldTerminateX()) {
 		switch (current_option){
