@@ -8,8 +8,8 @@
 
 int main(void)
 {
-    halInit();
-    chSysInit();
+	chSysInit();
+	halInit();
     mpu_init();
 
     console_init();
