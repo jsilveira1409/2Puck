@@ -19,7 +19,7 @@ static thread_t* console;
  * @param[in] arg	Stream where message must be printed.
  *
  */
-static THD_WORKING_AREA(waConsoleServerThread, 1024);
+static THD_WORKING_AREA(waConsoleServerThread, 2048);
 
 static THD_FUNCTION(ConsoleServerThread, arg) {
   BaseSequentialStream *stream = (BaseSequentialStream *)arg;
