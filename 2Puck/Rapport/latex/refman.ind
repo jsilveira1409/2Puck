@@ -1,0 +1,194 @@
+\begin{theindex}
+
+  \item {ADC\_USE\_MUTUAL\_EXCLUSION}
+    \subitem {HAL\_CONF}, 23
+  \item {ADC\_USE\_WAIT}
+    \subitem {HAL\_CONF}, 23
+
+  \indexspace
+
+  \item {CH\_CFG\_CONTEXT\_SWITCH\_HOOK}
+    \subitem {Config}, 9
+  \item {CH\_CFG\_IDLE\_ENTER\_HOOK}
+    \subitem {Config}, 9
+  \item {CH\_CFG\_IDLE\_LEAVE\_HOOK}
+    \subitem {Config}, 9
+  \item {CH\_CFG\_IDLE\_LOOP\_HOOK}
+    \subitem {Config}, 10
+  \item {CH\_CFG\_MEMCORE\_SIZE}
+    \subitem {Config}, 10
+  \item {CH\_CFG\_NO\_IDLE\_THREAD}
+    \subitem {Config}, 10
+  \item {CH\_CFG\_OPTIMIZE\_SPEED}
+    \subitem {Config}, 10
+  \item {CH\_CFG\_ST\_FREQUENCY}
+    \subitem {Config}, 11
+  \item {CH\_CFG\_ST\_RESOLUTION}
+    \subitem {Config}, 11
+  \item {CH\_CFG\_ST\_TIMEDELTA}
+    \subitem {Config}, 11
+  \item {CH\_CFG\_SYSTEM\_HALT\_HOOK}
+    \subitem {Config}, 11
+  \item {CH\_CFG\_SYSTEM\_TICK\_HOOK}
+    \subitem {Config}, 12
+  \item {CH\_CFG\_THREAD\_EXIT\_HOOK}
+    \subitem {Config}, 12
+  \item {CH\_CFG\_THREAD\_EXTRA\_FIELDS}
+    \subitem {Config}, 12
+  \item {CH\_CFG\_THREAD\_INIT\_HOOK}
+    \subitem {Config}, 12
+  \item {CH\_CFG\_TIME\_QUANTUM}
+    \subitem {Config}, 13
+  \item {CH\_CFG\_USE\_CONDVARS}
+    \subitem {Config}, 13
+  \item {CH\_CFG\_USE\_CONDVARS\_TIMEOUT}
+    \subitem {Config}, 13
+  \item {CH\_CFG\_USE\_DYNAMIC}
+    \subitem {Config}, 14
+  \item {CH\_CFG\_USE\_EVENTS}
+    \subitem {Config}, 14
+  \item {CH\_CFG\_USE\_EVENTS\_TIMEOUT}
+    \subitem {Config}, 14
+  \item {CH\_CFG\_USE\_HEAP}
+    \subitem {Config}, 15
+  \item {CH\_CFG\_USE\_MAILBOXES}
+    \subitem {Config}, 15
+  \item {CH\_CFG\_USE\_MEMCORE}
+    \subitem {Config}, 15
+  \item {CH\_CFG\_USE\_MEMPOOLS}
+    \subitem {Config}, 16
+  \item {CH\_CFG\_USE\_MESSAGES}
+    \subitem {Config}, 16
+  \item {CH\_CFG\_USE\_MESSAGES\_PRIORITY}
+    \subitem {Config}, 16
+  \item {CH\_CFG\_USE\_MUTEXES}
+    \subitem {Config}, 16
+  \item {CH\_CFG\_USE\_MUTEXES\_RECURSIVE}
+    \subitem {Config}, 17
+  \item {CH\_CFG\_USE\_QUEUES}
+    \subitem {Config}, 17
+  \item {CH\_CFG\_USE\_REGISTRY}
+    \subitem {Config}, 17
+  \item {CH\_CFG\_USE\_SEMAPHORES}
+    \subitem {Config}, 17
+  \item {CH\_CFG\_USE\_SEMAPHORES\_PRIORITY}
+    \subitem {Config}, 18
+  \item {CH\_CFG\_USE\_TM}
+    \subitem {Config}, 18
+  \item {CH\_CFG\_USE\_WAITEXIT}
+    \subitem {Config}, 18
+  \item {CH\_DBG\_ENABLE\_ASSERTS}
+    \subitem {Config}, 18
+  \item {CH\_DBG\_ENABLE\_CHECKS}
+    \subitem {Config}, 19
+  \item {CH\_DBG\_ENABLE\_STACK\_CHECK}
+    \subitem {Config}, 19
+  \item {CH\_DBG\_ENABLE\_TRACE}
+    \subitem {Config}, 19
+  \item {CH\_DBG\_FILL\_THREADS}
+    \subitem {Config}, 20
+  \item {CH\_DBG\_STATISTICS}
+    \subitem {Config}, 20
+  \item {CH\_DBG\_SYSTEM\_STATE\_CHECK}
+    \subitem {Config}, 20
+  \item {CH\_DBG\_THREADS\_PROFILING}
+    \subitem {Config}, 20
+  \item {Config}, 7
+    \subitem {CH\_CFG\_CONTEXT\_SWITCH\_HOOK}, 9
+    \subitem {CH\_CFG\_IDLE\_ENTER\_HOOK}, 9
+    \subitem {CH\_CFG\_IDLE\_LEAVE\_HOOK}, 9
+    \subitem {CH\_CFG\_IDLE\_LOOP\_HOOK}, 10
+    \subitem {CH\_CFG\_MEMCORE\_SIZE}, 10
+    \subitem {CH\_CFG\_NO\_IDLE\_THREAD}, 10
+    \subitem {CH\_CFG\_OPTIMIZE\_SPEED}, 10
+    \subitem {CH\_CFG\_ST\_FREQUENCY}, 11
+    \subitem {CH\_CFG\_ST\_RESOLUTION}, 11
+    \subitem {CH\_CFG\_ST\_TIMEDELTA}, 11
+    \subitem {CH\_CFG\_SYSTEM\_HALT\_HOOK}, 11
+    \subitem {CH\_CFG\_SYSTEM\_TICK\_HOOK}, 12
+    \subitem {CH\_CFG\_THREAD\_EXIT\_HOOK}, 12
+    \subitem {CH\_CFG\_THREAD\_EXTRA\_FIELDS}, 12
+    \subitem {CH\_CFG\_THREAD\_INIT\_HOOK}, 12
+    \subitem {CH\_CFG\_TIME\_QUANTUM}, 13
+    \subitem {CH\_CFG\_USE\_CONDVARS}, 13
+    \subitem {CH\_CFG\_USE\_CONDVARS\_TIMEOUT}, 13
+    \subitem {CH\_CFG\_USE\_DYNAMIC}, 14
+    \subitem {CH\_CFG\_USE\_EVENTS}, 14
+    \subitem {CH\_CFG\_USE\_EVENTS\_TIMEOUT}, 14
+    \subitem {CH\_CFG\_USE\_HEAP}, 15
+    \subitem {CH\_CFG\_USE\_MAILBOXES}, 15
+    \subitem {CH\_CFG\_USE\_MEMCORE}, 15
+    \subitem {CH\_CFG\_USE\_MEMPOOLS}, 16
+    \subitem {CH\_CFG\_USE\_MESSAGES}, 16
+    \subitem {CH\_CFG\_USE\_MESSAGES\_PRIORITY}, 16
+    \subitem {CH\_CFG\_USE\_MUTEXES}, 16
+    \subitem {CH\_CFG\_USE\_MUTEXES\_RECURSIVE}, 17
+    \subitem {CH\_CFG\_USE\_QUEUES}, 17
+    \subitem {CH\_CFG\_USE\_REGISTRY}, 17
+    \subitem {CH\_CFG\_USE\_SEMAPHORES}, 17
+    \subitem {CH\_CFG\_USE\_SEMAPHORES\_PRIORITY}, 18
+    \subitem {CH\_CFG\_USE\_TM}, 18
+    \subitem {CH\_CFG\_USE\_WAITEXIT}, 18
+    \subitem {CH\_DBG\_ENABLE\_ASSERTS}, 18
+    \subitem {CH\_DBG\_ENABLE\_CHECKS}, 19
+    \subitem {CH\_DBG\_ENABLE\_STACK\_CHECK}, 19
+    \subitem {CH\_DBG\_ENABLE\_TRACE}, 19
+    \subitem {CH\_DBG\_FILL\_THREADS}, 20
+    \subitem {CH\_DBG\_STATISTICS}, 20
+    \subitem {CH\_DBG\_SYSTEM\_STATE\_CHECK}, 20
+    \subitem {CH\_DBG\_THREADS\_PROFILING}, 20
+    \subitem {panic\_handler}, 21
+
+  \indexspace
+
+  \item {HAL\_CONF}, 21
+    \subitem {ADC\_USE\_MUTUAL\_EXCLUSION}, 23
+    \subitem {ADC\_USE\_WAIT}, 23
+    \subitem {HAL\_USE\_DAC}, 23
+    \subitem {MMC\_NICE\_WAITING}, 23
+    \subitem {SDC\_INIT\_RETRY}, 23
+    \subitem {SDC\_MMC\_SUPPORT}, 24
+    \subitem {SDC\_NICE\_WAITING}, 24
+    \subitem {SERIAL\_BUFFERS\_SIZE}, 24
+    \subitem {SERIAL\_DEFAULT\_BITRATE}, 24
+    \subitem {SERIAL\_USB\_BUFFERS\_SIZE}, 25
+    \subitem {SPI\_USE\_MUTUAL\_EXCLUSION}, 25
+    \subitem {SPI\_USE\_WAIT}, 25
+  \item {HAL\_USE\_DAC}
+    \subitem {HAL\_CONF}, 23
+
+  \indexspace
+
+  \item {MMC\_NICE\_WAITING}
+    \subitem {HAL\_CONF}, 23
+
+  \indexspace
+
+  \item {note\_struct\_t}, 27
+
+  \indexspace
+
+  \item {panic\_handler}
+    \subitem {Config}, 21
+
+  \indexspace
+
+  \item {SDC\_INIT\_RETRY}
+    \subitem {HAL\_CONF}, 23
+  \item {SDC\_MMC\_SUPPORT}
+    \subitem {HAL\_CONF}, 24
+  \item {SDC\_NICE\_WAITING}
+    \subitem {HAL\_CONF}, 24
+  \item {SERIAL\_BUFFERS\_SIZE}
+    \subitem {HAL\_CONF}, 24
+  \item {SERIAL\_DEFAULT\_BITRATE}
+    \subitem {HAL\_CONF}, 24
+  \item {SERIAL\_USB\_BUFFERS\_SIZE}
+    \subitem {HAL\_CONF}, 25
+  \item {song}, 27
+  \item {SPI\_USE\_MUTUAL\_EXCLUSION}
+    \subitem {HAL\_CONF}, 25
+  \item {SPI\_USE\_WAIT}
+    \subitem {HAL\_CONF}, 25
+
+\end{theindex}

@@ -1,130 +1,88 @@
-#include "ch.h"
-#include "hal.h"
-#include <main.h>
-#include <usbcfg.h>
-#include <chprintf.h>
-#include <motors.h>
-#include <audio/microphone.h>
-#include <audio_processing.h>
-#include <communications.h>
-#include <fft.h>
-#include <arm_math.h>
-#include <audio_processing.h>
+/*
+ * @file 		audio_processing.c
+ * @brief		Microphone sample processing library.
+ * @author		Karl Khalil
+ * @author		Joaquim Silveira
+ * @version		1.0
+ * @date 		12 Apr 2022
+ * @copyright	GNU Public License
+ *
+ */
 
-/*Uncomment to print the notes recorded*/
-//#define DEBUGGING
+#include <audio/microphone.h>
+#include <arm_math.h>
+#include <arm_const_structs.h>
+#include "music.h"
+#include "audio_processing.h"
 
 #define RESOLUTION  			(I2S_AUDIOFREQ_16K/2)/(FFT_SIZE/2)
 #define FREQ_INDEX_OFFSET 		(-2)
-#define NB_SAMPLES				160
-#define RECORDING_SIZE			20
-#define NB_MICS 				2
 #define MAX_VOLUME  			1200
-#define MIN_VOLUME 				1000
-
-
-static BSEMAPHORE_DECL(sem_finished_playing, TRUE);
-/*
- * Probably need a mutex here, and put pathing with a higger priority,
- * so microphone inherits pathing's priority once it is dancing,
- * in which it waits for the note to be played
- */
-static BSEMAPHORE_DECL(sem_note_played, TRUE);
-
-static float micLeft_cmplx_input[2 * FFT_SIZE];
-static float micLeft_output[FFT_SIZE];
-static float freq = 0;
-
-static uint8_t played_note[RECORDING_SIZE];
-static uint16_t current_index = 0;
-static uint16_t discret_freq = 0;
-
+#define MIN_VOLUME 				500
+#define OVERLAP_FACTOR	  		(2)	//50%
+#define OVERLAP_BUFFER_SIZE		(2*FFT_SIZE/OVERLAP_FACTOR)
+#define OVERLAP_INDEX 			(2*FFT_SIZE*(OVERLAP_FACTOR - 1)/OVERLAP_FACTOR)
+#define NB_HARMONICS			2
+#define FFT_SIZE 				4096
 
 /*
- * Prints the discrete note, used for debugging
- */
- static void find_note (int16_t index){
-	switch (index){
-		case 0:
-			chprintf((BaseSequentialStream *)&SD3, "A  ");
-			break;
-		case 1:
-			chprintf((BaseSequentialStream *)&SD3, "A# ");
-			break;
-		case 2:
-			chprintf((BaseSequentialStream *)&SD3, "B ");
-			break;
-		case 3:
-			chprintf((BaseSequentialStream *)&SD3, "C ");
-			break;
-		case 4:
-			chprintf((BaseSequentialStream *)&SD3, "C# ");
-			break;
-		case 5:
-			chprintf((BaseSequentialStream *)&SD3, "D ");
-			break;
-		case 6:
-			chprintf((BaseSequentialStream *)&SD3, "D# ");
-			break;
-		case 7:
-			chprintf((BaseSequentialStream *)&SD3, "E ");
-			break;
-		case 8:
-			chprintf((BaseSequentialStream *)&SD3, "F ");
-			break;
-		case 9:
-			chprintf((BaseSequentialStream *)&SD3, "F# ");
-			break;
-		case 10:
-			chprintf((BaseSequentialStream *)&SD3, "G ");
-			break;
-		case 11:
-			chprintf((BaseSequentialStream *)&SD3, "G# ");
-			break;
-		case 12:
-			chprintf((BaseSequentialStream *)&SD3, "none  \r ");
-			break;
-	}
-}
-
-/*
- * Finds the smallest error between the FFT data
- * and the discrete note frequency in note_frequency[]
+ * @brief 		FFT function calls
+ * @details		Wrapper to call a very optimized fft function provided by ARM
+ * 				which uses a lot of tricks to optimize the computations
  *
- *	TODO: implement something that ignores the note when the error is too big,
- *	could help with resolution
- *
- */
-static void check_smallest_error(uint32_t *max_index){
-	float smallest_error = 0, curr_error = 0;
-	freq = (float)RESOLUTION*((float)(*max_index + FREQ_INDEX_OFFSET ));
+ * @param[in] size 					size of the complex buffer
+ * @param[in,out] complex_buffer	complex buffer containing the time-domain data
+ * 									on which the FFT is applied.
+*/
+static void doCmplxFFT_optimized(uint16_t size, float* complex_buffer){
+	/*
+	 * Audio signal is real so it does not make sense to calculate cfft, we'll try rfft
+	*/
+	  if(size == 1024)
+		arm_cfft_f32(&arm_cfft_sR_f32_len1024, complex_buffer, 0, 1);
+	  else if (size == 2048)
+		arm_cfft_f32(&arm_cfft_sR_f32_len2048, complex_buffer, 0, 1);
+	  else if (size == 4096)
+		arm_cfft_f32(&arm_cfft_sR_f32_len4096, complex_buffer, 0, 1);
 
-	smallest_error = abs(freq - (float)note_frequency[0]);
-	for(uint8_t i = 1; i<NB_NOTES; i++){
-		curr_error = abs(freq - (float)note_frequency[i]);
-		if(curr_error < smallest_error){
-			smallest_error = curr_error;
-			discret_freq = note_frequency[i];
-			*max_index = i;
-		}
-	}
 }
 
 /*
- * TODO :CHECK IF THERE IS A CMSIS FUNCTION FOR THIS
+ * @brief		Find fundamental frequency of played note
+ * @details		Applies the harmonic product spectrum and finds the maximum value and
+ * 				index of the given data
+ *
+ * @param[in,out] data	FFT data of the microphone
+ * @return 				Fundamental frequency of the note played.
  */
-static void fundamental_frequency(float* data, uint8_t nb_harmonic){
-	if(nb_harmonic > 1){
-		for(uint8_t harmonic = 1; harmonic <= nb_harmonic;harmonic++ ){
-			for(uint16_t i = 0; i< FFT_SIZE; i++){
-				data[i] += data[i]/(float)harmonic;
-			}
+static float fundamental_frequency(float* data){
+	for(uint8_t i = 2; i < NB_HARMONICS; i+=2){
+		float decimated_data[FFT_SIZE/i];
+		for(uint16_t j = 0; j < (FFT_SIZE/i); j++){
+			decimated_data[j] = data[i*j];
 		}
+		arm_mult_f32(data,decimated_data,data, FFT_SIZE/i);
 	}
+
+	float max_freq_mag = 0;
+	uint32_t max_index = 0;
+	arm_max_f32(data, (FFT_SIZE/2), &max_freq_mag, &max_index);
+	float freq = (float)RESOLUTION*((float)(max_index + FREQ_INDEX_OFFSET ));
+	return freq;
 }
 
-uint8_t note_volume(int16_t *data, uint16_t num_samples){
-	static uint8_t state = 0;
+/*
+ * @brief		Check if volume ceiling is passed.
+ * @details 	Measures the volume of the microphone's data and
+ * 				applies a schmitt trigger to it, and returns true
+ * 				if there is a rising edge.
+ *
+ * @param[in,out] data 			time-domaine microphone data
+ * @param[in] num_samples		number of samples in data to analyze
+ * @return 						Whether there is a rising edge or not.
+ */
+bool note_volume(int16_t *data, uint16_t num_samples){
+	static bool state = false;
 	static uint16_t mic_volume = 0;
 
 	int16_t max_value = INT16_MIN, min_value = INT16_MAX;
@@ -141,120 +99,88 @@ uint8_t note_volume(int16_t *data, uint16_t num_samples){
 	mic_volume = max_value - min_value;
 
 	if(mic_volume > MAX_VOLUME){
-		if(state == 0){
-			state = 1;
-			return 1;
-		}else if(state == 1){
-			return 0;
+		if(state == false){
+			state = true;
+			return true;
+		}else if(state == true){
+			return false;
 		}
-	}else if (mic_volume < MIN_VOLUME){
-		state = 0;
-		return 0;
+	}else if(mic_volume < MIN_VOLUME){
+		state = false;
+		return false;
 	}
-
-	return 0;
+	return false;
 }
 
 /*
- * Records the played note into the recording array,
- * once we fill the limit, it signals the mutex to activate the
- * scoring of the recording in music.c
- */
-static void record_note(const uint8_t note_index){
-		played_note[current_index] = note_index;
-	/*
-	 * Signals pathing.c that it can dance once
-	 */
-	chBSemSignal(&sem_note_played);
-
-	if(current_index < RECORDING_SIZE){
-		current_index ++;
-	}else{
-		current_index = 0;
-		chBSemSignal(&sem_finished_playing);
-	}
-}
-
-/*
- * Receives the FFT data, finds the closest discret error and
- * records it
- */
-static void frequency_to_note(float* data){
-	float max_freq_mag = 0;
-	uint32_t max_index = 0;
-
-	arm_max_f32(data, (FFT_SIZE/2), &max_freq_mag, &max_index);
-	check_smallest_error(&max_index);
-	max_index = max_index%12;
-#ifdef DEBUGGING
-	find_note(max_index);
-#endif
-	record_note(max_index);
-}
-
-/*
-*	Callback called when the demodulation of the four microphones is done.
-*	We get 160 samples per mic every 10ms (16kHz)
-*
-*	params :
-*	int16_t *data			Buffer containing 4 times 160 samples. the samples are sorted by micro
-*							so we have [micRight1, micLeft1, micBack1, micFront1, micRight2, etc...]
-*	uint16_t num_samples	Tells how many data we get in total (should always be 640)
+ * @brief		Process the microphone data.
+ * @details 	Callback function called when the demodulation of the four microphones is done. We get 160 samples
+ * 				per mic every 10ms (16kHz).
+ *
+ * @param[in/out] data		buffer containing 4 times 160 samples, sorted by microphone
+ * 							[micRight1, micLeft1, micBack1, micFront1, micRight2, etc...]
+ * @param[in] num_samples	size of the buffer received
+ *
 */
 void processAudioDataCmplx(int16_t *data, uint16_t num_samples){
-	static uint16_t nb_samples = 0;
-	static uint8_t register_note = 0;
-	uint8_t status = 0;
-	/*
-	 * Fills the input buffer with the received samples
-	 */
-	for(uint16_t i = 0 ; i < num_samples ; i+=4){
-		micLeft_cmplx_input[nb_samples] = (float)data[i + MIC_LEFT];
-		nb_samples++;
-		micLeft_cmplx_input[nb_samples] = 0;
-		nb_samples++;
+	if(music_is_playing()){
+		static uint16_t nb_samples = 0;
+		static uint16_t nb_overlap_samples = 0;
+		static bool register_note = false;
+
+		static float micLeft_cmplx_input[2 * FFT_SIZE];
+		static float micLeft_output[FFT_SIZE];
+		static float overlapping_samples[OVERLAP_BUFFER_SIZE];
+
+		bool status = false;
+
+		for(uint16_t i = 0 ; i < num_samples ; i+=4){
+			micLeft_cmplx_input[nb_samples] = (float)data[i + MIC_LEFT];
+
+			if(nb_samples >= OVERLAP_INDEX){
+				overlapping_samples[nb_overlap_samples] =(float)data[i + MIC_LEFT];
+				nb_overlap_samples++;
+			}
+			nb_samples++;
+			micLeft_cmplx_input[nb_samples] = 0;
+
+			if(nb_samples >= OVERLAP_INDEX){
+				overlapping_samples[nb_overlap_samples] = 0;
+				nb_overlap_samples++;
+			}
+			nb_samples++;
+
+			if(nb_samples >= (2 * FFT_SIZE)){
+				break;
+			}
+		}
+
+		/*
+		 * Checks if one (or more) sample has a volume higher than
+		 * that of the threshold. Here we implement a Schmitt Trigger
+		 */
+
+		status = note_volume(data, num_samples);
+		if(status == true && register_note == false){
+			register_note = true;
+		}
+
+		/*
+		 * Once we have enough samples, and we know that one of the samples
+		 * has a higher volume, we do a FFT and discretize it with frequency_to_note
+		 */
 		if(nb_samples >= (2 * FFT_SIZE)){
-			break;
+			if(register_note == true){
+				doCmplxFFT_optimized(FFT_SIZE, micLeft_cmplx_input);
+				arm_cmplx_mag_f32(micLeft_cmplx_input, micLeft_output, FFT_SIZE);
+				float freq = fundamental_frequency(micLeft_output);
+				music_send_freq(freq);
+				register_note = false;
+
+			}
+			nb_samples = OVERLAP_BUFFER_SIZE;
+			nb_overlap_samples = 0;
+			arm_copy_f32(overlapping_samples, micLeft_cmplx_input, OVERLAP_BUFFER_SIZE);
 		}
 	}
-
-	/*
-	 * Checks if one (or more) sample has a volume higher than
-	 * that of the threshold. Here we implement a Schmitt Trigger
-	 */
-	status = note_volume(data, num_samples);
-	if(status == 1 && register_note == 0){
-		register_note = 1;
-	}
-	/*
-	 * Once we have enough samples, and we know that one of the samples
-	 * has a higher volume, we do a FFT and discretize it with frequency_to_note
-	 */
-	if(nb_samples >= (2 * FFT_SIZE)){
-		if(register_note == 1){
-			doCmplxFFT_optimized(FFT_SIZE, micLeft_cmplx_input);
-			arm_cmplx_mag_f32(micLeft_cmplx_input, micLeft_output, FFT_SIZE);
-			fundamental_frequency(micLeft_output, 4);
-			frequency_to_note(micLeft_output);
-			register_note = 0;
-		}
-		nb_samples = 0;
-	}
-}
-
-
-/*
- * Public Functions
- */
-uint8_t* get_recording(void){
-	return played_note;
-}
-uint8_t get_current_last_note(void){
-	return played_note[current_index];
-}
-void wait_note_played(void){
-	chBSemWait(&sem_note_played);
-}
-void wait_finish_playing(void){
-	chBSemWait(&sem_finished_playing);
 }

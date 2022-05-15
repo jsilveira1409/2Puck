@@ -1,43 +1,47 @@
+/*
+ * @file 		photo.c
+ * @brief		Photo capture library
+ * @author		Joaquim Silveira
+ * @version		1.0
+ * @date 		23 Apr 2022
+ * @copyright	GNU Public License
+ *
+ */
+
 #include "ch.h"
 #include "hal.h"
-#include <chprintf.h>
-#include <usbcfg.h>
-
 #include <main.h>
 #include <camera/po8030.h>
 #include <inttypes.h>
-#include <photo.h>
+#include "photo.h"
+#include "console.h"
 
-#include "communications.h"
-
-#include <photo.h>
-
-static thread_t *ThdPtrPhoto = NULL;
+static thread_t *ptrPhotoThd = NULL;
 #define X_start					50
 #define	Y_start					0
 #define PHOTO_WIDTH				250
 #define PHOTO_HEIGHT			4
-#define	BYTES_PER_PIXEL			2
-#define IMAGE_BUFFER_SIZE		(PHOTO_WIDTH*PHOTO_HEIGHT)	//Size in uint16
 #define	MAX_LINES_2_SEND		350
 
-//semaphore
+//Semaphores
 static BSEMAPHORE_DECL(line_ready_sem, TRUE);
 static BSEMAPHORE_DECL(photo_finished_sem, TRUE);
 
-//Threads
-static THD_WORKING_AREA(waPhoto, 512);
-static THD_FUNCTION(ThdPhoto, arg) {
+//Thread
+static THD_WORKING_AREA(waPhotoThd, 512);
+
+static THD_FUNCTION(photoThd, arg) {
 
     chRegSetThreadName(__FUNCTION__);
     (void)arg;
     static uint16_t line_cnt = 0;
-    static uint8_t send = 1;
+    static uint8_t send = true;
 
+    dcmi_start();
+    po8030_start();
 
 	dcmi_enable_double_buffering();
 	dcmi_set_capture_mode(CAPTURE_ONE_SHOT);
-
 
     while(!chThdShouldTerminateX()){
     	uint8_t *img_buff_ptr;
@@ -54,23 +58,16 @@ static THD_FUNCTION(ThdPhoto, arg) {
 		dcmi_capture_stop();
 
 		if(line_cnt <= MAX_LINES_2_SEND){
-			/*
-			 * the library gets 2 lines at once
-			 *
-			 */
 			line_cnt += PHOTO_HEIGHT;
 		}else{
-			/*
-			 * Finished sending the picture
-			 */
-			send = 0;
+			//Finished sending photo
+			send = false;
 			chBSemSignal(&photo_finished_sem);
 		}
-		if(send == 1){
+		if(send == true){
 			img_buff_ptr = dcmi_get_last_image_ptr();
-			/*
-			 * As each pixel has 2 bytes of color, total width becomes 2* PHOTO_WIDTH for the data we need to send
-			 */
+			/*  As each pixel has 2 bytes of color, total width becomes 2* PHOTO_WIDTH
+			 *  for the data we need to send*/
 			for(uint8_t i=0; i<PHOTO_HEIGHT;i++){
 				SendUint8ToComputer((img_buff_ptr + (2*i*PHOTO_WIDTH)), (2*PHOTO_WIDTH));
 			}
@@ -84,16 +81,31 @@ static THD_FUNCTION(ThdPhoto, arg) {
     chThdExit(0);
 }
 
+/*
+ * Public Functions
+ */
+
+/*
+ * @brief 	Initializes the photo thread.
+ */
 void photo_init(void){
-	ThdPtrPhoto = chThdCreateStatic(waPhoto, sizeof(waPhoto), NORMALPRIO+2, ThdPhoto, NULL);
+	ptrPhotoThd = chThdCreateStatic(waPhotoThd, sizeof(waPhotoThd),
+			NORMALPRIO+2, photoThd, NULL);
 }
 
+/*
+ * @brief	Stops the photo thread and frees the buffers used.
+ */
 void photo_stop(void){
-	chThdTerminate(ThdPtrPhoto);
+	chThdTerminate(ptrPhotoThd);
 	dcmi_capture_stop();
-	free_buffers();
+	dcmi_free_buffers();
+	//TODO: p08030_stop();
 }
 
+/*
+ * @brief	Waits for the capture to be finished.
+ */
 void photo_wait_finish(void){
 	chBSemWait(&photo_finished_sem);
 }

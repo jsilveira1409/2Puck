@@ -1,0 +1,163 @@
+\doxysection{chconf.\+h}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{/*}}
+\DoxyCodeLine{2 \textcolor{comment}{    ChibiOS -\/ Copyright (C) 2006..2015 Giovanni Di Sirio}}
+\DoxyCodeLine{3 \textcolor{comment}{}}
+\DoxyCodeLine{4 \textcolor{comment}{    Licensed under the Apache License, Version 2.0 (the "{}License"{});}}
+\DoxyCodeLine{5 \textcolor{comment}{    you may not use this file except in compliance with the License.}}
+\DoxyCodeLine{6 \textcolor{comment}{    You may obtain a copy of the License at}}
+\DoxyCodeLine{7 \textcolor{comment}{}}
+\DoxyCodeLine{8 \textcolor{comment}{        http://www.apache.org/licenses/LICENSE-\/2.0}}
+\DoxyCodeLine{9 \textcolor{comment}{}}
+\DoxyCodeLine{10 \textcolor{comment}{    Unless required by applicable law or agreed to in writing, software}}
+\DoxyCodeLine{11 \textcolor{comment}{    distributed under the License is distributed on an "{}AS IS"{} BASIS,}}
+\DoxyCodeLine{12 \textcolor{comment}{    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.}}
+\DoxyCodeLine{13 \textcolor{comment}{    See the License for the specific language governing permissions and}}
+\DoxyCodeLine{14 \textcolor{comment}{    limitations under the License.}}
+\DoxyCodeLine{15 \textcolor{comment}{ */}}
+\DoxyCodeLine{16 }
+\DoxyCodeLine{28 \textcolor{preprocessor}{\#ifndef \_CHCONF\_H\_}}
+\DoxyCodeLine{29 \textcolor{preprocessor}{\#define \_CHCONF\_H\_}}
+\DoxyCodeLine{30 }
+\DoxyCodeLine{31 \textcolor{comment}{/*===========================================================================*/}}
+\DoxyCodeLine{36 \textcolor{comment}{/*===========================================================================*/}}
+\DoxyCodeLine{37 }
+\DoxyCodeLine{42 \textcolor{preprocessor}{\#define CH\_CFG\_ST\_RESOLUTION                32}}
+\DoxyCodeLine{43 }
+\DoxyCodeLine{49 \textcolor{preprocessor}{\#define CH\_CFG\_ST\_FREQUENCY                 1000}}
+\DoxyCodeLine{50 }
+\DoxyCodeLine{59 \textcolor{preprocessor}{\#define CH\_CFG\_ST\_TIMEDELTA                 0}}
+\DoxyCodeLine{60 }
+\DoxyCodeLine{63 \textcolor{comment}{/*===========================================================================*/}}
+\DoxyCodeLine{68 \textcolor{comment}{/*===========================================================================*/}}
+\DoxyCodeLine{69 }
+\DoxyCodeLine{82 \textcolor{preprocessor}{\#define CH\_CFG\_TIME\_QUANTUM                 20}}
+\DoxyCodeLine{83 }
+\DoxyCodeLine{95 \textcolor{preprocessor}{\#define CH\_CFG\_MEMCORE\_SIZE                 0}}
+\DoxyCodeLine{96 }
+\DoxyCodeLine{103 \textcolor{preprocessor}{\#define CH\_CFG\_NO\_IDLE\_THREAD               FALSE}}
+\DoxyCodeLine{104 }
+\DoxyCodeLine{107 \textcolor{comment}{/*===========================================================================*/}}
+\DoxyCodeLine{112 \textcolor{comment}{/*===========================================================================*/}}
+\DoxyCodeLine{113 }
+\DoxyCodeLine{122 \textcolor{preprocessor}{\#define CH\_CFG\_OPTIMIZE\_SPEED               TRUE}}
+\DoxyCodeLine{123 }
+\DoxyCodeLine{126 \textcolor{comment}{/*===========================================================================*/}}
+\DoxyCodeLine{131 \textcolor{comment}{/*===========================================================================*/}}
+\DoxyCodeLine{132 }
+\DoxyCodeLine{140 \textcolor{preprocessor}{\#define CH\_CFG\_USE\_TM                       TRUE}}
+\DoxyCodeLine{141 }
+\DoxyCodeLine{148 \textcolor{preprocessor}{\#define CH\_CFG\_USE\_REGISTRY                 TRUE}}
+\DoxyCodeLine{149 }
+\DoxyCodeLine{157 \textcolor{preprocessor}{\#define CH\_CFG\_USE\_WAITEXIT                 TRUE}}
+\DoxyCodeLine{158 }
+\DoxyCodeLine{165 \textcolor{preprocessor}{\#define CH\_CFG\_USE\_SEMAPHORES               TRUE}}
+\DoxyCodeLine{166 }
+\DoxyCodeLine{176 \textcolor{preprocessor}{\#define CH\_CFG\_USE\_SEMAPHORES\_PRIORITY      FALSE}}
+\DoxyCodeLine{177 }
+\DoxyCodeLine{184 \textcolor{preprocessor}{\#define CH\_CFG\_USE\_MUTEXES                  TRUE}}
+\DoxyCodeLine{185 }
+\DoxyCodeLine{194 \textcolor{preprocessor}{\#define CH\_CFG\_USE\_MUTEXES\_RECURSIVE        TRUE}}
+\DoxyCodeLine{195 }
+\DoxyCodeLine{204 \textcolor{preprocessor}{\#define CH\_CFG\_USE\_CONDVARS                 TRUE}}
+\DoxyCodeLine{205 }
+\DoxyCodeLine{214 \textcolor{preprocessor}{\#define CH\_CFG\_USE\_CONDVARS\_TIMEOUT         TRUE}}
+\DoxyCodeLine{215 }
+\DoxyCodeLine{222 \textcolor{preprocessor}{\#define CH\_CFG\_USE\_EVENTS                   TRUE}}
+\DoxyCodeLine{223 }
+\DoxyCodeLine{232 \textcolor{preprocessor}{\#define CH\_CFG\_USE\_EVENTS\_TIMEOUT           TRUE}}
+\DoxyCodeLine{233 }
+\DoxyCodeLine{241 \textcolor{preprocessor}{\#define CH\_CFG\_USE\_MESSAGES                 TRUE}}
+\DoxyCodeLine{242 }
+\DoxyCodeLine{252 \textcolor{preprocessor}{\#define CH\_CFG\_USE\_MESSAGES\_PRIORITY        FALSE}}
+\DoxyCodeLine{253 }
+\DoxyCodeLine{262 \textcolor{preprocessor}{\#define CH\_CFG\_USE\_MAILBOXES                TRUE}}
+\DoxyCodeLine{263 }
+\DoxyCodeLine{270 \textcolor{preprocessor}{\#define CH\_CFG\_USE\_QUEUES                   TRUE}}
+\DoxyCodeLine{271 }
+\DoxyCodeLine{279 \textcolor{preprocessor}{\#define CH\_CFG\_USE\_MEMCORE                  TRUE}}
+\DoxyCodeLine{280 }
+\DoxyCodeLine{291 \textcolor{preprocessor}{\#define CH\_CFG\_USE\_HEAP                     TRUE}}
+\DoxyCodeLine{292 }
+\DoxyCodeLine{300 \textcolor{preprocessor}{\#define CH\_CFG\_USE\_MEMPOOLS                 TRUE}}
+\DoxyCodeLine{301 }
+\DoxyCodeLine{311 \textcolor{preprocessor}{\#define CH\_CFG\_USE\_DYNAMIC                  TRUE}}
+\DoxyCodeLine{312 }
+\DoxyCodeLine{315 \textcolor{comment}{/*===========================================================================*/}}
+\DoxyCodeLine{320 \textcolor{comment}{/*===========================================================================*/}}
+\DoxyCodeLine{321 }
+\DoxyCodeLine{327 \textcolor{preprocessor}{\#define CH\_DBG\_STATISTICS                   TRUE}}
+\DoxyCodeLine{328 }
+\DoxyCodeLine{336 \textcolor{preprocessor}{\#define CH\_DBG\_SYSTEM\_STATE\_CHECK           TRUE}}
+\DoxyCodeLine{337 }
+\DoxyCodeLine{345 \textcolor{preprocessor}{\#define CH\_DBG\_ENABLE\_CHECKS                TRUE}}
+\DoxyCodeLine{346 }
+\DoxyCodeLine{355 \textcolor{preprocessor}{\#define CH\_DBG\_ENABLE\_ASSERTS               TRUE}}
+\DoxyCodeLine{356 }
+\DoxyCodeLine{364 \textcolor{preprocessor}{\#define CH\_DBG\_ENABLE\_TRACE                 TRUE}}
+\DoxyCodeLine{365 }
+\DoxyCodeLine{376 \textcolor{preprocessor}{\#define CH\_DBG\_ENABLE\_STACK\_CHECK           TRUE}}
+\DoxyCodeLine{377 }
+\DoxyCodeLine{386 \textcolor{preprocessor}{\#define CH\_DBG\_FILL\_THREADS                 TRUE}}
+\DoxyCodeLine{387 }
+\DoxyCodeLine{397 \textcolor{preprocessor}{\#define CH\_DBG\_THREADS\_PROFILING            TRUE}}
+\DoxyCodeLine{398 }
+\DoxyCodeLine{401 \textcolor{comment}{/*===========================================================================*/}}
+\DoxyCodeLine{406 \textcolor{comment}{/*===========================================================================*/}}
+\DoxyCodeLine{407 }
+\DoxyCodeLine{412 \textcolor{preprocessor}{\#define CH\_CFG\_THREAD\_EXTRA\_FIELDS                                          \(\backslash\)}}
+\DoxyCodeLine{413 \textcolor{preprocessor}{    }\textcolor{comment}{/* Add threads custom fields here.*/}\textcolor{preprocessor}{}}
+\DoxyCodeLine{414 }
+\DoxyCodeLine{422 \textcolor{preprocessor}{\#define CH\_CFG\_THREAD\_INIT\_HOOK(tp) \{                                       \(\backslash\)}}
+\DoxyCodeLine{423 \textcolor{preprocessor}{        }\textcolor{comment}{/* Add threads initialization code here.*/}\textcolor{preprocessor}{                                \(\backslash\)}}
+\DoxyCodeLine{424 \textcolor{preprocessor}{\}}}
+\DoxyCodeLine{425 }
+\DoxyCodeLine{434 \textcolor{preprocessor}{\#define CH\_CFG\_THREAD\_EXIT\_HOOK(tp) \{                                       \(\backslash\)}}
+\DoxyCodeLine{435 \textcolor{preprocessor}{        }\textcolor{comment}{/* Add threads finalization code here.*/}\textcolor{preprocessor}{                                  \(\backslash\)}}
+\DoxyCodeLine{436 \textcolor{preprocessor}{\}}}
+\DoxyCodeLine{437 }
+\DoxyCodeLine{442 \textcolor{preprocessor}{\#define CH\_CFG\_CONTEXT\_SWITCH\_HOOK(ntp, otp) \{                              \(\backslash\)}}
+\DoxyCodeLine{443 \textcolor{preprocessor}{        }\textcolor{comment}{/* Context switch code here.*/}\textcolor{preprocessor}{                                            \(\backslash\)}}
+\DoxyCodeLine{444 \textcolor{preprocessor}{\}}}
+\DoxyCodeLine{445 }
+\DoxyCodeLine{452 \textcolor{preprocessor}{\#define CH\_CFG\_IDLE\_ENTER\_HOOK() \{                                         \(\backslash\)}}
+\DoxyCodeLine{453 \textcolor{preprocessor}{\}}}
+\DoxyCodeLine{454 }
+\DoxyCodeLine{461 \textcolor{preprocessor}{\#define CH\_CFG\_IDLE\_LEAVE\_HOOK() \{                                         \(\backslash\)}}
+\DoxyCodeLine{462 \textcolor{preprocessor}{\}}}
+\DoxyCodeLine{463 }
+\DoxyCodeLine{468 \textcolor{preprocessor}{\#define CH\_CFG\_IDLE\_LOOP\_HOOK() \{                                           \(\backslash\)}}
+\DoxyCodeLine{469 \textcolor{preprocessor}{        }\textcolor{comment}{/* Idle loop code here.*/}\textcolor{preprocessor}{                                                 \(\backslash\)}}
+\DoxyCodeLine{470 \textcolor{preprocessor}{\}}}
+\DoxyCodeLine{471 }
+\DoxyCodeLine{477 \textcolor{preprocessor}{\#define CH\_CFG\_SYSTEM\_TICK\_HOOK() \{                                         \(\backslash\)}}
+\DoxyCodeLine{478 \textcolor{preprocessor}{        }\textcolor{comment}{/* System tick event code here.*/}\textcolor{preprocessor}{                                         \(\backslash\)}}
+\DoxyCodeLine{479 \textcolor{preprocessor}{\}}}
+\DoxyCodeLine{480 }
+\DoxyCodeLine{486 \textcolor{preprocessor}{\#if !defined(\_FROM\_ASM\_)}}
+\DoxyCodeLine{487 \textcolor{preprocessor}{\#ifdef \_\_cplusplus}}
+\DoxyCodeLine{488 \textcolor{keyword}{extern} \textcolor{stringliteral}{"{}C"{}} \{}
+\DoxyCodeLine{489 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{490 \textcolor{keywordtype}{void} panic\_handler(\textcolor{keyword}{const} \textcolor{keywordtype}{char} *reason);}
+\DoxyCodeLine{491 \textcolor{preprocessor}{\#ifdef \_\_cplusplus}}
+\DoxyCodeLine{492 \}}
+\DoxyCodeLine{493 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{494 \textcolor{preprocessor}{\#endif }\textcolor{comment}{/* \_FROM\_ASM\_ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{495 \textcolor{preprocessor}{\#define CH\_CFG\_SYSTEM\_HALT\_HOOK(reason) \{                                   \(\backslash\)}}
+\DoxyCodeLine{496 \textcolor{preprocessor}{        }\textcolor{comment}{/* System halt code here.*/}\textcolor{preprocessor}{                                               \(\backslash\)}}
+\DoxyCodeLine{497 \textcolor{preprocessor}{        panic\_handler(reason);                                                    \(\backslash\)}}
+\DoxyCodeLine{498 \textcolor{preprocessor}{\}}}
+\DoxyCodeLine{499 }
+\DoxyCodeLine{500 }
+\DoxyCodeLine{503 \textcolor{comment}{/*===========================================================================*/}}
+\DoxyCodeLine{504 \textcolor{comment}{/* Port-\/specific settings (override port settings defaulted in chcore.h).    */}}
+\DoxyCodeLine{505 \textcolor{comment}{/*===========================================================================*/}}
+\DoxyCodeLine{506 }
+\DoxyCodeLine{507 \textcolor{comment}{// chprintf float enable}}
+\DoxyCodeLine{508 \textcolor{preprocessor}{\#define CHPRINTF\_USE\_FLOAT true}}
+\DoxyCodeLine{509 }
+\DoxyCodeLine{510 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{/* \_CHCONF\_H\_ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{511 }
+
+\end{DoxyCode}

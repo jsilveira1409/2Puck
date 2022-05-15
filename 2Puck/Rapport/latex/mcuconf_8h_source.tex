@@ -1,0 +1,363 @@
+\doxysection{mcuconf.\+h}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{/*}}
+\DoxyCodeLine{2 \textcolor{comment}{    ChibiOS -\/ Copyright (C) 2006..2015 Giovanni Di Sirio}}
+\DoxyCodeLine{3 \textcolor{comment}{}}
+\DoxyCodeLine{4 \textcolor{comment}{    Licensed under the Apache License, Version 2.0 (the "{}License"{});}}
+\DoxyCodeLine{5 \textcolor{comment}{    you may not use this file except in compliance with the License.}}
+\DoxyCodeLine{6 \textcolor{comment}{    You may obtain a copy of the License at}}
+\DoxyCodeLine{7 \textcolor{comment}{}}
+\DoxyCodeLine{8 \textcolor{comment}{        http://www.apache.org/licenses/LICENSE-\/2.0}}
+\DoxyCodeLine{9 \textcolor{comment}{}}
+\DoxyCodeLine{10 \textcolor{comment}{    Unless required by applicable law or agreed to in writing, software}}
+\DoxyCodeLine{11 \textcolor{comment}{    distributed under the License is distributed on an "{}AS IS"{} BASIS,}}
+\DoxyCodeLine{12 \textcolor{comment}{    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.}}
+\DoxyCodeLine{13 \textcolor{comment}{    See the License for the specific language governing permissions and}}
+\DoxyCodeLine{14 \textcolor{comment}{    limitations under the License.}}
+\DoxyCodeLine{15 \textcolor{comment}{ */}}
+\DoxyCodeLine{16 }
+\DoxyCodeLine{17 \textcolor{preprocessor}{\#ifndef \_MCUCONF\_H\_}}
+\DoxyCodeLine{18 \textcolor{preprocessor}{\#define \_MCUCONF\_H\_}}
+\DoxyCodeLine{19 }
+\DoxyCodeLine{20 \textcolor{comment}{/*}}
+\DoxyCodeLine{21 \textcolor{comment}{ * STM32F4xx drivers configuration.}}
+\DoxyCodeLine{22 \textcolor{comment}{ * The following settings override the default settings present in}}
+\DoxyCodeLine{23 \textcolor{comment}{ * the various device driver implementation headers.}}
+\DoxyCodeLine{24 \textcolor{comment}{ * Note that the settings for each driver only have effect if the whole}}
+\DoxyCodeLine{25 \textcolor{comment}{ * driver is enabled in halconf.h.}}
+\DoxyCodeLine{26 \textcolor{comment}{ *}}
+\DoxyCodeLine{27 \textcolor{comment}{ * IRQ priorities:}}
+\DoxyCodeLine{28 \textcolor{comment}{ * 15...0       Lowest...Highest.}}
+\DoxyCodeLine{29 \textcolor{comment}{ *}}
+\DoxyCodeLine{30 \textcolor{comment}{ * DMA priorities:}}
+\DoxyCodeLine{31 \textcolor{comment}{ * 0...3        Lowest...Highest.}}
+\DoxyCodeLine{32 \textcolor{comment}{ */}}
+\DoxyCodeLine{33 }
+\DoxyCodeLine{34 \textcolor{preprocessor}{\#define STM32F4xx\_MCUCONF}}
+\DoxyCodeLine{35 }
+\DoxyCodeLine{36 \textcolor{comment}{/*}}
+\DoxyCodeLine{37 \textcolor{comment}{ * HAL driver system settings.}}
+\DoxyCodeLine{38 \textcolor{comment}{ */}}
+\DoxyCodeLine{39 \textcolor{preprocessor}{\#define STM32\_NO\_INIT                       FALSE}}
+\DoxyCodeLine{40 \textcolor{preprocessor}{\#define STM32\_HSI\_ENABLED                   TRUE}}
+\DoxyCodeLine{41 \textcolor{preprocessor}{\#define STM32\_LSI\_ENABLED                   TRUE}}
+\DoxyCodeLine{42 \textcolor{preprocessor}{\#define STM32\_HSE\_ENABLED                   TRUE}}
+\DoxyCodeLine{43 \textcolor{preprocessor}{\#define STM32\_LSE\_ENABLED                   FALSE}}
+\DoxyCodeLine{44 \textcolor{preprocessor}{\#define STM32\_CLOCK48\_REQUIRED              TRUE}}
+\DoxyCodeLine{45 \textcolor{preprocessor}{\#define STM32\_SW                            STM32\_SW\_PLL }\textcolor{comment}{// SYSCLK source is PLL.}}
+\DoxyCodeLine{46 \textcolor{preprocessor}{\#define STM32\_PLLSRC                        STM32\_PLLSRC\_HSE }\textcolor{comment}{// 24 MHz.}}
+\DoxyCodeLine{47 \textcolor{preprocessor}{\#define STM32\_PLLM\_VALUE                    24 }\textcolor{comment}{// VCO input freq = 8/PLLM = 1 MHz // (define STM32\_SYSCLK)}}
+\DoxyCodeLine{48 \textcolor{preprocessor}{\#define STM32\_PLLN\_VALUE                    336 }\textcolor{comment}{// VCO output freq = VCO input * PLLN = 336 MHz}}
+\DoxyCodeLine{49 \textcolor{preprocessor}{\#define STM32\_PLLP\_VALUE                    2 }\textcolor{comment}{// Main PLL clock = VCO output / PLLP = 336/2 = 168 MHz}}
+\DoxyCodeLine{50 \textcolor{preprocessor}{\#define STM32\_PLLQ\_VALUE                    7 }\textcolor{comment}{// USB, SDIO clock = VCO outpu / PLLQ = 48 MHz}}
+\DoxyCodeLine{51 \textcolor{preprocessor}{\#define STM32\_HPRE                          STM32\_HPRE\_DIV1     }\textcolor{comment}{// AHB prescaler => 168 MHz. (define STM32\_HCLK)}}
+\DoxyCodeLine{52 \textcolor{preprocessor}{\#define STM32\_PPRE1                         STM32\_PPRE1\_DIV4    }\textcolor{comment}{// APB1 prescaler => 168/4 = 42 MHz. (define STM32\_PCLK1)}}
+\DoxyCodeLine{53 \textcolor{preprocessor}{\#define STM32\_PPRE2                         STM32\_PPRE2\_DIV2    }\textcolor{comment}{// APB2 prescaler => 168/2 = 84 MHz. (define STM32\_PCLK2)}}
+\DoxyCodeLine{54 \textcolor{preprocessor}{\#define STM32\_RTCSEL                        STM32\_RTCSEL\_LSI}}
+\DoxyCodeLine{55 \textcolor{preprocessor}{\#define STM32\_RTCPRE\_VALUE                  8}}
+\DoxyCodeLine{56 \textcolor{preprocessor}{\#define STM32\_MCO1SEL                       STM32\_MCO1SEL\_HSI}}
+\DoxyCodeLine{57 \textcolor{preprocessor}{\#define STM32\_MCO1PRE                       STM32\_MCO1PRE\_DIV1}}
+\DoxyCodeLine{58 \textcolor{preprocessor}{\#define STM32\_MCO2SEL                       STM32\_MCO2SEL\_SYSCLK}}
+\DoxyCodeLine{59 \textcolor{preprocessor}{\#define STM32\_MCO2PRE                       STM32\_MCO2PRE\_DIV5}}
+\DoxyCodeLine{60 \textcolor{preprocessor}{\#define STM32\_I2SSRC                        STM32\_I2SSRC\_PLLI2S}}
+\DoxyCodeLine{61 \textcolor{preprocessor}{\#define STM32\_PLLI2SN\_VALUE                 192}}
+\DoxyCodeLine{62 \textcolor{preprocessor}{\#define STM32\_PLLI2SR\_VALUE                 6 }\textcolor{comment}{// PLLI2SCLK = VCO input * PLLI2SN / PLLI2SR = 1*192/6 = 32 MHz}}
+\DoxyCodeLine{63 \textcolor{preprocessor}{\#define STM32\_PVD\_ENABLE                    FALSE}}
+\DoxyCodeLine{64 \textcolor{preprocessor}{\#define STM32\_PLS                           STM32\_PLS\_LEV0}}
+\DoxyCodeLine{65 \textcolor{preprocessor}{\#define STM32\_BKPRAM\_ENABLE                 FALSE}}
+\DoxyCodeLine{66 }
+\DoxyCodeLine{67 \textcolor{comment}{/*}}
+\DoxyCodeLine{68 \textcolor{comment}{ * ADC driver system settings.}}
+\DoxyCodeLine{69 \textcolor{comment}{ */}}
+\DoxyCodeLine{70 \textcolor{preprocessor}{\#define STM32\_ADC\_ADCPRE                    ADC\_CCR\_ADCPRE\_DIV8}}
+\DoxyCodeLine{71 \textcolor{preprocessor}{\#define STM32\_ADC\_USE\_ADC1                  TRUE}}
+\DoxyCodeLine{72 \textcolor{preprocessor}{\#define STM32\_ADC\_USE\_ADC2                  TRUE}}
+\DoxyCodeLine{73 \textcolor{preprocessor}{\#define STM32\_ADC\_USE\_ADC3                  TRUE}}
+\DoxyCodeLine{74 \textcolor{preprocessor}{\#define STM32\_ADC\_ADC1\_DMA\_STREAM           STM32\_DMA\_STREAM\_ID(2, 4)}}
+\DoxyCodeLine{75 \textcolor{preprocessor}{\#define STM32\_ADC\_ADC2\_DMA\_STREAM           STM32\_DMA\_STREAM\_ID(2, 2)}}
+\DoxyCodeLine{76 \textcolor{preprocessor}{\#define STM32\_ADC\_ADC3\_DMA\_STREAM           STM32\_DMA\_STREAM\_ID(2, 1)}}
+\DoxyCodeLine{77 \textcolor{preprocessor}{\#define STM32\_ADC\_ADC1\_DMA\_PRIORITY         2}}
+\DoxyCodeLine{78 \textcolor{preprocessor}{\#define STM32\_ADC\_ADC2\_DMA\_PRIORITY         2}}
+\DoxyCodeLine{79 \textcolor{preprocessor}{\#define STM32\_ADC\_ADC3\_DMA\_PRIORITY         2}}
+\DoxyCodeLine{80 \textcolor{preprocessor}{\#define STM32\_ADC\_IRQ\_PRIORITY              6}}
+\DoxyCodeLine{81 \textcolor{preprocessor}{\#define STM32\_ADC\_ADC1\_DMA\_IRQ\_PRIORITY     6}}
+\DoxyCodeLine{82 \textcolor{preprocessor}{\#define STM32\_ADC\_ADC2\_DMA\_IRQ\_PRIORITY     6}}
+\DoxyCodeLine{83 \textcolor{preprocessor}{\#define STM32\_ADC\_ADC3\_DMA\_IRQ\_PRIORITY     6}}
+\DoxyCodeLine{84 }
+\DoxyCodeLine{85 \textcolor{comment}{/*}}
+\DoxyCodeLine{86 \textcolor{comment}{ * DAC driver system settings.}}
+\DoxyCodeLine{87 \textcolor{comment}{ */}}
+\DoxyCodeLine{88 \textcolor{preprocessor}{\#define STM32\_DAC\_DUAL\_MODE                 FALSE}}
+\DoxyCodeLine{89 \textcolor{preprocessor}{\#define STM32\_DAC\_USE\_DAC1\_CH1              FALSE}}
+\DoxyCodeLine{90 \textcolor{preprocessor}{\#define STM32\_DAC\_USE\_DAC1\_CH2              TRUE}}
+\DoxyCodeLine{91 \textcolor{preprocessor}{\#define STM32\_DAC\_DAC1\_CH1\_IRQ\_PRIORITY     10}}
+\DoxyCodeLine{92 \textcolor{preprocessor}{\#define STM32\_DAC\_DAC1\_CH2\_IRQ\_PRIORITY     10}}
+\DoxyCodeLine{93 \textcolor{preprocessor}{\#define STM32\_DAC\_DAC1\_CH1\_DMA\_PRIORITY     2}}
+\DoxyCodeLine{94 \textcolor{preprocessor}{\#define STM32\_DAC\_DAC1\_CH2\_DMA\_PRIORITY     2}}
+\DoxyCodeLine{95 \textcolor{preprocessor}{\#define STM32\_DAC\_DAC1\_CH1\_DMA\_STREAM       STM32\_DMA\_STREAM\_ID(1, 5)}}
+\DoxyCodeLine{96 \textcolor{preprocessor}{\#define STM32\_DAC\_DAC1\_CH2\_DMA\_STREAM       STM32\_DMA\_STREAM\_ID(1, 6)}}
+\DoxyCodeLine{97 }
+\DoxyCodeLine{98 \textcolor{comment}{/*}}
+\DoxyCodeLine{99 \textcolor{comment}{ * CAN driver system settings.}}
+\DoxyCodeLine{100 \textcolor{comment}{ */}}
+\DoxyCodeLine{101 \textcolor{preprocessor}{\#define STM32\_CAN\_USE\_CAN1                  TRUE}}
+\DoxyCodeLine{102 \textcolor{preprocessor}{\#define STM32\_CAN\_USE\_CAN2                  FALSE}}
+\DoxyCodeLine{103 \textcolor{preprocessor}{\#define STM32\_CAN\_CAN1\_IRQ\_PRIORITY         11}}
+\DoxyCodeLine{104 \textcolor{preprocessor}{\#define STM32\_CAN\_CAN2\_IRQ\_PRIORITY         11}}
+\DoxyCodeLine{105 }
+\DoxyCodeLine{106 \textcolor{comment}{/*}}
+\DoxyCodeLine{107 \textcolor{comment}{ * DCMI driver system settings.}}
+\DoxyCodeLine{108 \textcolor{comment}{ */}}
+\DoxyCodeLine{109 \textcolor{preprocessor}{\#define STM32\_DCMI\_USE\_DCMI                 TRUE}}
+\DoxyCodeLine{110 \textcolor{preprocessor}{\#define STM32\_DCMI\_IRQ\_PRIORITY             11}}
+\DoxyCodeLine{111 \textcolor{preprocessor}{\#define STM32\_DCMI\_DMA\_PRIORITY             2}}
+\DoxyCodeLine{112 \textcolor{preprocessor}{\#define STM32\_DCMI\_DMA\_IRQ\_PRIORITY         12}}
+\DoxyCodeLine{113 \textcolor{preprocessor}{\#define STM32\_DCMI\_DMA\_STREAM               STM32\_DMA\_STREAM\_ID(2, 1)}}
+\DoxyCodeLine{114 }
+\DoxyCodeLine{115 \textcolor{comment}{/*}}
+\DoxyCodeLine{116 \textcolor{comment}{ * EXT driver system settings.}}
+\DoxyCodeLine{117 \textcolor{comment}{ */}}
+\DoxyCodeLine{118 \textcolor{preprocessor}{\#define STM32\_EXT\_EXTI0\_IRQ\_PRIORITY        6}}
+\DoxyCodeLine{119 \textcolor{preprocessor}{\#define STM32\_EXT\_EXTI1\_IRQ\_PRIORITY        6}}
+\DoxyCodeLine{120 \textcolor{preprocessor}{\#define STM32\_EXT\_EXTI2\_IRQ\_PRIORITY        6}}
+\DoxyCodeLine{121 \textcolor{preprocessor}{\#define STM32\_EXT\_EXTI3\_IRQ\_PRIORITY        6}}
+\DoxyCodeLine{122 \textcolor{preprocessor}{\#define STM32\_EXT\_EXTI4\_IRQ\_PRIORITY        6}}
+\DoxyCodeLine{123 \textcolor{preprocessor}{\#define STM32\_EXT\_EXTI5\_9\_IRQ\_PRIORITY      6}}
+\DoxyCodeLine{124 \textcolor{preprocessor}{\#define STM32\_EXT\_EXTI10\_15\_IRQ\_PRIORITY    6}}
+\DoxyCodeLine{125 \textcolor{preprocessor}{\#define STM32\_EXT\_EXTI16\_IRQ\_PRIORITY       6}}
+\DoxyCodeLine{126 \textcolor{preprocessor}{\#define STM32\_EXT\_EXTI17\_IRQ\_PRIORITY       15}}
+\DoxyCodeLine{127 \textcolor{preprocessor}{\#define STM32\_EXT\_EXTI18\_IRQ\_PRIORITY       6}}
+\DoxyCodeLine{128 \textcolor{preprocessor}{\#define STM32\_EXT\_EXTI19\_IRQ\_PRIORITY       6}}
+\DoxyCodeLine{129 \textcolor{preprocessor}{\#define STM32\_EXT\_EXTI20\_IRQ\_PRIORITY       6}}
+\DoxyCodeLine{130 \textcolor{preprocessor}{\#define STM32\_EXT\_EXTI21\_IRQ\_PRIORITY       15}}
+\DoxyCodeLine{131 \textcolor{preprocessor}{\#define STM32\_EXT\_EXTI22\_IRQ\_PRIORITY       15}}
+\DoxyCodeLine{132 }
+\DoxyCodeLine{133 \textcolor{comment}{/*}}
+\DoxyCodeLine{134 \textcolor{comment}{ * GPT driver system settings.}}
+\DoxyCodeLine{135 \textcolor{comment}{ */}}
+\DoxyCodeLine{136 \textcolor{preprocessor}{\#define STM32\_GPT\_USE\_TIM1                  FALSE}}
+\DoxyCodeLine{137 \textcolor{preprocessor}{\#define STM32\_GPT\_USE\_TIM2                  FALSE}}
+\DoxyCodeLine{138 \textcolor{preprocessor}{\#define STM32\_GPT\_USE\_TIM3                  FALSE}}
+\DoxyCodeLine{139 \textcolor{preprocessor}{\#define STM32\_GPT\_USE\_TIM4                  FALSE}}
+\DoxyCodeLine{140 \textcolor{preprocessor}{\#define STM32\_GPT\_USE\_TIM5                  FALSE}}
+\DoxyCodeLine{141 \textcolor{preprocessor}{\#define STM32\_GPT\_USE\_TIM6                  TRUE}}
+\DoxyCodeLine{142 \textcolor{preprocessor}{\#define STM32\_GPT\_USE\_TIM7                  FALSE}}
+\DoxyCodeLine{143 \textcolor{preprocessor}{\#define STM32\_GPT\_USE\_TIM8                  FALSE}}
+\DoxyCodeLine{144 \textcolor{preprocessor}{\#define STM32\_GPT\_USE\_TIM9                  FALSE}}
+\DoxyCodeLine{145 \textcolor{preprocessor}{\#define STM32\_GPT\_USE\_TIM11                 TRUE}}
+\DoxyCodeLine{146 \textcolor{preprocessor}{\#define STM32\_GPT\_USE\_TIM12                 TRUE}}
+\DoxyCodeLine{147 \textcolor{preprocessor}{\#define STM32\_GPT\_USE\_TIM14                 FALSE}}
+\DoxyCodeLine{148 \textcolor{preprocessor}{\#define STM32\_GPT\_TIM1\_IRQ\_PRIORITY         7}}
+\DoxyCodeLine{149 \textcolor{preprocessor}{\#define STM32\_GPT\_TIM2\_IRQ\_PRIORITY         7}}
+\DoxyCodeLine{150 \textcolor{preprocessor}{\#define STM32\_GPT\_TIM3\_IRQ\_PRIORITY         7}}
+\DoxyCodeLine{151 \textcolor{preprocessor}{\#define STM32\_GPT\_TIM4\_IRQ\_PRIORITY         7}}
+\DoxyCodeLine{152 \textcolor{preprocessor}{\#define STM32\_GPT\_TIM5\_IRQ\_PRIORITY         7}}
+\DoxyCodeLine{153 \textcolor{preprocessor}{\#define STM32\_GPT\_TIM6\_IRQ\_PRIORITY         7}}
+\DoxyCodeLine{154 \textcolor{preprocessor}{\#define STM32\_GPT\_TIM7\_IRQ\_PRIORITY         7}}
+\DoxyCodeLine{155 \textcolor{preprocessor}{\#define STM32\_GPT\_TIM8\_IRQ\_PRIORITY         7}}
+\DoxyCodeLine{156 \textcolor{preprocessor}{\#define STM32\_GPT\_TIM9\_IRQ\_PRIORITY         7}}
+\DoxyCodeLine{157 \textcolor{preprocessor}{\#define STM32\_GPT\_TIM11\_IRQ\_PRIORITY        7}}
+\DoxyCodeLine{158 \textcolor{preprocessor}{\#define STM32\_GPT\_TIM12\_IRQ\_PRIORITY        7}}
+\DoxyCodeLine{159 \textcolor{preprocessor}{\#define STM32\_GPT\_TIM14\_IRQ\_PRIORITY        7}}
+\DoxyCodeLine{160 }
+\DoxyCodeLine{161 \textcolor{comment}{/*}}
+\DoxyCodeLine{162 \textcolor{comment}{ * I2C driver system settings.}}
+\DoxyCodeLine{163 \textcolor{comment}{ */}}
+\DoxyCodeLine{164 \textcolor{preprocessor}{\#define STM32\_I2C\_USE\_I2C1                  TRUE}}
+\DoxyCodeLine{165 \textcolor{preprocessor}{\#define STM32\_I2C\_USE\_I2C2                  FALSE}}
+\DoxyCodeLine{166 \textcolor{preprocessor}{\#define STM32\_I2C\_USE\_I2C3                  FALSE}}
+\DoxyCodeLine{167 \textcolor{preprocessor}{\#define STM32\_I2C\_BUSY\_TIMEOUT              50}}
+\DoxyCodeLine{168 \textcolor{preprocessor}{\#define STM32\_I2C\_I2C1\_RX\_DMA\_STREAM        STM32\_DMA\_STREAM\_ID(1, 0)}}
+\DoxyCodeLine{169 \textcolor{preprocessor}{\#define STM32\_I2C\_I2C1\_TX\_DMA\_STREAM        STM32\_DMA\_STREAM\_ID(1, 7)}}
+\DoxyCodeLine{170 \textcolor{preprocessor}{\#define STM32\_I2C\_I2C2\_RX\_DMA\_STREAM        STM32\_DMA\_STREAM\_ID(1, 2)}}
+\DoxyCodeLine{171 \textcolor{preprocessor}{\#define STM32\_I2C\_I2C2\_TX\_DMA\_STREAM        STM32\_DMA\_STREAM\_ID(1, 7)}}
+\DoxyCodeLine{172 \textcolor{preprocessor}{\#define STM32\_I2C\_I2C3\_RX\_DMA\_STREAM        STM32\_DMA\_STREAM\_ID(1, 2)}}
+\DoxyCodeLine{173 \textcolor{preprocessor}{\#define STM32\_I2C\_I2C3\_TX\_DMA\_STREAM        STM32\_DMA\_STREAM\_ID(1, 4)}}
+\DoxyCodeLine{174 \textcolor{preprocessor}{\#define STM32\_I2C\_I2C1\_IRQ\_PRIORITY         5}}
+\DoxyCodeLine{175 \textcolor{preprocessor}{\#define STM32\_I2C\_I2C2\_IRQ\_PRIORITY         5}}
+\DoxyCodeLine{176 \textcolor{preprocessor}{\#define STM32\_I2C\_I2C3\_IRQ\_PRIORITY         5}}
+\DoxyCodeLine{177 \textcolor{preprocessor}{\#define STM32\_I2C\_I2C1\_DMA\_PRIORITY         3}}
+\DoxyCodeLine{178 \textcolor{preprocessor}{\#define STM32\_I2C\_I2C2\_DMA\_PRIORITY         3}}
+\DoxyCodeLine{179 \textcolor{preprocessor}{\#define STM32\_I2C\_I2C3\_DMA\_PRIORITY         3}}
+\DoxyCodeLine{180 \textcolor{preprocessor}{\#define STM32\_I2C\_DMA\_ERROR\_HOOK(i2cp)      osalSysHalt("{}DMA failure"{}})}
+\DoxyCodeLine{181 }
+\DoxyCodeLine{182 \textcolor{comment}{/*}}
+\DoxyCodeLine{183 \textcolor{comment}{ * ICU driver system settings.}}
+\DoxyCodeLine{184 \textcolor{comment}{ */}}
+\DoxyCodeLine{185 \textcolor{preprocessor}{\#define STM32\_ICU\_USE\_TIM1                  FALSE}}
+\DoxyCodeLine{186 \textcolor{preprocessor}{\#define STM32\_ICU\_USE\_TIM2                  FALSE}}
+\DoxyCodeLine{187 \textcolor{preprocessor}{\#define STM32\_ICU\_USE\_TIM3                  FALSE}}
+\DoxyCodeLine{188 \textcolor{preprocessor}{\#define STM32\_ICU\_USE\_TIM4                  FALSE}}
+\DoxyCodeLine{189 \textcolor{preprocessor}{\#define STM32\_ICU\_USE\_TIM5                  FALSE}}
+\DoxyCodeLine{190 \textcolor{preprocessor}{\#define STM32\_ICU\_USE\_TIM8                  FALSE}}
+\DoxyCodeLine{191 \textcolor{preprocessor}{\#define STM32\_ICU\_USE\_TIM9                  FALSE}}
+\DoxyCodeLine{192 \textcolor{preprocessor}{\#define STM32\_ICU\_TIM1\_IRQ\_PRIORITY         7}}
+\DoxyCodeLine{193 \textcolor{preprocessor}{\#define STM32\_ICU\_TIM2\_IRQ\_PRIORITY         7}}
+\DoxyCodeLine{194 \textcolor{preprocessor}{\#define STM32\_ICU\_TIM3\_IRQ\_PRIORITY         7}}
+\DoxyCodeLine{195 \textcolor{preprocessor}{\#define STM32\_ICU\_TIM4\_IRQ\_PRIORITY         7}}
+\DoxyCodeLine{196 \textcolor{preprocessor}{\#define STM32\_ICU\_TIM5\_IRQ\_PRIORITY         7}}
+\DoxyCodeLine{197 \textcolor{preprocessor}{\#define STM32\_ICU\_TIM8\_IRQ\_PRIORITY         7}}
+\DoxyCodeLine{198 \textcolor{preprocessor}{\#define STM32\_ICU\_TIM9\_IRQ\_PRIORITY         7}}
+\DoxyCodeLine{199 }
+\DoxyCodeLine{200 \textcolor{comment}{/*}}
+\DoxyCodeLine{201 \textcolor{comment}{ * MAC driver system settings.}}
+\DoxyCodeLine{202 \textcolor{comment}{ */}}
+\DoxyCodeLine{203 \textcolor{preprocessor}{\#define STM32\_MAC\_TRANSMIT\_BUFFERS          2}}
+\DoxyCodeLine{204 \textcolor{preprocessor}{\#define STM32\_MAC\_RECEIVE\_BUFFERS           4}}
+\DoxyCodeLine{205 \textcolor{preprocessor}{\#define STM32\_MAC\_BUFFERS\_SIZE              1522}}
+\DoxyCodeLine{206 \textcolor{preprocessor}{\#define STM32\_MAC\_PHY\_TIMEOUT               100}}
+\DoxyCodeLine{207 \textcolor{preprocessor}{\#define STM32\_MAC\_ETH1\_CHANGE\_PHY\_STATE     TRUE}}
+\DoxyCodeLine{208 \textcolor{preprocessor}{\#define STM32\_MAC\_ETH1\_IRQ\_PRIORITY         13}}
+\DoxyCodeLine{209 \textcolor{preprocessor}{\#define STM32\_MAC\_IP\_CHECKSUM\_OFFLOAD       0}}
+\DoxyCodeLine{210 }
+\DoxyCodeLine{211 \textcolor{comment}{/*}}
+\DoxyCodeLine{212 \textcolor{comment}{ * PWM driver system settings.}}
+\DoxyCodeLine{213 \textcolor{comment}{ */}}
+\DoxyCodeLine{214 \textcolor{preprocessor}{\#define STM32\_PWM\_USE\_ADVANCED              FALSE}}
+\DoxyCodeLine{215 \textcolor{preprocessor}{\#define STM32\_PWM\_USE\_TIM1                  FALSE}}
+\DoxyCodeLine{216 \textcolor{preprocessor}{\#define STM32\_PWM\_USE\_TIM2                  TRUE}}
+\DoxyCodeLine{217 \textcolor{preprocessor}{\#define STM32\_PWM\_USE\_TIM3                  TRUE}}
+\DoxyCodeLine{218 \textcolor{preprocessor}{\#define STM32\_PWM\_USE\_TIM4                  TRUE}}
+\DoxyCodeLine{219 \textcolor{preprocessor}{\#define STM32\_PWM\_USE\_TIM5                  TRUE}}
+\DoxyCodeLine{220 \textcolor{preprocessor}{\#define STM32\_PWM\_USE\_TIM8                  FALSE}}
+\DoxyCodeLine{221 \textcolor{preprocessor}{\#define STM32\_PWM\_USE\_TIM9                  FALSE}}
+\DoxyCodeLine{222 \textcolor{preprocessor}{\#define STM32\_PWM\_TIM1\_IRQ\_PRIORITY         7}}
+\DoxyCodeLine{223 \textcolor{preprocessor}{\#define STM32\_PWM\_TIM2\_IRQ\_PRIORITY         7}}
+\DoxyCodeLine{224 \textcolor{preprocessor}{\#define STM32\_PWM\_TIM3\_IRQ\_PRIORITY         7}}
+\DoxyCodeLine{225 \textcolor{preprocessor}{\#define STM32\_PWM\_TIM4\_IRQ\_PRIORITY         7}}
+\DoxyCodeLine{226 \textcolor{preprocessor}{\#define STM32\_PWM\_TIM5\_IRQ\_PRIORITY         7}}
+\DoxyCodeLine{227 \textcolor{preprocessor}{\#define STM32\_PWM\_TIM8\_IRQ\_PRIORITY         7}}
+\DoxyCodeLine{228 \textcolor{preprocessor}{\#define STM32\_PWM\_TIM9\_IRQ\_PRIORITY         7}}
+\DoxyCodeLine{229 }
+\DoxyCodeLine{230 \textcolor{comment}{/*}}
+\DoxyCodeLine{231 \textcolor{comment}{ * SDC driver system settings.}}
+\DoxyCodeLine{232 \textcolor{comment}{ */}}
+\DoxyCodeLine{233 \textcolor{preprocessor}{\#define STM32\_SDC\_SDIO\_DMA\_PRIORITY         3}}
+\DoxyCodeLine{234 \textcolor{preprocessor}{\#define STM32\_SDC\_SDIO\_IRQ\_PRIORITY         9}}
+\DoxyCodeLine{235 \textcolor{preprocessor}{\#define STM32\_SDC\_WRITE\_TIMEOUT\_MS          250}}
+\DoxyCodeLine{236 \textcolor{preprocessor}{\#define STM32\_SDC\_READ\_TIMEOUT\_MS           25}}
+\DoxyCodeLine{237 \textcolor{preprocessor}{\#define STM32\_SDC\_CLOCK\_ACTIVATION\_DELAY    10}}
+\DoxyCodeLine{238 \textcolor{preprocessor}{\#define STM32\_SDC\_SDIO\_UNALIGNED\_SUPPORT    TRUE}}
+\DoxyCodeLine{239 \textcolor{preprocessor}{\#define STM32\_SDC\_SDIO\_DMA\_STREAM           STM32\_DMA\_STREAM\_ID(2, 3)}}
+\DoxyCodeLine{240 }
+\DoxyCodeLine{241 \textcolor{comment}{/*}}
+\DoxyCodeLine{242 \textcolor{comment}{ * SERIAL driver system settings.}}
+\DoxyCodeLine{243 \textcolor{comment}{ */}}
+\DoxyCodeLine{244 \textcolor{preprocessor}{\#define STM32\_SERIAL\_USE\_USART1             FALSE}}
+\DoxyCodeLine{245 \textcolor{preprocessor}{\#define STM32\_SERIAL\_USE\_USART2             FALSE}}
+\DoxyCodeLine{246 \textcolor{preprocessor}{\#define STM32\_SERIAL\_USE\_USART3             TRUE}}
+\DoxyCodeLine{247 \textcolor{preprocessor}{\#define STM32\_SERIAL\_USE\_UART4              FALSE}}
+\DoxyCodeLine{248 \textcolor{preprocessor}{\#define STM32\_SERIAL\_USE\_UART5              FALSE}}
+\DoxyCodeLine{249 \textcolor{preprocessor}{\#define STM32\_SERIAL\_USE\_USART6             FALSE}}
+\DoxyCodeLine{250 \textcolor{preprocessor}{\#define STM32\_SERIAL\_USART1\_PRIORITY        12}}
+\DoxyCodeLine{251 \textcolor{preprocessor}{\#define STM32\_SERIAL\_USART2\_PRIORITY        12}}
+\DoxyCodeLine{252 \textcolor{preprocessor}{\#define STM32\_SERIAL\_USART3\_PRIORITY        12}}
+\DoxyCodeLine{253 \textcolor{preprocessor}{\#define STM32\_SERIAL\_UART4\_PRIORITY         12}}
+\DoxyCodeLine{254 \textcolor{preprocessor}{\#define STM32\_SERIAL\_UART5\_PRIORITY         12}}
+\DoxyCodeLine{255 \textcolor{preprocessor}{\#define STM32\_SERIAL\_USART6\_PRIORITY        12}}
+\DoxyCodeLine{256 }
+\DoxyCodeLine{257 \textcolor{comment}{/*}}
+\DoxyCodeLine{258 \textcolor{comment}{ * SPI driver system settings.}}
+\DoxyCodeLine{259 \textcolor{comment}{ */}}
+\DoxyCodeLine{260 \textcolor{preprocessor}{\#define STM32\_SPI\_USE\_SPI1                  TRUE}}
+\DoxyCodeLine{261 \textcolor{preprocessor}{\#define STM32\_SPI\_USE\_SPI2                  FALSE}}
+\DoxyCodeLine{262 \textcolor{preprocessor}{\#define STM32\_SPI\_USE\_SPI3                  FALSE}}
+\DoxyCodeLine{263 \textcolor{preprocessor}{\#define STM32\_SPI\_SPI1\_RX\_DMA\_STREAM        STM32\_DMA\_STREAM\_ID(2, 0)}}
+\DoxyCodeLine{264 \textcolor{preprocessor}{\#define STM32\_SPI\_SPI1\_TX\_DMA\_STREAM        STM32\_DMA\_STREAM\_ID(2, 5)}}
+\DoxyCodeLine{265 \textcolor{preprocessor}{\#define STM32\_SPI\_SPI2\_RX\_DMA\_STREAM        STM32\_DMA\_STREAM\_ID(1, 3)}}
+\DoxyCodeLine{266 \textcolor{preprocessor}{\#define STM32\_SPI\_SPI2\_TX\_DMA\_STREAM        STM32\_DMA\_STREAM\_ID(1, 4)}}
+\DoxyCodeLine{267 \textcolor{preprocessor}{\#define STM32\_SPI\_SPI3\_RX\_DMA\_STREAM        STM32\_DMA\_STREAM\_ID(1, 2)}}
+\DoxyCodeLine{268 \textcolor{preprocessor}{\#define STM32\_SPI\_SPI3\_TX\_DMA\_STREAM        STM32\_DMA\_STREAM\_ID(1, 5)}}
+\DoxyCodeLine{269 \textcolor{preprocessor}{\#define STM32\_SPI\_SPI1\_DMA\_PRIORITY         1}}
+\DoxyCodeLine{270 \textcolor{preprocessor}{\#define STM32\_SPI\_SPI2\_DMA\_PRIORITY         1}}
+\DoxyCodeLine{271 \textcolor{preprocessor}{\#define STM32\_SPI\_SPI3\_DMA\_PRIORITY         1}}
+\DoxyCodeLine{272 \textcolor{preprocessor}{\#define STM32\_SPI\_SPI1\_IRQ\_PRIORITY         10}}
+\DoxyCodeLine{273 \textcolor{preprocessor}{\#define STM32\_SPI\_SPI2\_IRQ\_PRIORITY         10}}
+\DoxyCodeLine{274 \textcolor{preprocessor}{\#define STM32\_SPI\_SPI3\_IRQ\_PRIORITY         10}}
+\DoxyCodeLine{275 \textcolor{preprocessor}{\#define STM32\_SPI\_DMA\_ERROR\_HOOK(spip)      osalSysHalt("{}DMA failure"{}})}
+\DoxyCodeLine{276 }
+\DoxyCodeLine{277 \textcolor{comment}{/*}}
+\DoxyCodeLine{278 \textcolor{comment}{ * ST driver system settings.}}
+\DoxyCodeLine{279 \textcolor{comment}{ */}}
+\DoxyCodeLine{280 \textcolor{preprocessor}{\#define STM32\_ST\_IRQ\_PRIORITY               8}}
+\DoxyCodeLine{281 \textcolor{preprocessor}{\#define STM32\_ST\_USE\_TIMER                  2}}
+\DoxyCodeLine{282 }
+\DoxyCodeLine{283 \textcolor{comment}{/*}}
+\DoxyCodeLine{284 \textcolor{comment}{ * UART driver system settings.}}
+\DoxyCodeLine{285 \textcolor{comment}{ */}}
+\DoxyCodeLine{286 \textcolor{preprocessor}{\#define STM32\_UART\_USE\_USART1               FALSE}}
+\DoxyCodeLine{287 \textcolor{preprocessor}{\#define STM32\_UART\_USE\_USART2               FALSE}}
+\DoxyCodeLine{288 \textcolor{preprocessor}{\#define STM32\_UART\_USE\_USART3               FALSE}}
+\DoxyCodeLine{289 \textcolor{preprocessor}{\#define STM32\_UART\_USE\_UART4                FALSE}}
+\DoxyCodeLine{290 \textcolor{preprocessor}{\#define STM32\_UART\_USE\_UART5                FALSE}}
+\DoxyCodeLine{291 \textcolor{preprocessor}{\#define STM32\_UART\_USE\_USART6               FALSE}}
+\DoxyCodeLine{292 \textcolor{preprocessor}{\#define STM32\_UART\_USART1\_RX\_DMA\_STREAM     STM32\_DMA\_STREAM\_ID(2, 5)}}
+\DoxyCodeLine{293 \textcolor{preprocessor}{\#define STM32\_UART\_USART1\_TX\_DMA\_STREAM     STM32\_DMA\_STREAM\_ID(2, 7)}}
+\DoxyCodeLine{294 \textcolor{preprocessor}{\#define STM32\_UART\_USART2\_RX\_DMA\_STREAM     STM32\_DMA\_STREAM\_ID(1, 5)}}
+\DoxyCodeLine{295 \textcolor{preprocessor}{\#define STM32\_UART\_USART2\_TX\_DMA\_STREAM     STM32\_DMA\_STREAM\_ID(1, 6)}}
+\DoxyCodeLine{296 \textcolor{preprocessor}{\#define STM32\_UART\_USART3\_RX\_DMA\_STREAM     STM32\_DMA\_STREAM\_ID(1, 1)}}
+\DoxyCodeLine{297 \textcolor{preprocessor}{\#define STM32\_UART\_USART3\_TX\_DMA\_STREAM     STM32\_DMA\_STREAM\_ID(1, 3)}}
+\DoxyCodeLine{298 \textcolor{preprocessor}{\#define STM32\_UART\_UART4\_RX\_DMA\_STREAM      STM32\_DMA\_STREAM\_ID(1, 2)}}
+\DoxyCodeLine{299 \textcolor{preprocessor}{\#define STM32\_UART\_UART4\_TX\_DMA\_STREAM      STM32\_DMA\_STREAM\_ID(1, 4)}}
+\DoxyCodeLine{300 \textcolor{preprocessor}{\#define STM32\_UART\_UART5\_RX\_DMA\_STREAM      STM32\_DMA\_STREAM\_ID(1, 0)}}
+\DoxyCodeLine{301 \textcolor{preprocessor}{\#define STM32\_UART\_UART5\_TX\_DMA\_STREAM      STM32\_DMA\_STREAM\_ID(1, 7)}}
+\DoxyCodeLine{302 \textcolor{preprocessor}{\#define STM32\_UART\_USART6\_RX\_DMA\_STREAM     STM32\_DMA\_STREAM\_ID(2, 2)}}
+\DoxyCodeLine{303 \textcolor{preprocessor}{\#define STM32\_UART\_USART6\_TX\_DMA\_STREAM     STM32\_DMA\_STREAM\_ID(2, 7)}}
+\DoxyCodeLine{304 \textcolor{preprocessor}{\#define STM32\_UART\_USART1\_IRQ\_PRIORITY      12}}
+\DoxyCodeLine{305 \textcolor{preprocessor}{\#define STM32\_UART\_USART2\_IRQ\_PRIORITY      12}}
+\DoxyCodeLine{306 \textcolor{preprocessor}{\#define STM32\_UART\_USART3\_IRQ\_PRIORITY      12}}
+\DoxyCodeLine{307 \textcolor{preprocessor}{\#define STM32\_UART\_UART4\_IRQ\_PRIORITY       12}}
+\DoxyCodeLine{308 \textcolor{preprocessor}{\#define STM32\_UART\_UART5\_IRQ\_PRIORITY       12}}
+\DoxyCodeLine{309 \textcolor{preprocessor}{\#define STM32\_UART\_USART6\_IRQ\_PRIORITY      12}}
+\DoxyCodeLine{310 \textcolor{preprocessor}{\#define STM32\_UART\_USART1\_DMA\_PRIORITY      0}}
+\DoxyCodeLine{311 \textcolor{preprocessor}{\#define STM32\_UART\_USART2\_DMA\_PRIORITY      0}}
+\DoxyCodeLine{312 \textcolor{preprocessor}{\#define STM32\_UART\_USART3\_DMA\_PRIORITY      0}}
+\DoxyCodeLine{313 \textcolor{preprocessor}{\#define STM32\_UART\_UART4\_DMA\_PRIORITY       0}}
+\DoxyCodeLine{314 \textcolor{preprocessor}{\#define STM32\_UART\_UART5\_DMA\_PRIORITY       0}}
+\DoxyCodeLine{315 \textcolor{preprocessor}{\#define STM32\_UART\_USART6\_DMA\_PRIORITY      0}}
+\DoxyCodeLine{316 \textcolor{preprocessor}{\#define STM32\_UART\_DMA\_ERROR\_HOOK(uartp)    osalSysHalt("{}DMA failure"{}})}
+\DoxyCodeLine{317 }
+\DoxyCodeLine{318 \textcolor{comment}{/*}}
+\DoxyCodeLine{319 \textcolor{comment}{ * USB driver system settings.}}
+\DoxyCodeLine{320 \textcolor{comment}{ */}}
+\DoxyCodeLine{321 \textcolor{preprocessor}{\#define STM32\_USB\_USE\_OTG1                  TRUE}}
+\DoxyCodeLine{322 \textcolor{preprocessor}{\#define STM32\_USB\_USE\_OTG2                  FALSE}}
+\DoxyCodeLine{323 \textcolor{preprocessor}{\#define STM32\_USB\_OTG1\_IRQ\_PRIORITY         14}}
+\DoxyCodeLine{324 \textcolor{preprocessor}{\#define STM32\_USB\_OTG2\_IRQ\_PRIORITY         14}}
+\DoxyCodeLine{325 \textcolor{preprocessor}{\#define STM32\_USB\_OTG1\_RX\_FIFO\_SIZE         512}}
+\DoxyCodeLine{326 \textcolor{preprocessor}{\#define STM32\_USB\_OTG2\_RX\_FIFO\_SIZE         1024}}
+\DoxyCodeLine{327 \textcolor{preprocessor}{\#define STM32\_USB\_OTG\_THREAD\_PRIO           NORMALPRIO+10}}
+\DoxyCodeLine{328 \textcolor{preprocessor}{\#define STM32\_USB\_OTG\_THREAD\_STACK\_SIZE     128}}
+\DoxyCodeLine{329 \textcolor{preprocessor}{\#define STM32\_USB\_OTGFIFO\_FILL\_BASEPRI      0}}
+\DoxyCodeLine{330 }
+\DoxyCodeLine{331 \textcolor{comment}{/*}}
+\DoxyCodeLine{332 \textcolor{comment}{ * I2S driver system settings.}}
+\DoxyCodeLine{333 \textcolor{comment}{ */}}
+\DoxyCodeLine{334 \textcolor{preprocessor}{\#define STM32\_I2S\_USE\_SPI2                  TRUE}}
+\DoxyCodeLine{335 \textcolor{preprocessor}{\#define STM32\_I2S\_USE\_SPI3                  FALSE}}
+\DoxyCodeLine{336 \textcolor{preprocessor}{\#define STM32\_I2S\_SPI2\_IRQ\_PRIORITY         10}}
+\DoxyCodeLine{337 \textcolor{preprocessor}{\#define STM32\_I2S\_SPI3\_IRQ\_PRIORITY         10}}
+\DoxyCodeLine{338 \textcolor{preprocessor}{\#define STM32\_I2S\_SPI2\_DMA\_PRIORITY         1}}
+\DoxyCodeLine{339 \textcolor{preprocessor}{\#define STM32\_I2S\_SPI3\_DMA\_PRIORITY         1}}
+\DoxyCodeLine{340 \textcolor{preprocessor}{\#define STM32\_I2S\_SPI2\_RX\_DMA\_STREAM        STM32\_DMA\_STREAM\_ID(1, 3)}}
+\DoxyCodeLine{341 \textcolor{preprocessor}{\#define STM32\_I2S\_SPI2\_TX\_DMA\_STREAM        STM32\_DMA\_STREAM\_ID(1, 4)}}
+\DoxyCodeLine{342 \textcolor{preprocessor}{\#define STM32\_I2S\_SPI3\_RX\_DMA\_STREAM        STM32\_DMA\_STREAM\_ID(1, 2)}}
+\DoxyCodeLine{343 \textcolor{preprocessor}{\#define STM32\_I2S\_SPI3\_TX\_DMA\_STREAM        STM32\_DMA\_STREAM\_ID(1, 5)}}
+\DoxyCodeLine{344 \textcolor{preprocessor}{\#define STM32\_I2S\_DMA\_ERROR\_HOOK(i2sp)      osalSysHalt("{}DMA failure"{}})}
+\DoxyCodeLine{345 \textcolor{preprocessor}{\#define STM32\_I2S\_SPI2\_MODE                 (STM32\_I2S\_MODE\_MASTER | STM32\_I2S\_MODE\_RX)}}
+\DoxyCodeLine{346 \textcolor{preprocessor}{\#define STM32\_I2S\_SPI3\_MODE                 (STM32\_I2S\_MODE\_SLAVE | STM32\_I2S\_MODE\_RX)}}
+\DoxyCodeLine{347 }
+\DoxyCodeLine{348 \textcolor{comment}{/*}}
+\DoxyCodeLine{349 \textcolor{comment}{ * SPI slave driver system settings.}}
+\DoxyCodeLine{350 \textcolor{comment}{ */}}
+\DoxyCodeLine{351 \textcolor{preprocessor}{\#define STM32\_SPI\_USE\_SPI3\_SLAVE            TRUE}}
+\DoxyCodeLine{352 \textcolor{preprocessor}{\#define STM32\_SPI\_SPI3\_SLAVE\_RX\_DMA\_STREAM  STM32\_DMA\_STREAM\_ID(1, 2)}}
+\DoxyCodeLine{353 \textcolor{preprocessor}{\#define STM32\_SPI\_SPI3\_SLAVE\_TX\_DMA\_STREAM  STM32\_DMA\_STREAM\_ID(1, 5)}}
+\DoxyCodeLine{354 \textcolor{preprocessor}{\#define STM32\_SPI\_SPI3\_SLAVE\_DMA\_PRIORITY   1}}
+\DoxyCodeLine{355 \textcolor{preprocessor}{\#define STM32\_SPI\_SPI3\_SLAVE\_IRQ\_PRIORITY   10}}
+\DoxyCodeLine{356 \textcolor{preprocessor}{\#define STM32\_SPI\_SLAVE\_DMA\_ERROR\_HOOK(spip) osalSysHalt("{}DMA failure"{}})}
+\DoxyCodeLine{357 }
+\DoxyCodeLine{358 \textcolor{preprocessor}{\#endif }\textcolor{comment}{/* \_MCUCONF\_H\_ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

@@ -1,0 +1,823 @@
+\doxysection{Config}
+\label{group__config}\index{Config@{Config}}
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\label{group__config_ga92e0819075bd91dc380cc86a20186960}} 
+\#define {\bfseries CHPRINTF\+\_\+\+USE\+\_\+\+FLOAT}~true
+\end{DoxyCompactItemize}
+\doxysubsection*{Kernel hooks}
+\begin{DoxyCompactItemize}
+\item 
+void \textbf{ panic\+\_\+handler} (const char $\ast$reason)
+\begin{DoxyCompactList}\small\item\em System halt hook. \end{DoxyCompactList}\item 
+\#define \textbf{ CH\+\_\+\+CFG\+\_\+\+THREAD\+\_\+\+EXTRA\+\_\+\+FIELDS}~    /$\ast$ Add threads custom fields here.$\ast$/
+\begin{DoxyCompactList}\small\item\em Threads descriptor structure extension. \end{DoxyCompactList}\item 
+\#define \textbf{ CH\+\_\+\+CFG\+\_\+\+THREAD\+\_\+\+INIT\+\_\+\+HOOK}(tp)
+\begin{DoxyCompactList}\small\item\em Threads initialization hook. \end{DoxyCompactList}\item 
+\#define \textbf{ CH\+\_\+\+CFG\+\_\+\+THREAD\+\_\+\+EXIT\+\_\+\+HOOK}(tp)
+\begin{DoxyCompactList}\small\item\em Threads finalization hook. \end{DoxyCompactList}\item 
+\#define \textbf{ CH\+\_\+\+CFG\+\_\+\+CONTEXT\+\_\+\+SWITCH\+\_\+\+HOOK}(ntp,  otp)
+\begin{DoxyCompactList}\small\item\em Context switch hook. \end{DoxyCompactList}\item 
+\#define \textbf{ CH\+\_\+\+CFG\+\_\+\+IDLE\+\_\+\+ENTER\+\_\+\+HOOK}()
+\begin{DoxyCompactList}\small\item\em Idle thread enter hook. \end{DoxyCompactList}\item 
+\#define \textbf{ CH\+\_\+\+CFG\+\_\+\+IDLE\+\_\+\+LEAVE\+\_\+\+HOOK}()
+\begin{DoxyCompactList}\small\item\em Idle thread leave hook. \end{DoxyCompactList}\item 
+\#define \textbf{ CH\+\_\+\+CFG\+\_\+\+IDLE\+\_\+\+LOOP\+\_\+\+HOOK}()
+\begin{DoxyCompactList}\small\item\em Idle Loop hook. \end{DoxyCompactList}\item 
+\#define \textbf{ CH\+\_\+\+CFG\+\_\+\+SYSTEM\+\_\+\+TICK\+\_\+\+HOOK}()
+\begin{DoxyCompactList}\small\item\em System tick event hook. \end{DoxyCompactList}\item 
+\#define \textbf{ CH\+\_\+\+CFG\+\_\+\+SYSTEM\+\_\+\+HALT\+\_\+\+HOOK}(reason)
+\end{DoxyCompactItemize}
+\doxysubsection*{System timers settings}
+\begin{DoxyCompactItemize}
+\item 
+\#define \textbf{ CH\+\_\+\+CFG\+\_\+\+ST\+\_\+\+RESOLUTION}~32
+\begin{DoxyCompactList}\small\item\em System time counter resolution. \end{DoxyCompactList}\item 
+\#define \textbf{ CH\+\_\+\+CFG\+\_\+\+ST\+\_\+\+FREQUENCY}~1000
+\begin{DoxyCompactList}\small\item\em System tick frequency. \end{DoxyCompactList}\item 
+\#define \textbf{ CH\+\_\+\+CFG\+\_\+\+ST\+\_\+\+TIMEDELTA}~0
+\begin{DoxyCompactList}\small\item\em Time delta constant for the tick-\/less mode. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Kernel parameters and options}
+\begin{DoxyCompactItemize}
+\item 
+\#define \textbf{ CH\+\_\+\+CFG\+\_\+\+TIME\+\_\+\+QUANTUM}~20
+\begin{DoxyCompactList}\small\item\em Round robin interval. \end{DoxyCompactList}\item 
+\#define \textbf{ CH\+\_\+\+CFG\+\_\+\+MEMCORE\+\_\+\+SIZE}~0
+\begin{DoxyCompactList}\small\item\em Managed RAM size. \end{DoxyCompactList}\item 
+\#define \textbf{ CH\+\_\+\+CFG\+\_\+\+NO\+\_\+\+IDLE\+\_\+\+THREAD}~FALSE
+\begin{DoxyCompactList}\small\item\em Idle thread automatic spawn suppression. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Performance options}
+\begin{DoxyCompactItemize}
+\item 
+\#define \textbf{ CH\+\_\+\+CFG\+\_\+\+OPTIMIZE\+\_\+\+SPEED}~TRUE
+\begin{DoxyCompactList}\small\item\em OS optimization. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Subsystem options}
+\begin{DoxyCompactItemize}
+\item 
+\#define \textbf{ CH\+\_\+\+CFG\+\_\+\+USE\+\_\+\+TM}~TRUE
+\begin{DoxyCompactList}\small\item\em Time Measurement APIs. \end{DoxyCompactList}\item 
+\#define \textbf{ CH\+\_\+\+CFG\+\_\+\+USE\+\_\+\+REGISTRY}~TRUE
+\begin{DoxyCompactList}\small\item\em Threads registry APIs. \end{DoxyCompactList}\item 
+\#define \textbf{ CH\+\_\+\+CFG\+\_\+\+USE\+\_\+\+WAITEXIT}~TRUE
+\begin{DoxyCompactList}\small\item\em Threads synchronization APIs. \end{DoxyCompactList}\item 
+\#define \textbf{ CH\+\_\+\+CFG\+\_\+\+USE\+\_\+\+SEMAPHORES}~TRUE
+\begin{DoxyCompactList}\small\item\em Semaphores APIs. \end{DoxyCompactList}\item 
+\#define \textbf{ CH\+\_\+\+CFG\+\_\+\+USE\+\_\+\+SEMAPHORES\+\_\+\+PRIORITY}~FALSE
+\begin{DoxyCompactList}\small\item\em Semaphores queuing mode. \end{DoxyCompactList}\item 
+\#define \textbf{ CH\+\_\+\+CFG\+\_\+\+USE\+\_\+\+MUTEXES}~TRUE
+\begin{DoxyCompactList}\small\item\em Mutexes APIs. \end{DoxyCompactList}\item 
+\#define \textbf{ CH\+\_\+\+CFG\+\_\+\+USE\+\_\+\+MUTEXES\+\_\+\+RECURSIVE}~TRUE
+\begin{DoxyCompactList}\small\item\em Enables recursive behavior on mutexes. \end{DoxyCompactList}\item 
+\#define \textbf{ CH\+\_\+\+CFG\+\_\+\+USE\+\_\+\+CONDVARS}~TRUE
+\begin{DoxyCompactList}\small\item\em Conditional Variables APIs. \end{DoxyCompactList}\item 
+\#define \textbf{ CH\+\_\+\+CFG\+\_\+\+USE\+\_\+\+CONDVARS\+\_\+\+TIMEOUT}~TRUE
+\begin{DoxyCompactList}\small\item\em Conditional Variables APIs with timeout. \end{DoxyCompactList}\item 
+\#define \textbf{ CH\+\_\+\+CFG\+\_\+\+USE\+\_\+\+EVENTS}~TRUE
+\begin{DoxyCompactList}\small\item\em Events Flags APIs. \end{DoxyCompactList}\item 
+\#define \textbf{ CH\+\_\+\+CFG\+\_\+\+USE\+\_\+\+EVENTS\+\_\+\+TIMEOUT}~TRUE
+\begin{DoxyCompactList}\small\item\em Events Flags APIs with timeout. \end{DoxyCompactList}\item 
+\#define \textbf{ CH\+\_\+\+CFG\+\_\+\+USE\+\_\+\+MESSAGES}~TRUE
+\begin{DoxyCompactList}\small\item\em Synchronous Messages APIs. \end{DoxyCompactList}\item 
+\#define \textbf{ CH\+\_\+\+CFG\+\_\+\+USE\+\_\+\+MESSAGES\+\_\+\+PRIORITY}~FALSE
+\begin{DoxyCompactList}\small\item\em Synchronous Messages queuing mode. \end{DoxyCompactList}\item 
+\#define \textbf{ CH\+\_\+\+CFG\+\_\+\+USE\+\_\+\+MAILBOXES}~TRUE
+\begin{DoxyCompactList}\small\item\em Mailboxes APIs. \end{DoxyCompactList}\item 
+\#define \textbf{ CH\+\_\+\+CFG\+\_\+\+USE\+\_\+\+QUEUES}~TRUE
+\begin{DoxyCompactList}\small\item\em I/O Queues APIs. \end{DoxyCompactList}\item 
+\#define \textbf{ CH\+\_\+\+CFG\+\_\+\+USE\+\_\+\+MEMCORE}~TRUE
+\begin{DoxyCompactList}\small\item\em Core Memory Manager APIs. \end{DoxyCompactList}\item 
+\#define \textbf{ CH\+\_\+\+CFG\+\_\+\+USE\+\_\+\+HEAP}~TRUE
+\begin{DoxyCompactList}\small\item\em Heap Allocator APIs. \end{DoxyCompactList}\item 
+\#define \textbf{ CH\+\_\+\+CFG\+\_\+\+USE\+\_\+\+MEMPOOLS}~TRUE
+\begin{DoxyCompactList}\small\item\em Memory Pools Allocator APIs. \end{DoxyCompactList}\item 
+\#define \textbf{ CH\+\_\+\+CFG\+\_\+\+USE\+\_\+\+DYNAMIC}~TRUE
+\begin{DoxyCompactList}\small\item\em Dynamic Threads APIs. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Debug options}
+\begin{DoxyCompactItemize}
+\item 
+\#define \textbf{ CH\+\_\+\+DBG\+\_\+\+STATISTICS}~TRUE
+\begin{DoxyCompactList}\small\item\em Debug option, kernel statistics. \end{DoxyCompactList}\item 
+\#define \textbf{ CH\+\_\+\+DBG\+\_\+\+SYSTEM\+\_\+\+STATE\+\_\+\+CHECK}~TRUE
+\begin{DoxyCompactList}\small\item\em Debug option, system state check. \end{DoxyCompactList}\item 
+\#define \textbf{ CH\+\_\+\+DBG\+\_\+\+ENABLE\+\_\+\+CHECKS}~TRUE
+\begin{DoxyCompactList}\small\item\em Debug option, parameters checks. \end{DoxyCompactList}\item 
+\#define \textbf{ CH\+\_\+\+DBG\+\_\+\+ENABLE\+\_\+\+ASSERTS}~TRUE
+\begin{DoxyCompactList}\small\item\em Debug option, consistency checks. \end{DoxyCompactList}\item 
+\#define \textbf{ CH\+\_\+\+DBG\+\_\+\+ENABLE\+\_\+\+TRACE}~TRUE
+\begin{DoxyCompactList}\small\item\em Debug option, trace buffer. \end{DoxyCompactList}\item 
+\#define \textbf{ CH\+\_\+\+DBG\+\_\+\+ENABLE\+\_\+\+STACK\+\_\+\+CHECK}~TRUE
+\begin{DoxyCompactList}\small\item\em Debug option, stack checks. \end{DoxyCompactList}\item 
+\#define \textbf{ CH\+\_\+\+DBG\+\_\+\+FILL\+\_\+\+THREADS}~TRUE
+\begin{DoxyCompactList}\small\item\em Debug option, stacks initialization. \end{DoxyCompactList}\item 
+\#define \textbf{ CH\+\_\+\+DBG\+\_\+\+THREADS\+\_\+\+PROFILING}~TRUE
+\begin{DoxyCompactList}\small\item\em Debug option, threads profiling. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Kernel related settings and hooks. 
+
+\doxysubsection{Macro Definition Documentation}
+\mbox{\label{group__config_ga61b9805943d69980f6778106ad3fbb9c}} 
+\index{Config@{Config}!CH\_CFG\_CONTEXT\_SWITCH\_HOOK@{CH\_CFG\_CONTEXT\_SWITCH\_HOOK}}
+\index{CH\_CFG\_CONTEXT\_SWITCH\_HOOK@{CH\_CFG\_CONTEXT\_SWITCH\_HOOK}!Config@{Config}}
+\doxysubsubsection{CH\_CFG\_CONTEXT\_SWITCH\_HOOK}
+{\footnotesize\ttfamily \#define CH\+\_\+\+CFG\+\_\+\+CONTEXT\+\_\+\+SWITCH\+\_\+\+HOOK(\begin{DoxyParamCaption}\item[{}]{ntp,  }\item[{}]{otp }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{        \{                              \(\backslash\)}
+\DoxyCodeLine{        \textcolor{comment}{/* Context switch code here.*/}                                            \(\backslash\)}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+
+
+Context switch hook. 
+
+This hook is invoked just before switching between threads. \mbox{\label{group__config_ga5193dc6602d532b5eb171c6459d80707}} 
+\index{Config@{Config}!CH\_CFG\_IDLE\_ENTER\_HOOK@{CH\_CFG\_IDLE\_ENTER\_HOOK}}
+\index{CH\_CFG\_IDLE\_ENTER\_HOOK@{CH\_CFG\_IDLE\_ENTER\_HOOK}!Config@{Config}}
+\doxysubsubsection{CH\_CFG\_IDLE\_ENTER\_HOOK}
+{\footnotesize\ttfamily \#define CH\+\_\+\+CFG\+\_\+\+IDLE\+\_\+\+ENTER\+\_\+\+HOOK(\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\{                                         \(\backslash\)}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+
+
+Idle thread enter hook. 
+
+\begin{DoxyNote}{Note}
+This hook is invoked within a critical zone, no OS functions should be invoked from here. 
+
+This macro can be used to activate a power saving mode. 
+\end{DoxyNote}
+\mbox{\label{group__config_ga2b4d6d05e655234eb7b46fb16e8180a9}} 
+\index{Config@{Config}!CH\_CFG\_IDLE\_LEAVE\_HOOK@{CH\_CFG\_IDLE\_LEAVE\_HOOK}}
+\index{CH\_CFG\_IDLE\_LEAVE\_HOOK@{CH\_CFG\_IDLE\_LEAVE\_HOOK}!Config@{Config}}
+\doxysubsubsection{CH\_CFG\_IDLE\_LEAVE\_HOOK}
+{\footnotesize\ttfamily \#define CH\+\_\+\+CFG\+\_\+\+IDLE\+\_\+\+LEAVE\+\_\+\+HOOK(\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\{                                         \(\backslash\)}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+
+
+Idle thread leave hook. 
+
+\begin{DoxyNote}{Note}
+This hook is invoked within a critical zone, no OS functions should be invoked from here. 
+
+This macro can be used to deactivate a power saving mode. 
+\end{DoxyNote}
+\mbox{\label{group__config_gad22892d2984f5289c63f963622e7f2af}} 
+\index{Config@{Config}!CH\_CFG\_IDLE\_LOOP\_HOOK@{CH\_CFG\_IDLE\_LOOP\_HOOK}}
+\index{CH\_CFG\_IDLE\_LOOP\_HOOK@{CH\_CFG\_IDLE\_LOOP\_HOOK}!Config@{Config}}
+\doxysubsubsection{CH\_CFG\_IDLE\_LOOP\_HOOK}
+{\footnotesize\ttfamily \#define CH\+\_\+\+CFG\+\_\+\+IDLE\+\_\+\+LOOP\+\_\+\+HOOK(\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{        \{                                           \(\backslash\)}
+\DoxyCodeLine{        \textcolor{comment}{/* Idle loop code here.*/}                                                 \(\backslash\)}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+
+
+Idle Loop hook. 
+
+This hook is continuously invoked by the idle thread loop. \mbox{\label{group__config_ga185a9549f0d212530070e806680c4949}} 
+\index{Config@{Config}!CH\_CFG\_MEMCORE\_SIZE@{CH\_CFG\_MEMCORE\_SIZE}}
+\index{CH\_CFG\_MEMCORE\_SIZE@{CH\_CFG\_MEMCORE\_SIZE}!Config@{Config}}
+\doxysubsubsection{CH\_CFG\_MEMCORE\_SIZE}
+{\footnotesize\ttfamily \#define CH\+\_\+\+CFG\+\_\+\+MEMCORE\+\_\+\+SIZE~0}
+
+
+
+Managed RAM size. 
+
+Size of the RAM area to be managed by the OS. If set to zero then the whole available RAM is used. The core memory is made available to the heap allocator and/or can be used directly through the simplified core memory allocator.
+
+\begin{DoxyNote}{Note}
+In order to let the OS manage the whole RAM the linker script must provide the {\ttfamily \+\_\+\+\_\+heap\+\_\+base\+\_\+\+\_\+} and {\ttfamily \+\_\+\+\_\+heap\+\_\+end\+\_\+\+\_\+} symbols. 
+
+Requires {\ttfamily CH\+\_\+\+CFG\+\_\+\+USE\+\_\+\+MEMCORE}. 
+\end{DoxyNote}
+\mbox{\label{group__config_ga8c0d4e5b775c997167737f0ca65eb11e}} 
+\index{Config@{Config}!CH\_CFG\_NO\_IDLE\_THREAD@{CH\_CFG\_NO\_IDLE\_THREAD}}
+\index{CH\_CFG\_NO\_IDLE\_THREAD@{CH\_CFG\_NO\_IDLE\_THREAD}!Config@{Config}}
+\doxysubsubsection{CH\_CFG\_NO\_IDLE\_THREAD}
+{\footnotesize\ttfamily \#define CH\+\_\+\+CFG\+\_\+\+NO\+\_\+\+IDLE\+\_\+\+THREAD~FALSE}
+
+
+
+Idle thread automatic spawn suppression. 
+
+When this option is activated the function {\ttfamily ch\+Sys\+Init()} does not spawn the idle thread. The application {\ttfamily main()} function becomes the idle thread and must implement an infinite loop. \mbox{\label{group__config_gac7a7942b6c4ef2f79416971688a49c40}} 
+\index{Config@{Config}!CH\_CFG\_OPTIMIZE\_SPEED@{CH\_CFG\_OPTIMIZE\_SPEED}}
+\index{CH\_CFG\_OPTIMIZE\_SPEED@{CH\_CFG\_OPTIMIZE\_SPEED}!Config@{Config}}
+\doxysubsubsection{CH\_CFG\_OPTIMIZE\_SPEED}
+{\footnotesize\ttfamily \#define CH\+\_\+\+CFG\+\_\+\+OPTIMIZE\+\_\+\+SPEED~TRUE}
+
+
+
+OS optimization. 
+
+If enabled then time efficient rather than space efficient code is used when two possible implementations exist.
+
+\begin{DoxyNote}{Note}
+This is not related to the compiler optimization options. 
+
+The default is {\ttfamily TRUE}. 
+\end{DoxyNote}
+\mbox{\label{group__config_ga174ac107e620ac81bb1487c1ad7ad839}} 
+\index{Config@{Config}!CH\_CFG\_ST\_FREQUENCY@{CH\_CFG\_ST\_FREQUENCY}}
+\index{CH\_CFG\_ST\_FREQUENCY@{CH\_CFG\_ST\_FREQUENCY}!Config@{Config}}
+\doxysubsubsection{CH\_CFG\_ST\_FREQUENCY}
+{\footnotesize\ttfamily \#define CH\+\_\+\+CFG\+\_\+\+ST\+\_\+\+FREQUENCY~1000}
+
+
+
+System tick frequency. 
+
+Frequency of the system timer that drives the system ticks. This setting also defines the system tick time unit. \mbox{\label{group__config_ga2af9a4c66ec41bad799a27c94728c1ae}} 
+\index{Config@{Config}!CH\_CFG\_ST\_RESOLUTION@{CH\_CFG\_ST\_RESOLUTION}}
+\index{CH\_CFG\_ST\_RESOLUTION@{CH\_CFG\_ST\_RESOLUTION}!Config@{Config}}
+\doxysubsubsection{CH\_CFG\_ST\_RESOLUTION}
+{\footnotesize\ttfamily \#define CH\+\_\+\+CFG\+\_\+\+ST\+\_\+\+RESOLUTION~32}
+
+
+
+System time counter resolution. 
+
+\begin{DoxyNote}{Note}
+Allowed values are 16 or 32 bits. 
+\end{DoxyNote}
+\mbox{\label{group__config_ga11ec0b9fb6a84d32dbc8567cc4af4d17}} 
+\index{Config@{Config}!CH\_CFG\_ST\_TIMEDELTA@{CH\_CFG\_ST\_TIMEDELTA}}
+\index{CH\_CFG\_ST\_TIMEDELTA@{CH\_CFG\_ST\_TIMEDELTA}!Config@{Config}}
+\doxysubsubsection{CH\_CFG\_ST\_TIMEDELTA}
+{\footnotesize\ttfamily \#define CH\+\_\+\+CFG\+\_\+\+ST\+\_\+\+TIMEDELTA~0}
+
+
+
+Time delta constant for the tick-\/less mode. 
+
+\begin{DoxyNote}{Note}
+If this value is zero then the system uses the classic periodic tick. This value represents the minimum number of ticks that is safe to specify in a timeout directive. The value one is not valid, timeouts are rounded up to this value. 
+\end{DoxyNote}
+\mbox{\label{group__config_ga03c17b48d4f0444046d41102acb3a54b}} 
+\index{Config@{Config}!CH\_CFG\_SYSTEM\_HALT\_HOOK@{CH\_CFG\_SYSTEM\_HALT\_HOOK}}
+\index{CH\_CFG\_SYSTEM\_HALT\_HOOK@{CH\_CFG\_SYSTEM\_HALT\_HOOK}!Config@{Config}}
+\doxysubsubsection{CH\_CFG\_SYSTEM\_HALT\_HOOK}
+{\footnotesize\ttfamily \#define CH\+\_\+\+CFG\+\_\+\+SYSTEM\+\_\+\+HALT\+\_\+\+HOOK(\begin{DoxyParamCaption}\item[{}]{reason }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{        \{                                   \(\backslash\)}
+\DoxyCodeLine{        \textcolor{comment}{/* System halt code here.*/}                                               \(\backslash\)}
+\DoxyCodeLine{        panic\_handler(reason);                                                    \(\backslash\)}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+\mbox{\label{group__config_ga033f2f0ca73bee1d11095d27e5e6b007}} 
+\index{Config@{Config}!CH\_CFG\_SYSTEM\_TICK\_HOOK@{CH\_CFG\_SYSTEM\_TICK\_HOOK}}
+\index{CH\_CFG\_SYSTEM\_TICK\_HOOK@{CH\_CFG\_SYSTEM\_TICK\_HOOK}!Config@{Config}}
+\doxysubsubsection{CH\_CFG\_SYSTEM\_TICK\_HOOK}
+{\footnotesize\ttfamily \#define CH\+\_\+\+CFG\+\_\+\+SYSTEM\+\_\+\+TICK\+\_\+\+HOOK(\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{        \{                                         \(\backslash\)}
+\DoxyCodeLine{        \textcolor{comment}{/* System tick event code here.*/}                                         \(\backslash\)}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+
+
+System tick event hook. 
+
+This hook is invoked in the system tick handler immediately after processing the virtual timers queue. \mbox{\label{group__config_ga6672f72a17e29db6ff3f951001c007bf}} 
+\index{Config@{Config}!CH\_CFG\_THREAD\_EXIT\_HOOK@{CH\_CFG\_THREAD\_EXIT\_HOOK}}
+\index{CH\_CFG\_THREAD\_EXIT\_HOOK@{CH\_CFG\_THREAD\_EXIT\_HOOK}!Config@{Config}}
+\doxysubsubsection{CH\_CFG\_THREAD\_EXIT\_HOOK}
+{\footnotesize\ttfamily \#define CH\+\_\+\+CFG\+\_\+\+THREAD\+\_\+\+EXIT\+\_\+\+HOOK(\begin{DoxyParamCaption}\item[{}]{tp }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{        \{                                       \(\backslash\)}
+\DoxyCodeLine{        \textcolor{comment}{/* Add threads finalization code here.*/}                                  \(\backslash\)}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+
+
+Threads finalization hook. 
+
+User finalization code added to the {\ttfamily ch\+Thd\+Exit()} API.
+
+\begin{DoxyNote}{Note}
+It is inserted into lock zone. 
+
+It is also invoked when the threads simply return in order to terminate. 
+\end{DoxyNote}
+\mbox{\label{group__config_ga376f299366010470175d4abbb0e8096b}} 
+\index{Config@{Config}!CH\_CFG\_THREAD\_EXTRA\_FIELDS@{CH\_CFG\_THREAD\_EXTRA\_FIELDS}}
+\index{CH\_CFG\_THREAD\_EXTRA\_FIELDS@{CH\_CFG\_THREAD\_EXTRA\_FIELDS}!Config@{Config}}
+\doxysubsubsection{CH\_CFG\_THREAD\_EXTRA\_FIELDS}
+{\footnotesize\ttfamily \#define CH\+\_\+\+CFG\+\_\+\+THREAD\+\_\+\+EXTRA\+\_\+\+FIELDS~    /$\ast$ Add threads custom fields here.$\ast$/}
+
+
+
+Threads descriptor structure extension. 
+
+User fields added to the end of the {\ttfamily thread\+\_\+t} structure. \mbox{\label{group__config_gaf52424f7ed3a7c4e7e49b144997aed2c}} 
+\index{Config@{Config}!CH\_CFG\_THREAD\_INIT\_HOOK@{CH\_CFG\_THREAD\_INIT\_HOOK}}
+\index{CH\_CFG\_THREAD\_INIT\_HOOK@{CH\_CFG\_THREAD\_INIT\_HOOK}!Config@{Config}}
+\doxysubsubsection{CH\_CFG\_THREAD\_INIT\_HOOK}
+{\footnotesize\ttfamily \#define CH\+\_\+\+CFG\+\_\+\+THREAD\+\_\+\+INIT\+\_\+\+HOOK(\begin{DoxyParamCaption}\item[{}]{tp }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{        \{                                       \(\backslash\)}
+\DoxyCodeLine{        \textcolor{comment}{/* Add threads initialization code here.*/}                                \(\backslash\)}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+
+
+Threads initialization hook. 
+
+User initialization code added to the {\ttfamily ch\+Thd\+Init()} API.
+
+\begin{DoxyNote}{Note}
+It is invoked from within {\ttfamily ch\+Thd\+Init()} and implicitly from all the threads creation APIs. 
+\end{DoxyNote}
+\mbox{\label{group__config_ga20a364f069f854ccdba167f2cca2526f}} 
+\index{Config@{Config}!CH\_CFG\_TIME\_QUANTUM@{CH\_CFG\_TIME\_QUANTUM}}
+\index{CH\_CFG\_TIME\_QUANTUM@{CH\_CFG\_TIME\_QUANTUM}!Config@{Config}}
+\doxysubsubsection{CH\_CFG\_TIME\_QUANTUM}
+{\footnotesize\ttfamily \#define CH\+\_\+\+CFG\+\_\+\+TIME\+\_\+\+QUANTUM~20}
+
+
+
+Round robin interval. 
+
+This constant is the number of system ticks allowed for the threads before preemption occurs. Setting this value to zero disables the preemption for threads with equal priority and the round robin becomes cooperative. Note that higher priority threads can still preempt, the kernel is always preemptive. \begin{DoxyNote}{Note}
+Disabling the round robin preemption makes the kernel more compact and generally faster. 
+
+The round robin preemption is not supported in tickless mode and must be set to zero in that case. 
+\end{DoxyNote}
+\mbox{\label{group__config_ga73bc5a9da32221b5dd7759eed02a11fc}} 
+\index{Config@{Config}!CH\_CFG\_USE\_CONDVARS@{CH\_CFG\_USE\_CONDVARS}}
+\index{CH\_CFG\_USE\_CONDVARS@{CH\_CFG\_USE\_CONDVARS}!Config@{Config}}
+\doxysubsubsection{CH\_CFG\_USE\_CONDVARS}
+{\footnotesize\ttfamily \#define CH\+\_\+\+CFG\+\_\+\+USE\+\_\+\+CONDVARS~TRUE}
+
+
+
+Conditional Variables APIs. 
+
+If enabled then the conditional variables APIs are included in the kernel.
+
+\begin{DoxyNote}{Note}
+The default is {\ttfamily TRUE}. 
+
+Requires {\ttfamily CH\+\_\+\+CFG\+\_\+\+USE\+\_\+\+MUTEXES}. 
+\end{DoxyNote}
+\mbox{\label{group__config_gae286dae62e72f6bd17ecfbd69194b1bb}} 
+\index{Config@{Config}!CH\_CFG\_USE\_CONDVARS\_TIMEOUT@{CH\_CFG\_USE\_CONDVARS\_TIMEOUT}}
+\index{CH\_CFG\_USE\_CONDVARS\_TIMEOUT@{CH\_CFG\_USE\_CONDVARS\_TIMEOUT}!Config@{Config}}
+\doxysubsubsection{CH\_CFG\_USE\_CONDVARS\_TIMEOUT}
+{\footnotesize\ttfamily \#define CH\+\_\+\+CFG\+\_\+\+USE\+\_\+\+CONDVARS\+\_\+\+TIMEOUT~TRUE}
+
+
+
+Conditional Variables APIs with timeout. 
+
+If enabled then the conditional variables APIs with timeout specification are included in the kernel.
+
+\begin{DoxyNote}{Note}
+The default is {\ttfamily TRUE}. 
+
+Requires {\ttfamily CH\+\_\+\+CFG\+\_\+\+USE\+\_\+\+CONDVARS}. 
+\end{DoxyNote}
+\mbox{\label{group__config_ga6ae82f40768d872dea807aac79e38deb}} 
+\index{Config@{Config}!CH\_CFG\_USE\_DYNAMIC@{CH\_CFG\_USE\_DYNAMIC}}
+\index{CH\_CFG\_USE\_DYNAMIC@{CH\_CFG\_USE\_DYNAMIC}!Config@{Config}}
+\doxysubsubsection{CH\_CFG\_USE\_DYNAMIC}
+{\footnotesize\ttfamily \#define CH\+\_\+\+CFG\+\_\+\+USE\+\_\+\+DYNAMIC~TRUE}
+
+
+
+Dynamic Threads APIs. 
+
+If enabled then the dynamic threads creation APIs are included in the kernel.
+
+\begin{DoxyNote}{Note}
+The default is {\ttfamily TRUE}. 
+
+Requires {\ttfamily CH\+\_\+\+CFG\+\_\+\+USE\+\_\+\+WAITEXIT}. 
+
+Requires {\ttfamily CH\+\_\+\+CFG\+\_\+\+USE\+\_\+\+HEAP} and/or {\ttfamily CH\+\_\+\+CFG\+\_\+\+USE\+\_\+\+MEMPOOLS}. 
+\end{DoxyNote}
+\mbox{\label{group__config_ga1469eb9d4445e870ed1a45a841c10fb3}} 
+\index{Config@{Config}!CH\_CFG\_USE\_EVENTS@{CH\_CFG\_USE\_EVENTS}}
+\index{CH\_CFG\_USE\_EVENTS@{CH\_CFG\_USE\_EVENTS}!Config@{Config}}
+\doxysubsubsection{CH\_CFG\_USE\_EVENTS}
+{\footnotesize\ttfamily \#define CH\+\_\+\+CFG\+\_\+\+USE\+\_\+\+EVENTS~TRUE}
+
+
+
+Events Flags APIs. 
+
+If enabled then the event flags APIs are included in the kernel.
+
+\begin{DoxyNote}{Note}
+The default is {\ttfamily TRUE}. 
+\end{DoxyNote}
+\mbox{\label{group__config_gad39f51eec096df2b73444e8fad5cfd11}} 
+\index{Config@{Config}!CH\_CFG\_USE\_EVENTS\_TIMEOUT@{CH\_CFG\_USE\_EVENTS\_TIMEOUT}}
+\index{CH\_CFG\_USE\_EVENTS\_TIMEOUT@{CH\_CFG\_USE\_EVENTS\_TIMEOUT}!Config@{Config}}
+\doxysubsubsection{CH\_CFG\_USE\_EVENTS\_TIMEOUT}
+{\footnotesize\ttfamily \#define CH\+\_\+\+CFG\+\_\+\+USE\+\_\+\+EVENTS\+\_\+\+TIMEOUT~TRUE}
+
+
+
+Events Flags APIs with timeout. 
+
+If enabled then the events APIs with timeout specification are included in the kernel.
+
+\begin{DoxyNote}{Note}
+The default is {\ttfamily TRUE}. 
+
+Requires {\ttfamily CH\+\_\+\+CFG\+\_\+\+USE\+\_\+\+EVENTS}. 
+\end{DoxyNote}
+\mbox{\label{group__config_ga0968280d9bbbcda48177d14d77058737}} 
+\index{Config@{Config}!CH\_CFG\_USE\_HEAP@{CH\_CFG\_USE\_HEAP}}
+\index{CH\_CFG\_USE\_HEAP@{CH\_CFG\_USE\_HEAP}!Config@{Config}}
+\doxysubsubsection{CH\_CFG\_USE\_HEAP}
+{\footnotesize\ttfamily \#define CH\+\_\+\+CFG\+\_\+\+USE\+\_\+\+HEAP~TRUE}
+
+
+
+Heap Allocator APIs. 
+
+If enabled then the memory heap allocator APIs are included in the kernel.
+
+\begin{DoxyNote}{Note}
+The default is {\ttfamily TRUE}. 
+
+Requires {\ttfamily CH\+\_\+\+CFG\+\_\+\+USE\+\_\+\+MEMCORE} and either {\ttfamily CH\+\_\+\+CFG\+\_\+\+USE\+\_\+\+MUTEXES} or {\ttfamily CH\+\_\+\+CFG\+\_\+\+USE\+\_\+\+SEMAPHORES}. 
+
+Mutexes are recommended. 
+\end{DoxyNote}
+\mbox{\label{group__config_gae7b225553e9e069eda0dc0a251e0882c}} 
+\index{Config@{Config}!CH\_CFG\_USE\_MAILBOXES@{CH\_CFG\_USE\_MAILBOXES}}
+\index{CH\_CFG\_USE\_MAILBOXES@{CH\_CFG\_USE\_MAILBOXES}!Config@{Config}}
+\doxysubsubsection{CH\_CFG\_USE\_MAILBOXES}
+{\footnotesize\ttfamily \#define CH\+\_\+\+CFG\+\_\+\+USE\+\_\+\+MAILBOXES~TRUE}
+
+
+
+Mailboxes APIs. 
+
+If enabled then the asynchronous messages (mailboxes) APIs are included in the kernel.
+
+\begin{DoxyNote}{Note}
+The default is {\ttfamily TRUE}. 
+
+Requires {\ttfamily CH\+\_\+\+CFG\+\_\+\+USE\+\_\+\+SEMAPHORES}. 
+\end{DoxyNote}
+\mbox{\label{group__config_gaad95228d05e4107b33836d30d21645a7}} 
+\index{Config@{Config}!CH\_CFG\_USE\_MEMCORE@{CH\_CFG\_USE\_MEMCORE}}
+\index{CH\_CFG\_USE\_MEMCORE@{CH\_CFG\_USE\_MEMCORE}!Config@{Config}}
+\doxysubsubsection{CH\_CFG\_USE\_MEMCORE}
+{\footnotesize\ttfamily \#define CH\+\_\+\+CFG\+\_\+\+USE\+\_\+\+MEMCORE~TRUE}
+
+
+
+Core Memory Manager APIs. 
+
+If enabled then the core memory manager APIs are included in the kernel.
+
+\begin{DoxyNote}{Note}
+The default is {\ttfamily TRUE}. 
+\end{DoxyNote}
+\mbox{\label{group__config_ga826c1fac997fb6e976c3012d20316444}} 
+\index{Config@{Config}!CH\_CFG\_USE\_MEMPOOLS@{CH\_CFG\_USE\_MEMPOOLS}}
+\index{CH\_CFG\_USE\_MEMPOOLS@{CH\_CFG\_USE\_MEMPOOLS}!Config@{Config}}
+\doxysubsubsection{CH\_CFG\_USE\_MEMPOOLS}
+{\footnotesize\ttfamily \#define CH\+\_\+\+CFG\+\_\+\+USE\+\_\+\+MEMPOOLS~TRUE}
+
+
+
+Memory Pools Allocator APIs. 
+
+If enabled then the memory pools allocator APIs are included in the kernel.
+
+\begin{DoxyNote}{Note}
+The default is {\ttfamily TRUE}. 
+\end{DoxyNote}
+\mbox{\label{group__config_ga10585bbb78d4b11d82814f38181e5a3a}} 
+\index{Config@{Config}!CH\_CFG\_USE\_MESSAGES@{CH\_CFG\_USE\_MESSAGES}}
+\index{CH\_CFG\_USE\_MESSAGES@{CH\_CFG\_USE\_MESSAGES}!Config@{Config}}
+\doxysubsubsection{CH\_CFG\_USE\_MESSAGES}
+{\footnotesize\ttfamily \#define CH\+\_\+\+CFG\+\_\+\+USE\+\_\+\+MESSAGES~TRUE}
+
+
+
+Synchronous Messages APIs. 
+
+If enabled then the synchronous messages APIs are included in the kernel.
+
+\begin{DoxyNote}{Note}
+The default is {\ttfamily TRUE}. 
+\end{DoxyNote}
+\mbox{\label{group__config_gaa65eccee8e56f16bccf3709c23f7ac57}} 
+\index{Config@{Config}!CH\_CFG\_USE\_MESSAGES\_PRIORITY@{CH\_CFG\_USE\_MESSAGES\_PRIORITY}}
+\index{CH\_CFG\_USE\_MESSAGES\_PRIORITY@{CH\_CFG\_USE\_MESSAGES\_PRIORITY}!Config@{Config}}
+\doxysubsubsection{CH\_CFG\_USE\_MESSAGES\_PRIORITY}
+{\footnotesize\ttfamily \#define CH\+\_\+\+CFG\+\_\+\+USE\+\_\+\+MESSAGES\+\_\+\+PRIORITY~FALSE}
+
+
+
+Synchronous Messages queuing mode. 
+
+If enabled then messages are served by priority rather than in FIFO order.
+
+\begin{DoxyNote}{Note}
+The default is {\ttfamily FALSE}. Enable this if you have special requirements. 
+
+Requires {\ttfamily CH\+\_\+\+CFG\+\_\+\+USE\+\_\+\+MESSAGES}. 
+\end{DoxyNote}
+\mbox{\label{group__config_ga7263b362a62e34158d09b44b4c204c27}} 
+\index{Config@{Config}!CH\_CFG\_USE\_MUTEXES@{CH\_CFG\_USE\_MUTEXES}}
+\index{CH\_CFG\_USE\_MUTEXES@{CH\_CFG\_USE\_MUTEXES}!Config@{Config}}
+\doxysubsubsection{CH\_CFG\_USE\_MUTEXES}
+{\footnotesize\ttfamily \#define CH\+\_\+\+CFG\+\_\+\+USE\+\_\+\+MUTEXES~TRUE}
+
+
+
+Mutexes APIs. 
+
+If enabled then the mutexes APIs are included in the kernel.
+
+\begin{DoxyNote}{Note}
+The default is {\ttfamily TRUE}. 
+\end{DoxyNote}
+\mbox{\label{group__config_gab9a61e9638af4b918ebad4e177dead4d}} 
+\index{Config@{Config}!CH\_CFG\_USE\_MUTEXES\_RECURSIVE@{CH\_CFG\_USE\_MUTEXES\_RECURSIVE}}
+\index{CH\_CFG\_USE\_MUTEXES\_RECURSIVE@{CH\_CFG\_USE\_MUTEXES\_RECURSIVE}!Config@{Config}}
+\doxysubsubsection{CH\_CFG\_USE\_MUTEXES\_RECURSIVE}
+{\footnotesize\ttfamily \#define CH\+\_\+\+CFG\+\_\+\+USE\+\_\+\+MUTEXES\+\_\+\+RECURSIVE~TRUE}
+
+
+
+Enables recursive behavior on mutexes. 
+
+\begin{DoxyNote}{Note}
+Recursive mutexes are heavier and have an increased memory footprint.
+
+The default is {\ttfamily FALSE}. 
+
+Requires {\ttfamily CH\+\_\+\+CFG\+\_\+\+USE\+\_\+\+MUTEXES}. 
+\end{DoxyNote}
+\mbox{\label{group__config_ga9bb08f7384ee7ec4893bb28723286ee3}} 
+\index{Config@{Config}!CH\_CFG\_USE\_QUEUES@{CH\_CFG\_USE\_QUEUES}}
+\index{CH\_CFG\_USE\_QUEUES@{CH\_CFG\_USE\_QUEUES}!Config@{Config}}
+\doxysubsubsection{CH\_CFG\_USE\_QUEUES}
+{\footnotesize\ttfamily \#define CH\+\_\+\+CFG\+\_\+\+USE\+\_\+\+QUEUES~TRUE}
+
+
+
+I/O Queues APIs. 
+
+If enabled then the I/O queues APIs are included in the kernel.
+
+\begin{DoxyNote}{Note}
+The default is {\ttfamily TRUE}. 
+\end{DoxyNote}
+\mbox{\label{group__config_gaefe648290026609c1a1ee2d687ff60c1}} 
+\index{Config@{Config}!CH\_CFG\_USE\_REGISTRY@{CH\_CFG\_USE\_REGISTRY}}
+\index{CH\_CFG\_USE\_REGISTRY@{CH\_CFG\_USE\_REGISTRY}!Config@{Config}}
+\doxysubsubsection{CH\_CFG\_USE\_REGISTRY}
+{\footnotesize\ttfamily \#define CH\+\_\+\+CFG\+\_\+\+USE\+\_\+\+REGISTRY~TRUE}
+
+
+
+Threads registry APIs. 
+
+If enabled then the registry APIs are included in the kernel.
+
+\begin{DoxyNote}{Note}
+The default is {\ttfamily TRUE}. 
+\end{DoxyNote}
+\mbox{\label{group__config_gae66a111a6efc858624b42c8370b62cf6}} 
+\index{Config@{Config}!CH\_CFG\_USE\_SEMAPHORES@{CH\_CFG\_USE\_SEMAPHORES}}
+\index{CH\_CFG\_USE\_SEMAPHORES@{CH\_CFG\_USE\_SEMAPHORES}!Config@{Config}}
+\doxysubsubsection{CH\_CFG\_USE\_SEMAPHORES}
+{\footnotesize\ttfamily \#define CH\+\_\+\+CFG\+\_\+\+USE\+\_\+\+SEMAPHORES~TRUE}
+
+
+
+Semaphores APIs. 
+
+If enabled then the Semaphores APIs are included in the kernel.
+
+\begin{DoxyNote}{Note}
+The default is {\ttfamily TRUE}. 
+\end{DoxyNote}
+\mbox{\label{group__config_ga04e4e037498950df8bdef88bdd199494}} 
+\index{Config@{Config}!CH\_CFG\_USE\_SEMAPHORES\_PRIORITY@{CH\_CFG\_USE\_SEMAPHORES\_PRIORITY}}
+\index{CH\_CFG\_USE\_SEMAPHORES\_PRIORITY@{CH\_CFG\_USE\_SEMAPHORES\_PRIORITY}!Config@{Config}}
+\doxysubsubsection{CH\_CFG\_USE\_SEMAPHORES\_PRIORITY}
+{\footnotesize\ttfamily \#define CH\+\_\+\+CFG\+\_\+\+USE\+\_\+\+SEMAPHORES\+\_\+\+PRIORITY~FALSE}
+
+
+
+Semaphores queuing mode. 
+
+If enabled then the threads are enqueued on semaphores by priority rather than in FIFO order.
+
+\begin{DoxyNote}{Note}
+The default is {\ttfamily FALSE}. Enable this if you have special requirements. 
+
+Requires {\ttfamily CH\+\_\+\+CFG\+\_\+\+USE\+\_\+\+SEMAPHORES}. 
+\end{DoxyNote}
+\mbox{\label{group__config_ga1bd0fe5d119a7de890025214ae249c1d}} 
+\index{Config@{Config}!CH\_CFG\_USE\_TM@{CH\_CFG\_USE\_TM}}
+\index{CH\_CFG\_USE\_TM@{CH\_CFG\_USE\_TM}!Config@{Config}}
+\doxysubsubsection{CH\_CFG\_USE\_TM}
+{\footnotesize\ttfamily \#define CH\+\_\+\+CFG\+\_\+\+USE\+\_\+\+TM~TRUE}
+
+
+
+Time Measurement APIs. 
+
+If enabled then the time measurement APIs are included in the kernel.
+
+\begin{DoxyNote}{Note}
+The default is {\ttfamily TRUE}. 
+\end{DoxyNote}
+\mbox{\label{group__config_ga2e46052c737bba99ac4b45f834149fc4}} 
+\index{Config@{Config}!CH\_CFG\_USE\_WAITEXIT@{CH\_CFG\_USE\_WAITEXIT}}
+\index{CH\_CFG\_USE\_WAITEXIT@{CH\_CFG\_USE\_WAITEXIT}!Config@{Config}}
+\doxysubsubsection{CH\_CFG\_USE\_WAITEXIT}
+{\footnotesize\ttfamily \#define CH\+\_\+\+CFG\+\_\+\+USE\+\_\+\+WAITEXIT~TRUE}
+
+
+
+Threads synchronization APIs. 
+
+If enabled then the {\ttfamily ch\+Thd\+Wait()} function is included in the kernel.
+
+\begin{DoxyNote}{Note}
+The default is {\ttfamily TRUE}. 
+\end{DoxyNote}
+\mbox{\label{group__config_gad602fd2546073869a10859158d865b9b}} 
+\index{Config@{Config}!CH\_DBG\_ENABLE\_ASSERTS@{CH\_DBG\_ENABLE\_ASSERTS}}
+\index{CH\_DBG\_ENABLE\_ASSERTS@{CH\_DBG\_ENABLE\_ASSERTS}!Config@{Config}}
+\doxysubsubsection{CH\_DBG\_ENABLE\_ASSERTS}
+{\footnotesize\ttfamily \#define CH\+\_\+\+DBG\+\_\+\+ENABLE\+\_\+\+ASSERTS~TRUE}
+
+
+
+Debug option, consistency checks. 
+
+If enabled then all the assertions in the kernel code are activated. This includes consistency checks inside the kernel, runtime anomalies and port-\/defined checks.
+
+\begin{DoxyNote}{Note}
+The default is {\ttfamily FALSE}. 
+\end{DoxyNote}
+\mbox{\label{group__config_gaef984ca3bfd8a71478ad55ce6e56a8bb}} 
+\index{Config@{Config}!CH\_DBG\_ENABLE\_CHECKS@{CH\_DBG\_ENABLE\_CHECKS}}
+\index{CH\_DBG\_ENABLE\_CHECKS@{CH\_DBG\_ENABLE\_CHECKS}!Config@{Config}}
+\doxysubsubsection{CH\_DBG\_ENABLE\_CHECKS}
+{\footnotesize\ttfamily \#define CH\+\_\+\+DBG\+\_\+\+ENABLE\+\_\+\+CHECKS~TRUE}
+
+
+
+Debug option, parameters checks. 
+
+If enabled then the checks on the API functions input parameters are activated.
+
+\begin{DoxyNote}{Note}
+The default is {\ttfamily FALSE}. 
+\end{DoxyNote}
+\mbox{\label{group__config_gab93d9ee904f15d4f2c26ef2a1394a1d7}} 
+\index{Config@{Config}!CH\_DBG\_ENABLE\_STACK\_CHECK@{CH\_DBG\_ENABLE\_STACK\_CHECK}}
+\index{CH\_DBG\_ENABLE\_STACK\_CHECK@{CH\_DBG\_ENABLE\_STACK\_CHECK}!Config@{Config}}
+\doxysubsubsection{CH\_DBG\_ENABLE\_STACK\_CHECK}
+{\footnotesize\ttfamily \#define CH\+\_\+\+DBG\+\_\+\+ENABLE\+\_\+\+STACK\+\_\+\+CHECK~TRUE}
+
+
+
+Debug option, stack checks. 
+
+If enabled then a runtime stack check is performed.
+
+\begin{DoxyNote}{Note}
+The default is {\ttfamily FALSE}. 
+
+The stack check is performed in a architecture/port dependent way. It may not be implemented or some ports. 
+
+The default failure mode is to halt the system with the global {\ttfamily panic\+\_\+msg} variable set to {\ttfamily NULL}. 
+\end{DoxyNote}
+\mbox{\label{group__config_ga8bc4cfd861131aeb3c880347d0068229}} 
+\index{Config@{Config}!CH\_DBG\_ENABLE\_TRACE@{CH\_DBG\_ENABLE\_TRACE}}
+\index{CH\_DBG\_ENABLE\_TRACE@{CH\_DBG\_ENABLE\_TRACE}!Config@{Config}}
+\doxysubsubsection{CH\_DBG\_ENABLE\_TRACE}
+{\footnotesize\ttfamily \#define CH\+\_\+\+DBG\+\_\+\+ENABLE\+\_\+\+TRACE~TRUE}
+
+
+
+Debug option, trace buffer. 
+
+If enabled then the context switch circular trace buffer is activated.
+
+\begin{DoxyNote}{Note}
+The default is {\ttfamily FALSE}. 
+\end{DoxyNote}
+\mbox{\label{group__config_ga6a859dd249adfb66b9bbf809061ea06c}} 
+\index{Config@{Config}!CH\_DBG\_FILL\_THREADS@{CH\_DBG\_FILL\_THREADS}}
+\index{CH\_DBG\_FILL\_THREADS@{CH\_DBG\_FILL\_THREADS}!Config@{Config}}
+\doxysubsubsection{CH\_DBG\_FILL\_THREADS}
+{\footnotesize\ttfamily \#define CH\+\_\+\+DBG\+\_\+\+FILL\+\_\+\+THREADS~TRUE}
+
+
+
+Debug option, stacks initialization. 
+
+If enabled then the threads working area is filled with a byte value when a thread is created. This can be useful for the runtime measurement of the used stack.
+
+\begin{DoxyNote}{Note}
+The default is {\ttfamily FALSE}. 
+\end{DoxyNote}
+\mbox{\label{group__config_ga01fa48cf866c26bad886a15c37571f99}} 
+\index{Config@{Config}!CH\_DBG\_STATISTICS@{CH\_DBG\_STATISTICS}}
+\index{CH\_DBG\_STATISTICS@{CH\_DBG\_STATISTICS}!Config@{Config}}
+\doxysubsubsection{CH\_DBG\_STATISTICS}
+{\footnotesize\ttfamily \#define CH\+\_\+\+DBG\+\_\+\+STATISTICS~TRUE}
+
+
+
+Debug option, kernel statistics. 
+
+\begin{DoxyNote}{Note}
+The default is {\ttfamily FALSE}. 
+\end{DoxyNote}
+\mbox{\label{group__config_ga10db71bc25605169dddc82c1604b0a16}} 
+\index{Config@{Config}!CH\_DBG\_SYSTEM\_STATE\_CHECK@{CH\_DBG\_SYSTEM\_STATE\_CHECK}}
+\index{CH\_DBG\_SYSTEM\_STATE\_CHECK@{CH\_DBG\_SYSTEM\_STATE\_CHECK}!Config@{Config}}
+\doxysubsubsection{CH\_DBG\_SYSTEM\_STATE\_CHECK}
+{\footnotesize\ttfamily \#define CH\+\_\+\+DBG\+\_\+\+SYSTEM\+\_\+\+STATE\+\_\+\+CHECK~TRUE}
+
+
+
+Debug option, system state check. 
+
+If enabled the correct call protocol for system APIs is checked at runtime.
+
+\begin{DoxyNote}{Note}
+The default is {\ttfamily FALSE}. 
+\end{DoxyNote}
+\mbox{\label{group__config_gadc9c00c2e5b6e766ded8dfa77c0c90c1}} 
+\index{Config@{Config}!CH\_DBG\_THREADS\_PROFILING@{CH\_DBG\_THREADS\_PROFILING}}
+\index{CH\_DBG\_THREADS\_PROFILING@{CH\_DBG\_THREADS\_PROFILING}!Config@{Config}}
+\doxysubsubsection{CH\_DBG\_THREADS\_PROFILING}
+{\footnotesize\ttfamily \#define CH\+\_\+\+DBG\+\_\+\+THREADS\+\_\+\+PROFILING~TRUE}
+
+
+
+Debug option, threads profiling. 
+
+If enabled then a field is added to the {\ttfamily thread\+\_\+t} structure that counts the system ticks occurred while executing the thread.
+
+\begin{DoxyNote}{Note}
+The default is {\ttfamily FALSE}. 
+
+This debug option is not currently compatible with the tickless mode. 
+\end{DoxyNote}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\label{group__config_ga8592d2c8d5235356fbdf99e5a99ac7e6}} 
+\index{Config@{Config}!panic\_handler@{panic\_handler}}
+\index{panic\_handler@{panic\_handler}!Config@{Config}}
+\doxysubsubsection{panic\_handler()}
+{\footnotesize\ttfamily void panic\+\_\+handler (\begin{DoxyParamCaption}\item[{const char $\ast$}]{reason }\end{DoxyParamCaption})}
+
+
+
+System halt hook. 
+
+This hook is invoked in case to a system halting error before the system is halted. 

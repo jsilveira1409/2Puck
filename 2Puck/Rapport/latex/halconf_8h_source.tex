@@ -1,0 +1,204 @@
+\doxysection{halconf.\+h}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{/*}}
+\DoxyCodeLine{2 \textcolor{comment}{    ChibiOS -\/ Copyright (C) 2006..2015 Giovanni Di Sirio}}
+\DoxyCodeLine{3 \textcolor{comment}{}}
+\DoxyCodeLine{4 \textcolor{comment}{    Licensed under the Apache License, Version 2.0 (the "{}License"{});}}
+\DoxyCodeLine{5 \textcolor{comment}{    you may not use this file except in compliance with the License.}}
+\DoxyCodeLine{6 \textcolor{comment}{    You may obtain a copy of the License at}}
+\DoxyCodeLine{7 \textcolor{comment}{}}
+\DoxyCodeLine{8 \textcolor{comment}{        http://www.apache.org/licenses/LICENSE-\/2.0}}
+\DoxyCodeLine{9 \textcolor{comment}{}}
+\DoxyCodeLine{10 \textcolor{comment}{    Unless required by applicable law or agreed to in writing, software}}
+\DoxyCodeLine{11 \textcolor{comment}{    distributed under the License is distributed on an "{}AS IS"{} BASIS,}}
+\DoxyCodeLine{12 \textcolor{comment}{    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.}}
+\DoxyCodeLine{13 \textcolor{comment}{    See the License for the specific language governing permissions and}}
+\DoxyCodeLine{14 \textcolor{comment}{    limitations under the License.}}
+\DoxyCodeLine{15 \textcolor{comment}{ */}}
+\DoxyCodeLine{16 }
+\DoxyCodeLine{28 \textcolor{preprocessor}{\#ifndef \_HALCONF\_H\_}}
+\DoxyCodeLine{29 \textcolor{preprocessor}{\#define \_HALCONF\_H\_}}
+\DoxyCodeLine{30 }
+\DoxyCodeLine{31 \textcolor{preprocessor}{\#include "{}mcuconf.h"{}}}
+\DoxyCodeLine{32 }
+\DoxyCodeLine{36 \textcolor{preprocessor}{\#if !defined(HAL\_USE\_PAL) || defined(\_\_DOXYGEN\_\_)}}
+\DoxyCodeLine{37 \textcolor{preprocessor}{\#define HAL\_USE\_PAL                 TRUE}}
+\DoxyCodeLine{38 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{39 }
+\DoxyCodeLine{43 \textcolor{preprocessor}{\#if !defined(HAL\_USE\_ADC) || defined(\_\_DOXYGEN\_\_)}}
+\DoxyCodeLine{44 \textcolor{preprocessor}{\#define HAL\_USE\_ADC                 TRUE}}
+\DoxyCodeLine{45 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{46 }
+\DoxyCodeLine{50 \textcolor{preprocessor}{\#if !defined(HAL\_USE\_CAN) || defined(\_\_DOXYGEN\_\_)}}
+\DoxyCodeLine{51 \textcolor{preprocessor}{\#define HAL\_USE\_CAN                 TRUE}}
+\DoxyCodeLine{52 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{53 }
+\DoxyCodeLine{57 \textcolor{preprocessor}{\#if !defined(HAL\_USE\_DAC) || defined(\_\_DOXYGEN\_\_)}}
+\DoxyCodeLine{58 \textcolor{preprocessor}{\#define HAL\_USE\_DAC                 TRUE}}
+\DoxyCodeLine{59 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{60 }
+\DoxyCodeLine{64 \textcolor{preprocessor}{\#if !defined(HAL\_USE\_DCMI) || defined(\_\_DOXYGEN\_\_)}}
+\DoxyCodeLine{65 \textcolor{preprocessor}{\#define HAL\_USE\_DCMI                 TRUE}}
+\DoxyCodeLine{66 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{67 }
+\DoxyCodeLine{71 \textcolor{preprocessor}{\#if !defined(HAL\_USE\_EXT) || defined(\_\_DOXYGEN\_\_)}}
+\DoxyCodeLine{72 \textcolor{preprocessor}{\#define HAL\_USE\_EXT                 TRUE}}
+\DoxyCodeLine{73 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{74 }
+\DoxyCodeLine{78 \textcolor{preprocessor}{\#if !defined(HAL\_USE\_GPT) || defined(\_\_DOXYGEN\_\_)}}
+\DoxyCodeLine{79 \textcolor{preprocessor}{\#define HAL\_USE\_GPT                 TRUE}}
+\DoxyCodeLine{80 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{81 }
+\DoxyCodeLine{85 \textcolor{preprocessor}{\#if !defined(HAL\_USE\_I2C) || defined(\_\_DOXYGEN\_\_)}}
+\DoxyCodeLine{86 \textcolor{preprocessor}{\#define HAL\_USE\_I2C                 TRUE}}
+\DoxyCodeLine{87 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{88 }
+\DoxyCodeLine{92 \textcolor{preprocessor}{\#if !defined(HAL\_USE\_I2S) || defined(\_\_DOXYGEN\_\_)}}
+\DoxyCodeLine{93 \textcolor{preprocessor}{\#define HAL\_USE\_I2S                 TRUE}}
+\DoxyCodeLine{94 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{95 }
+\DoxyCodeLine{99 \textcolor{preprocessor}{\#if !defined(HAL\_USE\_ICU) || defined(\_\_DOXYGEN\_\_)}}
+\DoxyCodeLine{100 \textcolor{preprocessor}{\#define HAL\_USE\_ICU                 FALSE}}
+\DoxyCodeLine{101 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{102 }
+\DoxyCodeLine{106 \textcolor{preprocessor}{\#if !defined(HAL\_USE\_MAC) || defined(\_\_DOXYGEN\_\_)}}
+\DoxyCodeLine{107 \textcolor{preprocessor}{\#define HAL\_USE\_MAC                 FALSE}}
+\DoxyCodeLine{108 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{109 }
+\DoxyCodeLine{113 \textcolor{preprocessor}{\#if !defined(HAL\_USE\_MMC\_SPI) || defined(\_\_DOXYGEN\_\_)}}
+\DoxyCodeLine{114 \textcolor{preprocessor}{\#define HAL\_USE\_MMC\_SPI             FALSE}}
+\DoxyCodeLine{115 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{116 }
+\DoxyCodeLine{120 \textcolor{preprocessor}{\#if !defined(HAL\_USE\_PWM) || defined(\_\_DOXYGEN\_\_)}}
+\DoxyCodeLine{121 \textcolor{preprocessor}{\#define HAL\_USE\_PWM                 TRUE}}
+\DoxyCodeLine{122 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{123 }
+\DoxyCodeLine{127 \textcolor{preprocessor}{\#if !defined(HAL\_USE\_RTC) || defined(\_\_DOXYGEN\_\_)}}
+\DoxyCodeLine{128 \textcolor{preprocessor}{\#define HAL\_USE\_RTC                 FALSE}}
+\DoxyCodeLine{129 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{130 }
+\DoxyCodeLine{134 \textcolor{preprocessor}{\#if !defined(HAL\_USE\_SDC) || defined(\_\_DOXYGEN\_\_)}}
+\DoxyCodeLine{135 \textcolor{preprocessor}{\#define HAL\_USE\_SDC                 TRUE}}
+\DoxyCodeLine{136 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{137 }
+\DoxyCodeLine{141 \textcolor{preprocessor}{\#if !defined(HAL\_USE\_SERIAL) || defined(\_\_DOXYGEN\_\_)}}
+\DoxyCodeLine{142 \textcolor{preprocessor}{\#define HAL\_USE\_SERIAL              TRUE}}
+\DoxyCodeLine{143 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{144 }
+\DoxyCodeLine{148 \textcolor{preprocessor}{\#if !defined(HAL\_USE\_SERIAL\_USB) || defined(\_\_DOXYGEN\_\_)}}
+\DoxyCodeLine{149 \textcolor{preprocessor}{\#define HAL\_USE\_SERIAL\_USB          TRUE}}
+\DoxyCodeLine{150 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{151 }
+\DoxyCodeLine{155 \textcolor{preprocessor}{\#if !defined(HAL\_USE\_SPI) || defined(\_\_DOXYGEN\_\_)}}
+\DoxyCodeLine{156 \textcolor{preprocessor}{\#define HAL\_USE\_SPI                 TRUE}}
+\DoxyCodeLine{157 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{158 }
+\DoxyCodeLine{162 \textcolor{preprocessor}{\#if !defined(HAL\_USE\_UART) || defined(\_\_DOXYGEN\_\_)}}
+\DoxyCodeLine{163 \textcolor{preprocessor}{\#define HAL\_USE\_UART                FALSE}}
+\DoxyCodeLine{164 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{165 }
+\DoxyCodeLine{169 \textcolor{preprocessor}{\#if !defined(HAL\_USE\_USB) || defined(\_\_DOXYGEN\_\_)}}
+\DoxyCodeLine{170 \textcolor{preprocessor}{\#define HAL\_USE\_USB                 TRUE}}
+\DoxyCodeLine{171 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{172 }
+\DoxyCodeLine{173 \textcolor{comment}{/*===========================================================================*/}}
+\DoxyCodeLine{174 \textcolor{comment}{/* ADC driver related settings.                                              */}}
+\DoxyCodeLine{175 \textcolor{comment}{/*===========================================================================*/}}
+\DoxyCodeLine{176 }
+\DoxyCodeLine{181 \textcolor{preprocessor}{\#if !defined(ADC\_USE\_WAIT) || defined(\_\_DOXYGEN\_\_)}}
+\DoxyCodeLine{182 \textcolor{preprocessor}{\#define ADC\_USE\_WAIT                TRUE}}
+\DoxyCodeLine{183 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{184 }
+\DoxyCodeLine{189 \textcolor{preprocessor}{\#if !defined(ADC\_USE\_MUTUAL\_EXCLUSION) || defined(\_\_DOXYGEN\_\_)}}
+\DoxyCodeLine{190 \textcolor{preprocessor}{\#define ADC\_USE\_MUTUAL\_EXCLUSION    TRUE}}
+\DoxyCodeLine{191 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{192 }
+\DoxyCodeLine{193 \textcolor{comment}{/*===========================================================================*/}}
+\DoxyCodeLine{194 \textcolor{comment}{/* CAN driver related settings.                                              */}}
+\DoxyCodeLine{195 \textcolor{comment}{/*===========================================================================*/}}
+\DoxyCodeLine{196 }
+\DoxyCodeLine{200 \textcolor{preprocessor}{\#if !defined(CAN\_USE\_SLEEP\_MODE) || defined(\_\_DOXYGEN\_\_)}}
+\DoxyCodeLine{201 \textcolor{preprocessor}{\#define CAN\_USE\_SLEEP\_MODE          TRUE}}
+\DoxyCodeLine{202 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{203 }
+\DoxyCodeLine{204 \textcolor{comment}{/*===========================================================================*/}}
+\DoxyCodeLine{205 \textcolor{comment}{/* I2C driver related settings.                                              */}}
+\DoxyCodeLine{206 \textcolor{comment}{/*===========================================================================*/}}
+\DoxyCodeLine{207 }
+\DoxyCodeLine{211 \textcolor{preprocessor}{\#if !defined(I2C\_USE\_MUTUAL\_EXCLUSION) || defined(\_\_DOXYGEN\_\_)}}
+\DoxyCodeLine{212 \textcolor{preprocessor}{\#define I2C\_USE\_MUTUAL\_EXCLUSION    TRUE}}
+\DoxyCodeLine{213 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{214 }
+\DoxyCodeLine{215 \textcolor{comment}{/*===========================================================================*/}}
+\DoxyCodeLine{216 \textcolor{comment}{/* MAC driver related settings.                                              */}}
+\DoxyCodeLine{217 \textcolor{comment}{/*===========================================================================*/}}
+\DoxyCodeLine{218 }
+\DoxyCodeLine{222 \textcolor{preprocessor}{\#if !defined(MAC\_USE\_ZERO\_COPY) || defined(\_\_DOXYGEN\_\_)}}
+\DoxyCodeLine{223 \textcolor{preprocessor}{\#define MAC\_USE\_ZERO\_COPY           FALSE}}
+\DoxyCodeLine{224 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{225 }
+\DoxyCodeLine{229 \textcolor{preprocessor}{\#if !defined(MAC\_USE\_EVENTS) || defined(\_\_DOXYGEN\_\_)}}
+\DoxyCodeLine{230 \textcolor{preprocessor}{\#define MAC\_USE\_EVENTS              TRUE}}
+\DoxyCodeLine{231 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{232 }
+\DoxyCodeLine{233 \textcolor{comment}{/*===========================================================================*/}}
+\DoxyCodeLine{234 \textcolor{comment}{/* MMC\_SPI driver related settings.                                          */}}
+\DoxyCodeLine{235 \textcolor{comment}{/*===========================================================================*/}}
+\DoxyCodeLine{236 }
+\DoxyCodeLine{245 \textcolor{preprocessor}{\#if !defined(MMC\_NICE\_WAITING) || defined(\_\_DOXYGEN\_\_)}}
+\DoxyCodeLine{246 \textcolor{preprocessor}{\#define MMC\_NICE\_WAITING            TRUE}}
+\DoxyCodeLine{247 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{248 }
+\DoxyCodeLine{249 \textcolor{comment}{/*===========================================================================*/}}
+\DoxyCodeLine{250 \textcolor{comment}{/* SDC driver related settings.                                              */}}
+\DoxyCodeLine{251 \textcolor{comment}{/*===========================================================================*/}}
+\DoxyCodeLine{252 }
+\DoxyCodeLine{257 \textcolor{preprocessor}{\#if !defined(SDC\_INIT\_RETRY) || defined(\_\_DOXYGEN\_\_)}}
+\DoxyCodeLine{258 \textcolor{preprocessor}{\#define SDC\_INIT\_RETRY              100}}
+\DoxyCodeLine{259 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{260 }
+\DoxyCodeLine{266 \textcolor{preprocessor}{\#if !defined(SDC\_MMC\_SUPPORT) || defined(\_\_DOXYGEN\_\_)}}
+\DoxyCodeLine{267 \textcolor{preprocessor}{\#define SDC\_MMC\_SUPPORT             FALSE}}
+\DoxyCodeLine{268 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{269 }
+\DoxyCodeLine{276 \textcolor{preprocessor}{\#if !defined(SDC\_NICE\_WAITING) || defined(\_\_DOXYGEN\_\_)}}
+\DoxyCodeLine{277 \textcolor{preprocessor}{\#define SDC\_NICE\_WAITING            TRUE}}
+\DoxyCodeLine{278 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{279 }
+\DoxyCodeLine{280 \textcolor{comment}{/*===========================================================================*/}}
+\DoxyCodeLine{281 \textcolor{comment}{/* SERIAL driver related settings.                                           */}}
+\DoxyCodeLine{282 \textcolor{comment}{/*===========================================================================*/}}
+\DoxyCodeLine{283 }
+\DoxyCodeLine{289 \textcolor{preprocessor}{\#if !defined(SERIAL\_DEFAULT\_BITRATE) || defined(\_\_DOXYGEN\_\_)}}
+\DoxyCodeLine{290 \textcolor{preprocessor}{\#define SERIAL\_DEFAULT\_BITRATE      115200}}
+\DoxyCodeLine{291 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{292 }
+\DoxyCodeLine{300 \textcolor{preprocessor}{\#if !defined(SERIAL\_BUFFERS\_SIZE) || defined(\_\_DOXYGEN\_\_)}}
+\DoxyCodeLine{301 \textcolor{preprocessor}{\#define SERIAL\_BUFFERS\_SIZE         16}}
+\DoxyCodeLine{302 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{303 }
+\DoxyCodeLine{304 \textcolor{comment}{/*===========================================================================*/}}
+\DoxyCodeLine{305 \textcolor{comment}{/* SERIAL\_USB driver related setting.                                        */}}
+\DoxyCodeLine{306 \textcolor{comment}{/*===========================================================================*/}}
+\DoxyCodeLine{307 }
+\DoxyCodeLine{315 \textcolor{preprocessor}{\#if !defined(SERIAL\_USB\_BUFFERS\_SIZE) || defined(\_\_DOXYGEN\_\_)}}
+\DoxyCodeLine{316 \textcolor{preprocessor}{\#define SERIAL\_USB\_BUFFERS\_SIZE     256}}
+\DoxyCodeLine{317 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{318 }
+\DoxyCodeLine{319 \textcolor{comment}{/*===========================================================================*/}}
+\DoxyCodeLine{320 \textcolor{comment}{/* SPI driver related settings.                                              */}}
+\DoxyCodeLine{321 \textcolor{comment}{/*===========================================================================*/}}
+\DoxyCodeLine{322 }
+\DoxyCodeLine{327 \textcolor{preprocessor}{\#if !defined(SPI\_USE\_WAIT) || defined(\_\_DOXYGEN\_\_)}}
+\DoxyCodeLine{328 \textcolor{preprocessor}{\#define SPI\_USE\_WAIT                TRUE}}
+\DoxyCodeLine{329 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{330 }
+\DoxyCodeLine{335 \textcolor{preprocessor}{\#if !defined(SPI\_USE\_MUTUAL\_EXCLUSION) || defined(\_\_DOXYGEN\_\_)}}
+\DoxyCodeLine{336 \textcolor{preprocessor}{\#define SPI\_USE\_MUTUAL\_EXCLUSION    TRUE}}
+\DoxyCodeLine{337 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{338 }
+\DoxyCodeLine{339 \textcolor{preprocessor}{\#endif }\textcolor{comment}{/* \_HALCONF\_H\_ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{340 }
+
+\end{DoxyCode}
