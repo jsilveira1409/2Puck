@@ -4,6 +4,7 @@
  *  Created on: 12 Apr 2022
  *      Author: Joaquim Silveira
  */
+
 #include <ch.h>
 #include <hal.h>
 #include <sdio.h>
@@ -19,11 +20,11 @@
 #include "game.h"
 #include "console.h"
 
-#define POSITIVE_POINTS 		4
-#define NEGATIVE_POINTS			1
+#define POSITIVE_POINTS 			4
+#define NEGATIVE_POINTS				1
 #define MAX_ACCEPTABLE_FREQ_ERROR	7
 
-//conditional variable
+// conditional variable
 static MUTEX_DECL(music_play_lock);
 
 // thread references
@@ -91,18 +92,15 @@ static const note_t melody_MISS_YOU [] = {
  */
 static const note_t melody_SOLD_THE_WORLD[] = {
 	G2, G2, G2, F2, G2, GS2, G2, F2,
-	G2, G2, G2, F2, G2, GS2, G2, F2,
-	G2
+	G2, G2, G2, F2, G2, GS2, G2, F2, G2
 };
 
 /*
  * Seven Nation Army - Whitesnake
  */
 static const note_t melody_SEVEN_NATION_ARMY[] = {
-	E1, E1, G2,	E1,	D1,
-	C1,	B1,
-	E1, E1, G2,	E1,	D1,
-	C1,	D1, C1, B1,
+	E1, E1, G2,	E1,	D1, C1,	B1,
+	E1, E1, G2,	E1,	D1,	C1,	D1, C1, B1,
 };
 
 /*

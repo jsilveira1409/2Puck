@@ -17,6 +17,7 @@
 #include "lightshow.h"
 #include "console.h"
 
+// thread references
 static thread_t* gameThd = NULL;
 
 typedef enum {
