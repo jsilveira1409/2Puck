@@ -1,3 +1,11 @@
+/*
+ * audio_processing.c
+ *
+ *  Created on: 12 Apr 2022
+ *  Authors: Karl Khalil
+ *  		 Joaquim Silveira
+ */
+
 #include <audio/microphone.h>
 #include <fft.h>
 #include <arm_math.h>
@@ -15,12 +23,12 @@
 #define FFT_SIZE 				4096
 
 /*
- * @brief	Find fundemental frequency of played note
- * @details	Applies the harmonic product spectrum and finds the maximum value and
- * 			index of the given data
+ * @brief		Find fundamental frequency of played note
+ * @details		Applies the harmonic product spectrum and finds the maximum value and
+ * 				index of the given data
  *
  * @param[in,out] data	FFT data of the microphone
- * @return 				Fundamental frequency of the note played
+ * @return 				Fundamental frequency of the note played.
  */
 static float fundamental_frequency(float* data){
 	for(uint8_t i = 2; i < NB_HARMONICS; i+=2){
@@ -39,16 +47,15 @@ static float fundamental_frequency(float* data){
 }
 
 /*
- * @brief	Check if volume ceiling is passed.
- * @details Measures the volume of the microphone's data and
- * 			applies a schmitt trigger to it, and returns true
- * 			if there is a rising edge.
+ * @brief		Check if volume ceiling is passed.
+ * @details 	Measures the volume of the microphone's data and
+ * 				applies a schmitt trigger to it, and returns true
+ * 				if there is a rising edge.
  *
- * @param[in,out]	data 			Time-domaine microphone data
- * @param[in]		num_samples		Number of samples in data to analyze
- * @return 							Whether there is a rising edge or not.
+ * @param[in,out] data 			time-domaine microphone data
+ * @param[in] num_samples		number of samples in data to analyze
+ * @return 						Whether there is a rising edge or not.
  */
-
 bool note_volume(int16_t *data, uint16_t num_samples){
 	static bool state = false;
 	static uint16_t mic_volume = 0;
@@ -81,14 +88,13 @@ bool note_volume(int16_t *data, uint16_t num_samples){
 }
 
 /*
- * @brief	Process the microphone data.
- * @details Callback called when the demodulation of the four microphones is done. We get 160 samples
- * 			per mic every 10ms (16kHz)
+ * @brief		Process the microphone data.
+ * @details 	Callback function called when the demodulation of the four microphones is done. We get 160 samples
+ * 				per mic every 10ms (16kHz).
  *
- * @param[in/out]	data			Buffer containing 4 times 160 samples.
- *									The samples are sorted by micro	so we have
- *									[micRight1, micLeft1, micBack1, micFront1, micRight2, etc...]
- * @param[in]		num_samples		Tells how many data we get in total (should always be 640)
+ * @param[in/out] data		buffer containing 4 times 160 samples, sorted by microphone
+ * 							[micRight1, micLeft1, micBack1, micFront1, micRight2, etc...]
+ * @param[in] num_samples	size of the buffer received
  *
 */
 void processAudioDataCmplx(int16_t *data, uint16_t num_samples){
