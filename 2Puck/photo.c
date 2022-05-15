@@ -1,8 +1,11 @@
 /*
- * photo.c
+ * @file 		pathing.c
+ * @brief		Photo capture library
+ * @author		Joaquim Silveira
+ * @version		1.0
+ * @date 		23 Apr 2022
+ * @copyright	GNU Public License
  *
- *  Created on: 23 Apr 2022
- *      Author: Joaquim Silveira
  */
 
 #include "ch.h"

@@ -1,10 +1,12 @@
 /*
- * game.h
+ * @file 		game.h
+ * @brief		Main FSM controlling the game logic.
+ * @author		Karl Khalil
+ * @version		1.0
+ * @date 		29 Apr 2022
+ * @copyright	GNU Public License
  *
- *  Created on: 29 Apr 2022
- *      Author: karl
  */
-
 #ifndef GAME_H_
 #define GAME_H_
 

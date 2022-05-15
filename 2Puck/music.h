@@ -1,8 +1,12 @@
 /*
- * music.h
+ * @file 		music.h
+ * @brief		Musical processing of the frequency data.
+ * @author		Karl Khalil
+ * @author		Joaquim Silveira
+ * @version		1.0
+ * @date 		20 Apr 2022
+ * @copyright	GNU Public License
  *
- *  Created on: 12 Apr 2022
- *      Authors: Joaquim Silveira, Karl Khalil
  */
 
 #ifndef MUSIC_H

@@ -1,3 +1,14 @@
+/*
+ * @file 		lightshow.c
+ * @brief		Led's pattern control library.
+ * @author		Karl Khalil
+ * @author		Joaquim Silveira
+ * @version		1.0
+ * @date 		18 Apr 2022
+ * @copyright	GNU Public License
+ *
+ */
+
 #include <leds.h>
 #include <music.h>
 #include <audio_processing.h>

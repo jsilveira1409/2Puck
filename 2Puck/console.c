@@ -1,4 +1,15 @@
 /*
+ * @file 		console.c
+ * @brief		Communication with serial monitor
+ * @author		Karl Khalil
+ * @author		Joaquim Silveira
+ * @version		1.0
+ * @date 		7 May 2022
+ * @copyright	GNU Public License
+ *
+ */
+
+/*
  * console.c
  *
  *  Created on: 7 May 2022

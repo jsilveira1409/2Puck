@@ -1,11 +1,13 @@
 /*
- * fft.h
+ * @file 		fft.c
+ * @brief		FFT wraping functions.
+ * @author		Karl Khalil
+ * @author		Joaquim Silveira
+ * @version		1.0
+ * @date 		12 Apr 2022
+ * @copyright	GNU Public License
  *
- * 	Created on:
- * 	Authors: Francesco Mondada
- * 		     Daniel Burnier
  */
-
 #include "ch.h"
 #include "hal.h"
 #include <main.h>

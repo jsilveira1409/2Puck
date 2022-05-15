@@ -1,14 +1,15 @@
 /*
- * pathing.h
+ * @file 		pathing.h
+ * @brief		Pathing library for positional control of the ePuck
+ * @author		Joaquim Silveira
+ * @version		1.0
+ * @date 		18 Apr 2022
+ * @copyright	GNU Public License
  *
- *  Created on: 12 Apr 2022
- *      Author: Joaquim Silveira
  */
-
 
 #ifndef		PATHING_H_
 #define 	PATHING_H_
-
 
 typedef enum{
 	PATH_TO_PLAYER1,

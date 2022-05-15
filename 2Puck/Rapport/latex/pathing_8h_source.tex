@@ -1,0 +1,32 @@
+\doxysection{pathing.\+h}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{/*}}
+\DoxyCodeLine{2 \textcolor{comment}{ * @file        pathing.h}}
+\DoxyCodeLine{3 \textcolor{comment}{ * @brief       Pathing library for positional control of the ePuck}}
+\DoxyCodeLine{4 \textcolor{comment}{ * @author      Joaquim Silveira}}
+\DoxyCodeLine{5 \textcolor{comment}{ * @version     1.0}}
+\DoxyCodeLine{6 \textcolor{comment}{ * @date        18 Apr 2022}}
+\DoxyCodeLine{7 \textcolor{comment}{ * @copyright   GNU Public License}}
+\DoxyCodeLine{8 \textcolor{comment}{ *}}
+\DoxyCodeLine{9 \textcolor{comment}{ */}}
+\DoxyCodeLine{10 }
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#ifndef     PATHING\_H\_}}
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#define     PATHING\_H\_}}
+\DoxyCodeLine{13 }
+\DoxyCodeLine{14 \textcolor{keyword}{typedef} \textcolor{keyword}{enum}\{}
+\DoxyCodeLine{15     PATH\_TO\_PLAYER1,}
+\DoxyCodeLine{16     PATH\_TO\_PLAYER2,}
+\DoxyCodeLine{17     PATHING,}
+\DoxyCodeLine{18     PATHING\_FINISHED}
+\DoxyCodeLine{19 \}pathing\_option\_t;}
+\DoxyCodeLine{20 }
+\DoxyCodeLine{21 \textcolor{keywordtype}{void} pathing\_init(pathing\_option\_t option);}
+\DoxyCodeLine{22 \textcolor{keywordtype}{void} pathing\_stop(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{23 \textcolor{keywordtype}{void} pathing\_set(pathing\_option\_t option);}
+\DoxyCodeLine{24 \textcolor{keywordtype}{void} pathing\_wait\_finish(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{25 }
+\DoxyCodeLine{26 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{/* PATHING\_H\_ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{27 }
+
+\end{DoxyCode}

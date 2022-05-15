@@ -1,23 +1,12 @@
 /*
- * pathing.c
+ * @file 		pathing.c
+ * @brief		Pathing library for positional control of the ePuck
+ * @author		Joaquim Silveira
+ * @version		1.0
+ * @date 		18 Apr 2022
+ * @copyright	GNU Public License
  *
- *  Created on: 12 Apr 2022
- *      Author: Joaquim Silveira
- *
- * 				  P: target(TARGET_X, TARGET_Y)
- * 			   	 ^
- * 		beta ___/
- * 		+y	^  /dist: vector between epuck current pos and target
- * 			| /
- * 			|/
- * 	origin 	o ----> +x
- * 	  =
- * 	center of
- * 	puck at the beginning of the program
- *
- * 	All position values are in mm
  */
-
 
 #include <ch.h>
 #include <hal.h>

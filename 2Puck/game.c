@@ -1,11 +1,12 @@
 /*
- * game.c
+ * @file 		game.c
+ * @brief		Main FSM controlling the game logic.
+ * @author		Karl Khalil
+ * @version		1.0
+ * @date 		29 Apr 2022
+ * @copyright	GNU Public License
  *
- *  Created on: 29 Apr 2022
- *  Authors: Karl Khalil
- *  		 Joaquim Silveira
  */
-
 #include <ch.h>
 #include <hal.h>
 #include <leds.h>

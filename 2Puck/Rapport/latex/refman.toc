@@ -1,0 +1,88 @@
+\@ifundefined {etoctocstyle}{\let \etoc@startlocaltoc \@gobble \let \etoc@settocdepth \@gobble \let \etoc@depthtag \@gobble \let \etoc@setlocaltop \@gobble }{}
+\contentsline {chapter}{\numberline {1}Module Index}{1}%
+\contentsline {section}{\numberline {1.1}Modules}{1}%
+\contentsline {chapter}{\numberline {2}Data Structure Index}{3}%
+\contentsline {section}{\numberline {2.1}Data Structures}{3}%
+\contentsline {chapter}{\numberline {3}File Index}{5}%
+\contentsline {section}{\numberline {3.1}File List}{5}%
+\contentsline {chapter}{\numberline {4}Module Documentation}{7}%
+\contentsline {section}{\numberline {4.1}Config}{7}%
+\contentsline {subsection}{\numberline {4.1.1}Detailed Description}{9}%
+\contentsline {subsection}{\numberline {4.1.2}Macro Definition Documentation}{9}%
+\contentsline {subsubsection}{\numberline {4.1.2.1}CH\_CFG\_CONTEXT\_SWITCH\_HOOK}{9}%
+\contentsline {subsubsection}{\numberline {4.1.2.2}CH\_CFG\_IDLE\_ENTER\_HOOK}{9}%
+\contentsline {subsubsection}{\numberline {4.1.2.3}CH\_CFG\_IDLE\_LEAVE\_HOOK}{10}%
+\contentsline {subsubsection}{\numberline {4.1.2.4}CH\_CFG\_IDLE\_LOOP\_HOOK}{10}%
+\contentsline {subsubsection}{\numberline {4.1.2.5}CH\_CFG\_MEMCORE\_SIZE}{10}%
+\contentsline {subsubsection}{\numberline {4.1.2.6}CH\_CFG\_NO\_IDLE\_THREAD}{10}%
+\contentsline {subsubsection}{\numberline {4.1.2.7}CH\_CFG\_OPTIMIZE\_SPEED}{11}%
+\contentsline {subsubsection}{\numberline {4.1.2.8}CH\_CFG\_ST\_FREQUENCY}{11}%
+\contentsline {subsubsection}{\numberline {4.1.2.9}CH\_CFG\_ST\_RESOLUTION}{11}%
+\contentsline {subsubsection}{\numberline {4.1.2.10}CH\_CFG\_ST\_TIMEDELTA}{11}%
+\contentsline {subsubsection}{\numberline {4.1.2.11}CH\_CFG\_SYSTEM\_HALT\_HOOK}{12}%
+\contentsline {subsubsection}{\numberline {4.1.2.12}CH\_CFG\_SYSTEM\_TICK\_HOOK}{12}%
+\contentsline {subsubsection}{\numberline {4.1.2.13}CH\_CFG\_THREAD\_EXIT\_HOOK}{12}%
+\contentsline {subsubsection}{\numberline {4.1.2.14}CH\_CFG\_THREAD\_EXTRA\_FIELDS}{12}%
+\contentsline {subsubsection}{\numberline {4.1.2.15}CH\_CFG\_THREAD\_INIT\_HOOK}{13}%
+\contentsline {subsubsection}{\numberline {4.1.2.16}CH\_CFG\_TIME\_QUANTUM}{13}%
+\contentsline {subsubsection}{\numberline {4.1.2.17}CH\_CFG\_USE\_CONDVARS}{13}%
+\contentsline {subsubsection}{\numberline {4.1.2.18}CH\_CFG\_USE\_CONDVARS\_TIMEOUT}{14}%
+\contentsline {subsubsection}{\numberline {4.1.2.19}CH\_CFG\_USE\_DYNAMIC}{14}%
+\contentsline {subsubsection}{\numberline {4.1.2.20}CH\_CFG\_USE\_EVENTS}{14}%
+\contentsline {subsubsection}{\numberline {4.1.2.21}CH\_CFG\_USE\_EVENTS\_TIMEOUT}{15}%
+\contentsline {subsubsection}{\numberline {4.1.2.22}CH\_CFG\_USE\_HEAP}{15}%
+\contentsline {subsubsection}{\numberline {4.1.2.23}CH\_CFG\_USE\_MAILBOXES}{15}%
+\contentsline {subsubsection}{\numberline {4.1.2.24}CH\_CFG\_USE\_MEMCORE}{16}%
+\contentsline {subsubsection}{\numberline {4.1.2.25}CH\_CFG\_USE\_MEMPOOLS}{16}%
+\contentsline {subsubsection}{\numberline {4.1.2.26}CH\_CFG\_USE\_MESSAGES}{16}%
+\contentsline {subsubsection}{\numberline {4.1.2.27}CH\_CFG\_USE\_MESSAGES\_PRIORITY}{16}%
+\contentsline {subsubsection}{\numberline {4.1.2.28}CH\_CFG\_USE\_MUTEXES}{17}%
+\contentsline {subsubsection}{\numberline {4.1.2.29}CH\_CFG\_USE\_MUTEXES\_RECURSIVE}{17}%
+\contentsline {subsubsection}{\numberline {4.1.2.30}CH\_CFG\_USE\_QUEUES}{17}%
+\contentsline {subsubsection}{\numberline {4.1.2.31}CH\_CFG\_USE\_REGISTRY}{17}%
+\contentsline {subsubsection}{\numberline {4.1.2.32}CH\_CFG\_USE\_SEMAPHORES}{18}%
+\contentsline {subsubsection}{\numberline {4.1.2.33}CH\_CFG\_USE\_SEMAPHORES\_PRIORITY}{18}%
+\contentsline {subsubsection}{\numberline {4.1.2.34}CH\_CFG\_USE\_TM}{18}%
+\contentsline {subsubsection}{\numberline {4.1.2.35}CH\_CFG\_USE\_WAITEXIT}{18}%
+\contentsline {subsubsection}{\numberline {4.1.2.36}CH\_DBG\_ENABLE\_ASSERTS}{19}%
+\contentsline {subsubsection}{\numberline {4.1.2.37}CH\_DBG\_ENABLE\_CHECKS}{19}%
+\contentsline {subsubsection}{\numberline {4.1.2.38}CH\_DBG\_ENABLE\_STACK\_CHECK}{19}%
+\contentsline {subsubsection}{\numberline {4.1.2.39}CH\_DBG\_ENABLE\_TRACE}{20}%
+\contentsline {subsubsection}{\numberline {4.1.2.40}CH\_DBG\_FILL\_THREADS}{20}%
+\contentsline {subsubsection}{\numberline {4.1.2.41}CH\_DBG\_STATISTICS}{20}%
+\contentsline {subsubsection}{\numberline {4.1.2.42}CH\_DBG\_SYSTEM\_STATE\_CHECK}{20}%
+\contentsline {subsubsection}{\numberline {4.1.2.43}CH\_DBG\_THREADS\_PROFILING}{21}%
+\contentsline {subsection}{\numberline {4.1.3}Function Documentation}{21}%
+\contentsline {subsubsection}{\numberline {4.1.3.1}panic\_handler()}{21}%
+\contentsline {section}{\numberline {4.2}HAL\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}CONF}{21}%
+\contentsline {subsection}{\numberline {4.2.1}Detailed Description}{23}%
+\contentsline {subsection}{\numberline {4.2.2}Macro Definition Documentation}{23}%
+\contentsline {subsubsection}{\numberline {4.2.2.1}ADC\_USE\_MUTUAL\_EXCLUSION}{23}%
+\contentsline {subsubsection}{\numberline {4.2.2.2}ADC\_USE\_WAIT}{23}%
+\contentsline {subsubsection}{\numberline {4.2.2.3}HAL\_USE\_DAC}{23}%
+\contentsline {subsubsection}{\numberline {4.2.2.4}MMC\_NICE\_WAITING}{23}%
+\contentsline {subsubsection}{\numberline {4.2.2.5}SDC\_INIT\_RETRY}{24}%
+\contentsline {subsubsection}{\numberline {4.2.2.6}SDC\_MMC\_SUPPORT}{24}%
+\contentsline {subsubsection}{\numberline {4.2.2.7}SDC\_NICE\_WAITING}{24}%
+\contentsline {subsubsection}{\numberline {4.2.2.8}SERIAL\_BUFFERS\_SIZE}{24}%
+\contentsline {subsubsection}{\numberline {4.2.2.9}SERIAL\_DEFAULT\_BITRATE}{25}%
+\contentsline {subsubsection}{\numberline {4.2.2.10}SERIAL\_USB\_BUFFERS\_SIZE}{25}%
+\contentsline {subsubsection}{\numberline {4.2.2.11}SPI\_USE\_MUTUAL\_EXCLUSION}{25}%
+\contentsline {subsubsection}{\numberline {4.2.2.12}SPI\_USE\_WAIT}{25}%
+\contentsline {chapter}{\numberline {5}Data Structure Documentation}{27}%
+\contentsline {section}{\numberline {5.1}note\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}struct\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}t Struct Reference}{27}%
+\contentsline {section}{\numberline {5.2}song Struct Reference}{27}%
+\contentsline {chapter}{\numberline {6}File Documentation}{29}%
+\contentsline {section}{\numberline {6.1}audio\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}processing.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}h}{29}%
+\contentsline {section}{\numberline {6.2}chconf.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}h}{29}%
+\contentsline {section}{\numberline {6.3}console.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}h}{31}%
+\contentsline {section}{\numberline {6.4}fft.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}h}{31}%
+\contentsline {section}{\numberline {6.5}game.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}h}{32}%
+\contentsline {section}{\numberline {6.6}halconf.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}h}{32}%
+\contentsline {section}{\numberline {6.7}lightshow.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}h}{34}%
+\contentsline {section}{\numberline {6.8}mcuconf.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}h}{35}%
+\contentsline {section}{\numberline {6.9}music.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}h}{39}%
+\contentsline {section}{\numberline {6.10}pathing.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}h}{39}%
+\contentsline {section}{\numberline {6.11}photo.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}h}{40}%
+\contentsline {section}{\numberline {6.12}rng.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}h}{40}%
+\contentsline {chapter}{Index}{41}%

@@ -1,9 +1,12 @@
 /*
- * console.h
+ * @file 		console.h
+ * @brief		Communication with serial monitor
+ * @author		Karl Khalil
+ * @author		Joaquim Silveira
+ * @version		1.0
+ * @date 		7 May 2022
+ * @copyright	GNU Public License
  *
- *  Created on: 7 May 2022
- *      Author: Karl Khalil
- *      		Joaquim Silveira
  */
 
 #ifndef CONSOLE_H_

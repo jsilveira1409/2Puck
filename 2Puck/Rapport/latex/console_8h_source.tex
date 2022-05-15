@@ -1,0 +1,27 @@
+\doxysection{console.\+h}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{/*}}
+\DoxyCodeLine{2 \textcolor{comment}{ * @file        console.h}}
+\DoxyCodeLine{3 \textcolor{comment}{ * @brief       Communication with serial monitor}}
+\DoxyCodeLine{4 \textcolor{comment}{ * @author      Karl Khalil}}
+\DoxyCodeLine{5 \textcolor{comment}{ * @author      Joaquim Silveira}}
+\DoxyCodeLine{6 \textcolor{comment}{ * @version     1.0}}
+\DoxyCodeLine{7 \textcolor{comment}{ * @date        7 May 2022}}
+\DoxyCodeLine{8 \textcolor{comment}{ * @copyright   GNU Public License}}
+\DoxyCodeLine{9 \textcolor{comment}{ *}}
+\DoxyCodeLine{10 \textcolor{comment}{ */}}
+\DoxyCodeLine{11 }
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#ifndef CONSOLE\_H\_}}
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#define CONSOLE\_H\_}}
+\DoxyCodeLine{14 }
+\DoxyCodeLine{15 \textcolor{keywordtype}{void} console\_init(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{16 msg\_t console\_stop(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{17 msg\_t console\_send\_string(\textcolor{keyword}{const} \textcolor{keywordtype}{char}* msg);}
+\DoxyCodeLine{18 msg\_t console\_send\_int(\textcolor{keywordtype}{int} num, \textcolor{keywordtype}{char}* msg);}
+\DoxyCodeLine{19 \textcolor{keywordtype}{char} console\_get\_char(\textcolor{keywordtype}{char}* input\_msg);}
+\DoxyCodeLine{20 \textcolor{keywordtype}{void} SendUint8ToComputer(uint8\_t* data, uint16\_t size);}
+\DoxyCodeLine{21 }
+\DoxyCodeLine{22 \textcolor{preprocessor}{\#endif }\textcolor{comment}{/* CONSOLE\_H\_ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

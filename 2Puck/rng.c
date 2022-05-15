@@ -1,8 +1,11 @@
 /*
- * rng.c
+ * @file 		rng.c
+ * @brief		Random Number Generator library
+ * @author		Joaquim Silveira
+ * @version		1.0
+ * @date 		1 May 2022
+ * @copyright	GNU Public License
  *
- *  Created on: 12 Apr 2022
- *      Author: Joaquim Silveira
  */
 
 #include <stdio.h>

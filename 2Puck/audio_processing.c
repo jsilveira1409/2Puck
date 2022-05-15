@@ -1,9 +1,12 @@
 /*
- * audio_processing.c
+ * @file 		audio_processing.c
+ * @brief		Microphone sample processing library.
+ * @author		Karl Khalil
+ * @author		Joaquim Silveira
+ * @version		1.0
+ * @date 		12 Apr 2022
+ * @copyright	GNU Public License
  *
- *  Created on: 12 Apr 2022
- *  Authors: Karl Khalil
- *  		 Joaquim Silveira
  */
 
 #include <audio/microphone.h>
