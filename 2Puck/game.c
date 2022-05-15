@@ -45,7 +45,6 @@ static THD_FUNCTION(game_thd, arg) {
 	(void) arg;
 
 	GAME_STATE state = IDLE;
-	song_selection_t song = 0;
 	uint8_t recording_size = 18;
 	uint8_t num_players = 2;
 	int16_t score[num_players];
@@ -62,10 +61,7 @@ static THD_FUNCTION(game_thd, arg) {
 
 			case START_GAME:
 				console_send_string("Game Started");
-				song = music_init();
-				console_send_string("The song chosen is");
-				const char* music_name = music_song_name(song);
-				console_send_string(music_name);
+				music_init();
 
 				for(uint8_t i=0; i<num_players; i++){
 					chThdSleepMilliseconds(4000);
@@ -85,7 +81,7 @@ static THD_FUNCTION(game_thd, arg) {
 
 			case GOTO_WINNER:
 				console_send_string("Going to Winner");
-				play_song(song);
+				play_song();
 				pathing_init((score[0] >= score[1]) ? PATH_TO_PLAYER1 : PATH_TO_PLAYER2);
 				pathing_wait_finish();
 				state++;
