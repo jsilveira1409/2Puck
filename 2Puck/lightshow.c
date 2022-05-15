@@ -117,6 +117,10 @@ static THD_FUNCTION(circleThd, arg) {
  * Public Functions
  */
 
+/*
+ * @brief Changes RGB lights in a random pattern for each note played.
+ *
+ */
 void lightshow_init(void){
 	spi_comm_start();
 	ptrLightshowThd = chThdCreateStatic(waLightshowThd, sizeof(waLightshowThd),
@@ -125,17 +129,29 @@ void lightshow_init(void){
 											NORMALPRIO, ledUpdateThd, NULL);
 }
 
+/*
+ * @brief Stops the RGB lightshow.
+ *
+ */
 void lightshow_stop(void){
 	chThdTerminate(ptrLightshowThd);
 	chThdTerminate(ptrLedUpdateThd);
 }
 
+/*
+ * @brief Play the red LED in a turning circle.
+ *
+ */
 void lightshow_circle_init(void){
 	ptrCircleThd = chThdCreateStatic(waCircleThd, sizeof(waCircleThd),
 											NORMALPRIO, circleThd, NULL);
 
 }
 
+/*
+ * @brief Stops the red LED lightshow.
+ *
+ */
 void lightshow_circle_stop(void){
 	chThdTerminate(ptrCircleThd);
 }
