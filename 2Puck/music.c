@@ -100,7 +100,7 @@ static const note_t melody_SEVEN_NATION_ARMY[] = {
 };
 
 /*
-* The Next Episode - Dr Dre
+ * The Next Episode - Dr Dre
  */
 static const note_t melody_NEXT_EPISODE[] = {
 	F3, AS4, AS4, GS4, AS4, GS4, FS4, GS4, GS4, FS4, F3, FS4
@@ -252,17 +252,22 @@ static THD_FUNCTION(music, arg) {
 
 	(void)arg;
 
-	uint8_t recording_size = 0;
-
 	chMtxLock(&music_play_lock);
+
+	chosen_song = choose_random_song();
+	console_send_string("The song chosen is");
+	console_send_string(songs[chosen_song].name);
+
+	uint16_t recording_size = songs[chosen_song].melody_size;
 
 	while(!chThdShouldTerminateX()) {
 		//this thread is waiting until it receives a message
 		chSysLock();
-		recording_size = chThdSuspendS(&musicThdRef);
+		chThdSuspendS(&musicThdRef);
 		chSysUnlock();
 
 		int16_t score = 0;
+
 		note_t played_notes[recording_size];
 
 		chMtxUnlock(&music_play_lock);
@@ -301,10 +306,6 @@ static THD_FUNCTION(music, arg) {
  * @return (song_selection_t) random song
  */
 void music_init(void){
-	chosen_song = choose_random_song();
-	console_send_string("The song chosen is");
-	console_send_string(songs[chosen_song].name);
-
 	mic_start(&processAudioDataCmplx);
     musicThd = chThdCreateStatic(musicWorkingArea, sizeof(musicWorkingArea),
 			NORMALPRIO, music, NULL);
@@ -325,8 +326,8 @@ void music_stop(void){
  * @brief
  * @param[in] uint8_t recording_size:
  */
-void music_listen(uint8_t recording_size){
-	 chThdResume(&musicThdRef, (msg_t)recording_size);
+void music_listen(void){
+	 chThdResume(&musicThdRef, (msg_t)MSG_OK);
 }
 
 /**

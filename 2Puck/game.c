@@ -45,7 +45,6 @@ static THD_FUNCTION(game_thd, arg) {
 	(void) arg;
 
 	GAME_STATE state = IDLE;
-	uint8_t recording_size = 18;
 	uint8_t num_players = 2;
 	int16_t score[num_players];
 
@@ -67,7 +66,7 @@ static THD_FUNCTION(game_thd, arg) {
 					chThdSleepMilliseconds(4000);
 					console_send_string("Player Start");
 					set_led(LED5, 1);
-					music_listen(recording_size);
+					music_listen();
 					score[i] = get_score();
 					console_send_string("Calculating Score...");
 					console_send_int(score[i],"Your score is");
