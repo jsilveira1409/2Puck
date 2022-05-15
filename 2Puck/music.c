@@ -308,25 +308,26 @@ static THD_FUNCTION(musicThd, arg) {
  */
 
 /*
- * @brief initializes the microphone thread, with the callback function
- * from audio_processing, initializes the music thread and the DAC for
- * the buzzer. Also, chooses the random song.
- * @return (song_selection_t) random song
+ * @brief 	Initializes the microphone thread
+ * @details Initializes with the callback function
+ * 			from audio_processing, initializes the music thread and the DAC for
+ * 			the buzzer. Also, chooses the random song.
  */
 void music_init(void){
 	mic_start(&processAudioDataCmplx);
     ptrMusicThd = chThdCreateStatic(waMusicThd, sizeof(waMusicThd),
 			NORMALPRIO, musicThd, NULL);
-//    lightshow_init();
+    lightshow_init();
 }
 
 /*
- * @brief stop the microphone and the music thread
+ * @brief Stops the microphone, music and lightshow threads.
  */
 
 void music_stop(void){
 	mp45dt02Shutdown();
 	chThdTerminate(ptrMusicThd);
+	lightshow_stop();
 }
 
 /*
@@ -356,8 +357,9 @@ bool music_is_playing(void){
 }
 
 /*
- *@brief sends the name of the file to play to the play_sound_file.h lib
- *@param[in] song_selection_t index: index of the song in songs to play
+ * @brief 	Sends the name of the file to play to the play_sound_file.h lib
+ *
+ * @param[in] index 	Index of the song in songs to play
  */
 void play_song(void){
 	dac_start();
