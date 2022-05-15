@@ -10,19 +10,7 @@
 #include "lightshow.h"
 #include "music.h"
 #include "pathing.h"
-
-
-static void serial_start(void)
-{
-	static SerialConfig ser_cfg = {
-		115200,
-	    0,
-	    0,
-	    0,
-	};
-
-	sdStart(&SD3, &ser_cfg); // UART3.
-}
+#include "console.h"
 
 
 int main(void)
@@ -30,29 +18,12 @@ int main(void)
     halInit();
     chSysInit();
     mpu_init();
-    serial_start();
 
-//	sdio_start();
-//	playSoundFileStart();
-//
-//
-//	/*
-//	 * SD card init does not like being inside music_init
-//	 * it segfaults
-//	 */
-//	while(!mountSDCard()){
-//		set_body_led(1);
-//		chThdSleepMilliseconds(200);
-//		set_body_led(0);
-//		chThdSleepMilliseconds(200);
-//	}
-//
-////	lightshow_init();
+    console_init();
     game_init();
 
 	while (1) {
 		;
-		//TODO: EXIT() ?
 	}
 }
 

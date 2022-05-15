@@ -2,7 +2,7 @@
 #define MUSIC_H
 
 typedef enum {
-	COME_AS_YOU_ARE,
+	COME_AS_YOU_ARE=0,
 	MISS_YOU,
 	SOLD_THE_WORLD,
 	SEVEN_NATION,
@@ -22,5 +22,6 @@ void wait_finish_music(void);
 //int16_t get_score(void);
 song_selection_t choose_random_song(void);
 msg_t music_send_freq(float freq);
+const char* music_song_name(song_selection_t song);
 
 #endif

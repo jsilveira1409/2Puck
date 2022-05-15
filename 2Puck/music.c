@@ -11,14 +11,11 @@
 #include <leds.h>
 #include "music.h"
 #include "game.h"
+#include "console.h"
 
 #define POSITIVE_POINTS 		4
 #define NEGATIVE_POINTS			1
 #define MAX_ACCEPTABLE_FREQ_ERROR	7
-
-static thread_t* musicThd = NULL;
-static thread_reference_t musicThdRef = NULL;
-static song_selection_t chosen_song = 0;
 
 typedef enum {
 	A1=0, AS1, B1, C1, CS1, D1, DS1,E1, F1, FS1, G1, GS1,
@@ -29,17 +26,36 @@ typedef enum {
 	NONE
 }note_t;
 
-// TODO: CHECK IF NECESSARY AS GLOBAL
-static note_t played_notes[50];
+typedef struct{
+	char* name;
+	uint16_t freq;
+}note_struct_t;
 
-static const uint16_t note_freq[] =
-{
-	[A1]=55, [AS1]=58, [B1]=62, [C1]=65,  [CS1]=69,  [D1]=73,  [DS1]=77,  [E1]=82,  [F1]=87,  [FS1]=92,  [G1]=98,  [GS1]=104,
-	[A2]=110,[AS2]=116,[B2]=124,[C2]=131, [CS2]=138, [D2]=146, [DS2]=155, [E2]=165, [F2]=175, [FS2]=185, [G2]=196, [GS2]=208,
-	[A3]=220,[AS3]=233,[B3]=247,[C3]=262, [CS3]=277, [D3]=294, [DS3]=311, [E3]=330, [F3]=349, [FS3]=370, [G3]=392, [GS3]=415,
-	[A4]=440,[AS4]=466,[B4]=494,[C4]=523, [CS4]=554, [D4]=587, [DS4]=622, [E4]=659, [F4]=698, [FS4]=740, [G4]=784, [GS4]=831,
-	[A5]=880,[AS5]=932,[B5]=988,[C5]=1047,[CS5]=1108,[D5]=1174,[DS5]=1244,[E5]=1318,[F5]=1396,[FS5]=1480,[G5]=1568,[GS5]=1662,
+note_struct_t notes[] = {
+		{"A1",55}, {"AS1",58}, {"B1",62}, {"C1",65},  {"CS1",69},  {"D1",73},
+		{"DS1",77},  {"E1",82},  {"F1",87},  {"FS1",92},  {"G1",98},  {"GS1",104},
+
+		{"A2",110},{"AS2",116},{"B2",124},{"C2",131}, {"CS2",138}, {"D2",146},
+		{"DS2",155}, {"E2",165}, {"F2",175}, {"FS2",185}, {"G2",196}, {"GS2",208},
+
+		{"A3",220},{"AS3",233},{"B3",247},{"C3",262}, {"CS3",277}, {"D3",294},
+		{"DS3",311}, {"E3",330}, {"F3",349}, {"FS3",370}, {"G3",392}, {"GS3",415},
+
+		{"A4",440},{"AS4",466},{"B4",494},{"C4",523}, {"CS4",554}, {"D4",587},
+		{"DS4",622}, {"E4",659}, {"F4",698}, {"FS4",740}, {"G4",784}, {"GS4",831},
+
+		{"A5",880},{"AS5",932},{"B5",988},{"C5",1047},{"CS5",1108},{"D5",1174},
+		{"DS5",1244},{"E5",1318},{"F5",1396},{"FS5",1480},{"G5",1568},{"GS5",1662},
 };
+
+static const char* song_name[] = {
+		[COME_AS_YOU_ARE]	= "Come as you are ~Nirvana",
+		[MISS_YOU]		  	= "Miss you ~Rolling Stones",
+		[SOLD_THE_WORLD]  	= "The Man Who Sold the World ~Nirvana",
+		[SEVEN_NATION] 	  	= "Seven Nation Army ~White Snakes",
+		[NEXT_EPISODE]		= "The Next Episode ~Dr Dre",
+};
+
 
 /*
  * Come As you are - Nirvana
@@ -101,6 +117,12 @@ const song songs[] = {
 		{melody_SEVEN_NATION_ARMY,	sizeof(melody_SEVEN_NATION_ARMY),	"sevennation.wav"},
 		{melody_NEXT_EPISODE,		sizeof(melody_NEXT_EPISODE),		"nextepisode.wav"}
 };
+
+static thread_t* musicThd = NULL;
+static thread_reference_t musicThdRef = NULL;
+static song_selection_t chosen_song = 0;
+// TODO: CHECK IF NECESSARY AS GLOBAL
+static note_t played_notes[50];
 
 /*
  * Static Functions
@@ -172,14 +194,14 @@ static note_t freq_to_note(float freq){
 	note_t note = NONE;
 
 	for(uint8_t i = 0; i < NB_NOTES; i++){
-		curr_error = abs(freq - (float)note_freq[i]);
+		curr_error = abs(freq - (float)notes[i].freq);
 		if(curr_error < smallest_error){
 			smallest_error = curr_error;
 			//uint16_t discret_freq = note_freq[i];
 			note = i;
 		}
 	}
-	return (note%12);
+	return note;
 }
 
 /*
@@ -206,6 +228,7 @@ static THD_FUNCTION(music, arg) {
 			note_t note = freq_to_note(freq);
 			if(note != NONE){
 				played_notes[i] = note;
+				console_send_string(notes[note].name);
 				set_led(LED3,0);
 			}else{
 				i--;
@@ -213,7 +236,6 @@ static THD_FUNCTION(music, arg) {
 		}
 
 		score = calculate_score();
-		chprintf((BaseSequentialStream *)&SD3, "score :%d \r \n", score);
 		game_send_score(score);
 		chThdSleepMilliseconds(500);
 	}
@@ -232,14 +254,10 @@ static THD_FUNCTION(music, arg) {
  * @return (song_selection_t) random song
  */
 song_selection_t music_init(void){
-//	chosen_song = choose_random_song();
-	chosen_song = MISS_YOU;
-
+	chosen_song = choose_random_song();
+	mic_start(&processAudioDataCmplx);
     musicThd = chThdCreateStatic(musicWorkingArea, sizeof(musicWorkingArea),
 			NORMALPRIO, music, NULL);
-    chThdSleepMilliseconds(200);
-    mic_start(&processAudioDataCmplx);
-    chThdSleepMilliseconds(200);
     dac_start();
     return chosen_song;
 }
@@ -267,10 +285,14 @@ void music_listen(uint8_t recording_size){
  *@param[in] song_selection_t index: index of the song in songs to play
  */
 void play_song(song_selection_t index){
+	sdio_start();
+	playSoundFileStart();
+	if(!mountSDCard()){
+		console_send_string("SD Card not Mounted");
+		return;
+	}
 	setSoundFileVolume(50);
 	playSoundFile(songs[index].file_name, SF_FORCE_CHANGE);
-//	waitSoundFileHasFinished();  --> blocks the motors, logical
-
 }
 
 /*
@@ -289,11 +311,17 @@ void stop_song(void){
  */
 song_selection_t choose_random_song(void){
 	rng_init();
-	uint32_t random_val = (rng_get() % sizeof(songs));
+	uint32_t random = rng_get();
+	uint32_t songs_size = sizeof(songs)/sizeof(song);
+	uint32_t song_nb = (random % songs_size);
 	rng_stop();
-	return random_val;
+	return song_nb;
 }
 
 msg_t music_send_freq(float freq){
 	return chMsgSend(musicThd, (msg_t)freq);
+}
+
+const char* music_song_name(song_selection_t song){
+	return song_name[song];
 }

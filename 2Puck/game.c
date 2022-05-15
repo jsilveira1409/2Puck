@@ -6,18 +6,16 @@
  *  		 Joaquim Silveira
  */
 
-//Comment this line to not play the songs
-//#define PLAY_SONGS
 #include <ch.h>
 #include <hal.h>
 #include <leds.h>
 #include <audio_processing.h>
 #include <photo.h>
 #include <chprintf.h>
-#include "communications.h"
 #include "music.h"
 #include "pathing.h"
 #include "lightshow.h"
+#include "console.h"
 
 static thread_t* gameThd = NULL;
 
@@ -40,14 +38,13 @@ static float get_score(void){
 	return score;
 }
 
-static THD_WORKING_AREA(gameWA, 256);
+static THD_WORKING_AREA(gameWA, 512);
 
 static THD_FUNCTION(game_thd, arg) {
 
 	(void) arg;
 
 	GAME_STATE state = IDLE;
-	uint8_t message = 0;
 	song_selection_t song = 0;
 	uint8_t recording_size = 18;
 	uint8_t num_players = 2;
@@ -56,56 +53,57 @@ static THD_FUNCTION(game_thd, arg) {
 	while(true) {
 		switch(state){
 			case IDLE:
-				message = chSequentialStreamGet(&SD3);
-				if (message == 'w'){
+				;
+				char c = console_get_char("Send w to start the Game");
+				if (c == 'w'){
 					state++;
 				}
 				break;
 
 			case START_GAME:
+				console_send_string("Game Started");
 				song = music_init();
-				chThdSleepMilliseconds(400);
-//				pathing_init();
+				const char* music_name = music_song_name(song);
+				console_send_string("The song chosen is");
+				console_send_string(music_name);
 //				lightshow_init();
-				SendUint8ToComputer(&song, 1);
 
 				for(uint8_t i=0; i<num_players; i++){
+					chThdSleepMilliseconds(4000);
+					console_send_string("Player Start");
 					set_led(LED5, 1);
 					music_listen(recording_size);
 					score[i] = get_score();
-					SendUint8ToComputer(&score[i], 1);
-					chThdSleepMilliseconds(4000);
+					console_send_string("Calculating Score...");
+					console_send_int(score[i],"Your score is");
+					console_send_string("Player finished");
 					set_led(LED1, 1);
 				}
-
-				music_stop();
 				set_body_led(1);
+				music_stop();
 				state++;
 				break;
 
 			case GOTO_WINNER:
-#ifdef	PLAY_SONGS
-				play_song(NEXT_EPISODE);
-#endif
-				chThdSleepMilliseconds(5000);
+				console_send_string("Going to Winner");
+				play_song(song);
 				pathing_init((score[0] >= score[1]) ? PATH_TO_PLAYER1 : PATH_TO_PLAYER2);
 				pathing_wait_finish();
-				pathing_stop();
-#ifdef PLAY_SONGS
-				stop_song();
-#endif
 				state++;
 				break;
 
 			case SEND_PHOTO:
+				console_send_string("Taking Photo");
 				photo_init();
 				photo_wait_finish();
 				photo_stop();
-				chThdSleepMilliseconds(10000);
+				console_send_string("Photo taken");
 				state++;
 				break;
 
 			case FINISHED:
+				stop_song();
+				console_send_string("Game finished");
 				state = IDLE;
 				set_body_led(1);
 				break;

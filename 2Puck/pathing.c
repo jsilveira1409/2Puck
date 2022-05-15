@@ -363,7 +363,9 @@ static THD_WORKING_AREA(pathingWorkingArea, 256);
 
 static THD_FUNCTION(ThdPathing, arg) {
 
-	pathing_option_t current_option = *((pathing_option_t*)arg);
+	(void)arg;
+
+	pathing_option_t current_option = (pathing_option_t)arg;
 
 	while (!chThdShouldTerminateX()) {
 		switch (current_option){
@@ -372,6 +374,7 @@ static THD_FUNCTION(ThdPathing, arg) {
 				//TODO:should wait for a msg from game here
 				break;
 			case PATHING_FINISHED:
+				chBSemSignal(&sem_finished_pathing);
 				pathing_stop();
 				break;
 			case PATH_TO_PLAYER1:
@@ -425,7 +428,7 @@ void pathing_init(pathing_option_t option){
 	arm_pid_init_f32(&wall_pid, 0);
 
 	ThdPtrPathing = chThdCreateStatic(pathingWorkingArea, sizeof(pathingWorkingArea),
-	                           NORMALPRIO, ThdPathing, (void*)&option);
+	                           NORMALPRIO, ThdPathing, (void*)option);
 }
 
 /*
