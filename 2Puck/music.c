@@ -38,7 +38,7 @@ typedef struct{
 	uint16_t freq;
 }note_struct_t;
 
-note_struct_t notes[] = {
+static const note_struct_t notes[] = {
 		{"A1",55}, {"AS1",58}, {"B1",62}, {"C1",65},  {"CS1",69},  {"D1",73},
 		{"DS1",77},  {"E1",82},  {"F1",87},  {"FS1",92},  {"G1",98},  {"GS1",104},
 
@@ -203,8 +203,9 @@ static note_t freq_to_note(float freq){
 	float smallest_error = MAX_ACCEPTABLE_FREQ_ERROR;
 	float curr_error     = 0;
 	note_t note = NONE;
+	uint8_t notes_size = sizeof(notes)/sizeof(note_struct_t);
 
-	for(uint8_t i = 0; i < NB_NOTES; i++){
+	for(uint8_t i = 0; i < notes_size; i++){
 		curr_error = abs(freq - (float)notes[i].freq);
 		if(curr_error < smallest_error){
 			smallest_error = curr_error;

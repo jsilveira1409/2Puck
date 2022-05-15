@@ -1,39 +1,26 @@
-#include "ch.h"
-#include "hal.h"
-#include <main.h>
-#include <usbcfg.h>
-#include <chprintf.h>
-#include <motors.h>
 #include <audio/microphone.h>
-#include <audio_processing.h>
 #include <fft.h>
 #include <arm_math.h>
-#include <audio_processing.h>
 #include "music.h"
-#include <leds.h>
-
+#include "audio_processing.h"
 
 #define RESOLUTION  			(I2S_AUDIOFREQ_16K/2)/(FFT_SIZE/2)
 #define FREQ_INDEX_OFFSET 		(-2)
-#define NB_SAMPLES				160
 #define MAX_VOLUME  			1200
 #define MIN_VOLUME 				500
 #define OVERLAP_FACTOR	  		(2)	//50%
 #define OVERLAP_BUFFER_SIZE		(2*FFT_SIZE/OVERLAP_FACTOR)
 #define OVERLAP_INDEX 			(2*FFT_SIZE*(OVERLAP_FACTOR - 1)/OVERLAP_FACTOR)
 #define NB_HARMONICS			2
-static BSEMAPHORE_DECL(sem_finished_playing, TRUE);
-static BSEMAPHORE_DECL(sem_note_played, TRUE);
-
-
+#define FFT_SIZE 				4096
 
 /*
- * @brief applies the harmonic product spectrum and finds the maximum value and
- * index of the given data
+ * @brief	Find fundemental frequency of played note
+ * @details	Applies the harmonic product spectrum and finds the maximum value and
+ * 			index of the given data
  *
- * @param[in/out] FFT data of the microphone
- *
- * @return fundamental frequency of the note played
+ * @param[in,out] data	FFT data of the microphone
+ * @return 				Fundamental frequency of the note played
  */
 static float fundamental_frequency(float* data){
 	for(uint8_t i = 2; i < NB_HARMONICS; i+=2){
@@ -52,15 +39,14 @@ static float fundamental_frequency(float* data){
 }
 
 /*
- * @brief measures the volume of the microphone's data and
- * applies a schmitt trigger to it, and returns true if there is a
- * rising edge
+ * @brief	Check if volume ceiling is passed.
+ * @details Measures the volume of the microphone's data and
+ * 			applies a schmitt trigger to it, and returns true
+ * 			if there is a rising edge.
  *
- * @param[in/out] int16_t* data time-domaine microphone data
- *
- * @param[in] int16_t num_samples number of samples in data to analyze
- *
- * @return whether there is a rising edge or not
+ * @param[in,out]	data 			Time-domaine microphone data
+ * @param[in]		num_samples		Number of samples in data to analyze
+ * @return 							Whether there is a rising edge or not.
  */
 
 bool note_volume(int16_t *data, uint16_t num_samples){
@@ -95,15 +81,15 @@ bool note_volume(int16_t *data, uint16_t num_samples){
 }
 
 /*
-*	@brief Callback called when the demodulation of	the four microphones is done. We get 160 samples
-*	per mic every 10ms (16kHz)
-*
-*	@param[in/out] int16_t *data: Buffer containing 4 times 160 samples.
-*	the samples are sorted by micro	so we have [micRight1, micLeft1, micBack1, micFront1, micRight2, etc...]
-*
-*	@param[in] uint16_t num_samples: Tells how many data we get in total (should always be 640)
-*
-*	@return void
+ * @brief	Process the microphone data.
+ * @details Callback called when the demodulation of the four microphones is done. We get 160 samples
+ * 			per mic every 10ms (16kHz)
+ *
+ * @param[in/out]	data			Buffer containing 4 times 160 samples.
+ *									The samples are sorted by micro	so we have
+ *									[micRight1, micLeft1, micBack1, micFront1, micRight2, etc...]
+ * @param[in]		num_samples		Tells how many data we get in total (should always be 640)
+ *
 */
 void processAudioDataCmplx(int16_t *data, uint16_t num_samples){
 	if(music_is_playing()){
@@ -167,8 +153,3 @@ void processAudioDataCmplx(int16_t *data, uint16_t num_samples){
 		}
 	}
 }
-
-
-/*
- * Public Functions
- */
