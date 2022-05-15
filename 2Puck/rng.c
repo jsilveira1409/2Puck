@@ -1,14 +1,24 @@
+/*
+ * rng.c
+ *
+ *  Created on: 12 Apr 2022
+ *      Author: Joaquim Silveira
+ */
+
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
+#include "rng.h"
 #include "ch.h"
 #include "hal.h"
-#include <rng.h>
+
 
 /*
  * Public Functions
  */
 
+/*
+ * @brief	 Initializes the RNG's clock and peripheral.
+ */
 void rng_init(void) {
 	/* Enable RNG clock */
 	RCC->AHB2ENR |= RCC_AHB2ENR_RNGEN;
@@ -17,6 +27,9 @@ void rng_init(void) {
 	RNG->CR |= RNG_CR_RNGEN;
 }
 
+/*
+ * @brief	Stop the RNG's clock and peripheral.
+ */
 void rng_stop(void) {
 	/* Disable RNG peripheral */
 	RNG->CR &= ~RNG_CR_RNGEN;
@@ -25,6 +38,11 @@ void rng_stop(void) {
 	RCC->AHB2ENR &= ~RCC_AHB2ENR_RNGEN;
 }
 
+/*
+ * @brief 	Returns the random value generated
+ *
+ * @return	Random 32-bit number.
+ */
 uint32_t rng_get(void) {
 	/* Wait until one RNG number is ready */
 	while (!(RNG->SR & (RNG_SR_DRDY)));
