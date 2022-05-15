@@ -69,6 +69,7 @@ if __name__ == '__main__':
             print(line)
             rec_picture()
             send_mail()
+            break
         else:
             print(line)
         port.flush()
