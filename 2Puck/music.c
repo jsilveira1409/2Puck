@@ -262,7 +262,7 @@ song_selection_t music_init(void){
 	mic_start(&processAudioDataCmplx);
     musicThd = chThdCreateStatic(musicWorkingArea, sizeof(musicWorkingArea),
 			NORMALPRIO, music, NULL);
-    dac_start();
+//    lightshow_init();
     return chosen_song;
 }
 
@@ -291,12 +291,17 @@ void music_listen(uint8_t recording_size){
  *@param[in] (song_selection_t) index: index of the song in songs to play
  */
 void play_song(song_selection_t index){
+	dac_start();
+	chThdSleepMilliseconds(50);
 	sdio_start();
+	chThdSleepMilliseconds(50);
 	playSoundFileStart();
+	chThdSleepMilliseconds(50);
 	if(!mountSDCard()){
 		console_send_string("SD Card not Mounted");
 		return;
 	}
+	chThdSleepMilliseconds(100);
 	setSoundFileVolume(50);
 	playSoundFile(songs[index].file_name, SF_FORCE_CHANGE);
 }
@@ -307,6 +312,7 @@ void play_song(song_selection_t index){
  */
 void stop_song(void){
 	stopCurrentSoundFile();
+	dac_stop();
 }
 
 /*
