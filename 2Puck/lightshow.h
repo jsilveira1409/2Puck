@@ -13,6 +13,8 @@
 #define	LIGHTSHOW_H
 
 void lightshow_init(void);
-void lighshow_stop(void);
+void lightshow_stop(void);
+void lightshow_circle_init(void);
+void lightshow_circle_stop(void);
 
 #endif

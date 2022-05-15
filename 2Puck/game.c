@@ -90,10 +90,12 @@ static THD_FUNCTION(gameThd, arg) {
 				break;
 
 			case SEND_PHOTO:
+				lightshow_circle_init();
 				console_send_string("Taking Photo");
 				photo_init();
 				photo_wait_finish();
 				photo_stop();
+				lightshow_circle_stop();
 				console_send_string("Photo taken");
 				state++;
 				break;

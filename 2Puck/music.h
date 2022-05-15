@@ -19,5 +19,6 @@ void stop_song(void);
 void music_listen(void);
 msg_t music_send_freq(float freq);
 bool music_is_playing(void);
+void music_wait_new_note(void);
 
 #endif /*MUSIC_H*/

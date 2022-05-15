@@ -23,13 +23,17 @@
 #include "rng.h"
 #include "game.h"
 #include "console.h"
+#include "lightshow.h"
 
 #define POSITIVE_POINTS 			4
 #define NEGATIVE_POINTS				1
 #define MAX_ACCEPTABLE_FREQ_ERROR	7
 
-// conditional variable
+// Mutexes
 static MUTEX_DECL(music_play_lock);
+
+// Semaphores
+static BSEMAPHORE_DECL(sem_new_note, FALSE);
 
 // thread references
 static thread_t* ptrMusicThd = NULL;
@@ -284,6 +288,7 @@ static THD_FUNCTION(musicThd, arg) {
 			set_led(LED3, 1);
 			float freq = get_frequency();
 			note_t note = freq_to_note(freq);
+			chBSemSignal(&sem_new_note);
 			if(note != NONE){
 				played_notes[i] = note;
 				console_send_string(notes[note].name);
@@ -388,4 +393,8 @@ void stop_song(void){
 
 msg_t music_send_freq(float freq){
 	return chMsgSend(ptrMusicThd, (msg_t)freq);
+}
+
+void music_wait_new_note(void){
+	chBSemWait(&sem_new_note);
 }
