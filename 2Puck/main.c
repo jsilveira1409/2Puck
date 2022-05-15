@@ -21,10 +21,6 @@ int main(void)
 
     console_init();
     game_init();
-
-	while (1) {
-		;
-	}
 }
 
 #define STACK_CHK_GUARD 0xe2dee396
