@@ -17,6 +17,10 @@
 #define NEGATIVE_POINTS			1
 #define MAX_ACCEPTABLE_FREQ_ERROR	7
 
+//conditional variable
+static MUTEX_DECL(music_play_lock);
+
+// thread references
 static thread_t* musicThd = NULL;
 static thread_reference_t musicThdRef = NULL;
 
@@ -219,16 +223,20 @@ static THD_WORKING_AREA(musicWorkingArea, 512);
 static THD_FUNCTION(music, arg) {
 
 	song_selection_t chosen_song =  (song_selection_t)arg;
-
 	uint8_t recording_size = 0;
+
+	chMtxLock(&music_play_lock);
 
 	while(!chThdShouldTerminateX()) {
 		//this thread is waiting until it receives a message
 		chSysLock();
 		recording_size = chThdSuspendS(&musicThdRef);
 		chSysUnlock();
+
 		int16_t score = 0;
 		note_t played_notes[recording_size];
+
+		chMtxUnlock(&music_play_lock);
 
 		for(uint8_t i=0; i<recording_size; i++){
 			set_led(LED3, 1);
@@ -242,6 +250,8 @@ static THD_FUNCTION(music, arg) {
 				i--;
 			}
 		}
+
+		chMtxLock(&music_play_lock);
 
 		score = calculate_score(played_notes, chosen_song);
 		game_send_score(score);
@@ -286,6 +296,24 @@ void music_stop(void){
  */
 void music_listen(uint8_t recording_size){
 	 chThdResume(&musicThdRef, (msg_t)recording_size);
+}
+
+/**
+ * @brief   Check if music is playing.
+ *
+ * @return              The operation status.
+ * @retval true         if music is playing
+ * @retval false        if music is not playing.
+ *
+ * @api
+ */
+bool music_is_playing(void){
+	if(chMtxTryLock(&music_play_lock)){
+		chMtxUnlock(&music_play_lock);
+		return true;
+	}else{
+		return false;
+	}
 }
 
 /*

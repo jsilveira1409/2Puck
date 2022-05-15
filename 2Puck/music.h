@@ -23,5 +23,6 @@ void wait_finish_music(void);
 song_selection_t choose_random_song(void);
 msg_t music_send_freq(float freq);
 const char* music_song_name(song_selection_t song);
+bool music_is_playing(void);
 
 #endif

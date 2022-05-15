@@ -106,63 +106,65 @@ bool note_volume(int16_t *data, uint16_t num_samples){
 *	@return void
 */
 void processAudioDataCmplx(int16_t *data, uint16_t num_samples){
-	static uint16_t nb_samples = 0;
-	static uint16_t nb_overlap_samples = 0;
-	static bool register_note = false;
+	if(music_is_playing()){
+		static uint16_t nb_samples = 0;
+		static uint16_t nb_overlap_samples = 0;
+		static bool register_note = false;
 
-	static float micLeft_cmplx_input[2 * FFT_SIZE];
-	static float micLeft_output[FFT_SIZE];
-	static float overlapping_samples[OVERLAP_BUFFER_SIZE];
+		static float micLeft_cmplx_input[2 * FFT_SIZE];
+		static float micLeft_output[FFT_SIZE];
+		static float overlapping_samples[OVERLAP_BUFFER_SIZE];
 
-	bool status = false;
+		bool status = false;
 
-	for(uint16_t i = 0 ; i < num_samples ; i+=4){
-		micLeft_cmplx_input[nb_samples] = (float)data[i + MIC_LEFT];
+		for(uint16_t i = 0 ; i < num_samples ; i+=4){
+			micLeft_cmplx_input[nb_samples] = (float)data[i + MIC_LEFT];
 
-		if(nb_samples >= OVERLAP_INDEX){
-			overlapping_samples[nb_overlap_samples] =(float)data[i + MIC_LEFT];
-			nb_overlap_samples++;
+			if(nb_samples >= OVERLAP_INDEX){
+				overlapping_samples[nb_overlap_samples] =(float)data[i + MIC_LEFT];
+				nb_overlap_samples++;
+			}
+			nb_samples++;
+			micLeft_cmplx_input[nb_samples] = 0;
+
+			if(nb_samples >= OVERLAP_INDEX){
+				overlapping_samples[nb_overlap_samples] = 0;
+				nb_overlap_samples++;
+			}
+			nb_samples++;
+
+			if(nb_samples >= (2 * FFT_SIZE)){
+				break;
+			}
 		}
-		nb_samples++;
-		micLeft_cmplx_input[nb_samples] = 0;
 
-		if(nb_samples >= OVERLAP_INDEX){
-			overlapping_samples[nb_overlap_samples] = 0;
-			nb_overlap_samples++;
+		/*
+		 * Checks if one (or more) sample has a volume higher than
+		 * that of the threshold. Here we implement a Schmitt Trigger
+		 */
+
+		status = note_volume(data, num_samples);
+		if(status == true && register_note == false){
+			register_note = true;
 		}
-		nb_samples++;
 
+		/*
+		 * Once we have enough samples, and we know that one of the samples
+		 * has a higher volume, we do a FFT and discretize it with frequency_to_note
+		 */
 		if(nb_samples >= (2 * FFT_SIZE)){
-			break;
+			if(register_note == true){
+				doCmplxFFT_optimized(FFT_SIZE, micLeft_cmplx_input);
+				arm_cmplx_mag_f32(micLeft_cmplx_input, micLeft_output, FFT_SIZE);
+				float freq = fundamental_frequency(micLeft_output);
+				music_send_freq(freq);
+				register_note = false;
+
+			}
+			nb_samples = OVERLAP_BUFFER_SIZE;
+			nb_overlap_samples = 0;
+			arm_copy_f32(overlapping_samples, micLeft_cmplx_input, OVERLAP_BUFFER_SIZE);
 		}
-	}
-
-	/*
-	 * Checks if one (or more) sample has a volume higher than
-	 * that of the threshold. Here we implement a Schmitt Trigger
-	 */
-
-	status = note_volume(data, num_samples);
-	if(status == true && register_note == false){
-		register_note = true;
-	}
-
-	/*
-	 * Once we have enough samples, and we know that one of the samples
-	 * has a higher volume, we do a FFT and discretize it with frequency_to_note
-	 */
-	if(nb_samples >= (2 * FFT_SIZE)){
-		if(register_note == true){
-			doCmplxFFT_optimized(FFT_SIZE, micLeft_cmplx_input);
-			arm_cmplx_mag_f32(micLeft_cmplx_input, micLeft_output, FFT_SIZE);
-			float freq = fundamental_frequency(micLeft_output);
-			music_send_freq(freq);
-			register_note = false;
-
-		}
-		nb_samples = OVERLAP_BUFFER_SIZE;
-		nb_overlap_samples = 0;
-		arm_copy_f32(overlapping_samples, micLeft_cmplx_input, OVERLAP_BUFFER_SIZE);
 	}
 }
 
