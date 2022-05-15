@@ -120,24 +120,26 @@ const song songs[] = {
 
 static thread_t* musicThd = NULL;
 static thread_reference_t musicThdRef = NULL;
-static song_selection_t chosen_song = 0;
 // TODO: CHECK IF NECESSARY AS GLOBAL
 static note_t played_notes[50];
 
 /*
  * Static Functions
  */
+
 /*
  * @brief checks notes time sequence is correct: was note x played when it should
  * be played ?
- * @param[in] song_selectrion_t song_index: index of the song in the songs array
- * @return int16_t: total score of the recording
+ *
+ * @param[in]	chosen_song index of the song in the songs array
+ *
+ * @return		total score of the recording
  */
-static int16_t check_note_sequence(song_selection_t song_index){
+static int16_t check_note_sequence(song_selection_t chosen_song){
 	int16_t points = 0;
 
-	for(uint16_t i=0; i< songs[song_index].melody_size; i++){
-		if((played_notes[i]%12) == (((uint8_t)songs[song_index].melody_ptr[i]) % 12)){
+	for(uint16_t i=0; i< songs[chosen_song].melody_size; i++){
+		if((played_notes[i]%12) == (((uint8_t)songs[chosen_song].melody_ptr[i]) % 12)){
 			points += POSITIVE_POINTS;
 		}else{
 			points -= NEGATIVE_POINTS;
@@ -151,7 +153,7 @@ static int16_t check_note_sequence(song_selection_t song_index){
  * recording compared to the song's melody
  * @return int16_t : score percentage
  */
-static int16_t calculate_score(void){
+static int16_t calculate_score(song_selection_t chosen_song){
 	int16_t total_score = 0;
 	total_score = (int16_t)(100*(float)check_note_sequence(chosen_song) /
 			(POSITIVE_POINTS * (float)songs[chosen_song].melody_size));
@@ -211,7 +213,7 @@ static note_t freq_to_note(float freq){
 static THD_WORKING_AREA(musicWorkingArea, 512);
 static THD_FUNCTION(music, arg) {
 
-	(void) arg;
+	song_selection_t chosen_song =  (song_selection_t)arg;
 
 	uint8_t recording_size = 0;
 
@@ -235,7 +237,7 @@ static THD_FUNCTION(music, arg) {
 			}
 		}
 
-		score = calculate_score();
+		score = calculate_score(chosen_song);
 		game_send_score(score);
 		chThdSleepMilliseconds(500);
 	}
@@ -254,10 +256,10 @@ static THD_FUNCTION(music, arg) {
  * @return (song_selection_t) random song
  */
 song_selection_t music_init(void){
-	chosen_song = choose_random_song();
+	song_selection_t chosen_song = choose_random_song();
 	mic_start(&processAudioDataCmplx);
     musicThd = chThdCreateStatic(musicWorkingArea, sizeof(musicWorkingArea),
-			NORMALPRIO, music, NULL);
+			NORMALPRIO, music, (void*)chosen_song);
 //    lightshow_init();
     return chosen_song;
 }
