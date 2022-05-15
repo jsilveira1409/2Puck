@@ -1,16 +1,9 @@
 #include <ch.h>
 #include <hal.h>
 #include <memory_protection.h>
-#include <audio/play_sound_file.h>
-#include <sdio.h>
-#include <fat.h>
-#include <leds.h>
 #include "main.h"
-#include "game.h"
-#include "lightshow.h"
-#include "music.h"
-#include "pathing.h"
 #include "console.h"
+#include "game.h"
 
 
 int main(void)
