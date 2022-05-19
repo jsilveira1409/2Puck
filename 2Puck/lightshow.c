@@ -19,9 +19,9 @@ static thread_t* ptrLightshowThd = NULL;
 static thread_t* ptrLedUpdateThd = NULL;
 static thread_t* ptrCircleThd 	 = NULL;
 
-uint8_t red = 0;
-uint8_t green = 0;
-uint8_t blue = 0;
+static uint8_t red = 0;
+static uint8_t green = 0;
+static uint8_t blue = 0;
 
 /*
  * Static Functions
