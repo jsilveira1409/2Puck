@@ -1,7 +1,7 @@
 # 2Puck
 
 <p align="center">
-  <img src="8fd5b634493c6ec3b739f39ffff93e750367098e_hq.gif" alt="animated" />
+  <img src="Images/2puck.gif" alt="animated" />
 </p>
 
 ## Introduction
@@ -14,4 +14,4 @@ This project has been developped in the context of the EPFL \textit{Systèmes em
 
 
 
-![](absolubgfrere.png)
+![](Images/absolubgfrere.png)
