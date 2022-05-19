@@ -23,6 +23,8 @@ static uint8_t red = 0;
 static uint8_t green = 0;
 static uint8_t blue = 0;
 
+static bool led_state[NUM_RGB_LED];
+
 /*
  * Static Functions
  */
@@ -40,6 +42,14 @@ static uint8_t random_color(void){
 	return random_color;
 }
 
+static bool random_state(void){
+	rng_init();
+	uint32_t random = rng_get();
+	bool random_state = (random % 2);
+	rng_stop();
+	return random_state;
+}
+
 
 /*
  * Threads
@@ -54,6 +64,9 @@ static THD_FUNCTION(lightshowThd, arg) {
 		red = random_color();
 		green = random_color();
 		blue = random_color();
+		for(rgb_led_name_t i=0; i<NUM_RGB_LED; i++){
+			led_state[i] = random_state();
+		}
 	}
 	chThdExit(MSG_OK);
 }
@@ -67,10 +80,9 @@ static THD_FUNCTION(ledUpdateThd, arg) {
 
 	while(!chThdShouldTerminateX()){
 		if(state==0){
-			set_rgb_led(LED2, red, green, blue);
-			set_rgb_led(LED4, red, green, blue);
-			set_rgb_led(LED6, red, green, blue);
-			set_rgb_led(LED8, red, green, blue);
+			for(rgb_led_name_t led=0; led<NUM_RGB_LED; led++){
+				(led_state[led]==1) ? set_rgb_led(led, red, green, blue) : set_rgb_led(led, 0, 0, 0);
+			}
 			set_body_led(1);
 			state = 1;
 		}else{
@@ -104,10 +116,10 @@ static THD_FUNCTION(circleThd, arg) {
 	set_led(LED7,1);
 
 	while(!chThdShouldTerminateX()){
-		for(led_name_t led = LED1; led <NUM_LED; led++){
+		for(led_name_t led = 0; led <NUM_LED; led++){
 			set_led(led, 0);
-			set_led(led-1, 1);
 			chThdSleepMilliseconds(300);
+			set_led(led, 1);
 		}
 	}
 	chThdExit(MSG_OK);
@@ -127,6 +139,7 @@ void lightshow_init(void){
 										NORMALPRIO, lightshowThd, NULL);
 	ptrLedUpdateThd = chThdCreateStatic(waLedUpdateThd, sizeof(waLedUpdateThd),
 											NORMALPRIO, ledUpdateThd, NULL);
+	lightshow_circle_init();
 }
 
 /*
@@ -136,6 +149,7 @@ void lightshow_init(void){
 void lightshow_stop(void){
 	chThdTerminate(ptrLightshowThd);
 	chThdTerminate(ptrLedUpdateThd);
+	lightshow_circle_stop();
 }
 
 /*
