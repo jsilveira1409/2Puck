@@ -15,8 +15,12 @@ This project has been developped in the context of the EPFL _Systèmes embarqué
 
 ## Promotional Video
 https://www.youtube.com/watch?v=MV20y38jaJc
+
 ## Functional Video
 https://www.youtube.com/watch?v=bkgnAVjj2WI
+
+## Project Report
+https://drive.google.com/file/d/18PsF1gva39_T9Vhr_ilpgAA4XiXT6GPM/view?usp=sharing
 
 
 ![](Images/absolubgfrere.png)
